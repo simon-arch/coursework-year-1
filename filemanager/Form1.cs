@@ -1,29 +1,28 @@
 namespace filemanager
 {
-
     public partial class Form1 : Form
     {
 
+        DisplayHandler displayHandler = new DisplayHandler();
+        DirectoryHandler directoryHandler = new DirectoryHandler();
         public Form1()
         {
             InitializeComponent();
             RootDirectory ddir = new RootDirectory("dir", @"D:\Games\testingFields");
-            DirectoryHandler directoryHandler = new DirectoryHandler();
-            DisplayHandler displayHandler = new DisplayHandler(listView1);
 
-            directoryHandler.populateDirectory(ddir, 1);
-            //MessageBox.Show((ddir.getDirs()[0]).ToString());
+            displayHandler.ListView = listView1;
+            displayHandler.RootDirectory = ddir;
 
-            displayHandler.populateList(ddir, 1);
-            //ddir.getFiles()[0].delete();
+            directoryHandler.RootDirectory = ddir;
+            directoryHandler.populateDirectory();
 
-            //MessageBox.Show((ddir.getDirs()[1].Name).ToString());
+            displayHandler.populateList();
+
             MessageBox.Show(
                 listView1.Items[0].ToString()
                 );
-            //ddir.getDirs()[1].delete();
 
-            displayHandler.setView(listView1, 3);
+            displayHandler.setView(3);
             //Close();
         }
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -36,9 +35,11 @@ namespace filemanager
             ListView.SelectedListViewItemCollection listitems = listView1.SelectedItems;
             if (listitems.Count > 0)
             {
-                foreach (Element elem in listitems)
+                for (int i = 0; i < listitems.Count; i++)
                 {
-                    elem.delete();
+                    ((Element)listitems[i].Tag).delete();
+                    directoryHandler.populateDirectory();
+                    displayHandler.populateList();
                 }
             }
         }
@@ -46,14 +47,17 @@ namespace filemanager
 
     public class DirectoryHandler
     {
-        public void populateDirectory(RootDirectory dir, int mode)
+        protected RootDirectory rootDirectory;
+        public RootDirectory RootDirectory { get; set; }
+        public void populateDirectory()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(dir.Path);
+            this.RootDirectory.clearData();
+            DirectoryInfo directoryInfo = new DirectoryInfo(this.RootDirectory.Path);
 
             FileInfo[] files = directoryInfo.GetFiles();
             foreach (FileInfo f in files)
             {
-                dir.appendFile(new File(
+                this.RootDirectory.appendFile(new File(
                         Path.GetFileNameWithoutExtension(f.Name),
                         f.FullName.ToString(),
                         f.Length.ToString(),
@@ -65,7 +69,7 @@ namespace filemanager
             DirectoryInfo[] dirs = directoryInfo.GetDirectories();
             foreach (DirectoryInfo d in dirs)
             {
-                dir.appendDirectory(new Directory(
+                this.RootDirectory.appendDirectory(new Directory(
                         d.Name,
                         d.FullName
                     )
@@ -77,11 +81,13 @@ namespace filemanager
     public class DisplayHandler
     {
         protected ListView listView;
+        protected RootDirectory rootDirectory;
         public ListView ListView { get; set; }
-
-        public void populateList(RootDirectory dir, int mode)
+        public RootDirectory RootDirectory { get; set; }
+        public void populateList()
         {
-            foreach (Directory d in dir.getDirs())
+            this.ListView.Clear();
+            foreach (Directory d in this.RootDirectory.getDirs())
             {
                 ListViewItem dirItem = new ListViewItem();
                 dirItem.Text = d.Name;
@@ -89,7 +95,7 @@ namespace filemanager
                 this.ListView.Items.Add(dirItem);
             }
 
-            foreach (File f in dir.getFiles())
+            foreach (File f in this.RootDirectory.getFiles())
             {
                 ListViewItem fileItem = new ListViewItem();
                 fileItem.Text = $"{f.Name}{f.Extension}";
@@ -97,18 +103,15 @@ namespace filemanager
                 this.ListView.Items.Add(fileItem);
             }
         }
-
-        public DisplayHandler(ListView listView) {
-            ListView = listView;
-        }
-        public void setView(ListView lv, int type)
+        public DisplayHandler() { }
+        public void setView(int type)
         {
-            lv.View = (View)type;
-            // 0 - LargeIcon
-            // 1 - Details
-            // 2 - SmallIcon
-            // 3 - List
-            // 4 - Tile
+            this.ListView.View = (View)type;
+            /* 0 - LargeIcon
+            1 - Details
+            2 - SmallIcon
+            3 - List
+            4 - Tile */
         }
     }
     public class Element
@@ -178,6 +181,11 @@ namespace filemanager
         public List<Directory> getDirs()
         {
             return ContainingDirectories;
+        }
+        public void clearData()
+        {
+            ContainingFiles.Clear();
+            ContainingDirectories.Clear();
         }
         public RootDirectory(string name, string path) : base(name, path)
         {
