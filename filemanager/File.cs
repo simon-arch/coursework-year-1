@@ -16,11 +16,6 @@
             get { return path; } 
             set { path = value; }
         }
-        public string Extension { 
-            get { return extension; } 
-            set { extension = value; }
-        }
-
         public File(string name, string path, string size, string extension)
         {
             Name = name;

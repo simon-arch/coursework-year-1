@@ -39,22 +39,22 @@
         }
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
-            MessageBox.Show("CHANGED");
+            //MessageBox.Show("CHANGED");
         }
 
         private static void OnCreated(object sender, FileSystemEventArgs e)
         {
-            MessageBox.Show("CREATED");
+            //MessageBox.Show("CREATED");
         }
 
         private static void OnDeleted(object sender, FileSystemEventArgs e)
         {
-            MessageBox.Show("DELETED");
+            //MessageBox.Show("DELETED");
         }
 
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {
-            MessageBox.Show("RENAMED");
+            //MessageBox.Show("RENAMED");
         }
     }
 }

@@ -5,6 +5,7 @@ namespace filemanager
         DisplayHandler displayHandler = new DisplayHandler();
         DirectoryHandler directoryHandler = new DirectoryHandler();
         FileWatcher fileWatcher = new FileWatcher();
+        ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
         public Form1()
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace filemanager
             displayHandler.ListView = listView1;
             displayHandler.setView(3);
 
-            RootDirectory root = new RootDirectory("dir", @"D:\Games\testingFields");
+            RootDirectory root = new RootDirectory("dir", @"D:\Games\testingFields\TESTING");
             directoryHandler.RootDirectory = root;
             displayHandler.RootDirectory = root;
             fileWatcher.RootDirectory = root;
@@ -39,10 +40,10 @@ namespace filemanager
             {
                 if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("Directory"))
                 {
-                    RootDirectory ddir = new RootDirectory("dir", ((Element)(listView1.SelectedItems[0].Tag)).Path);
-                    directoryHandler.RootDirectory = ddir;
-                    displayHandler.RootDirectory = ddir;
-                    fileWatcher.setRoot(ddir);
+                    RootDirectory root = new RootDirectory("dir", ((Element)(listView1.SelectedItems[0].Tag)).Path);
+                    directoryHandler.RootDirectory = root;
+                    displayHandler.RootDirectory = root;
+                    fileWatcher.setRoot(root);
                     Refresh();
                 }
             }
@@ -63,6 +64,27 @@ namespace filemanager
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Refresh();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
+            if (listitems.Count > 0)
+            {
+                exchangeBuffer.Clear();
+                for (int i = 0; i < listitems.Count; i++)
+                {
+                    exchangeBuffer.Copy((Element)listitems[i].Tag);
+                }
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (exchangeBuffer.Buffer[0].Path != directoryHandler.RootDirectory.Path)
+            {
+                exchangeBuffer.Paste(directoryHandler.RootDirectory.Path);
+            }
         }
     }
 }
