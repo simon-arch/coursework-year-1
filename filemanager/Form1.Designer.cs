@@ -45,7 +45,6 @@
             listView1.Size = new Size(572, 229);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // menuStrip1
             // 

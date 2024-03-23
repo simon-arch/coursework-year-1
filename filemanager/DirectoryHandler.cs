@@ -11,8 +11,14 @@
         {
             rootDirectory.clearData();
             DirectoryInfo directoryInfo = new DirectoryInfo(rootDirectory.Path);
-
             FileInfo[] files = directoryInfo.GetFiles();
+
+            rootDirectory.appendDirectory(new Directory(
+                    "[..]", 
+                    Path.GetFullPath(Path.Combine(rootDirectory.Path, @"..\"))
+                    )
+                );
+
             foreach (FileInfo f in files)
             {
                 rootDirectory.appendFile(new File(

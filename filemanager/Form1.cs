@@ -1,68 +1,68 @@
-using System.IO;
-
 namespace filemanager
 {
     public partial class Form1 : Form
     {
         DisplayHandler displayHandler = new DisplayHandler();
         DirectoryHandler directoryHandler = new DirectoryHandler();
-        ManagerFileWatcher managerFileWatcher = new ManagerFileWatcher();
+        FileWatcher fileWatcher = new FileWatcher();
         public Form1()
         {
             InitializeComponent();
+            InitializeHandlers();
+            InitializeEvents();
 
-
-            RootDirectory ddir = new RootDirectory("dir", @"D:\Games\testingFields");
-
-            managerFileWatcher.Directory = ddir;
-            managerFileWatcher.init();
-
-            displayHandler.ListView = listView1;
-            displayHandler.RootDirectory = ddir;
-
-            fileSystemWatcher1.Changed += OnChange;
-
-            directoryHandler.RootDirectory = ddir;
+            Refresh();
+        }
+        private void Refresh()
+        {
             directoryHandler.populateDirectory();
-
             displayHandler.populateList();
-
-            MessageBox.Show(
-                listView1.Items[0].ToString()
-                );
-
+        }
+        private void InitializeHandlers()
+        {
+            displayHandler.ListView = listView1;
             displayHandler.setView(3);
-            //Close();
-        }
 
-        private void OnChange(object sender, FileSystemEventArgs e)
+            RootDirectory root = new RootDirectory("dir", @"D:\Games\testingFields");
+            directoryHandler.RootDirectory = root;
+            displayHandler.RootDirectory = root;
+            fileWatcher.RootDirectory = root;
+            fileWatcher.Initialize();
+        }
+        private void InitializeEvents()
         {
-            MessageBox.Show("test");
+            displayHandler.ListView.DoubleClick += OnDoubleClick;
         }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnDoubleClick(object sender, EventArgs e)
         {
-            //
+            if (listView1.SelectedItems.Count > 0)
+            {
+                if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("Directory"))
+                {
+                    RootDirectory ddir = new RootDirectory("dir", ((Element)(listView1.SelectedItems[0].Tag)).Path);
+                    directoryHandler.RootDirectory = ddir;
+                    displayHandler.RootDirectory = ddir;
+                    fileWatcher.setRoot(ddir);
+                    Refresh();
+                }
+            }
         }
-
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListView.SelectedListViewItemCollection listitems = listView1.SelectedItems;
+            ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
             if (listitems.Count > 0)
             {
                 for (int i = 0; i < listitems.Count; i++)
                 {
                     ((Element)listitems[i].Tag).delete();
                 }
-                directoryHandler.populateDirectory();
-                displayHandler.populateList();
+                Refresh();
             }
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            directoryHandler.populateDirectory();
-            displayHandler.populateList();
+            Refresh();
         }
     }
 }

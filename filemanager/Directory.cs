@@ -2,8 +2,6 @@
 {
     public class Directory : Element
     {
-        protected string name = string.Empty;
-        protected string path = string.Empty;
         public string Name {
             get { return name; }
             set { name = value; } 
@@ -17,6 +15,7 @@
             Name = name;
             Path = path;
         }
+        public Directory() { }
         public override void delete()
         {
             System.IO.Directory.Delete(path); //, true

@@ -2,9 +2,7 @@
 {
     public class File : Element
     {
-        protected string name = string.Empty;
         protected string size = string.Empty;
-        protected string path = string.Empty;
         protected string extension = string.Empty;
         public string Name { 
             get { return name; } 

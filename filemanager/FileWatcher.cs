@@ -1,21 +1,21 @@
 ﻿namespace filemanager
 {
-    public class ManagerFileWatcher
+    public class FileWatcher
     {
         protected FileSystemWatcher watcher = new FileSystemWatcher();
-        protected Directory directory;
+        protected RootDirectory rootDirectory;
         public FileSystemWatcher Watcher { 
             get { return watcher; }
             set { watcher = value; }
         }
-        public Directory Directory { 
-            get { return directory; }
-            set { directory = value; }
+        public RootDirectory RootDirectory { 
+            get { return rootDirectory; }
+            set { rootDirectory = value; }
         }
         
-        public void init()
+        public void Initialize()
         {
-            watcher.Path = @"D:/Games/testingFields"; //this.Directory.Path;
+            watcher.Path = rootDirectory.Path;
             watcher.NotifyFilter = NotifyFilters.Attributes
                                  | NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
@@ -24,15 +24,19 @@
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.Security
                                  | NotifyFilters.Size;
-            watcher.Changed += OnChanged;
+            //watcher.Changed += OnChanged;
             watcher.Created += OnCreated;
             watcher.Deleted += OnDeleted;
             watcher.Renamed += OnRenamed;
 
             watcher.Filter = "*";
             watcher.EnableRaisingEvents = true;
+            watcher.IncludeSubdirectories = false;
         }
-
+        public void setRoot(RootDirectory newdir)
+        {
+            watcher.Path = newdir.Path;
+        }
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
             MessageBox.Show("CHANGED");
