@@ -33,7 +33,9 @@
             editToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
             refreshToolStripMenuItem = new ToolStripMenuItem();
+            fileSystemWatcher1 = new FileSystemWatcher();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
             // listView1
@@ -66,7 +68,7 @@
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-            deleteToolStripMenuItem.Size = new Size(224, 26);
+            deleteToolStripMenuItem.Size = new Size(168, 26);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -74,9 +76,16 @@
             // 
             refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             refreshToolStripMenuItem.ShortcutKeys = Keys.F1;
-            refreshToolStripMenuItem.Size = new Size(224, 26);
+            refreshToolStripMenuItem.Size = new Size(168, 26);
             refreshToolStripMenuItem.Text = "Refresh";
             refreshToolStripMenuItem.Click += refreshToolStripMenuItem_Click;
+            // 
+            // fileSystemWatcher1
+            // 
+            fileSystemWatcher1.EnableRaisingEvents = true;
+            fileSystemWatcher1.IncludeSubdirectories = true;
+            fileSystemWatcher1.Path = "D:\\Games\\testingFields";
+            fileSystemWatcher1.SynchronizingObject = this;
             // 
             // Form1
             // 
@@ -90,6 +99,7 @@
             Text = "Sapphire";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -101,5 +111,6 @@
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ToolStripMenuItem refreshToolStripMenuItem;
+        private FileSystemWatcher fileSystemWatcher1;
     }
 }

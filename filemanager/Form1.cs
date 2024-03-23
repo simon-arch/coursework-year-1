@@ -1,17 +1,26 @@
+using System.IO;
+
 namespace filemanager
 {
     public partial class Form1 : Form
     {
-
         DisplayHandler displayHandler = new DisplayHandler();
         DirectoryHandler directoryHandler = new DirectoryHandler();
+        ManagerFileWatcher managerFileWatcher = new ManagerFileWatcher();
         public Form1()
         {
             InitializeComponent();
+
+
             RootDirectory ddir = new RootDirectory("dir", @"D:\Games\testingFields");
+
+            managerFileWatcher.Directory = ddir;
+            managerFileWatcher.init();
 
             displayHandler.ListView = listView1;
             displayHandler.RootDirectory = ddir;
+
+            fileSystemWatcher1.Changed += OnChange;
 
             directoryHandler.RootDirectory = ddir;
             directoryHandler.populateDirectory();
@@ -25,6 +34,12 @@ namespace filemanager
             displayHandler.setView(3);
             //Close();
         }
+
+        private void OnChange(object sender, FileSystemEventArgs e)
+        {
+            MessageBox.Show("test");
+        }
+
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //
