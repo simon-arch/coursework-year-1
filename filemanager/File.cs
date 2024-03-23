@@ -6,10 +6,22 @@
         protected string size = string.Empty;
         protected string path = string.Empty;
         protected string extension = string.Empty;
-        public string Name { get; set; }
-        public string Size { get; set; }
-        public string Path { get; set; }
-        public string Extension { get; set; }
+        public string Name { 
+            get { return name; } 
+            set { name = value; }
+        }
+        public string Size { 
+            get { return size; } 
+            set { size = value; }
+        }
+        public string Path { 
+            get { return path; } 
+            set { path = value; }
+        }
+        public string Extension { 
+            get { return extension; } 
+            set { extension = value; }
+        }
 
         public File(string name, string path, string size, string extension)
         {
@@ -20,7 +32,7 @@
         }
         public override void delete()
         {
-            System.IO.File.Delete(this.Path);
+            System.IO.File.Delete(path);
         }
     }
 }

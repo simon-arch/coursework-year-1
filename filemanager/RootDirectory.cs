@@ -2,28 +2,28 @@
 {
     public class RootDirectory : Directory
     {
-        protected List<File> ContainingFiles = new List<File>();
-        protected List<Directory> ContainingDirectories = new List<Directory>();
+        protected List<File> containingFiles = new List<File>();
+        protected List<Directory> containingDirectories = new List<Directory>();
         public void appendFile(File file)
         {
-            ContainingFiles.Add(file);
+            containingFiles.Add(file);
         }
         public void appendDirectory(Directory dir)
         {
-            ContainingDirectories.Add(dir);
+            containingDirectories.Add(dir);
         }
         public List<File> getFiles()
         {
-            return ContainingFiles;
+            return containingFiles;
         }
         public List<Directory> getDirs()
         {
-            return ContainingDirectories;
+            return containingDirectories;
         }
         public void clearData()
         {
-            ContainingFiles.Clear();
-            ContainingDirectories.Clear();
+            containingFiles.Clear();
+            containingDirectories.Clear();
         }
         public RootDirectory(string name, string path) : base(name, path)
         {

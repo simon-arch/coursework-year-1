@@ -4,31 +4,37 @@
     {
         protected ListView listView;
         protected RootDirectory rootDirectory;
-        public ListView ListView { get; set; }
-        public RootDirectory RootDirectory { get; set; }
+        public ListView ListView {
+            get { return listView; }
+            set { listView = value; }
+        }
+        public RootDirectory RootDirectory {
+            get { return rootDirectory; }
+            set { rootDirectory = value; }
+        }
         public void populateList()
         {
-            this.ListView.Clear();
-            foreach (Directory d in this.RootDirectory.getDirs())
+            listView.Clear();
+            foreach (Directory d in rootDirectory.getDirs())
             {
                 ListViewItem dirItem = new ListViewItem();
                 dirItem.Text = d.Name;
                 dirItem.Tag = d;
-                this.ListView.Items.Add(dirItem);
+                listView.Items.Add(dirItem);
             }
 
-            foreach (File f in this.RootDirectory.getFiles())
+            foreach (File f in rootDirectory.getFiles())
             {
                 ListViewItem fileItem = new ListViewItem();
                 fileItem.Text = $"{f.Name}{f.Extension}";
                 fileItem.Tag = f;
-                this.ListView.Items.Add(fileItem);
+                listView.Items.Add(fileItem);
             }
         }
         public DisplayHandler() { }
         public void setView(int type)
         {
-            this.ListView.View = (View)type;
+            listView.View = (View)type;
             /* 0 - LargeIcon
             1 - Details
             2 - SmallIcon

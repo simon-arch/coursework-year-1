@@ -4,13 +4,19 @@
     {
         protected FileSystemWatcher watcher = new FileSystemWatcher();
         protected Directory directory;
-        public FileSystemWatcher Watcher { get; set; }
-        public Directory Directory { get; set; }
+        public FileSystemWatcher Watcher { 
+            get { return watcher; }
+            set { watcher = value; }
+        }
+        public Directory Directory { 
+            get { return directory; }
+            set { directory = value; }
+        }
         
         public void init()
         {
-            this.watcher.Path = @"D:/Games/testingFields"; //this.Directory.Path;
-            this.watcher.NotifyFilter = NotifyFilters.Attributes
+            watcher.Path = @"D:/Games/testingFields"; //this.Directory.Path;
+            watcher.NotifyFilter = NotifyFilters.Attributes
                                  | NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName
@@ -18,13 +24,13 @@
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.Security
                                  | NotifyFilters.Size;
-            this.watcher.Changed += OnChanged;
-            this.watcher.Created += OnCreated;
-            this.watcher.Deleted += OnDeleted;
-            this.watcher.Renamed += OnRenamed;
+            watcher.Changed += OnChanged;
+            watcher.Created += OnCreated;
+            watcher.Deleted += OnDeleted;
+            watcher.Renamed += OnRenamed;
 
-            this.watcher.Filter = "*";
-            this.watcher.EnableRaisingEvents = true;
+            watcher.Filter = "*";
+            watcher.EnableRaisingEvents = true;
         }
 
         private static void OnChanged(object sender, FileSystemEventArgs e)

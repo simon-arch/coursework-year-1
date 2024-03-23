@@ -4,8 +4,14 @@
     {
         protected string name = string.Empty;
         protected string path = string.Empty;
-        public string Name { get; set; }
-        public string Path { get; set; }
+        public string Name {
+            get { return name; }
+            set { name = value; } 
+        }
+        public string Path {
+            get { return path; }
+            set { path = value; } 
+        }
         public Directory(string name, string path)
         {
             Name = name;
@@ -13,7 +19,7 @@
         }
         public override void delete()
         {
-            System.IO.Directory.Delete(this.Path); //, true
+            System.IO.Directory.Delete(path); //, true
         }
     }
 }
