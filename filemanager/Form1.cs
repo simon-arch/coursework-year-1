@@ -38,15 +38,33 @@ namespace filemanager
         {
             displayHandler.ListView.DoubleClick += OnDoubleClick;
             displayHandler.ListView.Click += OnClick;
+
+            toolStripButton2.Click += (sender, e) => { displayHandler.setView(0); };
+            toolStripButton3.Click += (sender, e) => { displayHandler.setView(1); };
+            toolStripButton4.Click += (sender, e) => { displayHandler.setView(2); };
+            toolStripButton5.Click += (sender, e) => { displayHandler.setView(3); };
+            toolStripButton6.Click += (sender, e) => { displayHandler.setView(4); };
+            toolStripButton7.Click += InvertSelection;
+        }
+        private void InvertSelection(object sender, EventArgs e) 
+        {
+            if (displayHandler.ListView.SelectedItems.Count > 0 && displayHandler.ListView.SelectedItems[0].Index != 0)
+            {
+                for (int i = 1; i < displayHandler.ListView.Items.Count; i++)
+                {
+                    displayHandler.ListView.Items[i].Selected = !displayHandler.ListView.Items[i].Selected;
+                }
+            }
         }
 
         private void OnClick(object sender, EventArgs e)
         {
-            List<String> temporarystring = new List<String> {".jpg", ".png", ".bmp", ".jpeg", ".ico", ".gif"};
+            List<String> temporarystring = new List<String> { ".jpg", ".png", ".bmp", ".jpeg", ".ico", ".gif" };
             ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
             if (listitems.Count > 0)
             {
-                if (temporarystring.Any(((Element)listView1.SelectedItems[0].Tag).Extension.Contains)){ // listView1.SelectedItems[0].Tag). FileType (?)  image, doc, etc.
+                if (temporarystring.Any(((Element)listView1.SelectedItems[0].Tag).Extension.Contains))
+                { // listView1.SelectedItems[0].Tag). FileType (?)  image, doc, etc.
                     pictureBox1.ImageLocation = ((Element)listitems[0].Tag).Path;
                 }
                 else
@@ -72,7 +90,8 @@ namespace filemanager
                     fileWatcher.setRoot(root);
                     Refresh();
                 }
-                else if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("File")){
+                else if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("File"))
+                {
                     Process explorer = new Process();
                     explorer.StartInfo.FileName = "explorer";
                     explorer.StartInfo.Arguments = ((Element)(listView1.SelectedItems[0].Tag)).Path;
