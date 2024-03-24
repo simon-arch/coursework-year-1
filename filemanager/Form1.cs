@@ -1,3 +1,7 @@
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+
 namespace filemanager
 {
     public partial class Form1 : Form
@@ -24,7 +28,7 @@ namespace filemanager
             displayHandler.ListView = listView1;
             displayHandler.setView(3);
 
-            RootDirectory root = new RootDirectory("dir", @"D:\Games\testingFields\TESTING");
+            RootDirectory root = new RootDirectory("dir", @"D:\_SAVES\");
             directoryHandler.RootDirectory = root;
             displayHandler.RootDirectory = root;
             fileWatcher.RootDirectory = root;
@@ -33,7 +37,29 @@ namespace filemanager
         private void InitializeEvents()
         {
             displayHandler.ListView.DoubleClick += OnDoubleClick;
+            displayHandler.ListView.Click += OnClick;
         }
+
+        private void OnClick(object sender, EventArgs e)
+        {
+            List<String> temporarystring = new List<String> {".jpg", ".png", ".bmp", ".jpeg", ".ico", ".gif"};
+            ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
+            if (listitems.Count > 0)
+            {
+                if (temporarystring.Any(((Element)listView1.SelectedItems[0].Tag).Extension.Contains)){ // listView1.SelectedItems[0].Tag). FileType (?)  image, doc, etc.
+                    pictureBox1.ImageLocation = ((Element)listitems[0].Tag).Path;
+                }
+                else
+                {
+                    pictureBox1.ImageLocation = null;
+                }
+            }
+            else if (listitems.Count == 0)
+            {
+                pictureBox1.ImageLocation = null;
+            }
+        }
+
         private void OnDoubleClick(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
@@ -45,6 +71,13 @@ namespace filemanager
                     displayHandler.RootDirectory = root;
                     fileWatcher.setRoot(root);
                     Refresh();
+                }
+                else if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("File")){
+                    Process explorer = new Process();
+                    explorer.StartInfo.FileName = "explorer";
+                    explorer.StartInfo.Arguments = ((Element)(listView1.SelectedItems[0].Tag)).Path;
+                    explorer.Start();
+
                 }
             }
         }

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="filemanager.Directory" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAQQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Directory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.DirectoryHandler" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAQAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>DirectoryHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.DisplayHandler" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAARAAIAEAgAAAAIAAAAA=</HashCode>
+      <FileName>DisplayHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.Element" Collapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAACAQQAAAAEAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.ExchangeBuffer" Collapsed="true">
+    <Position X="3" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAAABAQAA=</HashCode>
+      <FileName>ExchangeBuffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.File" Collapsed="true">
+    <Position X="8" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAIAAIAAAQQAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.FileWatcher" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAUgAAQAAIAAAAAAAASACAAEAAgAAAAAAAAA=</HashCode>
+      <FileName>FileWatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.Form1" Collapsed="true">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQACAAgACLBBAAgAACAAAICAQAAAkABACAAEKAAgAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.RootDirectory" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAkAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAQACAAAA=</HashCode>
+      <FileName>RootDirectory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
