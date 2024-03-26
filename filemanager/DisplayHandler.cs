@@ -5,7 +5,9 @@
         protected ListView listView = null!;
         protected TabControl tabControl = null!;
         protected RootDirectory rootDirectory = null!;
+        protected int viewType;
         protected bool showExtensions;
+        protected bool showHidden;
         public ListView ListView {
             get { return listView; }
             set { listView = value; }
@@ -21,17 +23,28 @@
         public bool ShowExtensions {
             get { return showExtensions; }
             set { showExtensions = value; }
+        }        
+        public bool ShowHidden {
+            get { return showHidden; }
+            set { showHidden = value; }
+        }        
+        public int ViewType {
+            get { return viewType; }
+            set { viewType = value; }
         }
         public void populateList()
         {
             listView.Clear();
-            tabControl.Controls[tabControl.SelectedIndex].Text = Path.GetFileName(rootDirectory.Path);
+            tabControl.Controls[tabControl.SelectedIndex].Text = $"({Path.GetPathRoot(rootDirectory.Path)![0]}:) {Path.GetFileName(rootDirectory.Path)}";
             foreach (Directory d in rootDirectory.getDirs())
             {
-                ListViewItem dirItem = new ListViewItem();
-                dirItem.Text = d.Name;
-                dirItem.Tag = d;
-                listView.Items.Add(dirItem);
+                if((showHidden && d.IsHidden) || d.IsHidden == false)
+                {
+                    ListViewItem dirItem = new ListViewItem();
+                    dirItem.Text = d.Name;
+                    dirItem.Tag = d;
+                    listView.Items.Add(dirItem);
+                }
             }
             
             foreach (File f in rootDirectory.getFiles())
@@ -47,9 +60,9 @@
                 listView.Items.Add(fileItem);
             }
         }
-        public void setView(int type)
+        public void setView(int view)
         {
-            listView.View = (View)type;
+            listView.View = (View)view;
             /* 0 - LargeIcon
             1 - Details
             2 - SmallIcon

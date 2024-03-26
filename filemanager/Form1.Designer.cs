@@ -35,12 +35,16 @@
             refreshToolStripMenuItem = new ToolStripMenuItem();
             copyToolStripMenuItem = new ToolStripMenuItem();
             pasteToolStripMenuItem = new ToolStripMenuItem();
+            showToolStripMenuItem = new ToolStripMenuItem();
+            extensionsToolStripMenuItem = new ToolStripMenuItem();
+            hiddenFoldersToolStripMenuItem = new ToolStripMenuItem();
             fileSystemWatcher1 = new FileSystemWatcher();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             listView1 = new ListView();
+            tabPage2 = new TabPage();
             toolStrip1 = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -63,7 +67,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { editToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { editToolStripMenuItem, showToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -109,6 +113,29 @@
             pasteToolStripMenuItem.Text = "Paste";
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
+            // showToolStripMenuItem
+            // 
+            showToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { extensionsToolStripMenuItem, hiddenFoldersToolStripMenuItem });
+            showToolStripMenuItem.Name = "showToolStripMenuItem";
+            showToolStripMenuItem.Size = new Size(59, 24);
+            showToolStripMenuItem.Text = "Show";
+            // 
+            // extensionsToolStripMenuItem
+            // 
+            extensionsToolStripMenuItem.CheckOnClick = true;
+            extensionsToolStripMenuItem.Name = "extensionsToolStripMenuItem";
+            extensionsToolStripMenuItem.Size = new Size(193, 26);
+            extensionsToolStripMenuItem.Text = "File Extensions";
+            extensionsToolStripMenuItem.Click += extensionsToolStripMenuItem_Click;
+            // 
+            // hiddenFoldersToolStripMenuItem
+            // 
+            hiddenFoldersToolStripMenuItem.CheckOnClick = true;
+            hiddenFoldersToolStripMenuItem.Name = "hiddenFoldersToolStripMenuItem";
+            hiddenFoldersToolStripMenuItem.Size = new Size(193, 26);
+            hiddenFoldersToolStripMenuItem.Text = "Hidden Folders";
+            hiddenFoldersToolStripMenuItem.Click += hiddenFoldersToolStripMenuItem_Click;
+            // 
             // fileSystemWatcher1
             // 
             fileSystemWatcher1.EnableRaisingEvents = true;
@@ -144,17 +171,21 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
             tabControl1.Dock = DockStyle.Fill;
+            tabControl1.ItemSize = new Size(74, 25);
             tabControl1.Location = new Point(3, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(331, 355);
             tabControl1.TabIndex = 5;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPage1
             // 
             tabPage1.Controls.Add(listView1);
             tabPage1.Location = new Point(4, 29);
+            tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(323, 322);
@@ -166,10 +197,21 @@
             // 
             listView1.Dock = DockStyle.Fill;
             listView1.Location = new Point(3, 3);
+            listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
             listView1.Size = new Size(317, 316);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 29);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(323, 322);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "+";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
             // 
@@ -301,5 +343,9 @@
         private TabControl tabControl1;
         private ListView listView1;
         private TabPage tabPage1;
+        private ToolStripMenuItem showToolStripMenuItem;
+        private ToolStripMenuItem extensionsToolStripMenuItem;
+        private ToolStripMenuItem hiddenFoldersToolStripMenuItem;
+        private TabPage tabPage2;
     }
 }

@@ -62,11 +62,15 @@
             DirectoryInfo[] dirs = directoryInfo.GetDirectories();
             foreach (DirectoryInfo d in dirs)
             {
-                rootDirectory.appendDirectory(new Directory(
+                Directory dir = new Directory(
                         d.Name,
                         d.FullName
-                    )
-                );
+                    );
+                if (d.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    dir.IsHidden = true;
+                }
+                rootDirectory.appendDirectory(dir);
             }
         }
     }

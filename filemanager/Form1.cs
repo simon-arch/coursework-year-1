@@ -30,10 +30,15 @@ namespace filemanager
         {
             displayHandler.ListView = listView1;
             displayHandler.TabControl = tabControl1;
+            displayHandler.ViewType = 3;
             displayHandler.setView(3);
-            displayHandler.ShowExtensions = true;
+            displayHandler.ShowExtensions = false;
+            displayHandler.ShowHidden = false;
 
             RootDirectory root = new RootDirectory("dir", @"D:\_SAVES");
+
+            tabControl1.TabPages[0].Tag = root.Path; // !temporary!
+
             directoryHandler.RootDirectory = root;
             displayHandler.RootDirectory = root;
             fileWatcher.RootDirectory = root;
@@ -64,9 +69,9 @@ namespace filemanager
 
         private void OnClick(object? sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (displayHandler.ListView.SelectedItems.Count > 0)
             {
-                if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("ImageFile"))
+                if (displayHandler.ListView.SelectedItems[0].Tag.GetType().Name.Equals("ImageFile"))
                 {
                     pictureBox1.ImageLocation = ((File)displayHandler.ListView.SelectedItems[0].Tag).Path;
                 }
@@ -83,21 +88,24 @@ namespace filemanager
 
         private void OnDoubleClick(object? sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (displayHandler.ListView.SelectedItems.Count > 0)
             {
-                if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("Directory"))
+                if (displayHandler.ListView.SelectedItems[0].Tag.GetType().Name.Equals("Directory"))
                 {
-                    RootDirectory root = new RootDirectory("dir", ((Element)(listView1.SelectedItems[0].Tag)).Path);
+                    RootDirectory root = new RootDirectory("dir", ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Path);
                     directoryHandler.RootDirectory = root;
                     displayHandler.RootDirectory = root;
+
+                    tabControl1.SelectedTab.Tag = directoryHandler.RootDirectory.Path; // !temporary!
+
                     fileWatcher.setRoot(root);
                     Refresh();
                 }
-                else if (listView1.SelectedItems[0].Tag.GetType().BaseType!.Name.Equals("File"))
+                else if (displayHandler.ListView.SelectedItems[0].Tag.GetType().BaseType!.Name.Equals("File"))
                 {
                     Process explorer = new Process();
                     explorer.StartInfo.FileName = "explorer";
-                    explorer.StartInfo.Arguments = ((Element)(listView1.SelectedItems[0].Tag)).Path;
+                    explorer.StartInfo.Arguments = ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Path;
                     explorer.Start();
 
                 }
@@ -140,6 +148,39 @@ namespace filemanager
             {
                 exchangeBuffer.Paste(directoryHandler.RootDirectory.Path);
             }
+        }
+
+        private void extensionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            displayHandler.ShowExtensions = extensionsToolStripMenuItem.Checked;
+            Refresh();
+        }
+
+        private void hiddenFoldersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            displayHandler.ShowHidden = hiddenFoldersToolStripMenuItem.Checked;
+            Refresh();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int lastTab = tabControl1.TabCount - 1;
+            if (tabControl1.SelectedIndex == lastTab)
+            {
+                TabPage newTab = new TabPage("name");
+                newTab.Tag = directoryHandler.RootDirectory.Path;
+                ListView newListView = new ListView();
+                newListView.Dock = DockStyle.Fill;
+                newListView.Click += OnClick;
+                newListView.DoubleClick += OnDoubleClick;
+                newListView.View = (View)displayHandler.ViewType;
+                newTab.Controls.Add(newListView);
+                tabControl1.TabPages.Insert(lastTab, newTab);
+                tabControl1.SelectedIndex = lastTab;
+            }
+            directoryHandler.RootDirectory.Path = tabControl1.SelectedTab.Tag!.ToString()!;
+            displayHandler.ListView = (ListView)tabControl1.SelectedTab.Controls[0];
+            Refresh();
         }
     }
 }

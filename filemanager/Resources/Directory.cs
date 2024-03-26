@@ -2,6 +2,12 @@
 {
     public class Directory : Element
     {
+        protected bool isHidden = false;
+        public bool IsHidden
+        {
+            get { return isHidden; }
+            set { isHidden = value; }
+        }
         public Directory(string name, string path)
         {
             Name = name;
