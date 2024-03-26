@@ -38,6 +38,9 @@
             showToolStripMenuItem = new ToolStripMenuItem();
             extensionsToolStripMenuItem = new ToolStripMenuItem();
             hiddenFoldersToolStripMenuItem = new ToolStripMenuItem();
+            tabsToolStripMenuItem = new ToolStripMenuItem();
+            addNewToolStripMenuItem = new ToolStripMenuItem();
+            deleteToolStripMenuItem1 = new ToolStripMenuItem();
             fileSystemWatcher1 = new FileSystemWatcher();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -55,6 +58,7 @@
             toolStripButton6 = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripButton7 = new ToolStripButton();
+            comboBox1 = new ComboBox();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -67,7 +71,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { editToolStripMenuItem, showToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { editToolStripMenuItem, showToolStripMenuItem, tabsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -136,6 +140,27 @@
             hiddenFoldersToolStripMenuItem.Text = "Hidden Folders";
             hiddenFoldersToolStripMenuItem.Click += hiddenFoldersToolStripMenuItem_Click;
             // 
+            // tabsToolStripMenuItem
+            // 
+            tabsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addNewToolStripMenuItem, deleteToolStripMenuItem1 });
+            tabsToolStripMenuItem.Name = "tabsToolStripMenuItem";
+            tabsToolStripMenuItem.Size = new Size(52, 24);
+            tabsToolStripMenuItem.Text = "Tabs";
+            // 
+            // addNewToolStripMenuItem
+            // 
+            addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
+            addNewToolStripMenuItem.Size = new Size(163, 26);
+            addNewToolStripMenuItem.Text = "Create Tab";
+            addNewToolStripMenuItem.Click += addNewToolStripMenuItem_Click;
+            // 
+            // deleteToolStripMenuItem1
+            // 
+            deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+            deleteToolStripMenuItem1.Size = new Size(163, 26);
+            deleteToolStripMenuItem1.Text = "Delete Tab";
+            deleteToolStripMenuItem1.Click += deleteToolStripMenuItem1_Click;
+            // 
             // fileSystemWatcher1
             // 
             fileSystemWatcher1.EnableRaisingEvents = true;
@@ -148,7 +173,7 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(415, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(333, 355);
+            pictureBox1.Size = new Size(333, 334);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -165,7 +190,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(751, 361);
+            tableLayoutPanel1.Size = new Size(751, 340);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // tabControl1
@@ -177,7 +202,7 @@
             tabControl1.Location = new Point(3, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(331, 355);
+            tabControl1.Size = new Size(331, 334);
             tabControl1.TabIndex = 5;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
@@ -187,8 +212,7 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(323, 322);
+            tabPage1.Size = new Size(323, 301);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
@@ -196,10 +220,10 @@
             // listView1
             // 
             listView1.Dock = DockStyle.Fill;
-            listView1.Location = new Point(3, 3);
+            listView1.Location = new Point(0, 0);
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(317, 316);
+            listView1.Size = new Size(323, 301);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -296,11 +320,20 @@
             toolStripButton7.Size = new Size(29, 24);
             toolStripButton7.Text = "toolStripButton7";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(380, 43);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(45, 28);
+            comboBox1.TabIndex = 5;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
             Controls.Add(toolStrip1);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(menuStrip1);
@@ -347,5 +380,9 @@
         private ToolStripMenuItem extensionsToolStripMenuItem;
         private ToolStripMenuItem hiddenFoldersToolStripMenuItem;
         private TabPage tabPage2;
+        private ToolStripMenuItem tabsToolStripMenuItem;
+        private ToolStripMenuItem addNewToolStripMenuItem;
+        private ToolStripMenuItem deleteToolStripMenuItem1;
+        private ComboBox comboBox1;
     }
 }

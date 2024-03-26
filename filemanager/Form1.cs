@@ -14,13 +14,23 @@ namespace filemanager
             InitializeHandlers();
             InitializeEvents();
 
-            //TabPage lv1 = new TabPage();
-            //lv1.Controls.Add(listView1);
-            //listView1.Dock = DockStyle.Fill;
-            //tabControl1.Controls.Add(lv1);
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                comboBox1.Items.Add(drive.Name);
+            }
+            comboBox1.SelectedIndex = 1;
+            comboBox1.SelectedIndexChanged += ComboBoxSelectedIndexChanged;
 
             Refresh();
         }
+
+        private void ComboBoxSelectedIndexChanged(object? sender, EventArgs e)
+        {
+            directoryHandler.RootDirectory.Path = comboBox1.SelectedItem.ToString()!;
+            tabControl1.SelectedTab.Tag = directoryHandler.RootDirectory.Path;
+            Refresh();
+        }
+
         private new void Refresh()
         {
             directoryHandler.populateDirectory();
@@ -167,7 +177,7 @@ namespace filemanager
             int lastTab = tabControl1.TabCount - 1;
             if (tabControl1.SelectedIndex == lastTab)
             {
-                TabPage newTab = new TabPage("name");
+                TabPage newTab = new TabPage("Loading...");
                 newTab.Tag = directoryHandler.RootDirectory.Path;
                 ListView newListView = new ListView();
                 newListView.Dock = DockStyle.Fill;
@@ -178,6 +188,38 @@ namespace filemanager
                 tabControl1.TabPages.Insert(lastTab, newTab);
                 tabControl1.SelectedIndex = lastTab;
             }
+            directoryHandler.RootDirectory.Path = tabControl1.SelectedTab.Tag!.ToString()!;
+            displayHandler.ListView = (ListView)tabControl1.SelectedTab.Controls[0];
+
+
+            comboBox1.SelectedIndexChanged -= ComboBoxSelectedIndexChanged; // !temporary!
+            comboBox1.SelectedIndex = comboBox1.Items.IndexOf(Path.GetPathRoot(directoryHandler.RootDirectory.Path));
+            comboBox1.SelectedIndexChanged += ComboBoxSelectedIndexChanged; // !temporary!
+
+            Refresh();
+        }
+
+        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.TabPages.Count > 2)
+            {
+                tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+            }
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int lastTab = tabControl1.TabCount - 1;
+            TabPage newTab = new TabPage("Loading...");
+            newTab.Tag = directoryHandler.RootDirectory.Path;
+            ListView newListView = new ListView();
+            newListView.Dock = DockStyle.Fill;
+            newListView.Click += OnClick;
+            newListView.DoubleClick += OnDoubleClick;
+            newListView.View = (View)displayHandler.ViewType;
+            newTab.Controls.Add(newListView);
+            tabControl1.TabPages.Insert(lastTab, newTab);
+            tabControl1.SelectedIndex = lastTab;
             directoryHandler.RootDirectory.Path = tabControl1.SelectedTab.Tag!.ToString()!;
             displayHandler.ListView = (ListView)tabControl1.SelectedTab.Controls[0];
             Refresh();
