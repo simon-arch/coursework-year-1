@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 
 namespace filemanager
 {
@@ -66,20 +64,18 @@ namespace filemanager
 
         private void OnClick(object? sender, EventArgs e)
         {
-            List<String> temporarystring = new List<String> { ".jpg", ".png", ".bmp", ".jpeg", ".ico", ".gif" };
-            ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
-            if (listitems.Count > 0)
+            if (listView1.SelectedItems.Count > 0)
             {
-                if (temporarystring.Any(((Element)listView1.SelectedItems[0].Tag).Extension.Contains))
-                { // listView1.SelectedItems[0].Tag). FileType (?)  image, doc, etc.
-                    pictureBox1.ImageLocation = ((Element)listitems[0].Tag).Path;
+                if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("ImageFile"))
+                {
+                    pictureBox1.ImageLocation = ((File)displayHandler.ListView.SelectedItems[0].Tag).Path;
                 }
                 else
                 {
                     pictureBox1.ImageLocation = null;
                 }
             }
-            else if (listitems.Count == 0)
+            else if (displayHandler.ListView.SelectedItems.Count == 0)
             {
                 pictureBox1.ImageLocation = null;
             }
@@ -97,7 +93,7 @@ namespace filemanager
                     fileWatcher.setRoot(root);
                     Refresh();
                 }
-                else if (listView1.SelectedItems[0].Tag.GetType().Name.Equals("File"))
+                else if (listView1.SelectedItems[0].Tag.GetType().BaseType!.Name.Equals("File"))
                 {
                     Process explorer = new Process();
                     explorer.StartInfo.FileName = "explorer";

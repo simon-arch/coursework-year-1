@@ -14,6 +14,7 @@
             Size = size;
             Extension = extension;
         }
+        public File() { }
         public override void delete()
         {
             System.IO.File.Delete(path);

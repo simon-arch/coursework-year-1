@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public class DisplayHandler
     {

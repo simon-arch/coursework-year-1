@@ -4,7 +4,7 @@
     <Position X="5.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Directory.cs</FileName>
+      <FileName>Resources\Directory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DirectoryHandler" Collapsed="true">
@@ -25,7 +25,7 @@
     <Position X="5.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAACAQQAAAAEAQAAAAEAAAAAAAA=</HashCode>
-      <FileName>Element.cs</FileName>
+      <FileName>Resources\Element.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.ExchangeBuffer" Collapsed="true">
@@ -38,8 +38,8 @@
   <Class Name="filemanager.File" Collapsed="true">
     <Position X="8" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAIAAIAAAQQAAAAAAAAAAAEAAAAAAAA=</HashCode>
-      <FileName>File.cs</FileName>
+      <HashCode>AAAAAAAAAAAAgAAAAIAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\File.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.FileWatcher" Collapsed="true">
@@ -61,6 +61,28 @@
     <TypeIdentifier>
       <HashCode>CAAAkAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAQACAAAA=</HashCode>
       <FileName>RootDirectory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.ImageFile" Collapsed="true">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAQAQAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\FileTypes\ImageFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.AudioFile" Collapsed="true">
+    <Position X="9.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABAAAAAQAQAAAAEAAAAAAAAIAAAAQAAAAEAA=</HashCode>
+      <FileName>Resources\FileTypes\AudioFile.cs</FileName>
+      <NewMemberFileName>Resources\FileTypes\VideoFile.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.VideoFile" Collapsed="true">
+    <Position X="6.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABAAAAAQAQAAAAEAAAAAAIAIAACAAAAAAAAA=</HashCode>
+      <FileName>Resources\FileTypes\VideoFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
