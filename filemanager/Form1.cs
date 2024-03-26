@@ -16,9 +16,14 @@ namespace filemanager
             InitializeHandlers();
             InitializeEvents();
 
+            //TabPage lv1 = new TabPage();
+            //lv1.Controls.Add(listView1);
+            //listView1.Dock = DockStyle.Fill;
+            //tabControl1.Controls.Add(lv1);
+
             Refresh();
         }
-        private void Refresh()
+        private new void Refresh()
         {
             directoryHandler.populateDirectory();
             displayHandler.populateList();
@@ -26,9 +31,11 @@ namespace filemanager
         private void InitializeHandlers()
         {
             displayHandler.ListView = listView1;
+            displayHandler.TabControl = tabControl1;
             displayHandler.setView(3);
+            displayHandler.ShowExtensions = true;
 
-            RootDirectory root = new RootDirectory("dir", @"D:\_SAVES\");
+            RootDirectory root = new RootDirectory("dir", @"D:\_SAVES");
             directoryHandler.RootDirectory = root;
             displayHandler.RootDirectory = root;
             fileWatcher.RootDirectory = root;
@@ -46,7 +53,7 @@ namespace filemanager
             toolStripButton6.Click += (sender, e) => { displayHandler.setView(4); };
             toolStripButton7.Click += InvertSelection;
         }
-        private void InvertSelection(object sender, EventArgs e) 
+        private void InvertSelection(object? sender, EventArgs e)
         {
             if (displayHandler.ListView.SelectedItems.Count > 0 && displayHandler.ListView.SelectedItems[0].Index != 0)
             {
@@ -57,7 +64,7 @@ namespace filemanager
             }
         }
 
-        private void OnClick(object sender, EventArgs e)
+        private void OnClick(object? sender, EventArgs e)
         {
             List<String> temporarystring = new List<String> { ".jpg", ".png", ".bmp", ".jpeg", ".ico", ".gif" };
             ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
@@ -78,7 +85,7 @@ namespace filemanager
             }
         }
 
-        private void OnDoubleClick(object sender, EventArgs e)
+        private void OnDoubleClick(object? sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
             {

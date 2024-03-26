@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            listView1 = new ListView();
             menuStrip1 = new MenuStrip();
             editToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
@@ -39,6 +38,9 @@
             fileSystemWatcher1 = new FileSystemWatcher();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            listView1 = new ListView();
             toolStrip1 = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -53,17 +55,10 @@
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tableLayoutPanel1.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
-            // 
-            // listView1
-            // 
-            listView1.Dock = DockStyle.Fill;
-            listView1.Location = new Point(3, 3);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(331, 355);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // menuStrip1
             // 
@@ -137,14 +132,44 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
-            tableLayoutPanel1.Controls.Add(listView1, 0, 0);
             tableLayoutPanel1.Controls.Add(pictureBox1, 2, 0);
+            tableLayoutPanel1.Controls.Add(tabControl1, 0, 0);
             tableLayoutPanel1.Location = new Point(25, 77);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(751, 361);
             tableLayoutPanel1.TabIndex = 3;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(3, 3);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(331, 355);
+            tabControl1.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(listView1);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(323, 322);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            listView1.Dock = DockStyle.Fill;
+            listView1.Location = new Point(3, 3);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(317, 316);
+            listView1.TabIndex = 0;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // toolStrip1
             // 
@@ -245,6 +270,8 @@
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);
@@ -252,8 +279,6 @@
         }
 
         #endregion
-
-        private ListView listView1;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem;
@@ -273,5 +298,8 @@
         private ToolStripButton toolStripButton6;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton toolStripButton7;
+        private TabControl tabControl1;
+        private ListView listView1;
+        private TabPage tabPage1;
     }
 }

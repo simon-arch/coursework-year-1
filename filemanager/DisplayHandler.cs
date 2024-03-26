@@ -1,9 +1,13 @@
-﻿namespace filemanager
+﻿using System.IO;
+
+namespace filemanager
 {
     public class DisplayHandler
     {
-        protected ListView listView;
-        protected RootDirectory rootDirectory;
+        protected ListView listView = null!;
+        protected TabControl tabControl = null!;
+        protected RootDirectory rootDirectory = null!;
+        protected bool showExtensions;
         public ListView ListView {
             get { return listView; }
             set { listView = value; }
@@ -12,9 +16,18 @@
             get { return rootDirectory; }
             set { rootDirectory = value; }
         }
+        public TabControl TabControl {
+            get { return tabControl; }
+            set { tabControl = value; }
+        }
+        public bool ShowExtensions {
+            get { return showExtensions; }
+            set { showExtensions = value; }
+        }
         public void populateList()
         {
             listView.Clear();
+            tabControl.Controls[tabControl.SelectedIndex].Text = Path.GetFileName(rootDirectory.Path);
             foreach (Directory d in rootDirectory.getDirs())
             {
                 ListViewItem dirItem = new ListViewItem();
@@ -22,16 +35,20 @@
                 dirItem.Tag = d;
                 listView.Items.Add(dirItem);
             }
-
+            
             foreach (File f in rootDirectory.getFiles())
             {
                 ListViewItem fileItem = new ListViewItem();
-                fileItem.Text = $"{f.Name}{f.Extension}";
+                switch (showExtensions)
+                {
+                    case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
+                    case false: fileItem.Text = $"{f.Name}"; break;
+                }
+                
                 fileItem.Tag = f;
                 listView.Items.Add(fileItem);
             }
         }
-        public DisplayHandler() { }
         public void setView(int type)
         {
             listView.View = (View)type;

@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public class Element
+    public abstract class Element
     {
         protected string name = string.Empty;
         protected string path = string.Empty;

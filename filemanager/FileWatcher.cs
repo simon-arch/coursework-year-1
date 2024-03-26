@@ -3,7 +3,7 @@
     public class FileWatcher
     {
         protected FileSystemWatcher watcher = new FileSystemWatcher();
-        protected RootDirectory rootDirectory;
+        protected RootDirectory rootDirectory = null!;
         public FileSystemWatcher Watcher { 
             get { return watcher; }
             set { watcher = value; }

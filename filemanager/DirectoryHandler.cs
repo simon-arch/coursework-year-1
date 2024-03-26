@@ -2,7 +2,7 @@
 {
     public class DirectoryHandler
     {
-        protected RootDirectory rootDirectory;
+        protected RootDirectory rootDirectory = null!;
         public RootDirectory RootDirectory { 
             get { return rootDirectory; } 
             set { rootDirectory = value; } 
@@ -15,7 +15,7 @@
 
             rootDirectory.appendDirectory(new Directory(
                     "[..]", 
-                    Path.GetFullPath(Path.Combine(rootDirectory.Path, @"..\"))
+                    Path.GetFullPath(Path.Combine(rootDirectory.Path, @".."))
                     )
                 );
 
