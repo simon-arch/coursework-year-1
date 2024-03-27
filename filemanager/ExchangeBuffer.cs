@@ -14,9 +14,9 @@
         }
         public void Paste(string newPath) 
         {
-            foreach (Element element in buffer) 
+            foreach (Element element in buffer)
             {
-                if (element.GetType().Name.Equals("File"))
+                if (element.GetType().BaseType!.Name.Equals("File"))
                 {
                     System.IO.File.Copy(element.Path, Path.Combine(newPath, $"{element.Name}{element.Extension}"), true);
                 }

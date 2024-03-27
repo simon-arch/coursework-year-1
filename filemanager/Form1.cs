@@ -8,6 +8,7 @@ namespace filemanager
         DirectoryHandler directoryHandler = new DirectoryHandler();
         FileWatcher fileWatcher = new FileWatcher();
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
+        ErrorHandler errorHandler = new ErrorHandler();
         public Form1()
         {
             InitializeComponent();
@@ -59,14 +60,14 @@ namespace filemanager
             displayHandler.ListView.DoubleClick += OnDoubleClick;
             displayHandler.ListView.Click += OnClick;
 
-            toolStripButton2.Click += (sender, e) => { displayHandler.setView(0); };
-            toolStripButton3.Click += (sender, e) => { displayHandler.setView(1); };
-            toolStripButton4.Click += (sender, e) => { displayHandler.setView(2); };
-            toolStripButton5.Click += (sender, e) => { displayHandler.setView(3); };
-            toolStripButton6.Click += (sender, e) => { displayHandler.setView(4); };
-            toolStripButton7.Click += InvertSelection;
+            listViewSetView0.Click += (sender, e) => { displayHandler.setView(0); };
+            listViewSetView1.Click += (sender, e) => { displayHandler.setView(1); };
+            listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); };
+            listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
+            listViewSetView4.Click += (sender, e) => { displayHandler.setView(4); };
+            selectionInvert.Click += InvertSelection;
         }
-        private void InvertSelection(object? sender, EventArgs e)
+        public void InvertSelection(object? sender, EventArgs e)
         {
             if (displayHandler.ListView.SelectedItems.Count > 0 && displayHandler.ListView.SelectedItems[0].Index != 0)
             {
@@ -158,17 +159,21 @@ namespace filemanager
             {
                 exchangeBuffer.Paste(directoryHandler.RootDirectory.Path);
             }
+            else
+            {
+                errorHandler.invokeError(1);
+            }
         }
 
         private void extensionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            displayHandler.ShowExtensions = extensionsToolStripMenuItem.Checked;
+            displayHandler.ShowExtensions = showExtensionsTool.Checked;
             Refresh();
         }
 
         private void hiddenFoldersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            displayHandler.ShowHidden = hiddenFoldersToolStripMenuItem.Checked;
+            displayHandler.ShowHidden = hiddenFoldersTool.Checked;
             Refresh();
         }
 

@@ -63,11 +63,6 @@
         public void setView(int view)
         {
             listView.View = (View)view;
-            /* 0 - LargeIcon
-            1 - Details
-            2 - SmallIcon
-            3 - List
-            4 - Tile */
         }
     }
 }

@@ -29,7 +29,7 @@
             foreach (FileInfo f in files)
             {
                 File file = new File();
-                if(extensions.ContainsKey(f.Name))
+                if(extensions.ContainsKey(f.Extension))
                 {
                     switch (extensions[f.Extension])
                     {

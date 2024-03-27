@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            menuStrip1 = new MenuStrip();
-            editToolStripMenuItem = new ToolStripMenuItem();
-            deleteToolStripMenuItem = new ToolStripMenuItem();
-            refreshToolStripMenuItem = new ToolStripMenuItem();
-            copyToolStripMenuItem = new ToolStripMenuItem();
-            pasteToolStripMenuItem = new ToolStripMenuItem();
-            showToolStripMenuItem = new ToolStripMenuItem();
-            extensionsToolStripMenuItem = new ToolStripMenuItem();
-            hiddenFoldersToolStripMenuItem = new ToolStripMenuItem();
-            tabsToolStripMenuItem = new ToolStripMenuItem();
-            addNewToolStripMenuItem = new ToolStripMenuItem();
-            deleteToolStripMenuItem1 = new ToolStripMenuItem();
+            menuStrip = new MenuStrip();
+            editTab = new ToolStripMenuItem();
+            deleteTool = new ToolStripMenuItem();
+            refreshTool = new ToolStripMenuItem();
+            copyTool = new ToolStripMenuItem();
+            pasteTool = new ToolStripMenuItem();
+            showTab = new ToolStripMenuItem();
+            showExtensionsTool = new ToolStripMenuItem();
+            hiddenFoldersTool = new ToolStripMenuItem();
+            tabsTab = new ToolStripMenuItem();
+            createTabTool = new ToolStripMenuItem();
+            deleteTabTool = new ToolStripMenuItem();
             fileSystemWatcher1 = new FileSystemWatcher();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -48,118 +48,118 @@
             tabPage1 = new TabPage();
             listView1 = new ListView();
             tabPage2 = new TabPage();
-            toolStrip1 = new ToolStrip();
+            toolStrip = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            toolStripButton2 = new ToolStripButton();
-            toolStripButton3 = new ToolStripButton();
-            toolStripButton4 = new ToolStripButton();
-            toolStripButton5 = new ToolStripButton();
-            toolStripButton6 = new ToolStripButton();
+            listViewSetView0 = new ToolStripButton();
+            listViewSetView1 = new ToolStripButton();
+            listViewSetView2 = new ToolStripButton();
+            listViewSetView3 = new ToolStripButton();
+            listViewSetView4 = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
-            toolStripButton7 = new ToolStripButton();
+            selectionInvert = new ToolStripButton();
             comboBox1 = new ComboBox();
-            menuStrip1.SuspendLayout();
+            menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            toolStrip1.SuspendLayout();
+            toolStrip.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { editToolStripMenuItem, showToolStripMenuItem, tabsToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 28);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
+            menuStrip.ImageScalingSize = new Size(20, 20);
+            menuStrip.Items.AddRange(new ToolStripItem[] { editTab, showTab, tabsTab });
+            menuStrip.Location = new Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Size = new Size(800, 28);
+            menuStrip.TabIndex = 1;
+            menuStrip.Text = "menuStrip";
             // 
-            // editToolStripMenuItem
+            // editTab
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { deleteToolStripMenuItem, refreshToolStripMenuItem, copyToolStripMenuItem, pasteToolStripMenuItem });
-            editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(49, 24);
-            editToolStripMenuItem.Text = "Edit";
+            editTab.DropDownItems.AddRange(new ToolStripItem[] { deleteTool, refreshTool, copyTool, pasteTool });
+            editTab.Name = "editTab";
+            editTab.Size = new Size(49, 24);
+            editTab.Text = "Edit";
             // 
-            // deleteToolStripMenuItem
+            // deleteTool
             // 
-            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-            deleteToolStripMenuItem.Size = new Size(177, 26);
-            deleteToolStripMenuItem.Text = "Delete";
-            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+            deleteTool.Name = "deleteTool";
+            deleteTool.ShortcutKeys = Keys.Delete;
+            deleteTool.Size = new Size(177, 26);
+            deleteTool.Text = "Delete";
+            deleteTool.Click += deleteToolStripMenuItem_Click;
             // 
-            // refreshToolStripMenuItem
+            // refreshTool
             // 
-            refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            refreshToolStripMenuItem.ShortcutKeys = Keys.F1;
-            refreshToolStripMenuItem.Size = new Size(177, 26);
-            refreshToolStripMenuItem.Text = "Refresh";
-            refreshToolStripMenuItem.Click += refreshToolStripMenuItem_Click;
+            refreshTool.Name = "refreshTool";
+            refreshTool.ShortcutKeys = Keys.F1;
+            refreshTool.Size = new Size(177, 26);
+            refreshTool.Text = "Refresh";
+            refreshTool.Click += refreshToolStripMenuItem_Click;
             // 
-            // copyToolStripMenuItem
+            // copyTool
             // 
-            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyToolStripMenuItem.Size = new Size(177, 26);
-            copyToolStripMenuItem.Text = "Copy";
-            copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
+            copyTool.Name = "copyTool";
+            copyTool.ShortcutKeys = Keys.Control | Keys.C;
+            copyTool.Size = new Size(177, 26);
+            copyTool.Text = "Copy";
+            copyTool.Click += copyToolStripMenuItem_Click;
             // 
-            // pasteToolStripMenuItem
+            // pasteTool
             // 
-            pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteToolStripMenuItem.Size = new Size(177, 26);
-            pasteToolStripMenuItem.Text = "Paste";
-            pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
+            pasteTool.Name = "pasteTool";
+            pasteTool.ShortcutKeys = Keys.Control | Keys.V;
+            pasteTool.Size = new Size(177, 26);
+            pasteTool.Text = "Paste";
+            pasteTool.Click += pasteToolStripMenuItem_Click;
             // 
-            // showToolStripMenuItem
+            // showTab
             // 
-            showToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { extensionsToolStripMenuItem, hiddenFoldersToolStripMenuItem });
-            showToolStripMenuItem.Name = "showToolStripMenuItem";
-            showToolStripMenuItem.Size = new Size(59, 24);
-            showToolStripMenuItem.Text = "Show";
+            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, hiddenFoldersTool });
+            showTab.Name = "showTab";
+            showTab.Size = new Size(59, 24);
+            showTab.Text = "Show";
             // 
-            // extensionsToolStripMenuItem
+            // showExtensionsTool
             // 
-            extensionsToolStripMenuItem.CheckOnClick = true;
-            extensionsToolStripMenuItem.Name = "extensionsToolStripMenuItem";
-            extensionsToolStripMenuItem.Size = new Size(193, 26);
-            extensionsToolStripMenuItem.Text = "File Extensions";
-            extensionsToolStripMenuItem.Click += extensionsToolStripMenuItem_Click;
+            showExtensionsTool.CheckOnClick = true;
+            showExtensionsTool.Name = "showExtensionsTool";
+            showExtensionsTool.Size = new Size(193, 26);
+            showExtensionsTool.Text = "File Extensions";
+            showExtensionsTool.Click += extensionsToolStripMenuItem_Click;
             // 
-            // hiddenFoldersToolStripMenuItem
+            // hiddenFoldersTool
             // 
-            hiddenFoldersToolStripMenuItem.CheckOnClick = true;
-            hiddenFoldersToolStripMenuItem.Name = "hiddenFoldersToolStripMenuItem";
-            hiddenFoldersToolStripMenuItem.Size = new Size(193, 26);
-            hiddenFoldersToolStripMenuItem.Text = "Hidden Folders";
-            hiddenFoldersToolStripMenuItem.Click += hiddenFoldersToolStripMenuItem_Click;
+            hiddenFoldersTool.CheckOnClick = true;
+            hiddenFoldersTool.Name = "hiddenFoldersTool";
+            hiddenFoldersTool.Size = new Size(193, 26);
+            hiddenFoldersTool.Text = "Hidden Folders";
+            hiddenFoldersTool.Click += hiddenFoldersToolStripMenuItem_Click;
             // 
-            // tabsToolStripMenuItem
+            // tabsTab
             // 
-            tabsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addNewToolStripMenuItem, deleteToolStripMenuItem1 });
-            tabsToolStripMenuItem.Name = "tabsToolStripMenuItem";
-            tabsToolStripMenuItem.Size = new Size(52, 24);
-            tabsToolStripMenuItem.Text = "Tabs";
+            tabsTab.DropDownItems.AddRange(new ToolStripItem[] { createTabTool, deleteTabTool });
+            tabsTab.Name = "tabsTab";
+            tabsTab.Size = new Size(52, 24);
+            tabsTab.Text = "Tabs";
             // 
-            // addNewToolStripMenuItem
+            // createTabTool
             // 
-            addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            addNewToolStripMenuItem.Size = new Size(163, 26);
-            addNewToolStripMenuItem.Text = "Create Tab";
-            addNewToolStripMenuItem.Click += addNewToolStripMenuItem_Click;
+            createTabTool.Name = "createTabTool";
+            createTabTool.Size = new Size(163, 26);
+            createTabTool.Text = "Create Tab";
+            createTabTool.Click += addNewToolStripMenuItem_Click;
             // 
-            // deleteToolStripMenuItem1
+            // deleteTabTool
             // 
-            deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            deleteToolStripMenuItem1.Size = new Size(163, 26);
-            deleteToolStripMenuItem1.Text = "Delete Tab";
-            deleteToolStripMenuItem1.Click += deleteToolStripMenuItem1_Click;
+            deleteTabTool.Name = "deleteTabTool";
+            deleteTabTool.Size = new Size(163, 26);
+            deleteTabTool.Text = "Delete Tab";
+            deleteTabTool.Click += deleteToolStripMenuItem1_Click;
             // 
             // fileSystemWatcher1
             // 
@@ -232,20 +232,20 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(323, 322);
+            tabPage2.Size = new Size(323, 301);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // toolStrip1
+            // toolStrip
             // 
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripSeparator1, toolStripButton2, toolStripButton3, toolStripButton4, toolStripButton5, toolStripButton6, toolStripSeparator2, toolStripButton7 });
-            toolStrip1.Location = new Point(0, 28);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(800, 27);
-            toolStrip1.TabIndex = 4;
-            toolStrip1.Text = "toolStrip1";
+            toolStrip.ImageScalingSize = new Size(20, 20);
+            toolStrip.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, selectionInvert });
+            toolStrip.Location = new Point(0, 28);
+            toolStrip.Name = "toolStrip";
+            toolStrip.Size = new Size(800, 27);
+            toolStrip.TabIndex = 4;
+            toolStrip.Text = "toolStrip";
             // 
             // toolStripButton1
             // 
@@ -261,64 +261,64 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 27);
             // 
-            // toolStripButton2
+            // listViewSetView0
             // 
-            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(29, 24);
-            toolStripButton2.Text = "toolStripButton2";
+            listViewSetView0.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            listViewSetView0.Image = (Image)resources.GetObject("listViewSetView0.Image");
+            listViewSetView0.ImageTransparentColor = Color.Magenta;
+            listViewSetView0.Name = "listViewSetView0";
+            listViewSetView0.Size = new Size(29, 24);
+            listViewSetView0.Text = "toolStripButton2";
             // 
-            // toolStripButton3
+            // listViewSetView1
             // 
-            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(29, 24);
-            toolStripButton3.Text = "toolStripButton3";
+            listViewSetView1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            listViewSetView1.Image = (Image)resources.GetObject("listViewSetView1.Image");
+            listViewSetView1.ImageTransparentColor = Color.Magenta;
+            listViewSetView1.Name = "listViewSetView1";
+            listViewSetView1.Size = new Size(29, 24);
+            listViewSetView1.Text = "toolStripButton3";
             // 
-            // toolStripButton4
+            // listViewSetView2
             // 
-            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
-            toolStripButton4.ImageTransparentColor = Color.Magenta;
-            toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(29, 24);
-            toolStripButton4.Text = "toolStripButton4";
+            listViewSetView2.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            listViewSetView2.Image = (Image)resources.GetObject("listViewSetView2.Image");
+            listViewSetView2.ImageTransparentColor = Color.Magenta;
+            listViewSetView2.Name = "listViewSetView2";
+            listViewSetView2.Size = new Size(29, 24);
+            listViewSetView2.Text = "toolStripButton4";
             // 
-            // toolStripButton5
+            // listViewSetView3
             // 
-            toolStripButton5.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton5.Image = (Image)resources.GetObject("toolStripButton5.Image");
-            toolStripButton5.ImageTransparentColor = Color.Magenta;
-            toolStripButton5.Name = "toolStripButton5";
-            toolStripButton5.Size = new Size(29, 24);
-            toolStripButton5.Text = "toolStripButton5";
+            listViewSetView3.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            listViewSetView3.Image = (Image)resources.GetObject("listViewSetView3.Image");
+            listViewSetView3.ImageTransparentColor = Color.Magenta;
+            listViewSetView3.Name = "listViewSetView3";
+            listViewSetView3.Size = new Size(29, 24);
+            listViewSetView3.Text = "toolStripButton5";
             // 
-            // toolStripButton6
+            // listViewSetView4
             // 
-            toolStripButton6.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton6.Image = (Image)resources.GetObject("toolStripButton6.Image");
-            toolStripButton6.ImageTransparentColor = Color.Magenta;
-            toolStripButton6.Name = "toolStripButton6";
-            toolStripButton6.Size = new Size(29, 24);
-            toolStripButton6.Text = "toolStripButton6";
+            listViewSetView4.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            listViewSetView4.Image = (Image)resources.GetObject("listViewSetView4.Image");
+            listViewSetView4.ImageTransparentColor = Color.Magenta;
+            listViewSetView4.Name = "listViewSetView4";
+            listViewSetView4.Size = new Size(29, 24);
+            listViewSetView4.Text = "toolStripButton6";
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new Size(6, 27);
             // 
-            // toolStripButton7
+            // selectionInvert
             // 
-            toolStripButton7.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton7.Image = (Image)resources.GetObject("toolStripButton7.Image");
-            toolStripButton7.ImageTransparentColor = Color.Magenta;
-            toolStripButton7.Name = "toolStripButton7";
-            toolStripButton7.Size = new Size(29, 24);
-            toolStripButton7.Text = "toolStripButton7";
+            selectionInvert.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            selectionInvert.Image = (Image)resources.GetObject("selectionInvert.Image");
+            selectionInvert.ImageTransparentColor = Color.Magenta;
+            selectionInvert.Name = "selectionInvert";
+            selectionInvert.Size = new Size(29, 24);
+            selectionInvert.Text = "toolStripButton7";
             // 
             // comboBox1
             // 
@@ -334,55 +334,55 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(comboBox1);
-            Controls.Add(toolStrip1);
+            Controls.Add(toolStrip);
             Controls.Add(tableLayoutPanel1);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            Controls.Add(menuStrip);
+            MainMenuStrip = menuStrip;
             Name = "Form1";
             Text = "Sapphire";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            toolStrip.ResumeLayout(false);
+            toolStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem editToolStripMenuItem;
-        private ToolStripMenuItem deleteToolStripMenuItem;
-        private ToolStripMenuItem refreshToolStripMenuItem;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem editTab;
+        private ToolStripMenuItem deleteTool;
+        private ToolStripMenuItem refreshTool;
         private FileSystemWatcher fileSystemWatcher1;
-        private ToolStripMenuItem copyToolStripMenuItem;
-        private ToolStripMenuItem pasteToolStripMenuItem;
+        private ToolStripMenuItem copyTool;
+        private ToolStripMenuItem pasteTool;
         private PictureBox pictureBox1;
         private TableLayoutPanel tableLayoutPanel1;
-        private ToolStrip toolStrip1;
+        private ToolStrip toolStrip;
         private ToolStripButton toolStripButton1;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton toolStripButton2;
-        private ToolStripButton toolStripButton3;
-        private ToolStripButton toolStripButton4;
-        private ToolStripButton toolStripButton5;
-        private ToolStripButton toolStripButton6;
+        private ToolStripButton listViewSetView0;
+        private ToolStripButton listViewSetView1;
+        private ToolStripButton listViewSetView2;
+        private ToolStripButton listViewSetView3;
+        private ToolStripButton listViewSetView4;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton toolStripButton7;
+        private ToolStripButton selectionInvert;
         private TabControl tabControl1;
         private ListView listView1;
         private TabPage tabPage1;
-        private ToolStripMenuItem showToolStripMenuItem;
-        private ToolStripMenuItem extensionsToolStripMenuItem;
-        private ToolStripMenuItem hiddenFoldersToolStripMenuItem;
+        private ToolStripMenuItem showTab;
+        private ToolStripMenuItem showExtensionsTool;
+        private ToolStripMenuItem hiddenFoldersTool;
         private TabPage tabPage2;
-        private ToolStripMenuItem tabsToolStripMenuItem;
-        private ToolStripMenuItem addNewToolStripMenuItem;
-        private ToolStripMenuItem deleteToolStripMenuItem1;
+        private ToolStripMenuItem tabsTab;
+        private ToolStripMenuItem createTabTool;
+        private ToolStripMenuItem deleteTabTool;
         private ComboBox comboBox1;
     }
 }
