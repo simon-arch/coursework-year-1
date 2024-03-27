@@ -2,10 +2,13 @@
 {
     public class DirectoryHandler
     {
-        protected static List<String> imageExtensions = new List<String>() { ".jpg", ".png", ".bmp", ".jpeg", ".ico", ".gif" };
-        protected static List<String> videoExtensions = new List<String>() { ".mp4", ".avi", ".fla", ".m4v", ".mkv" };
-        protected static List<String> audioExtensions = new List<String>() { ".mp3", ".wav", ".flac", ".wma" };
-        
+        protected static Dictionary<String, String> extensions = new Dictionary<String, String>() 
+        {
+            {".jpg", "image"},
+            {".mp4", "video"},
+            {".mp3", "audio"},
+        };
+
         protected RootDirectory rootDirectory = null!;
         public RootDirectory RootDirectory { 
             get { return rootDirectory; } 
@@ -25,38 +28,27 @@
 
             foreach (FileInfo f in files)
             {
-                if (imageExtensions.Contains(f.Extension))
+                File file = new File();
+                if(extensions.ContainsKey(f.Name))
                 {
-                    rootDirectory.appendFile(new ImageFile(
-                            Path.GetFileNameWithoutExtension(f.Name),
-                            f.FullName.ToString(),
-                            f.Length.ToString(),
-                            f.Extension.ToString()
-                        )
-                    );
+                    switch (extensions[f.Extension])
+                    {
+                        case "image":
+                            file = new ImageFile();
+                            break;
+                        case "video":
+                            file = new VideoFile();
+                            break;
+                        case "audio":
+                            file = new AudioFile();
+                            break;
+                    }
                 }
-
-                else if (videoExtensions.Contains(f.Extension))
-                {
-                    rootDirectory.appendFile(new VideoFile(
-                            Path.GetFileNameWithoutExtension(f.Name),
-                            f.FullName.ToString(),
-                            f.Length.ToString(),
-                            f.Extension.ToString()
-                        )
-                    );
-                }
-                    
-                else if (audioExtensions.Contains(f.Extension))
-                {
-                    rootDirectory.appendFile(new AudioFile(
-                            Path.GetFileNameWithoutExtension(f.Name),
-                            f.FullName.ToString(),
-                            f.Length.ToString(),
-                            f.Extension.ToString()
-                        )
-                    );
-                }
+                file.Name = Path.GetFileNameWithoutExtension(f.Name);
+                file.Path = f.FullName.ToString();
+                file.Size = f.Length.ToString();
+                file.Extension = f.Extension.ToString();
+                rootDirectory.appendFile(file);
             }
 
             DirectoryInfo[] dirs = directoryInfo.GetDirectories();
