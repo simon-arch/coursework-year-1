@@ -5,6 +5,7 @@
         protected string name = string.Empty;
         protected string path = string.Empty;
         protected string extension = string.Empty;
+        protected string creationDate = string.Empty;
         public string Name
         {
             get { return name; }
@@ -19,6 +20,11 @@
         {
             get { return extension; }
             set { extension = value; }
+        }
+        public string CreationDate
+        {
+            get { return creationDate; }
+            set { creationDate = value; }
         }
         public virtual void delete() { }
     }

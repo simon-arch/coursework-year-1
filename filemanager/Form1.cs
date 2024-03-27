@@ -8,20 +8,12 @@ namespace filemanager
         DirectoryHandler directoryHandler = new DirectoryHandler();
         FileWatcher fileWatcher = new FileWatcher();
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
-        ErrorHandler errorHandler = new ErrorHandler();
+        NotificationHandler notificationHandler = new NotificationHandler();
         public Form1()
         {
             InitializeComponent();
             InitializeHandlers();
             InitializeEvents();
-
-            foreach (DriveInfo drive in DriveInfo.GetDrives())
-            {
-                comboBox1.Items.Add(drive.Name);
-            }
-            comboBox1.SelectedIndex = 1;
-            comboBox1.SelectedIndexChanged += ComboBoxSelectedIndexChanged;
-
             Refresh();
         }
 
@@ -36,11 +28,14 @@ namespace filemanager
         {
             directoryHandler.populateDirectory();
             displayHandler.populateList();
+            displayHandler.populateDrives();
         }
         private void InitializeHandlers()
         {
             displayHandler.ListView = listView1;
             displayHandler.TabControl = tabControl1;
+            displayHandler.ComboBox = comboBox1;
+
             displayHandler.ViewType = 3;
             displayHandler.setView(3);
             displayHandler.ShowExtensions = false;
@@ -65,7 +60,15 @@ namespace filemanager
             listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); };
             listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
             listViewSetView4.Click += (sender, e) => { displayHandler.setView(4); };
+
+            displayHandler.ComboBox.SelectedIndexChanged += ComboBoxSelectedIndexChanged;
+
             selectionInvert.Click += InvertSelection;
+
+            refreshTool.Click += (sender, e) => { Refresh(); };
+
+            showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
+            showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
         }
         public void InvertSelection(object? sender, EventArgs e)
         {
@@ -106,9 +109,7 @@ namespace filemanager
                     RootDirectory root = new RootDirectory("dir", ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Path);
                     directoryHandler.RootDirectory = root;
                     displayHandler.RootDirectory = root;
-
-                    tabControl1.SelectedTab.Tag = directoryHandler.RootDirectory.Path; // !temporary!
-
+                    displayHandler.TabControl.SelectedTab.Tag = root.Path;
                     fileWatcher.setRoot(root);
                     Refresh();
                 }
@@ -135,11 +136,6 @@ namespace filemanager
             }
         }
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Refresh();
-        }
-
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
@@ -161,20 +157,8 @@ namespace filemanager
             }
             else
             {
-                errorHandler.invokeError(1);
+                notificationHandler.invokeError(1);
             }
-        }
-
-        private void extensionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            displayHandler.ShowExtensions = showExtensionsTool.Checked;
-            Refresh();
-        }
-
-        private void hiddenFoldersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            displayHandler.ShowHidden = hiddenFoldersTool.Checked;
-            Refresh();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -209,6 +193,10 @@ namespace filemanager
             if (tabControl1.TabPages.Count > 2)
             {
                 tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+            }
+            else
+            {
+                notificationHandler.invokeError(2);
             }
         }
 

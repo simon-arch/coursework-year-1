@@ -48,6 +48,7 @@
                 file.Path = f.FullName.ToString();
                 file.Size = f.Length.ToString();
                 file.Extension = f.Extension.ToString();
+                file.CreationDate = f.CreationTime.ToString();
                 rootDirectory.appendFile(file);
             }
 
@@ -62,6 +63,7 @@
                 {
                     dir.IsHidden = true;
                 }
+                dir.CreationDate = d.CreationTime.ToString();
                 rootDirectory.appendDirectory(dir);
             }
         }

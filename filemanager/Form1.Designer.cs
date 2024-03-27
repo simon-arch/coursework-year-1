@@ -37,7 +37,7 @@
             pasteTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
-            hiddenFoldersTool = new ToolStripMenuItem();
+            showHiddenFoldersTool = new ToolStripMenuItem();
             tabsTab = new ToolStripMenuItem();
             createTabTool = new ToolStripMenuItem();
             deleteTabTool = new ToolStripMenuItem();
@@ -89,7 +89,7 @@
             // 
             deleteTool.Name = "deleteTool";
             deleteTool.ShortcutKeys = Keys.Delete;
-            deleteTool.Size = new Size(177, 26);
+            deleteTool.Size = new Size(224, 26);
             deleteTool.Text = "Delete";
             deleteTool.Click += deleteToolStripMenuItem_Click;
             // 
@@ -97,15 +97,14 @@
             // 
             refreshTool.Name = "refreshTool";
             refreshTool.ShortcutKeys = Keys.F1;
-            refreshTool.Size = new Size(177, 26);
+            refreshTool.Size = new Size(224, 26);
             refreshTool.Text = "Refresh";
-            refreshTool.Click += refreshToolStripMenuItem_Click;
             // 
             // copyTool
             // 
             copyTool.Name = "copyTool";
             copyTool.ShortcutKeys = Keys.Control | Keys.C;
-            copyTool.Size = new Size(177, 26);
+            copyTool.Size = new Size(224, 26);
             copyTool.Text = "Copy";
             copyTool.Click += copyToolStripMenuItem_Click;
             // 
@@ -113,13 +112,13 @@
             // 
             pasteTool.Name = "pasteTool";
             pasteTool.ShortcutKeys = Keys.Control | Keys.V;
-            pasteTool.Size = new Size(177, 26);
+            pasteTool.Size = new Size(224, 26);
             pasteTool.Text = "Paste";
             pasteTool.Click += pasteToolStripMenuItem_Click;
             // 
             // showTab
             // 
-            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, hiddenFoldersTool });
+            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool });
             showTab.Name = "showTab";
             showTab.Size = new Size(59, 24);
             showTab.Text = "Show";
@@ -128,17 +127,15 @@
             // 
             showExtensionsTool.CheckOnClick = true;
             showExtensionsTool.Name = "showExtensionsTool";
-            showExtensionsTool.Size = new Size(193, 26);
+            showExtensionsTool.Size = new Size(224, 26);
             showExtensionsTool.Text = "File Extensions";
-            showExtensionsTool.Click += extensionsToolStripMenuItem_Click;
             // 
-            // hiddenFoldersTool
+            // showHiddenFoldersTool
             // 
-            hiddenFoldersTool.CheckOnClick = true;
-            hiddenFoldersTool.Name = "hiddenFoldersTool";
-            hiddenFoldersTool.Size = new Size(193, 26);
-            hiddenFoldersTool.Text = "Hidden Folders";
-            hiddenFoldersTool.Click += hiddenFoldersToolStripMenuItem_Click;
+            showHiddenFoldersTool.CheckOnClick = true;
+            showHiddenFoldersTool.Name = "showHiddenFoldersTool";
+            showHiddenFoldersTool.Size = new Size(224, 26);
+            showHiddenFoldersTool.Text = "Hidden Folders";
             // 
             // tabsTab
             // 
@@ -378,7 +375,7 @@
         private TabPage tabPage1;
         private ToolStripMenuItem showTab;
         private ToolStripMenuItem showExtensionsTool;
-        private ToolStripMenuItem hiddenFoldersTool;
+        private ToolStripMenuItem showHiddenFoldersTool;
         private TabPage tabPage2;
         private ToolStripMenuItem tabsTab;
         private ToolStripMenuItem createTabTool;

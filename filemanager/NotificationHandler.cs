@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public class ErrorHandler
+    public class NotificationHandler
     {
         public void invokeError(int type)
         {
@@ -8,6 +8,10 @@
             {
                 case 1:
                     MessageBox.Show("Source path equals target path!");
+                break;
+
+                case 2:
+                    MessageBox.Show("Can't delete main tab!");
                 break;
 
                 default:
