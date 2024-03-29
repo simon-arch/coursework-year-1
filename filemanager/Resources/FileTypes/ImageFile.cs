@@ -14,7 +14,7 @@
             get { return height; }
             set { height = value; }
         }
-        public ImageFile(string name, string path, string size, string extension)
+        public ImageFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
         public ImageFile() { }
     }

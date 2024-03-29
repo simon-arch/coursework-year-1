@@ -28,7 +28,7 @@ namespace filemanager
             get { return bitRate; }
             set { bitRate = value; }
         }
-        public AudioFile(string name, string path, string size, string extension)
+        public AudioFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
         public AudioFile() { }
     }

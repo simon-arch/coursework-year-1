@@ -26,7 +26,7 @@
             get { return bitRate; }
             set { bitRate = value; }
         }
-        public VideoFile(string name, string path, string size, string extension)
+        public VideoFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
         public VideoFile() { }
     }

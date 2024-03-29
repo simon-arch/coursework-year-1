@@ -1,6 +1,4 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public class DisplayHandler
     {
@@ -8,9 +6,15 @@ namespace filemanager
         protected ComboBox comboBox = null!;
         protected TabControl tabControl = null!;
         protected RootDirectory rootDirectory = null!;
+        protected Label label = null!;
         protected int viewType;
         protected bool showExtensions;
         protected bool showHidden;
+        public Label Label
+        {
+            get { return label; } 
+            set { label = value;}
+        }
         public ListView ListView {
             get { return listView; }
             set { listView = value; }
@@ -72,11 +76,18 @@ namespace filemanager
                     case false: fileItem.Text = $"{f.Name}"; break;
                 }
                 fileItem.SubItems.Add(f.Extension);
-                fileItem.SubItems.Add(f.Size);
+                fileItem.SubItems.Add(f.Size.ToString());
                 fileItem.SubItems.Add(f.CreationDate);
                 fileItem.Tag = f;
                 listView.Items.Add(fileItem);
             }
+
+            //// TEMP ?????
+            foreach (ColumnHeader column in listView.Columns)
+            {
+                column.Width = -2;
+            }
+            //// TEMP ?????
         }
         public void populateDrives()
         {
@@ -91,5 +102,32 @@ namespace filemanager
             viewType = view;
             listView.View = (View)viewType;
         }
+
+        public void getFileInfo() // NOT IMPLEMENTED
+        {
+            long totalSize = 0;
+            long selectedSize = 0;
+            int count = 0;
+            int selectedCount = 0;
+            foreach(File f in rootDirectory.getFiles())
+            {
+                totalSize += f.Size;
+                count++;
+            }
+
+            if (listView.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem f in listView.SelectedItems)
+                {
+                    if (f.Tag.GetType().BaseType!.Name.Equals("File"))
+                    {
+                        selectedSize += ((File)f.Tag).Size;
+                        selectedCount++;
+                    }
+                }
+            }
+
+            label.Text = $"{selectedSize / 1000:n0}k / {totalSize / 1000:n0}k in {selectedCount} / {count} file(s)";
+        } // CHANGE FILE.SIZE FROM STRING TO FLOAT AND CHANGE INT64.PARSE TO FLOAT DIVISION
     }
 }

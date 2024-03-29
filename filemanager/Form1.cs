@@ -26,18 +26,19 @@ namespace filemanager
 
         private new void Refresh()
         {
-            directoryHandler.populateDirectory();
+            directoryHandler.PopulateDirectory();
             displayHandler.populateList();
             displayHandler.populateDrives();
+            displayHandler.getFileInfo();
         }
         private void InitializeHandlers()
         {
             displayHandler.ListView = listView1;
             displayHandler.TabControl = tabControl1;
             displayHandler.ComboBox = comboBox1;
+            displayHandler.Label = label1;
 
-            displayHandler.ViewType = 3;
-            displayHandler.setView(3);
+            displayHandler.setView(1);
             displayHandler.ShowExtensions = false;
             displayHandler.ShowHidden = false;
 
@@ -49,6 +50,8 @@ namespace filemanager
             displayHandler.RootDirectory = root;
             fileWatcher.RootDirectory = root;
             fileWatcher.Initialize();
+
+            displayHandler.getFileInfo();
         }
         private void InitializeEvents()
         {
@@ -61,6 +64,8 @@ namespace filemanager
             listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
             listViewSetView4.Click += (sender, e) => { displayHandler.setView(4); };
 
+            displayHandler.TabControl.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
+
             displayHandler.ComboBox.SelectedIndexChanged += ComboBoxSelectedIndexChanged;
 
             selectionInvert.Click += InvertSelection;
@@ -69,6 +74,8 @@ namespace filemanager
 
             showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
             showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
+
+            displayHandler.ListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
         }
         public void InvertSelection(object? sender, EventArgs e)
         {
@@ -106,11 +113,13 @@ namespace filemanager
             {
                 if (displayHandler.ListView.SelectedItems[0].Tag.GetType().Name.Equals("Directory"))
                 {
+                    directoryHandler.FolderHistory.Add(directoryHandler.RootDirectory);
                     RootDirectory root = new RootDirectory("dir", ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Path);
                     directoryHandler.RootDirectory = root;
                     displayHandler.RootDirectory = root;
                     displayHandler.TabControl.SelectedTab.Tag = root.Path;
                     fileWatcher.setRoot(root);
+
                     Refresh();
                 }
                 else if (displayHandler.ListView.SelectedItems[0].Tag.GetType().BaseType!.Name.Equals("File"))
@@ -119,7 +128,6 @@ namespace filemanager
                     explorer.StartInfo.FileName = "explorer";
                     explorer.StartInfo.Arguments = ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Path;
                     explorer.Start();
-
                 }
             }
         }
@@ -172,6 +180,10 @@ namespace filemanager
                 newListView.Dock = DockStyle.Fill;
                 newListView.Click += OnClick;
                 newListView.DoubleClick += OnDoubleClick;
+
+                newListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); }; // NEW HERE EDIT LATER
+                newListView.FullRowSelect = true;
+
                 newListView.View = (View)displayHandler.ViewType;
                 newTab.Controls.Add(newListView);
                 tabControl1.TabPages.Insert(lastTab, newTab);
@@ -209,6 +221,8 @@ namespace filemanager
             newListView.Dock = DockStyle.Fill;
             newListView.Click += OnClick;
             newListView.DoubleClick += OnDoubleClick;
+            newListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); }; // NEW HERE EDIT LATER
+            newListView.FullRowSelect = true;
             newListView.View = (View)displayHandler.ViewType;
             newTab.Controls.Add(newListView);
             tabControl1.TabPages.Insert(lastTab, newTab);
@@ -217,5 +231,85 @@ namespace filemanager
             displayHandler.ListView = (ListView)tabControl1.SelectedTab.Controls[0];
             Refresh();
         }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i < displayHandler.ListView.Items.Count; i++)
+            {
+                displayHandler.ListView.Items[i].Selected = true;
+            }
+        }
+
+        private void unselectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i < displayHandler.ListView.Items.Count; i++)
+            {
+                displayHandler.ListView.Items[i].Selected = false;
+            }
+        }
+
+        private void selectAllWithTheSameExtensionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection listitems = displayHandler.ListView.SelectedItems;
+            if (listitems.Count > 0)
+            {
+                string extens = ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Extension;
+                for (int i = 1; i < displayHandler.ListView.Items.Count; i++)
+                {
+                    if (((Element)(displayHandler.ListView.Items[i].Tag)).Extension == extens)
+                    {
+                        displayHandler.ListView.Items[i].Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void copySelectedNamesToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string copystring = string.Empty;
+
+            foreach (ListViewItem tocopy in displayHandler.ListView.SelectedItems)
+            {
+                copystring += $"{((Element)tocopy.Tag).Name}\n";
+            }
+            System.Windows.Forms.Clipboard.SetText(copystring);
+            //MAKE INTO METHOD IN FILE CLASS
+        }
+
+        private void copyNamesWithPathToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string copystring = string.Empty;
+
+            foreach (ListViewItem tocopy in displayHandler.ListView.SelectedItems)
+            {
+                copystring += $"{((Element)tocopy.Tag).Path}\n";
+            }
+            System.Windows.Forms.Clipboard.SetText(copystring);
+            //MAKE INTO METHOD IN FILE CLASS
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            if (directoryHandler.FolderHistory.Count > 0)
+            {
+                RootDirectory root = directoryHandler.FolderHistory[directoryHandler.CurrentFolder];
+                directoryHandler.CurrentFolder--;
+
+                directoryHandler.RootDirectory = root;
+                displayHandler.RootDirectory = root;
+                displayHandler.TabControl.SelectedTab.Tag = root.Path;
+                fileWatcher.setRoot(root);
+
+                Refresh();
+            }
+            // NOT IMPLEMENTED YET
+        }
+
+        private void newFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.IO.Directory.CreateDirectory(directoryHandler.RootDirectory.Path + @"/New Folder");
+            Refresh();
+        }
+        // ADD RENAME PROMPT
     }
 }

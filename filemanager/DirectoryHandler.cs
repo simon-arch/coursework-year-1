@@ -8,13 +8,24 @@
             {".mp4", "video"},
             {".mp3", "audio"},
         };
-
+        protected List<RootDirectory> folderHistory = new List<RootDirectory>();
+        protected int currentFolder = 0;
         protected RootDirectory rootDirectory = null!;
-        public RootDirectory RootDirectory { 
+        public int CurrentFolder
+        {
+            get { return currentFolder; }
+            set { currentFolder = value; }
+        }
+        public RootDirectory RootDirectory {
             get { return rootDirectory; } 
             set { rootDirectory = value; } 
         }
-        public void populateDirectory()
+        public List<RootDirectory> FolderHistory
+        {
+            get { return folderHistory; }
+            set { folderHistory = value; }
+        }
+        public void PopulateDirectory()
         {
             rootDirectory.clearData();
             DirectoryInfo directoryInfo = new DirectoryInfo(rootDirectory.Path);
@@ -46,7 +57,7 @@
                 }
                 file.Name = Path.GetFileNameWithoutExtension(f.Name);
                 file.Path = f.FullName.ToString();
-                file.Size = f.Length.ToString();
+                file.Size = f.Length;
                 file.Extension = f.Extension.ToString();
                 file.CreationDate = f.CreationTime.ToString();
                 rootDirectory.appendFile(file);
