@@ -38,6 +38,8 @@ namespace filemanager
             displayHandler.ComboBox = comboBox1;
             displayHandler.Label = label1;
 
+            displayHandler.ImageList = imageList1;
+
             displayHandler.setView(1);
             displayHandler.ShowExtensions = false;
             displayHandler.ShowHidden = false;

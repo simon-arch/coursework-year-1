@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip = new MenuStrip();
             editTab = new ToolStripMenuItem();
@@ -50,12 +51,12 @@
             fileSystemWatcher1 = new FileSystemWatcher();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
+            comboBox1 = new ComboBox();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             listView1 = new ListView();
             tabPage2 = new TabPage();
             label1 = new Label();
-            comboBox1 = new ComboBox();
             toolStrip = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -75,6 +76,7 @@
             newFolderToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
             aToolStripMenuItem = new ToolStripMenuItem();
+            imageList1 = new ImageList(components);
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -256,6 +258,15 @@
             tableLayoutPanel1.Size = new Size(751, 340);
             tableLayoutPanel1.TabIndex = 3;
             // 
+            // comboBox1
+            // 
+            comboBox1.Dock = DockStyle.Fill;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(3, 3);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(62, 28);
+            comboBox1.TabIndex = 5;
+            // 
             // tabControl1
             // 
             tableLayoutPanel1.SetColumnSpan(tabControl1, 2);
@@ -297,7 +308,7 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(436, 224);
+            tabPage2.Size = new Size(463, 224);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
@@ -312,15 +323,6 @@
             label1.Size = new Size(471, 20);
             label1.TabIndex = 6;
             label1.Text = "filesize";
-            // 
-            // comboBox1
-            // 
-            comboBox1.Dock = DockStyle.Fill;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(3, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(62, 28);
-            comboBox1.TabIndex = 5;
             // 
             // toolStrip
             // 
@@ -470,6 +472,14 @@
             aToolStripMenuItem.Size = new Size(47, 24);
             aToolStripMenuItem.Text = "Exit";
             // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth8Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "39.ico");
+            imageList1.Images.SetKeyName(1, "30.ico");
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -545,5 +555,6 @@
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ToolStripMenuItem aToolStripMenuItem;
         private Label label1;
+        private ImageList imageList1;
     }
 }

@@ -6,6 +6,7 @@
         protected string path = string.Empty;
         protected string extension = string.Empty;
         protected string creationDate = string.Empty;
+        public int IconIndex { get; protected set; }
         public string Name
         {
             get { return name; }

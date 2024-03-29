@@ -13,7 +13,7 @@
             Name = name;
             Path = path;
         }
-        public Directory() { }
+        public Directory() { IconIndex = 0; }
         public override void delete()
         {
             System.IO.Directory.Delete(path); //, true

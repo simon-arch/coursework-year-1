@@ -7,9 +7,15 @@
         protected TabControl tabControl = null!;
         protected RootDirectory rootDirectory = null!;
         protected Label label = null!;
+        protected ImageList imageList = null!;
         protected int viewType;
         protected bool showExtensions;
         protected bool showHidden;
+        public ImageList ImageList
+        {
+            get { return imageList; } 
+            set { imageList = value; }
+        }
         public Label Label
         {
             get { return label; } 
@@ -46,6 +52,7 @@
         public void populateList()
         {
             listView.Clear();
+            listView.SmallImageList = imageList;
             tabControl.Controls[tabControl.SelectedIndex].Text = $"({Path.GetPathRoot(rootDirectory.Path)![0]}:) {Path.GetFileName(rootDirectory.Path)}";
 
             listView.Columns.Add("Name", 100, HorizontalAlignment.Left);
@@ -63,10 +70,11 @@
                     dirItem.SubItems.Add("<DIR>");
                     dirItem.SubItems.Add(d.CreationDate);
                     dirItem.Tag = d;
+                    dirItem.ImageIndex = d.IconIndex;
                     listView.Items.Add(dirItem);
                 }
             }
-            
+
             foreach (File f in rootDirectory.getFiles())
             {
                 ListViewItem fileItem = new ListViewItem();
@@ -79,6 +87,7 @@
                 fileItem.SubItems.Add(f.Size.ToString());
                 fileItem.SubItems.Add(f.CreationDate);
                 fileItem.Tag = f;
+                fileItem.ImageIndex = f.IconIndex;
                 listView.Items.Add(fileItem);
             }
 
@@ -103,7 +112,7 @@
             listView.View = (View)viewType;
         }
 
-        public void getFileInfo() // NOT IMPLEMENTED
+        public void getFileInfo() // PEND REWORK
         {
             long totalSize = 0;
             long selectedSize = 0;
@@ -127,7 +136,7 @@
                 }
             }
 
-            label.Text = $"{selectedSize / 1000:n0}k / {totalSize / 1000:n0}k in {selectedCount} / {count} file(s)";
-        } // CHANGE FILE.SIZE FROM STRING TO FLOAT AND CHANGE INT64.PARSE TO FLOAT DIVISION
+            label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s)";
+        }
     }
 }

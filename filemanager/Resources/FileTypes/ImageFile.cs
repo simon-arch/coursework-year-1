@@ -16,6 +16,6 @@
         }
         public ImageFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
-        public ImageFile() { }
+        public ImageFile() { IconIndex = 1; }
     }
 }
