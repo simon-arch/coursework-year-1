@@ -57,6 +57,7 @@
             listView1 = new ListView();
             tabPage2 = new TabPage();
             label1 = new Label();
+            label2 = new Label();
             toolStrip = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -248,6 +249,7 @@
             tableLayoutPanel1.Controls.Add(pictureBox1, 3, 1);
             tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
+            tableLayoutPanel1.Controls.Add(label2, 1, 0);
             tableLayoutPanel1.Location = new Point(25, 77);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
@@ -322,7 +324,19 @@
             label1.Name = "label1";
             label1.Size = new Size(471, 20);
             label1.TabIndex = 6;
-            label1.Text = "filesize";
+            label1.Text = "totalFileSize";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Fill;
+            label2.Location = new Point(71, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(403, 34);
+            label2.TabIndex = 7;
+            label2.Text = "totalFreeSpace";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // toolStrip
             // 
@@ -477,8 +491,11 @@
             imageList1.ColorDepth = ColorDepth.Depth8Bit;
             imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
             imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "39.ico");
-            imageList1.Images.SetKeyName(1, "30.ico");
+            imageList1.Images.SetKeyName(0, "59.ico");
+            imageList1.Images.SetKeyName(1, "39.ico");
+            imageList1.Images.SetKeyName(2, "30.ico");
+            imageList1.Images.SetKeyName(3, "61.ico");
+            imageList1.Images.SetKeyName(4, "83.ico");
             // 
             // Form1
             // 
@@ -556,5 +573,6 @@
         private ToolStripMenuItem aToolStripMenuItem;
         private Label label1;
         private ImageList imageList1;
+        private Label label2;
     }
 }

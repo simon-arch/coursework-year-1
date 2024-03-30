@@ -25,7 +25,6 @@
             containingFiles.Clear();
             containingDirectories.Clear();
         }
-        public RootDirectory() { }
         public RootDirectory(string name, string path) : base(name, path)
         {
             Name = name;

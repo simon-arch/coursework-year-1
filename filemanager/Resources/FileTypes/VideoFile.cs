@@ -2,32 +2,14 @@
 {
     public class VideoFile : File
     {
-        protected int width;
-        protected int height;
-        protected int frameRate;
-        protected int bitRate;
-        public int Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
-        public int Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
-        public int FrameRate
-        {
-            get { return frameRate; }
-            set { frameRate = value; }
-        }
-        public int BitRate
-        {
-            get { return bitRate; }
-            set { bitRate = value; }
-        }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int FrameRate { get; set; }
+        public int BitRate { get; set; }
         public VideoFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
-        public VideoFile() { }
+        public VideoFile() {
+            IconIndex = 4;
+        }
     }
 }

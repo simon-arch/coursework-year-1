@@ -2,38 +2,31 @@
 {
     public class DirectoryHandler
     {
-        protected static Dictionary<String, String> extensions = new Dictionary<String, String>() 
+        protected static Dictionary<String, String> extensions = new Dictionary<String, String>()
         {
             {".jpg", "image"},
+            {".png", "image"},
+            {".gif", "image"},
+
             {".mp4", "video"},
             {".mp3", "audio"},
         };
-        protected List<RootDirectory> folderHistory = new List<RootDirectory>();
-        protected int currentFolder = 0;
-        protected RootDirectory rootDirectory = null!;
-        public int CurrentFolder
-        {
-            get { return currentFolder; }
-            set { currentFolder = value; }
-        }
-        public RootDirectory RootDirectory {
-            get { return rootDirectory; } 
-            set { rootDirectory = value; } 
-        }
-        public List<RootDirectory> FolderHistory
-        {
-            get { return folderHistory; }
-            set { folderHistory = value; }
+        public int CurrentFolder { get; set; }
+        public RootDirectory RootDirectory { get; set; }
+        public List<RootDirectory> FolderHistory { get; set; }
+        public DirectoryHandler() {
+            FolderHistory = new List<RootDirectory>(); 
+            CurrentFolder = 0; 
         }
         public void PopulateDirectory()
         {
-            rootDirectory.clearData();
-            DirectoryInfo directoryInfo = new DirectoryInfo(rootDirectory.Path);
+            RootDirectory.clearData();
+            DirectoryInfo directoryInfo = new DirectoryInfo(RootDirectory.Path);
             FileInfo[] files = directoryInfo.GetFiles();
 
-            rootDirectory.appendDirectory(new Directory(
+            RootDirectory.appendDirectory(new Directory(
                     "[..]", 
-                    Path.GetFullPath(Path.Combine(rootDirectory.Path, @".."))
+                    Path.GetFullPath(Path.Combine(RootDirectory.Path, @".."))
                     )
                 );
 
@@ -55,19 +48,23 @@
                             break;
                     }
                 }
+                else
+                {
+                    file = new UnknownFile();
+                }
                 file.Name = Path.GetFileNameWithoutExtension(f.Name);
                 file.Path = f.FullName.ToString();
                 file.Size = f.Length;
                 file.Extension = f.Extension.ToString();
                 file.CreationDate = f.CreationTime.ToString();
-                rootDirectory.appendFile(file);
+                RootDirectory.appendFile(file);
             }
 
             DirectoryInfo[] dirs = directoryInfo.GetDirectories();
             foreach (DirectoryInfo d in dirs)
             {
-                Directory dir = new Directory(
-                        d.Name,
+                Directory dir = new Directory( // ??????
+                        $"[{d.Name}]",
                         d.FullName
                     );
                 if (d.Attributes.HasFlag(FileAttributes.Hidden))
@@ -75,7 +72,7 @@
                     dir.IsHidden = true;
                 }
                 dir.CreationDate = d.CreationTime.ToString();
-                rootDirectory.appendDirectory(dir);
+                RootDirectory.appendDirectory(dir);
             }
         }
     }

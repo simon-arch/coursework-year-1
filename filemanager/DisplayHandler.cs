@@ -2,67 +2,29 @@
 {
     public class DisplayHandler
     {
-        protected ListView listView = null!;
-        protected ComboBox comboBox = null!;
-        protected TabControl tabControl = null!;
-        protected RootDirectory rootDirectory = null!;
-        protected Label label = null!;
-        protected ImageList imageList = null!;
-        protected int viewType;
-        protected bool showExtensions;
-        protected bool showHidden;
-        public ImageList ImageList
-        {
-            get { return imageList; } 
-            set { imageList = value; }
-        }
-        public Label Label
-        {
-            get { return label; } 
-            set { label = value;}
-        }
-        public ListView ListView {
-            get { return listView; }
-            set { listView = value; }
-        }
-        public RootDirectory RootDirectory {
-            get { return rootDirectory; }
-            set { rootDirectory = value; }
-        }
-        public TabControl TabControl {
-            get { return tabControl; }
-            set { tabControl = value; }
-        }        
-        public ComboBox ComboBox {
-            get { return comboBox; }
-            set { comboBox = value; }
-        }
-        public bool ShowExtensions {
-            get { return showExtensions; }
-            set { showExtensions = value; }
-        }        
-        public bool ShowHidden {
-            get { return showHidden; }
-            set { showHidden = value; }
-        }        
-        public int ViewType {
-            get { return viewType; }
-            set { viewType = value; }
-        }
+        public ListView? ListView { get; set; }
+        public ImageList? ImageList { get; set; }
+        public Label? Label { get; set; }
+        public RootDirectory? RootDirectory { get; set; }
+        public TabControl? TabControl { get; set; }
+        public ComboBox? ComboBox { get; set; }
+        public bool ShowExtensions { get; set; }
+        public bool ShowHidden { get; set; }
+        public int ViewType { get; set; }
         public void populateList()
         {
-            listView.Clear();
-            listView.SmallImageList = imageList;
-            tabControl.Controls[tabControl.SelectedIndex].Text = $"({Path.GetPathRoot(rootDirectory.Path)![0]}:) {Path.GetFileName(rootDirectory.Path)}";
+            ListView.Clear();
+            ListView.SmallImageList = ImageList;
+            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
 
-            listView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            listView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
-            listView.Columns.Add("Size", 100, HorizontalAlignment.Left);
-            listView.Columns.Add("Date", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Size", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
 
-            foreach (Directory d in rootDirectory.getDirs())
+            foreach (Directory d in RootDirectory.getDirs())
             {
-                if((showHidden && d.IsHidden) || d.IsHidden == false)
+                if((ShowHidden && d.IsHidden) || d.IsHidden == false)
                 {
                     ListViewItem dirItem = new ListViewItem();
                     dirItem.Text = d.Name;
@@ -71,14 +33,14 @@
                     dirItem.SubItems.Add(d.CreationDate);
                     dirItem.Tag = d;
                     dirItem.ImageIndex = d.IconIndex;
-                    listView.Items.Add(dirItem);
+                    ListView.Items.Add(dirItem);
                 }
             }
 
-            foreach (File f in rootDirectory.getFiles())
+            foreach (File f in RootDirectory.getFiles())
             {
                 ListViewItem fileItem = new ListViewItem();
-                switch (showExtensions)
+                switch (ShowExtensions)
                 {
                     case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
                     case false: fileItem.Text = $"{f.Name}"; break;
@@ -88,11 +50,11 @@
                 fileItem.SubItems.Add(f.CreationDate);
                 fileItem.Tag = f;
                 fileItem.ImageIndex = f.IconIndex;
-                listView.Items.Add(fileItem);
+                ListView.Items.Add(fileItem);
             }
 
             //// TEMP ?????
-            foreach (ColumnHeader column in listView.Columns)
+            foreach (ColumnHeader column in ListView.Columns)
             {
                 column.Width = -2;
             }
@@ -100,16 +62,16 @@
         }
         public void populateDrives()
         {
-            comboBox.Items.Clear();
+            ComboBox.Items.Clear();
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
-                comboBox.Items.Add(drive.Name);
+                ComboBox.Items.Add(drive.Name);
             }
         }
         public void setView(int view)
         {
-            viewType = view;
-            listView.View = (View)viewType;
+            ViewType = view;
+            ListView.View = (View)ViewType;
         }
 
         public void getFileInfo() // PEND REWORK
@@ -118,15 +80,15 @@
             long selectedSize = 0;
             int count = 0;
             int selectedCount = 0;
-            foreach(File f in rootDirectory.getFiles())
+            foreach(File f in RootDirectory.getFiles())
             {
                 totalSize += f.Size;
                 count++;
             }
 
-            if (listView.SelectedItems.Count > 0)
+            if (ListView.SelectedItems.Count > 0)
             {
-                foreach (ListViewItem f in listView.SelectedItems)
+                foreach (ListViewItem f in ListView.SelectedItems)
                 {
                     if (f.Tag.GetType().BaseType!.Name.Equals("File"))
                     {
@@ -136,7 +98,7 @@
                 }
             }
 
-            label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s)";
+            Label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s)";
         }
     }
 }

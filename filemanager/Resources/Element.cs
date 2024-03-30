@@ -2,31 +2,11 @@
 {
     public abstract class Element
     {
-        protected string name = string.Empty;
-        protected string path = string.Empty;
-        protected string extension = string.Empty;
-        protected string creationDate = string.Empty;
         public int IconIndex { get; protected set; }
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string Path
-        {
-            get { return path; }
-            set { path = value; }
-        }
-        public string Extension
-        {
-            get { return extension; }
-            set { extension = value; }
-        }
-        public string CreationDate
-        {
-            get { return creationDate; }
-            set { creationDate = value; }
-        }
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public string Extension { get; set; }
+        public string CreationDate { get; set; }
         public virtual void delete() { }
     }
 }

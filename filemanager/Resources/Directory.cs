@@ -2,21 +2,17 @@
 {
     public class Directory : Element
     {
-        protected bool isHidden = false;
-        public bool IsHidden
-        {
-            get { return isHidden; }
-            set { isHidden = value; }
-        }
+        public bool IsHidden { get; set; }
         public Directory(string name, string path)
         {
             Name = name;
             Path = path;
+            IconIndex = 1;
+            IsHidden = false;
         }
-        public Directory() { IconIndex = 0; }
         public override void delete()
         {
-            System.IO.Directory.Delete(path); //, true
+            System.IO.Directory.Delete(Path);
         }
     }
 }

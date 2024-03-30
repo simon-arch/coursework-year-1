@@ -2,19 +2,17 @@
 {
     public class ExchangeBuffer
     {
-        protected List<Element> buffer = new List<Element>();
-        public List<Element> Buffer
-        {
-            get { return buffer; }
-            set { buffer = value; }
+        public List<Element> Buffer { get; set; }
+        public ExchangeBuffer() {
+            Buffer = new List<Element>();
         }
         public void Copy(Element element)
         {
-            buffer.Add(element);
+            Buffer.Add(element);
         }
         public void Paste(string newPath) 
         {
-            foreach (Element element in buffer)
+            foreach (Element element in Buffer)
             {
                 if (element.GetType().BaseType!.Name.Equals("File"))
                 {
@@ -29,7 +27,7 @@
         }
         public void Clear()
         {
-            buffer.Clear();
+            Buffer.Clear();
         }
     }
 }

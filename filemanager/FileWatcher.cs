@@ -2,21 +2,16 @@
 {
     public class FileWatcher
     {
-        protected FileSystemWatcher watcher = new FileSystemWatcher();
-        protected RootDirectory rootDirectory = null!;
-        public FileSystemWatcher Watcher { 
-            get { return watcher; }
-            set { watcher = value; }
-        }
-        public RootDirectory RootDirectory { 
-            get { return rootDirectory; }
-            set { rootDirectory = value; }
+        public FileSystemWatcher Watcher { get; set; }
+        public RootDirectory RootDirectory { get; set; }
+        public FileWatcher() {
+            Watcher = new FileSystemWatcher(); 
         }
         
         public void Initialize()
         {
-            watcher.Path = rootDirectory.Path;
-            watcher.NotifyFilter = NotifyFilters.Attributes
+            Watcher.Path = RootDirectory.Path;
+            Watcher.NotifyFilter = NotifyFilters.Attributes
                                  | NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName
@@ -25,17 +20,17 @@
                                  | NotifyFilters.Security
                                  | NotifyFilters.Size;
             //watcher.Changed += OnChanged;
-            watcher.Created += OnCreated;
-            watcher.Deleted += OnDeleted;
-            watcher.Renamed += OnRenamed;
+            Watcher.Created += OnCreated;
+            Watcher.Deleted += OnDeleted;
+            Watcher.Renamed += OnRenamed;
 
-            watcher.Filter = "*";
-            watcher.EnableRaisingEvents = true;
-            watcher.IncludeSubdirectories = false;
+            Watcher.Filter = "*";
+            Watcher.EnableRaisingEvents = true;
+            Watcher.IncludeSubdirectories = false;
         }
         public void setRoot(RootDirectory newdir)
         {
-            watcher.Path = newdir.Path;
+            Watcher.Path = newdir.Path;
         }
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {

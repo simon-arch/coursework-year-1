@@ -2,11 +2,7 @@
 {
     public class File : Element
     {
-        protected long size;
-        public long Size { 
-            get { return size; } 
-            set { size = value; }
-        }
+        public long Size { get; set; }
         public File(string name, string path, long size, string extension)
         {
             Name = name;
@@ -17,7 +13,7 @@
         public File() { }
         public override void delete()
         {
-            System.IO.File.Delete(path);
+            System.IO.File.Delete(Path);
         }
     }
 }

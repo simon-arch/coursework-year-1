@@ -1,35 +1,15 @@
-﻿using System.Threading.Channels;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public class AudioFile : File
     {
-        protected int width;
-        protected int height;
-        protected int channels;
-        protected int bitRate;
-        public int Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
-        public int Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
-        public int Channels
-        {
-            get { return channels; }
-            set { channels = value; }
-        }
-        public int BitRate
-        {
-            get { return bitRate; }
-            set { bitRate = value; }
-        }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Channels { get; set; }
+        public int BitRate { get; set; }
         public AudioFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
-        public AudioFile() { }
+        public AudioFile() {
+            IconIndex = 3;
+        }
     }
 }
