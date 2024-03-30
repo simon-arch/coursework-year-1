@@ -7,6 +7,6 @@
         public string Path { get; set; }
         public string Extension { get; set; }
         public string CreationDate { get; set; }
-        public virtual void delete() { }
+        public virtual void Delete() { }
     }
 }

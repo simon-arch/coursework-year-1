@@ -2,7 +2,7 @@
 {
     public class NotificationHandler
     {
-        public void invokeError(int type)
+        public static void invokeError(int type)
         {
             switch(type)
             {

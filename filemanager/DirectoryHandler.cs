@@ -11,13 +11,8 @@
             {".mp4", "video"},
             {".mp3", "audio"},
         };
-        public int CurrentFolder { get; set; }
         public RootDirectory RootDirectory { get; set; }
-        public List<RootDirectory> FolderHistory { get; set; }
-        public DirectoryHandler() {
-            FolderHistory = new List<RootDirectory>(); 
-            CurrentFolder = 0; 
-        }
+        public DirectoryHandler() { }
         public void PopulateDirectory()
         {
             RootDirectory.clearData();

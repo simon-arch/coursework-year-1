@@ -10,7 +10,11 @@
             IconIndex = 1;
             IsHidden = false;
         }
-        public override void delete()
+        public static void Create(string path)
+        {
+            System.IO.Directory.CreateDirectory(path + @"/New Folder");
+        }
+        public override void Delete()
         {
             System.IO.Directory.Delete(Path);
         }

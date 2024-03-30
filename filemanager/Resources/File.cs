@@ -11,7 +11,7 @@
             Extension = extension;
         }
         public File() { }
-        public override void delete()
+        public override void Delete()
         {
             System.IO.File.Delete(Path);
         }

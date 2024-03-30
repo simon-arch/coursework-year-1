@@ -32,9 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip = new MenuStrip();
             editTab = new ToolStripMenuItem();
-            deleteTool = new ToolStripMenuItem();
             refreshTool = new ToolStripMenuItem();
-            copyTool = new ToolStripMenuItem();
             pasteTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
@@ -43,11 +41,11 @@
             createTabTool = new ToolStripMenuItem();
             deleteTabTool = new ToolStripMenuItem();
             markToolStripMenuItem = new ToolStripMenuItem();
-            selectAllToolStripMenuItem = new ToolStripMenuItem();
-            unselectAllToolStripMenuItem = new ToolStripMenuItem();
-            selectAllWithTheSameExtensionToolStripMenuItem = new ToolStripMenuItem();
-            copySelectedNamesToClipboardToolStripMenuItem = new ToolStripMenuItem();
-            copyNamesWithPathToClipboardToolStripMenuItem = new ToolStripMenuItem();
+            selectAllTool = new ToolStripMenuItem();
+            unselectAllTool = new ToolStripMenuItem();
+            selectAllWithTheSameExtensionTool = new ToolStripMenuItem();
+            copySelectedNamesToClipboardTool = new ToolStripMenuItem();
+            copyNamesWithPathToClipboardTool = new ToolStripMenuItem();
             fileSystemWatcher1 = new FileSystemWatcher();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -58,8 +56,11 @@
             tabPage2 = new TabPage();
             label1 = new Label();
             label2 = new Label();
+            tabControl2 = new TabControl();
+            imagePreviewTab = new TabPage();
+            textPreviewTab = new TabPage();
             toolStrip = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
+            quickRefreshTool = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             listViewSetView0 = new ToolStripButton();
             listViewSetView1 = new ToolStripButton();
@@ -67,15 +68,15 @@
             listViewSetView3 = new ToolStripButton();
             listViewSetView4 = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
-            selectionInvert = new ToolStripButton();
+            invertSelectionTool = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
             menuStrip1 = new MenuStrip();
             viewToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
-            copyToolStripMenuItem = new ToolStripMenuItem();
+            copyTool = new ToolStripMenuItem();
             moveToolStripMenuItem = new ToolStripMenuItem();
-            newFolderToolStripMenuItem = new ToolStripMenuItem();
-            deleteToolStripMenuItem = new ToolStripMenuItem();
+            newFolderTool = new ToolStripMenuItem();
+            deleteTool = new ToolStripMenuItem();
             aToolStripMenuItem = new ToolStripMenuItem();
             imageList1 = new ImageList(components);
             menuStrip.SuspendLayout();
@@ -84,6 +85,8 @@
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabControl2.SuspendLayout();
+            imagePreviewTab.SuspendLayout();
             toolStrip.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -100,18 +103,10 @@
             // 
             // editTab
             // 
-            editTab.DropDownItems.AddRange(new ToolStripItem[] { deleteTool, refreshTool, copyTool, pasteTool });
+            editTab.DropDownItems.AddRange(new ToolStripItem[] { refreshTool, pasteTool });
             editTab.Name = "editTab";
             editTab.Size = new Size(49, 24);
             editTab.Text = "Edit";
-            // 
-            // deleteTool
-            // 
-            deleteTool.Name = "deleteTool";
-            deleteTool.ShortcutKeys = Keys.Delete;
-            deleteTool.Size = new Size(177, 26);
-            deleteTool.Text = "Delete";
-            deleteTool.Click += deleteToolStripMenuItem_Click;
             // 
             // refreshTool
             // 
@@ -120,21 +115,12 @@
             refreshTool.Size = new Size(177, 26);
             refreshTool.Text = "Refresh";
             // 
-            // copyTool
-            // 
-            copyTool.Name = "copyTool";
-            copyTool.ShortcutKeys = Keys.Control | Keys.C;
-            copyTool.Size = new Size(177, 26);
-            copyTool.Text = "Copy";
-            copyTool.Click += copyToolStripMenuItem_Click;
-            // 
             // pasteTool
             // 
             pasteTool.Name = "pasteTool";
             pasteTool.ShortcutKeys = Keys.Control | Keys.V;
             pasteTool.Size = new Size(177, 26);
             pasteTool.Text = "Paste";
-            pasteTool.Click += pasteToolStripMenuItem_Click;
             // 
             // showTab
             // 
@@ -169,56 +155,49 @@
             createTabTool.Name = "createTabTool";
             createTabTool.Size = new Size(163, 26);
             createTabTool.Text = "Create Tab";
-            createTabTool.Click += addNewToolStripMenuItem_Click;
             // 
             // deleteTabTool
             // 
             deleteTabTool.Name = "deleteTabTool";
             deleteTabTool.Size = new Size(163, 26);
             deleteTabTool.Text = "Delete Tab";
-            deleteTabTool.Click += deleteToolStripMenuItem1_Click;
             // 
             // markToolStripMenuItem
             // 
-            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectAllToolStripMenuItem, unselectAllToolStripMenuItem, selectAllWithTheSameExtensionToolStripMenuItem, copySelectedNamesToClipboardToolStripMenuItem, copyNamesWithPathToClipboardToolStripMenuItem });
+            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool });
             markToolStripMenuItem.Name = "markToolStripMenuItem";
             markToolStripMenuItem.Size = new Size(56, 24);
             markToolStripMenuItem.Text = "Mark";
             // 
-            // selectAllToolStripMenuItem
+            // selectAllTool
             // 
-            selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            selectAllToolStripMenuItem.Size = new Size(325, 26);
-            selectAllToolStripMenuItem.Text = "Select all";
-            selectAllToolStripMenuItem.Click += selectAllToolStripMenuItem_Click;
+            selectAllTool.Name = "selectAllTool";
+            selectAllTool.Size = new Size(325, 26);
+            selectAllTool.Text = "Select all";
             // 
-            // unselectAllToolStripMenuItem
+            // unselectAllTool
             // 
-            unselectAllToolStripMenuItem.Name = "unselectAllToolStripMenuItem";
-            unselectAllToolStripMenuItem.Size = new Size(325, 26);
-            unselectAllToolStripMenuItem.Text = "Unselect all";
-            unselectAllToolStripMenuItem.Click += unselectAllToolStripMenuItem_Click;
+            unselectAllTool.Name = "unselectAllTool";
+            unselectAllTool.Size = new Size(325, 26);
+            unselectAllTool.Text = "Unselect all";
             // 
-            // selectAllWithTheSameExtensionToolStripMenuItem
+            // selectAllWithTheSameExtensionTool
             // 
-            selectAllWithTheSameExtensionToolStripMenuItem.Name = "selectAllWithTheSameExtensionToolStripMenuItem";
-            selectAllWithTheSameExtensionToolStripMenuItem.Size = new Size(325, 26);
-            selectAllWithTheSameExtensionToolStripMenuItem.Text = "Select all with the same extension";
-            selectAllWithTheSameExtensionToolStripMenuItem.Click += selectAllWithTheSameExtensionToolStripMenuItem_Click;
+            selectAllWithTheSameExtensionTool.Name = "selectAllWithTheSameExtensionTool";
+            selectAllWithTheSameExtensionTool.Size = new Size(325, 26);
+            selectAllWithTheSameExtensionTool.Text = "Select all with the same extension";
             // 
-            // copySelectedNamesToClipboardToolStripMenuItem
+            // copySelectedNamesToClipboardTool
             // 
-            copySelectedNamesToClipboardToolStripMenuItem.Name = "copySelectedNamesToClipboardToolStripMenuItem";
-            copySelectedNamesToClipboardToolStripMenuItem.Size = new Size(325, 26);
-            copySelectedNamesToClipboardToolStripMenuItem.Text = "Copy selected names to clipboard";
-            copySelectedNamesToClipboardToolStripMenuItem.Click += copySelectedNamesToClipboardToolStripMenuItem_Click;
+            copySelectedNamesToClipboardTool.Name = "copySelectedNamesToClipboardTool";
+            copySelectedNamesToClipboardTool.Size = new Size(325, 26);
+            copySelectedNamesToClipboardTool.Text = "Copy selected names to clipboard";
             // 
-            // copyNamesWithPathToClipboardToolStripMenuItem
+            // copyNamesWithPathToClipboardTool
             // 
-            copyNamesWithPathToClipboardToolStripMenuItem.Name = "copyNamesWithPathToClipboardToolStripMenuItem";
-            copyNamesWithPathToClipboardToolStripMenuItem.Size = new Size(325, 26);
-            copyNamesWithPathToClipboardToolStripMenuItem.Text = "Copy names with path to clipboard";
-            copyNamesWithPathToClipboardToolStripMenuItem.Click += copyNamesWithPathToClipboardToolStripMenuItem_Click;
+            copyNamesWithPathToClipboardTool.Name = "copyNamesWithPathToClipboardTool";
+            copyNamesWithPathToClipboardTool.Size = new Size(325, 26);
+            copyNamesWithPathToClipboardTool.Text = "Copy names with path to clipboard";
             // 
             // fileSystemWatcher1
             // 
@@ -230,9 +209,9 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(507, 37);
+            pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(241, 257);
+            pictureBox1.Size = new Size(227, 242);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -246,10 +225,10 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.63636374F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32.727272F));
             tableLayoutPanel1.Controls.Add(comboBox1, 0, 0);
-            tableLayoutPanel1.Controls.Add(pictureBox1, 3, 1);
             tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
+            tableLayoutPanel1.Controls.Add(tabControl2, 3, 1);
             tableLayoutPanel1.Location = new Point(25, 77);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
@@ -281,7 +260,6 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(471, 257);
             tabControl1.TabIndex = 5;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPage1
             // 
@@ -338,24 +316,59 @@
             label2.Text = "totalFreeSpace";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tabControl2
+            // 
+            tabControl2.Appearance = TabAppearance.FlatButtons;
+            tabControl2.Controls.Add(imagePreviewTab);
+            tabControl2.Controls.Add(textPreviewTab);
+            tabControl2.Dock = DockStyle.Fill;
+            tabControl2.ItemSize = new Size(0, 1);
+            tabControl2.Location = new Point(507, 37);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(241, 257);
+            tabControl2.SizeMode = TabSizeMode.Fixed;
+            tabControl2.TabIndex = 8;
+            // 
+            // imagePreviewTab
+            // 
+            imagePreviewTab.Controls.Add(pictureBox1);
+            imagePreviewTab.Location = new Point(4, 5);
+            imagePreviewTab.Name = "imagePreviewTab";
+            imagePreviewTab.Padding = new Padding(3);
+            imagePreviewTab.Size = new Size(233, 248);
+            imagePreviewTab.TabIndex = 0;
+            imagePreviewTab.Text = "image";
+            imagePreviewTab.UseVisualStyleBackColor = true;
+            // 
+            // textPreviewTab
+            // 
+            textPreviewTab.Location = new Point(4, 32);
+            textPreviewTab.Name = "textPreviewTab";
+            textPreviewTab.Padding = new Padding(3);
+            textPreviewTab.Size = new Size(233, 221);
+            textPreviewTab.TabIndex = 1;
+            textPreviewTab.Text = "text";
+            textPreviewTab.UseVisualStyleBackColor = true;
+            // 
             // toolStrip
             // 
             toolStrip.ImageScalingSize = new Size(20, 20);
-            toolStrip.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, selectionInvert, toolStripButton2 });
+            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, toolStripButton2 });
             toolStrip.Location = new Point(0, 28);
             toolStrip.Name = "toolStrip";
             toolStrip.Size = new Size(800, 27);
             toolStrip.TabIndex = 4;
             toolStrip.Text = "toolStrip";
             // 
-            // toolStripButton1
+            // quickRefreshTool
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(29, 24);
-            toolStripButton1.Text = "toolStripButton1";
+            quickRefreshTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            quickRefreshTool.Image = (Image)resources.GetObject("quickRefreshTool.Image");
+            quickRefreshTool.ImageTransparentColor = Color.Magenta;
+            quickRefreshTool.Name = "quickRefreshTool";
+            quickRefreshTool.Size = new Size(29, 24);
+            quickRefreshTool.Text = "toolStripButton1";
             // 
             // toolStripSeparator1
             // 
@@ -412,14 +425,14 @@
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new Size(6, 27);
             // 
-            // selectionInvert
+            // invertSelectionTool
             // 
-            selectionInvert.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            selectionInvert.Image = (Image)resources.GetObject("selectionInvert.Image");
-            selectionInvert.ImageTransparentColor = Color.Magenta;
-            selectionInvert.Name = "selectionInvert";
-            selectionInvert.Size = new Size(29, 24);
-            selectionInvert.Text = "toolStripButton7";
+            invertSelectionTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            invertSelectionTool.Image = (Image)resources.GetObject("invertSelectionTool.Image");
+            invertSelectionTool.ImageTransparentColor = Color.Magenta;
+            invertSelectionTool.Name = "invertSelectionTool";
+            invertSelectionTool.Size = new Size(29, 24);
+            invertSelectionTool.Text = "toolStripButton7";
             // 
             // toolStripButton2
             // 
@@ -429,13 +442,12 @@
             toolStripButton2.Name = "toolStripButton2";
             toolStripButton2.Size = new Size(29, 24);
             toolStripButton2.Text = "toolStripButton2";
-            toolStripButton2.Click += toolStripButton2_Click;
             // 
             // menuStrip1
             // 
             menuStrip1.Dock = DockStyle.Bottom;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { viewToolStripMenuItem, editToolStripMenuItem, copyToolStripMenuItem, moveToolStripMenuItem, newFolderToolStripMenuItem, deleteToolStripMenuItem, aToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { viewToolStripMenuItem, editToolStripMenuItem, copyTool, moveToolStripMenuItem, newFolderTool, deleteTool, aToolStripMenuItem });
             menuStrip1.Location = new Point(0, 422);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -454,11 +466,11 @@
             editToolStripMenuItem.Size = new Size(49, 24);
             editToolStripMenuItem.Text = "Edit";
             // 
-            // copyToolStripMenuItem
+            // copyTool
             // 
-            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new Size(57, 24);
-            copyToolStripMenuItem.Text = "Copy";
+            copyTool.Name = "copyTool";
+            copyTool.Size = new Size(57, 24);
+            copyTool.Text = "Copy";
             // 
             // moveToolStripMenuItem
             // 
@@ -466,19 +478,17 @@
             moveToolStripMenuItem.Size = new Size(60, 24);
             moveToolStripMenuItem.Text = "Move";
             // 
-            // newFolderToolStripMenuItem
+            // newFolderTool
             // 
-            newFolderToolStripMenuItem.Name = "newFolderToolStripMenuItem";
-            newFolderToolStripMenuItem.Size = new Size(95, 24);
-            newFolderToolStripMenuItem.Text = "NewFolder";
-            newFolderToolStripMenuItem.Click += newFolderToolStripMenuItem_Click;
+            newFolderTool.Name = "newFolderTool";
+            newFolderTool.Size = new Size(95, 24);
+            newFolderTool.Text = "NewFolder";
             // 
-            // deleteToolStripMenuItem
+            // deleteTool
             // 
-            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(67, 24);
-            deleteToolStripMenuItem.Text = "Delete";
-            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+            deleteTool.Name = "deleteTool";
+            deleteTool.Size = new Size(67, 24);
+            deleteTool.Text = "Delete";
             // 
             // aToolStripMenuItem
             // 
@@ -517,6 +527,8 @@
             tableLayoutPanel1.PerformLayout();
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tabControl2.ResumeLayout(false);
+            imagePreviewTab.ResumeLayout(false);
             toolStrip.ResumeLayout(false);
             toolStrip.PerformLayout();
             menuStrip1.ResumeLayout(false);
@@ -536,7 +548,7 @@
         private PictureBox pictureBox1;
         private TableLayoutPanel tableLayoutPanel1;
         private ToolStrip toolStrip;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton quickRefreshTool;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton listViewSetView0;
         private ToolStripButton listViewSetView1;
@@ -544,7 +556,7 @@
         private ToolStripButton listViewSetView3;
         private ToolStripButton listViewSetView4;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton selectionInvert;
+        private ToolStripButton invertSelectionTool;
         private TabControl tabControl1;
         private ListView listView1;
         private TabPage tabPage1;
@@ -557,22 +569,25 @@
         private ToolStripMenuItem deleteTabTool;
         private ComboBox comboBox1;
         private ToolStripMenuItem markToolStripMenuItem;
-        private ToolStripMenuItem selectAllToolStripMenuItem;
-        private ToolStripMenuItem unselectAllToolStripMenuItem;
-        private ToolStripMenuItem selectAllWithTheSameExtensionToolStripMenuItem;
-        private ToolStripMenuItem copySelectedNamesToClipboardToolStripMenuItem;
-        private ToolStripMenuItem copyNamesWithPathToClipboardToolStripMenuItem;
+        private ToolStripMenuItem selectAllTool;
+        private ToolStripMenuItem unselectAllTool;
+        private ToolStripMenuItem selectAllWithTheSameExtensionTool;
+        private ToolStripMenuItem copySelectedNamesToClipboardTool;
+        private ToolStripMenuItem copyNamesWithPathToClipboardTool;
         private ToolStripButton toolStripButton2;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem copyToolStripMenuItem;
         private ToolStripMenuItem moveToolStripMenuItem;
-        private ToolStripMenuItem newFolderToolStripMenuItem;
+        private ToolStripMenuItem newFolderTool;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ToolStripMenuItem aToolStripMenuItem;
         private Label label1;
         private ImageList imageList1;
         private Label label2;
+        private TabControl tabControl2;
+        private TabPage imagePreviewTab;
+        private TabPage textPreviewTab;
     }
 }

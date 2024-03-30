@@ -126,8 +126,11 @@
   <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>343, 17</value>
   </metadata>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>461, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="quickRefreshTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAEKSURBVEhL3ZG9DsFQHMXvczDZvIOtXsHObuhqkViI3Quw
@@ -193,7 +196,7 @@
         qgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="selectionInvert.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="invertSelectionTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAEKSURBVEhL3ZG9DsFQHMXvczDZvIOtXsHObuhqkViI3Quw
@@ -215,9 +218,6 @@
         qgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>461, 17</value>
-  </metadata>
   <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>597, 17</value>
   </metadata>
@@ -226,7 +226,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAagwAAAJNU0Z0AUkBTAIBAQUB
-        AAEgAQABIAEAARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
+        AAGoAQABqAEAARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
         AAEIGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -255,11 +255,11 @@
         /wHMAQACZgH/AQABZgH/AWYBAAFmAv8BAAH/AmYBAAH/AWYB/wEAAv8BZgEAASEBAAGlAQADXwEAA3cB
         AAOGAQADlgEAA8sBAAOyAQAD1wEAA90BAAPjAQAD6gEAA/EBAAP4AQAB8AH7Af8BAAGkAqABAAOAAwAB
         /wIAAf8DAAL/AQAB/wMAAf8BAAH/AQAC/wIAA/8DAAEPCg0BDzQAAQ0B/wHzBvIB9AH/AQ00AAEUAf8B
-        8AG1AeYBzgHmAbUB7gHzAfUBFDQAAWwB9AHVAdYBGQH1ARkB1gHVAfMB9QFsNAABbALWAvMBrQLzAbUB
-        1gH1AWw0AAFsAa0B8gLxAd0C8QHwAa0B9QFsNAABbAGnAfQB8gHwAacC8AHxAacB9QFsNAABbAGtAfMB
+        8AG1AeYBzgHmAbUBvAHzAf8BFDQAAWwB9AHVAdYBGQH/ARkB1gHVAfMB/wFsNAABbALWAvMBrQLzAbUB
+        1gH/AWw0AAFsAa0B8gLxAd0C8QHwAa0B/wFsNAABbAGnAfQB8gHwAacC8AHxAacB/wFsNAABbAGtAfMB
         9AHzAYYC8gHxAa0B9AFsNAABbAK1Af8B9AGtAfQB/wK1AfQBbDQAAWwB9AG0AQkB9AH/AfQBCQG0AfAB
-        9AFsNAABbAH1AfMBCQPVAQkC8QH0AWw0AAFsAfUE9ALzAvEB9AFsNAABbAH1A/QC8wHxA/cBFDQAAesB
-        9QL0AvMC8QHvAf8C6zQAAesC9QX0AQcC6zUACutFAAEjCCoBIykAAQoCXwIEAl8BCgUAASoGmgF0AZoB
+        9AFsNAABbAH/AfMBCQPVAQkC8QH0AWw0AAFsAf8E9ALzAvEB9AFsNAABbAH/A/QC8wHxA/cBFDQAAesB
+        /wL0AvMC8QHvAf8C6zQAAesC/wX0AQcC6zUACutFAAEjCCoBIykAAQoCXwIEAl8BCgUAASoGmgF0AZoB
         KgEjGAABZQKKAWULAAFfAQQBpwGtAs4BrQGnAQQBXwQAASoBmgR6AZoBdAGaAdoBKgQAAQ8ODQEPBAAB
         igKzAawBpgkAAqYBrQLOAq0CzgGtAqYDAAEqBpoBdAGaAdoDKgEjAQABFQH/DPQB/wEVBAABswHUAdsB
         2gGzCAACpgStAvMErQKmAgABKwaaAXQBmgHzAVIBdAGaASoBIwFsAfQDiwGtBLQBugPcAfQBbAQABbMI
