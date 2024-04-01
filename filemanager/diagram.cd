@@ -10,21 +10,21 @@
   <Class Name="filemanager.DirectoryHandler" Collapsed="true">
     <Position X="4" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAAIAAA=</HashCode>
+      <HashCode>AAAAAUAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAAIAAA=</HashCode>
       <FileName>DirectoryHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DisplayHandler" Collapsed="true">
     <Position X="4" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAESJAAAAAABAAEQAIABAgIAEggABACAkABCI=</HashCode>
+      <HashCode>AAAAAAAQESJAAAAAIBEAEQAIABAgIAEggARACAkABCI=</HashCode>
       <FileName>DisplayHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.Element" Collapsed="true">
     <Position X="8" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAIAAAAAAAQAAAEAAQAAAAAAAQAAAAA=</HashCode>
+      <HashCode>QAAAAAAAAAAAAAIAAAAAAAQAAAEAAQACAAAAAQAAAAA=</HashCode>
       <FileName>Resources\Element.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -38,21 +38,21 @@
   <Class Name="filemanager.File" Collapsed="true">
     <Position X="8" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAEBAAACAAAAAAAAAAA=</HashCode>
       <FileName>Resources\File.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.FileWatcher" Collapsed="true">
     <Position X="4" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAUgAAQAAIAAAAAAAACACAAEAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FileWatcher.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.Form1" Collapsed="true">
     <Position X="4" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AYCgCAswjyLBBFAwAwCIIAoyEkAIAkCRIiACIIBBBSA=</HashCode>
+      <HashCode>AYSgCAsQjyLBBFA0AwCIIAIyEgAAAkCBIiASIYDBFSA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -97,6 +97,20 @@
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>NotificationHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.DocumentFile" Collapsed="true">
+    <Position X="13.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\FileTypes\DocumentFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.DialogBox" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACQAAAAAgACAAAACAgAAEAAQAAAAAAAAAAA=</HashCode>
+      <FileName>DialogBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

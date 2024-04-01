@@ -62,6 +62,7 @@
             richTextBox1 = new RichTextBox();
             toolStrip = new ToolStrip();
             quickRefreshTool = new ToolStripButton();
+            goUpTool = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             listViewSetView0 = new ToolStripButton();
             listViewSetView1 = new ToolStripButton();
@@ -72,6 +73,9 @@
             invertSelectionTool = new ToolStripButton();
             zipTool = new ToolStripButton();
             unzipTool = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
+            searchTool = new ToolStripButton();
+            notepadTool = new ToolStripButton();
             menuStrip1 = new MenuStrip();
             viewTool = new ToolStripMenuItem();
             editTool = new ToolStripMenuItem();
@@ -230,7 +234,7 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(223, 238);
+            pictureBox1.Size = new Size(223, 243);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -251,7 +255,7 @@
             tableLayoutPanel1.Location = new Point(25, 77);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 92.68292F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.317074F));
@@ -265,7 +269,7 @@
             comboBox1.Location = new Point(3, 3);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(74, 28);
-            comboBox1.TabIndex = 5;
+            comboBox1.TabIndex = 6;
             // 
             // tabControl1
             // 
@@ -274,10 +278,10 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.ItemSize = new Size(74, 25);
-            tabControl1.Location = new Point(3, 38);
+            tabControl1.Location = new Point(3, 33);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(476, 253);
+            tabControl1.Size = new Size(476, 258);
             tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -286,7 +290,7 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(468, 220);
+            tabPage1.Size = new Size(468, 225);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
@@ -298,7 +302,7 @@
             listView1.Location = new Point(0, 0);
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(468, 220);
+            listView1.Size = new Size(468, 225);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -330,7 +334,7 @@
             label2.Dock = DockStyle.Fill;
             label2.Location = new Point(83, 0);
             label2.Name = "label2";
-            label2.Size = new Size(396, 35);
+            label2.Size = new Size(396, 30);
             label2.TabIndex = 7;
             label2.Text = "totalFreeSpace";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -342,10 +346,10 @@
             tabControl2.Controls.Add(documentPreviewTab);
             tabControl2.Dock = DockStyle.Fill;
             tabControl2.ItemSize = new Size(0, 1);
-            tabControl2.Location = new Point(511, 38);
+            tabControl2.Location = new Point(511, 33);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(237, 253);
+            tabControl2.Size = new Size(237, 258);
             tabControl2.SizeMode = TabSizeMode.Fixed;
             tabControl2.TabIndex = 8;
             // 
@@ -355,7 +359,7 @@
             imagePreviewTab.Location = new Point(4, 5);
             imagePreviewTab.Name = "imagePreviewTab";
             imagePreviewTab.Padding = new Padding(3);
-            imagePreviewTab.Size = new Size(229, 244);
+            imagePreviewTab.Size = new Size(229, 249);
             imagePreviewTab.TabIndex = 0;
             imagePreviewTab.Text = "image";
             imagePreviewTab.UseVisualStyleBackColor = true;
@@ -386,7 +390,7 @@
             // toolStrip
             // 
             toolStrip.ImageScalingSize = new Size(20, 20);
-            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool });
+            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool });
             toolStrip.Location = new Point(0, 28);
             toolStrip.Name = "toolStrip";
             toolStrip.Size = new Size(800, 25);
@@ -403,6 +407,16 @@
             quickRefreshTool.Size = new Size(29, 22);
             quickRefreshTool.Text = "toolStripButton1";
             quickRefreshTool.ToolTipText = "Refresh";
+            // 
+            // goUpTool
+            // 
+            goUpTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            goUpTool.Image = (Image)resources.GetObject("goUpTool.Image");
+            goUpTool.ImageScaling = ToolStripItemImageScaling.None;
+            goUpTool.ImageTransparentColor = Color.Black;
+            goUpTool.Name = "goUpTool";
+            goUpTool.Size = new Size(29, 22);
+            goUpTool.Text = "Go Up";
             // 
             // toolStripSeparator1
             // 
@@ -493,6 +507,31 @@
             unzipTool.Name = "unzipTool";
             unzipTool.Size = new Size(29, 22);
             unzipTool.Text = "Unzip Selected Archives";
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 25);
+            // 
+            // searchTool
+            // 
+            searchTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            searchTool.Image = (Image)resources.GetObject("searchTool.Image");
+            searchTool.ImageScaling = ToolStripItemImageScaling.None;
+            searchTool.ImageTransparentColor = Color.Black;
+            searchTool.Name = "searchTool";
+            searchTool.Size = new Size(29, 22);
+            searchTool.Text = "Search For...";
+            // 
+            // notepadTool
+            // 
+            notepadTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            notepadTool.Image = (Image)resources.GetObject("notepadTool.Image");
+            notepadTool.ImageScaling = ToolStripItemImageScaling.None;
+            notepadTool.ImageTransparentColor = Color.Black;
+            notepadTool.Name = "notepadTool";
+            notepadTool.Size = new Size(29, 22);
+            notepadTool.Text = "Open Notepad";
             // 
             // menuStrip1
             // 
@@ -649,5 +688,9 @@
         private TabPage documentPreviewTab;
         private ToolStripButton unzipTool;
         private RichTextBox richTextBox1;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton searchTool;
+        private ToolStripButton goUpTool;
+        private ToolStripButton notepadTool;
     }
 }

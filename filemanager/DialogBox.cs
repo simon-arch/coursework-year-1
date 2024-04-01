@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public partial class DialogBox : Form
     {

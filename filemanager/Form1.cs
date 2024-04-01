@@ -1,3 +1,5 @@
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+
 namespace filemanager
 {
     public partial class Form1 : Form
@@ -20,6 +22,7 @@ namespace filemanager
             displayHandler.populateDrives();
             displayHandler.getFileInfo();
             displayHandler.SelectDrive();
+            displayHandler.StorageSize();
             displayHandler.Preview("clear");
         }
         private void InitializeHandlers()
@@ -28,6 +31,7 @@ namespace filemanager
             displayHandler.TabControl = tabControl1;
             displayHandler.ComboBox = comboBox1;
             displayHandler.Label = label1;
+            displayHandler.UsedStorage = label2;
             displayHandler.PictureBox = pictureBox1;
             displayHandler.ImageList = imageList1;
 
@@ -85,6 +89,29 @@ namespace filemanager
             displayHandler.TabControl.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
             exitTool.Click += (sender, e) => { Close(); };
 
+            searchTool.Click += (sender, e) =>
+            {
+                SearchBox searchBox = new SearchBox(directoryHandler.RootDirectory.Path);
+                DialogResult result = searchBox.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string targetPath = Path.GetDirectoryName(searchBox.ReturnValue);
+                    string targetName = Path.GetFileNameWithoutExtension(searchBox.ReturnValue);
+                    searchBox.Dispose();
+                    RootDirectory root = new RootDirectory("dir", targetPath);
+                    GoTo(root);
+                    ListViewItem targetItem = displayHandler.ListView.FindItemWithText(targetName);
+                    targetItem.Selected = true;
+                    targetItem.EnsureVisible();
+                }
+                else
+                {
+                    searchBox.Dispose();
+                }
+
+                //IEnumerable<string> a = directoryHandler.SearchFor(directoryHandler.RootDirectory.Path);
+            };
+
             deleteTabTool.Click += (sender, e) => { displayHandler.DeleteTab(); };
 
             displayHandler.TabControl.SelectedIndexChanged += (sender, e) =>
@@ -95,6 +122,14 @@ namespace filemanager
                 Refresh();
             };
 
+            goUpTool.Click += (sender, e) =>
+            {
+                if (Path.GetPathRoot(directoryHandler.RootDirectory.Path) != directoryHandler.RootDirectory.Path)
+                {
+                    RootDirectory root = new RootDirectory("dir", Path.GetDirectoryName(directoryHandler.RootDirectory.Path));
+                    GoTo(root);
+                }
+            };
             createTabTool.Click += (sender, e) => { displayHandler.CreateTab(false, OnClick, OnDoubleClick); Refresh(); };
 
             pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
@@ -110,7 +145,22 @@ namespace filemanager
             showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
             showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
 
+            notepadTool.Click += (sender, e) =>
+            {
+                System.Diagnostics.Process explorer = new System.Diagnostics.Process();
+                explorer.StartInfo.FileName = "notepad";
+                explorer.Start();
+            };
+
             displayHandler.ListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
+        }
+        public void GoTo(RootDirectory root)
+        {
+            directoryHandler.RootDirectory = root;
+            displayHandler.RootDirectory = root;
+            displayHandler.TabControl.SelectedTab.Tag = root.Path;
+            fileWatcher.ChangeRoot(root);
+            Refresh();
         }
         private void OnClick(object? sender, EventArgs e)
         {
@@ -142,12 +192,7 @@ namespace filemanager
                 if (selected[0].Tag.GetType().Name.Equals("Directory"))
                 {
                     RootDirectory root = new RootDirectory("dir", ((Element)(selected[0].Tag)).Path);
-                    directoryHandler.RootDirectory = root;
-                    displayHandler.RootDirectory = root;
-                    displayHandler.TabControl.SelectedTab.Tag = root.Path;
-                    fileWatcher.ChangeRoot(root);
-
-                    Refresh();
+                    GoTo(root);
                 }
                 else if (selected[0].Tag.GetType().BaseType.Name.Equals("File"))
                 {

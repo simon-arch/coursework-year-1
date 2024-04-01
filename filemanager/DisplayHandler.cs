@@ -7,6 +7,7 @@ namespace filemanager
         public ListView? ListView { get; set; }
         public ImageList? ImageList { get; set; }
         public Label? Label { get; set; }
+        public Label? UsedStorage { get; set; }
         public PictureBox? PictureBox { get; set; }
         public RootDirectory? RootDirectory { get; set; }
         public TabControl? TabControl { get; set; }
@@ -71,6 +72,11 @@ namespace filemanager
             {
                 ComboBox.Items.Add(drive.Name);
             }
+        }
+        public void StorageSize()
+        {
+            DriveInfo drive = new DriveInfo(ComboBox.GetItemText(ComboBox.SelectedItem));
+            UsedStorage.Text = $"{drive.TotalFreeSpace/1000:n0} k of {drive.TotalSize/1000:n0} k free";
         }
         public void SelectDrive()
         {

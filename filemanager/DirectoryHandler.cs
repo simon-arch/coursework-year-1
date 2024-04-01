@@ -101,5 +101,10 @@ namespace filemanager
                 }
             }
         }
+        public IEnumerable<string> SearchFor(string path, string key)
+        {
+            IEnumerable<string> files = System.IO.Directory.EnumerateFiles(path, $"*{key}*", new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true });
+            return files;
+        }
     }
 }
