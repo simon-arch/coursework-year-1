@@ -8,5 +8,6 @@
         public string Extension { get; set; }
         public string CreationDate { get; set; }
         public virtual void Delete() { }
+        public virtual void Edit() { }
     }
 }

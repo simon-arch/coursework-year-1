@@ -1,4 +1,7 @@
-﻿namespace filemanager
+﻿using System.IO.Compression;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+namespace filemanager
 {
     public class DirectoryHandler
     {
@@ -68,6 +71,26 @@
                 }
                 dir.CreationDate = d.CreationTime.ToString();
                 RootDirectory.appendDirectory(dir);
+            }
+        }
+        public void ZipArchive(System.Windows.Forms.ListView.SelectedListViewItemCollection source)
+        {
+            foreach (ListViewItem elem in source)
+            {
+                if (elem.Tag.GetType().Name == "Directory")
+                {
+                    ZipFile.CreateFromDirectory(((Element)elem.Tag).Path, ((Element)elem.Tag).Path + ".zip");
+                }
+            }
+        }   
+        public void UnzipArchive(System.Windows.Forms.ListView.SelectedListViewItemCollection source)
+        {
+            foreach (ListViewItem elem in source)
+            {
+                if (elem.Tag.GetType().Name == "UnknownFile")
+                {
+                    ZipFile.ExtractToDirectory(((Element)elem.Tag).Path, ((Element)elem.Tag).Path + " Unzipped");
+                }
             }
         }
     }

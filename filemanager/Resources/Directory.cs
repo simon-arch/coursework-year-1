@@ -12,11 +12,17 @@
         }
         public static void Create(string path)
         {
-            System.IO.Directory.CreateDirectory(path + @"/New Folder");
+            string dirname = @"/New Folder";
+            string newname = dirname;
+            for (int i = 1; System.IO.Directory.Exists(path + newname); i++) 
+            {
+                newname = string.Format("{0}({1})", dirname, i);
+            }
+            System.IO.Directory.CreateDirectory(path + newname);
         }
         public override void Delete()
         {
-            System.IO.Directory.Delete(Path);
+            System.IO.Directory.Delete(Path, true);
         }
     }
 }

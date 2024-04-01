@@ -10,6 +10,7 @@ namespace filemanager
         public PictureBox? PictureBox { get; set; }
         public RootDirectory? RootDirectory { get; set; }
         public TabControl? TabControl { get; set; }
+        public TabControl? PreviewBox { get; set; }
         public ComboBox? ComboBox { get; set; }
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
@@ -134,6 +135,14 @@ namespace filemanager
             {
                 NotificationHandler.invokeError(2);
             }
+        }
+        public bool isSelected()
+        {
+            if (ListView.SelectedItems.Count > 0)
+            {
+                return true;
+            } 
+            return false;
         }
         public void SelectAll()
         {
