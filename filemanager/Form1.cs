@@ -13,20 +13,14 @@ namespace filemanager
             InitializeEvents();
             Refresh();
         }
-
-        private void ComboBoxSelectedIndexChanged(object? sender, EventArgs e)
-        {
-            directoryHandler.RootDirectory.Path = displayHandler.ComboBox.SelectedItem.ToString()!;
-            displayHandler.TabControl.SelectedTab.Tag = directoryHandler.RootDirectory.Path;
-            Refresh();
-        }
-
         private new void Refresh()
         {
             directoryHandler.PopulateDirectory();
             displayHandler.populateList();
             displayHandler.populateDrives();
             displayHandler.getFileInfo();
+            displayHandler.SelectDrive();
+            displayHandler.Preview("clear");
         }
         private void InitializeHandlers()
         {
@@ -74,6 +68,13 @@ namespace filemanager
             newFolderTool.Click += (sender, e) => { Directory.Create(directoryHandler.RootDirectory.Path); Refresh(); };
             deleteTool.Click += (sender, e) => { displayHandler.DeleteSelection(); Refresh(); };
 
+            displayHandler.ComboBox.SelectionChangeCommitted += (sender, e) =>
+            {
+                directoryHandler.RootDirectory.Path = displayHandler.ComboBox.SelectedItem.ToString()!;
+                displayHandler.TabControl.SelectedTab.Tag = directoryHandler.RootDirectory.Path;
+                Refresh();
+            };
+
             //fileWatcher.Watcher.Created += (sender, e) => { Refresh(); };
             //fileWatcher.Watcher.Renamed += (sender, e) => { Refresh(); };
             //fileWatcher.Watcher.Deleted += (sender, e) => { Refresh(); };
@@ -82,7 +83,6 @@ namespace filemanager
             unzipTool.Click += (sender, e) => { directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); };
 
             displayHandler.TabControl.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
-            displayHandler.ComboBox.SelectedIndexChanged += ComboBoxSelectedIndexChanged;
             exitTool.Click += (sender, e) => { Close(); };
 
             deleteTabTool.Click += (sender, e) => { displayHandler.DeleteTab(); };
@@ -100,7 +100,7 @@ namespace filemanager
             pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
             copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); };
             viewTool.Click += OnDoubleClick;
-            editTool.Click += (sender, e) => { if(displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
+            editTool.Click += (sender, e) => { if (displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
 
             invertSelectionTool.Click += (sender, e) => { displayHandler.InvertSelection(); };
 
@@ -119,12 +119,17 @@ namespace filemanager
                 switch (displayHandler.ListView.SelectedItems[0].Tag.GetType().Name)
                 {
                     case "ImageFile":
-                        displayHandler.PreviewImage();
+                        displayHandler.Preview("image");
                         displayHandler.PreviewBox.SelectedIndex = 0;
                         break;
 
+                    case "DocumentFile":
+                        displayHandler.Preview("document");
+                        displayHandler.PreviewBox.SelectedIndex = 1;
+                        break;
+
                     default:
-                        displayHandler.PictureBox.ImageLocation = null;
+                        displayHandler.Preview("clear");
                         break;
                 }
             }

@@ -13,6 +13,11 @@ namespace filemanager
 
             {".mp4", "video"},
             {".mp3", "audio"},
+
+            {".txt", "document"},
+            {".doc", "document"},
+            {".xml", "document"},
+            {".pdf", "document"},
         };
         public RootDirectory RootDirectory { get; set; }
         public DirectoryHandler() { }
@@ -43,6 +48,9 @@ namespace filemanager
                             break;
                         case "audio":
                             file = new AudioFile();
+                            break;
+                        case "document":
+                            file = new DocumentFile();
                             break;
                     }
                 }

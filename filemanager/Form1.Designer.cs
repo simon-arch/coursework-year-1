@@ -58,7 +58,8 @@
             label2 = new Label();
             tabControl2 = new TabControl();
             imagePreviewTab = new TabPage();
-            textPreviewTab = new TabPage();
+            documentPreviewTab = new TabPage();
+            richTextBox1 = new RichTextBox();
             toolStrip = new ToolStrip();
             quickRefreshTool = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -88,6 +89,7 @@
             tabPage1.SuspendLayout();
             tabControl2.SuspendLayout();
             imagePreviewTab.SuspendLayout();
+            documentPreviewTab.SuspendLayout();
             toolStrip.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -224,10 +226,11 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(227, 242);
+            pictureBox1.Size = new Size(223, 238);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -236,10 +239,10 @@
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.090909F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.5454559F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.63636374F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32.727272F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.00000048F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.9999962F));
             tableLayoutPanel1.Controls.Add(comboBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
@@ -248,10 +251,10 @@
             tableLayoutPanel1.Location = new Point(25, 77);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 10.2040815F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 77.55102F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 6.122449F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 6.122449F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 92.68292F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.317074F));
             tableLayoutPanel1.Size = new Size(751, 340);
             tableLayoutPanel1.TabIndex = 3;
             // 
@@ -261,7 +264,7 @@
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(3, 3);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(62, 28);
+            comboBox1.Size = new Size(74, 28);
             comboBox1.TabIndex = 5;
             // 
             // tabControl1
@@ -271,10 +274,10 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.ItemSize = new Size(74, 25);
-            tabControl1.Location = new Point(3, 37);
+            tabControl1.Location = new Point(3, 38);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(471, 257);
+            tabControl1.Size = new Size(476, 253);
             tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -283,7 +286,7 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(463, 224);
+            tabPage1.Size = new Size(468, 220);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
@@ -295,7 +298,7 @@
             listView1.Location = new Point(0, 0);
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(463, 224);
+            listView1.Size = new Size(468, 220);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -304,7 +307,7 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(463, 224);
+            tabPage2.Size = new Size(468, 220);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
@@ -314,9 +317,9 @@
             label1.AutoSize = true;
             tableLayoutPanel1.SetColumnSpan(label1, 2);
             label1.Dock = DockStyle.Fill;
-            label1.Location = new Point(3, 297);
+            label1.Location = new Point(3, 294);
             label1.Name = "label1";
-            label1.Size = new Size(471, 20);
+            label1.Size = new Size(476, 25);
             label1.TabIndex = 6;
             label1.Text = "totalFileSize";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -325,9 +328,9 @@
             // 
             label2.AutoSize = true;
             label2.Dock = DockStyle.Fill;
-            label2.Location = new Point(71, 0);
+            label2.Location = new Point(83, 0);
             label2.Name = "label2";
-            label2.Size = new Size(403, 34);
+            label2.Size = new Size(396, 35);
             label2.TabIndex = 7;
             label2.Text = "totalFreeSpace";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -336,13 +339,13 @@
             // 
             tabControl2.Appearance = TabAppearance.FlatButtons;
             tabControl2.Controls.Add(imagePreviewTab);
-            tabControl2.Controls.Add(textPreviewTab);
+            tabControl2.Controls.Add(documentPreviewTab);
             tabControl2.Dock = DockStyle.Fill;
             tabControl2.ItemSize = new Size(0, 1);
-            tabControl2.Location = new Point(507, 37);
+            tabControl2.Location = new Point(511, 38);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(241, 257);
+            tabControl2.Size = new Size(237, 253);
             tabControl2.SizeMode = TabSizeMode.Fixed;
             tabControl2.TabIndex = 8;
             // 
@@ -352,20 +355,33 @@
             imagePreviewTab.Location = new Point(4, 5);
             imagePreviewTab.Name = "imagePreviewTab";
             imagePreviewTab.Padding = new Padding(3);
-            imagePreviewTab.Size = new Size(233, 248);
+            imagePreviewTab.Size = new Size(229, 244);
             imagePreviewTab.TabIndex = 0;
             imagePreviewTab.Text = "image";
             imagePreviewTab.UseVisualStyleBackColor = true;
             // 
-            // textPreviewTab
+            // documentPreviewTab
             // 
-            textPreviewTab.Location = new Point(4, 5);
-            textPreviewTab.Name = "textPreviewTab";
-            textPreviewTab.Padding = new Padding(3);
-            textPreviewTab.Size = new Size(233, 248);
-            textPreviewTab.TabIndex = 1;
-            textPreviewTab.Text = "text";
-            textPreviewTab.UseVisualStyleBackColor = true;
+            documentPreviewTab.Controls.Add(richTextBox1);
+            documentPreviewTab.Location = new Point(4, 5);
+            documentPreviewTab.Name = "documentPreviewTab";
+            documentPreviewTab.Padding = new Padding(3);
+            documentPreviewTab.Size = new Size(229, 244);
+            documentPreviewTab.TabIndex = 1;
+            documentPreviewTab.Text = "text";
+            documentPreviewTab.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
+            richTextBox1.Dock = DockStyle.Fill;
+            richTextBox1.Location = new Point(3, 3);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
+            richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical;
+            richTextBox1.Size = new Size(223, 238);
+            richTextBox1.TabIndex = 0;
+            richTextBox1.Text = "";
             // 
             // toolStrip
             // 
@@ -540,11 +556,12 @@
             imageList1.ColorDepth = ColorDepth.Depth8Bit;
             imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
             imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "59.ico");
-            imageList1.Images.SetKeyName(1, "39.ico");
-            imageList1.Images.SetKeyName(2, "30.ico");
-            imageList1.Images.SetKeyName(3, "61.ico");
-            imageList1.Images.SetKeyName(4, "83.ico");
+            imageList1.Images.SetKeyName(0, "11.ico");
+            imageList1.Images.SetKeyName(1, "8.ico");
+            imageList1.Images.SetKeyName(2, "2.ico");
+            imageList1.Images.SetKeyName(3, "12.ico");
+            imageList1.Images.SetKeyName(4, "13.ico");
+            imageList1.Images.SetKeyName(5, "19.ico");
             // 
             // Form1
             // 
@@ -569,6 +586,7 @@
             tabPage1.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
             imagePreviewTab.ResumeLayout(false);
+            documentPreviewTab.ResumeLayout(false);
             toolStrip.ResumeLayout(false);
             toolStrip.PerformLayout();
             menuStrip1.ResumeLayout(false);
@@ -628,7 +646,8 @@
         private Label label2;
         private TabControl tabControl2;
         private TabPage imagePreviewTab;
-        private TabPage textPreviewTab;
+        private TabPage documentPreviewTab;
         private ToolStripButton unzipTool;
+        private RichTextBox richTextBox1;
     }
 }

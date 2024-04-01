@@ -12,13 +12,37 @@
         }
         public static void Create(string path)
         {
-            string dirname = @"/New Folder";
-            string newname = dirname;
-            for (int i = 1; System.IO.Directory.Exists(path + newname); i++) 
+            DialogBox dialog = new DialogBox("Folder creation", "Folder name:", "Create", "Cancel");
+
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                newname = string.Format("{0}({1})", dirname, i);
+                string dirname = dialog.ReturnValue;
+                dialog.Dispose();
+
+                if (dirname == "") {
+                    dirname = "New Folder";
+                }
+
+                string newname = dirname;
+
+                foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                {
+                    newname = newname.Replace(c, '_');
+                }
+
+                for (int i = 1; System.IO.Directory.Exists(path + @"/" + newname); i++)
+                {
+                    newname = string.Format("{0}({1})", dirname, i);
+                }
+
+                System.IO.Directory.CreateDirectory(path + @"/" + newname);
+            } 
+            else
+            {
+                dialog.Dispose();
+                return;
             }
-            System.IO.Directory.CreateDirectory(path + newname);
         }
         public override void Delete()
         {

@@ -72,6 +72,10 @@ namespace filemanager
                 ComboBox.Items.Add(drive.Name);
             }
         }
+        public void SelectDrive()
+        {
+            ComboBox.SelectedIndex = ComboBox.Items.IndexOf(Path.GetPathRoot(RootDirectory.Path));
+        }
         public void setView(int view)
         {
             ViewType = view;
@@ -224,9 +228,21 @@ namespace filemanager
             RootDirectory.Path = TabControl.SelectedTab.Tag.ToString()!;
             ListView = (ListView)TabControl.SelectedTab.Controls[0];
         }
-        public void PreviewImage()
+        public void Preview(string type)
         {
-            PictureBox.ImageLocation = ((File)ListView.SelectedItems[0].Tag).Path;
+            switch (type)
+            {
+                case "image":
+                    ((PictureBox)PreviewBox.TabPages[0].Controls[0]).ImageLocation = ((File)ListView.SelectedItems[0].Tag).Path;
+                    break;
+                case "document":
+                    ((RichTextBox)PreviewBox.TabPages[1].Controls[0]).Text = System.IO.File.ReadAllText(((File)ListView.SelectedItems[0].Tag).Path);
+                    break;
+                case "clear":
+                    ((PictureBox)PreviewBox.TabPages[0].Controls[0]).ImageLocation = null;
+                    ((RichTextBox)PreviewBox.TabPages[1].Controls[0]).Text = null;
+                    break;
+            }
         }
     }
 }
