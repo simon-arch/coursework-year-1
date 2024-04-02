@@ -1,3 +1,4 @@
+using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace filemanager
@@ -53,24 +54,20 @@ namespace filemanager
         }
         private void InitializeEvents()
         {
+            // DISPLAY HANDLER EVENTS
+            displayHandler.ListView.Click += OnClick;
             displayHandler.ListView.DoubleClick += OnDoubleClick;
             displayHandler.ListView.SelectedIndexChanged += OnClick;
-            displayHandler.ListView.Click += OnClick;
+            displayHandler.ListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
 
-            listViewSetView0.Click += (sender, e) => { displayHandler.setView(0); };
-            listViewSetView1.Click += (sender, e) => { displayHandler.setView(1); };
-            listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); };
-            listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
-            listViewSetView4.Click += (sender, e) => { displayHandler.setView(4); };
-
-            selectAllTool.Click += (sender, e) => { displayHandler.SelectAll(); };
-            unselectAllTool.Click += (sender, e) => { displayHandler.UnselectAll(); };
-            selectAllWithTheSameExtensionTool.Click += (sender, e) => { displayHandler.SelectAllWithTheSameExtension(); };
-            copySelectedNamesToClipboardTool.Click += (sender, e) => { displayHandler.CopyNamesToClipboard(false); };
-            copyNamesWithPathToClipboardTool.Click += (sender, e) => { displayHandler.CopyNamesToClipboard(true); };
-
-            newFolderTool.Click += (sender, e) => { Directory.Create(directoryHandler.RootDirectory.Path); Refresh(); };
-            deleteTool.Click += (sender, e) => { displayHandler.DeleteSelection(); Refresh(); };
+            displayHandler.TabControl.SelectedIndexChanged += (sender, e) =>
+            {
+                displayHandler.getFileInfo();
+                displayHandler.CreateTab(true, OnClick, OnDoubleClick);
+                directoryHandler.RootDirectory.Path = displayHandler.TabControl.SelectedTab.Tag!.ToString()!;
+                displayHandler.ListView = (ListView)displayHandler.TabControl.SelectedTab.Controls[0];
+                Refresh();
+            };
 
             displayHandler.ComboBox.SelectionChangeCommitted += (sender, e) =>
             {
@@ -78,17 +75,84 @@ namespace filemanager
                 displayHandler.TabControl.SelectedTab.Tag = directoryHandler.RootDirectory.Path;
                 Refresh();
             };
+            //
 
+            // FILE WATCHER EVENTS (CURRENTLY DEPRECATED)
             //fileWatcher.Watcher.Created += (sender, e) => { Refresh(); };
             //fileWatcher.Watcher.Renamed += (sender, e) => { Refresh(); };
             //fileWatcher.Watcher.Deleted += (sender, e) => { Refresh(); };
+            //
 
+            // EDIT TAB
+            refreshTool.Click += (sender, e) => { Refresh(); };
+            pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
+
+            //////// MOVE TO CLASS METHOD LATER
+            renameTool.Click += (sender, e) =>
+            {
+                if (displayHandler.ListView.SelectedItems.Count > 0)
+                {
+                    DialogBox dialog = new DialogBox("Rename tool", "New name:", "Rename", "Cancel");
+
+                    DialogResult result = dialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        string newname = dialog.ReturnValue;
+                        dialog.Dispose();
+                        if (newname != "")
+                        {
+                            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                            {
+                                newname = newname.Replace(c, '_');
+                            }
+                            Element renameTarget = (Element)displayHandler.ListView.SelectedItems[0].Tag;
+                            string oldpath = renameTarget.Path;
+                            string newpath = Path.Combine(Path.GetDirectoryName(renameTarget.Path), newname + renameTarget.Extension);
+
+                            System.IO.Directory.Move(oldpath, newpath);
+                            Refresh();
+                        }
+                    }
+                }
+            };
+            //
+
+            // SHOW TAB
+            showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
+            showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
+            //
+
+            // TABS TAB
+            createTabTool.Click += (sender, e) => { displayHandler.CreateTab(false, OnClick, OnDoubleClick); Refresh(); };
+            deleteTabTool.Click += (sender, e) => { displayHandler.DeleteTab(); };
+            //
+
+            // MARK TAB
+            selectAllTool.Click += (sender, e) => { displayHandler.SelectAll(); };
+            unselectAllTool.Click += (sender, e) => { displayHandler.UnselectAll(); };
+            selectAllWithTheSameExtensionTool.Click += (sender, e) => { displayHandler.SelectAllWithTheSameExtension(); };
+            copySelectedNamesToClipboardTool.Click += (sender, e) => { displayHandler.CopyNamesToClipboard(false); };
+            copyNamesWithPathToClipboardTool.Click += (sender, e) => { displayHandler.CopyNamesToClipboard(true); };
+            //
+
+            // TOOL STRIP
+            quickRefreshTool.Click += (sender, e) => { Refresh(); };
+            goUpTool.Click += (sender, e) =>
+            {
+                if (Path.GetPathRoot(directoryHandler.RootDirectory.Path) != directoryHandler.RootDirectory.Path)
+                {
+                    RootDirectory root = new RootDirectory("dir", Path.GetDirectoryName(directoryHandler.RootDirectory.Path));
+                    GoTo(root);
+                }
+            };
+            listViewSetView0.Click += (sender, e) => { displayHandler.setView(0); };
+            listViewSetView1.Click += (sender, e) => { displayHandler.setView(1); };
+            listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); };
+            listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
+            listViewSetView4.Click += (sender, e) => { displayHandler.setView(4); };
+            invertSelectionTool.Click += (sender, e) => { displayHandler.InvertSelection(); };
             zipTool.Click += (sender, e) => { directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); };
             unzipTool.Click += (sender, e) => { directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); };
-
-            displayHandler.TabControl.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
-            exitTool.Click += (sender, e) => { Close(); };
-
             searchTool.Click += (sender, e) =>
             {
                 SearchBox searchBox = new SearchBox(directoryHandler.RootDirectory.Path);
@@ -108,51 +172,24 @@ namespace filemanager
                 {
                     searchBox.Dispose();
                 }
-
-                //IEnumerable<string> a = directoryHandler.SearchFor(directoryHandler.RootDirectory.Path);
             };
-
-            deleteTabTool.Click += (sender, e) => { displayHandler.DeleteTab(); };
-
-            displayHandler.TabControl.SelectedIndexChanged += (sender, e) =>
-            {
-                displayHandler.CreateTab(true, OnClick, OnDoubleClick);
-                directoryHandler.RootDirectory.Path = displayHandler.TabControl.SelectedTab.Tag!.ToString()!;
-                displayHandler.ListView = (ListView)displayHandler.TabControl.SelectedTab.Controls[0];
-                Refresh();
-            };
-
-            goUpTool.Click += (sender, e) =>
-            {
-                if (Path.GetPathRoot(directoryHandler.RootDirectory.Path) != directoryHandler.RootDirectory.Path)
-                {
-                    RootDirectory root = new RootDirectory("dir", Path.GetDirectoryName(directoryHandler.RootDirectory.Path));
-                    GoTo(root);
-                }
-            };
-            createTabTool.Click += (sender, e) => { displayHandler.CreateTab(false, OnClick, OnDoubleClick); Refresh(); };
-
-            pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
-            copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); };
-            viewTool.Click += OnDoubleClick;
-            editTool.Click += (sender, e) => { if (displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
-
-            invertSelectionTool.Click += (sender, e) => { displayHandler.InvertSelection(); };
-
-            refreshTool.Click += (sender, e) => { Refresh(); };
-            quickRefreshTool.Click += (sender, e) => { Refresh(); };
-
-            showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
-            showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
-
             notepadTool.Click += (sender, e) =>
             {
                 System.Diagnostics.Process explorer = new System.Diagnostics.Process();
                 explorer.StartInfo.FileName = "notepad";
                 explorer.Start();
             };
+            //
 
-            displayHandler.ListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
+            // BOTTOM TAB
+            viewTool.Click += OnDoubleClick;
+            editTool.Click += (sender, e) => { if (displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
+            copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); };
+            //moveTool.Click += (sender,e) => { }
+            newFolderTool.Click += (sender, e) => { Directory.Create(directoryHandler.RootDirectory.Path); Refresh(); };
+            deleteTool.Click += (sender, e) => { displayHandler.DeleteSelection(); Refresh(); };
+            exitTool.Click += (sender, e) => { Close(); };
+            //
         }
         public void GoTo(RootDirectory root)
         {

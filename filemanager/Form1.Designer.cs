@@ -34,6 +34,7 @@
             editTab = new ToolStripMenuItem();
             refreshTool = new ToolStripMenuItem();
             pasteTool = new ToolStripMenuItem();
+            renameTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
             showHiddenFoldersTool = new ToolStripMenuItem();
@@ -110,7 +111,7 @@
             // 
             // editTab
             // 
-            editTab.DropDownItems.AddRange(new ToolStripItem[] { refreshTool, pasteTool });
+            editTab.DropDownItems.AddRange(new ToolStripItem[] { refreshTool, pasteTool, renameTool });
             editTab.Name = "editTab";
             editTab.Size = new Size(49, 24);
             editTab.Text = "Edit";
@@ -119,15 +120,21 @@
             // 
             refreshTool.Name = "refreshTool";
             refreshTool.ShortcutKeys = Keys.F1;
-            refreshTool.Size = new Size(177, 26);
+            refreshTool.Size = new Size(224, 26);
             refreshTool.Text = "Refresh";
             // 
             // pasteTool
             // 
             pasteTool.Name = "pasteTool";
             pasteTool.ShortcutKeys = Keys.Control | Keys.V;
-            pasteTool.Size = new Size(177, 26);
+            pasteTool.Size = new Size(224, 26);
             pasteTool.Text = "Paste";
+            // 
+            // renameTool
+            // 
+            renameTool.Name = "renameTool";
+            renameTool.Size = new Size(224, 26);
+            renameTool.Text = "Rename";
             // 
             // showTab
             // 
@@ -311,7 +318,7 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(468, 220);
+            tabPage2.Size = new Size(468, 225);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
@@ -370,7 +377,7 @@
             documentPreviewTab.Location = new Point(4, 5);
             documentPreviewTab.Name = "documentPreviewTab";
             documentPreviewTab.Padding = new Padding(3);
-            documentPreviewTab.Size = new Size(229, 244);
+            documentPreviewTab.Size = new Size(229, 249);
             documentPreviewTab.TabIndex = 1;
             documentPreviewTab.Text = "text";
             documentPreviewTab.UseVisualStyleBackColor = true;
@@ -383,7 +390,7 @@
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
             richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical;
-            richTextBox1.Size = new Size(223, 238);
+            richTextBox1.Size = new Size(223, 243);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             // 
@@ -692,5 +699,6 @@
         private ToolStripButton searchTool;
         private ToolStripButton goUpTool;
         private ToolStripButton notepadTool;
+        private ToolStripMenuItem renameTool;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public class DisplayHandler
     {

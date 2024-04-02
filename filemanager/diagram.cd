@@ -10,14 +10,14 @@
   <Class Name="filemanager.DirectoryHandler" Collapsed="true">
     <Position X="4" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAUAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAAIAAA=</HashCode>
+      <HashCode>AAAAAUAAAAAAAAAAAAAAAAAAAEEAAAEAAAAAAAAIAAA=</HashCode>
       <FileName>DirectoryHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DisplayHandler" Collapsed="true">
     <Position X="4" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAQESJAAAAAIBEAEQAIABAgIAEggARACAkABCI=</HashCode>
+      <HashCode>AAAAAIAQESJAAEAAIBEAEQAIABAgIAEggARACAkABCI=</HashCode>
       <FileName>DisplayHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -52,7 +52,7 @@
   <Class Name="filemanager.Form1" Collapsed="true">
     <Position X="4" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AYSgCAsQjyLBBFA0AwCIIAIyEgAAAkCBIiASIYDBFSA=</HashCode>
+      <HashCode>AYSgCA8SjyLBBFA0AwCIIAIyEgAAAkKBIiASIYDBFaE=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
