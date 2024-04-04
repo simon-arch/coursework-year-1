@@ -32,7 +32,7 @@
             searchForTextBox = new TextBox();
             searchInTextBox = new TextBox();
             fileListView = new ListView();
-            Files = new ColumnHeader();
+            filesColumn = new ColumnHeader();
             label1 = new Label();
             label2 = new Label();
             pathSelectButton = new Button();
@@ -42,6 +42,7 @@
             goToFileButton = new Button();
             folderBrowserDialog1 = new FolderBrowserDialog();
             tableLayoutPanel1 = new TableLayoutPanel();
+            includeSubdirs = new CheckBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -65,21 +66,22 @@
             // fileListView
             // 
             fileListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            fileListView.Columns.AddRange(new ColumnHeader[] { Files });
+            fileListView.Columns.AddRange(new ColumnHeader[] { filesColumn });
             tableLayoutPanel1.SetColumnSpan(fileListView, 4);
             fileListView.FullRowSelect = true;
-            fileListView.HeaderStyle = ColumnHeaderStyle.None;
+            fileListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             fileListView.Location = new Point(3, 111);
+            fileListView.MultiSelect = false;
             fileListView.Name = "fileListView";
             fileListView.Size = new Size(436, 270);
             fileListView.TabIndex = 2;
             fileListView.UseCompatibleStateImageBehavior = false;
             fileListView.View = View.Details;
             // 
-            // Files
+            // filesColumn
             // 
-            Files.Text = "Files";
-            Files.Width = 435;
+            filesColumn.Text = "[0 files and 0 directories found]";
+            filesColumn.Width = 435;
             // 
             // label1
             // 
@@ -169,6 +171,7 @@
             tableLayoutPanel1.Controls.Add(cancelButton, 3, 1);
             tableLayoutPanel1.Controls.Add(searchInTextBox, 1, 1);
             tableLayoutPanel1.Controls.Add(goToFileButton, 3, 2);
+            tableLayoutPanel1.Controls.Add(includeSubdirs, 1, 2);
             tableLayoutPanel1.Location = new Point(12, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
@@ -178,6 +181,19 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(442, 384);
             tableLayoutPanel1.TabIndex = 10;
+            // 
+            // includeSubdirs
+            // 
+            includeSubdirs.AutoSize = true;
+            includeSubdirs.Checked = true;
+            includeSubdirs.CheckState = CheckState.Checked;
+            tableLayoutPanel1.SetColumnSpan(includeSubdirs, 2);
+            includeSubdirs.Location = new Point(111, 75);
+            includeSubdirs.Name = "includeSubdirs";
+            includeSubdirs.Size = new Size(188, 24);
+            includeSubdirs.TabIndex = 10;
+            includeSubdirs.Text = "Search in subdirectories";
+            includeSubdirs.UseVisualStyleBackColor = true;
             // 
             // SearchBox
             // 
@@ -206,7 +222,8 @@
         private Button cancelButton;
         private Button goToFileButton;
         private FolderBrowserDialog folderBrowserDialog1;
-        private ColumnHeader Files;
+        private ColumnHeader filesColumn;
         private TableLayoutPanel tableLayoutPanel1;
+        private CheckBox includeSubdirs;
     }
 }

@@ -33,7 +33,6 @@
             menuStrip = new MenuStrip();
             editTab = new ToolStripMenuItem();
             refreshTool = new ToolStripMenuItem();
-            pasteTool = new ToolStripMenuItem();
             renameTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
@@ -81,7 +80,8 @@
             viewTool = new ToolStripMenuItem();
             editTool = new ToolStripMenuItem();
             copyTool = new ToolStripMenuItem();
-            moveToolStripMenuItem = new ToolStripMenuItem();
+            cutTool = new ToolStripMenuItem();
+            pasteTool = new ToolStripMenuItem();
             newFolderTool = new ToolStripMenuItem();
             deleteTool = new ToolStripMenuItem();
             exitTool = new ToolStripMenuItem();
@@ -111,7 +111,7 @@
             // 
             // editTab
             // 
-            editTab.DropDownItems.AddRange(new ToolStripItem[] { refreshTool, pasteTool, renameTool });
+            editTab.DropDownItems.AddRange(new ToolStripItem[] { refreshTool, renameTool });
             editTab.Name = "editTab";
             editTab.Size = new Size(49, 24);
             editTab.Text = "Edit";
@@ -120,20 +120,13 @@
             // 
             refreshTool.Name = "refreshTool";
             refreshTool.ShortcutKeys = Keys.F1;
-            refreshTool.Size = new Size(224, 26);
+            refreshTool.Size = new Size(165, 26);
             refreshTool.Text = "Refresh";
-            // 
-            // pasteTool
-            // 
-            pasteTool.Name = "pasteTool";
-            pasteTool.ShortcutKeys = Keys.Control | Keys.V;
-            pasteTool.Size = new Size(224, 26);
-            pasteTool.Text = "Paste";
             // 
             // renameTool
             // 
             renameTool.Name = "renameTool";
-            renameTool.Size = new Size(224, 26);
+            renameTool.Size = new Size(165, 26);
             renameTool.Text = "Rename";
             // 
             // showTab
@@ -267,7 +260,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.317074F));
             tableLayoutPanel1.Size = new Size(751, 340);
-            tableLayoutPanel1.TabIndex = 3;
+            tableLayoutPanel1.TabIndex = 6;
             // 
             // comboBox1
             // 
@@ -310,7 +303,7 @@
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
             listView1.Size = new Size(468, 225);
-            listView1.TabIndex = 0;
+            listView1.TabIndex = 7;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
             // tabPage2
@@ -544,7 +537,7 @@
             // 
             menuStrip1.Dock = DockStyle.Bottom;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { viewTool, editTool, copyTool, moveToolStripMenuItem, newFolderTool, deleteTool, exitTool });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { viewTool, editTool, copyTool, cutTool, pasteTool, newFolderTool, deleteTool, exitTool });
             menuStrip1.Location = new Point(0, 422);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -561,8 +554,9 @@
             // editTool
             // 
             editTool.Name = "editTool";
-            editTool.Size = new Size(49, 24);
-            editTool.Text = "Edit";
+            editTool.ShortcutKeys = Keys.F4;
+            editTool.Size = new Size(68, 24);
+            editTool.Text = "F4 Edit";
             // 
             // copyTool
             // 
@@ -571,25 +565,33 @@
             copyTool.Size = new Size(76, 24);
             copyTool.Text = "F5 Copy";
             // 
-            // moveToolStripMenuItem
+            // cutTool
             // 
-            moveToolStripMenuItem.Name = "moveToolStripMenuItem";
-            moveToolStripMenuItem.Size = new Size(60, 24);
-            moveToolStripMenuItem.Text = "Move";
+            cutTool.Name = "cutTool";
+            cutTool.ShortcutKeys = Keys.F6;
+            cutTool.Size = new Size(64, 24);
+            cutTool.Text = "F6 Cut";
+            // 
+            // pasteTool
+            // 
+            pasteTool.Name = "pasteTool";
+            pasteTool.ShortcutKeys = Keys.F7;
+            pasteTool.Size = new Size(76, 24);
+            pasteTool.Text = "F7 Paste";
             // 
             // newFolderTool
             // 
             newFolderTool.Name = "newFolderTool";
-            newFolderTool.ShortcutKeys = Keys.F7;
+            newFolderTool.ShortcutKeys = Keys.F8;
             newFolderTool.Size = new Size(114, 24);
-            newFolderTool.Text = "F7 NewFolder";
+            newFolderTool.Text = "F8 NewFolder";
             // 
             // deleteTool
             // 
             deleteTool.Name = "deleteTool";
-            deleteTool.ShortcutKeys = Keys.F8;
+            deleteTool.ShortcutKeys = Keys.F9;
             deleteTool.Size = new Size(86, 24);
-            deleteTool.Text = "F8 Delete";
+            deleteTool.Text = "F9 Delete";
             // 
             // exitTool
             // 
@@ -683,7 +685,7 @@
         private ToolStripMenuItem viewTool;
         private ToolStripMenuItem editTool;
         private ToolStripMenuItem copyToolStripMenuItem;
-        private ToolStripMenuItem moveToolStripMenuItem;
+        private ToolStripMenuItem cutTool;
         private ToolStripMenuItem newFolderTool;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ToolStripMenuItem exitTool;
@@ -700,5 +702,6 @@
         private ToolStripButton goUpTool;
         private ToolStripButton notepadTool;
         private ToolStripMenuItem renameTool;
+        private ToolStripMenuItem f8PasteToolStripMenuItem;
     }
 }

@@ -30,7 +30,7 @@
                 if((ShowHidden && d.IsHidden) || d.IsHidden == false)
                 {
                     ListViewItem dirItem = new ListViewItem();
-                    dirItem.Text = d.Name;
+                    dirItem.Text = $"[{d.Name}]";
                     dirItem.SubItems.Add("");
                     dirItem.SubItems.Add("<DIR>");
                     dirItem.SubItems.Add(d.CreationDate);

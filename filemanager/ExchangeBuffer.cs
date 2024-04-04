@@ -2,13 +2,11 @@
 {
     public class ExchangeBuffer
     {
+        public Queue<Element> SourceItems { get; set; }
         public List<Element> Buffer { get; set; }
-        public ExchangeBuffer() {
-            Buffer = new List<Element>();
-        }
-        public void Add(Element element)
-        {
-            Buffer.Add(element);
+        public bool Cut { get; set; }
+        public ExchangeBuffer() { 
+            SourceItems = new Queue<Element>();
         }
         public void Copy(ListView.SelectedListViewItemCollection listitems)
         {
@@ -17,39 +15,41 @@
                 Clear();
                 for (int i = 0; i < listitems.Count; i++)
                 {
-                    Add((Element)listitems[i].Tag);
+                    SourceItems.Enqueue(((Element)listitems[i].Tag));
                 }
             }
         }
-        public void Paste(string newPath) 
+        public void Paste(string targetPath) 
         {
-            string pathBuffer = newPath;
-            foreach (Element element in Buffer)
+            foreach (Element sourceItem in SourceItems)
             {
-                if (element.GetType().BaseType!.Name.Equals("File"))
+                if (sourceItem.GetType().BaseType!.Name.Equals("File")) ///// MOVE SYSTEM.IO METHODS TO CLASS METHODS (FILE.MOVE, FILE.COPY, etc ...)
                 {
-                    newPath = Path.Combine(newPath, $"{element.Name}{element.Extension}");
-                    if (Buffer[0].Path != newPath)
+                    if (Cut)
                     {
-                        System.IO.File.Copy(element.Path, newPath, true);
-                        newPath = pathBuffer;
+                        System.IO.File.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
                     }
                     else
                     {
-                        NotificationHandler.invokeError(1);
-                        break;
+                        System.IO.File.Copy(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
                     }
                 }
-
-                //if (element.GetType().Name.Equals("Directory"))
-                //{
-                //    //
-                //}
+                else if (sourceItem.GetType().Name.Equals("Directory"))
+                {
+                    if (Cut)
+                    {
+                        System.IO.Directory.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
+                    }
+                    else
+                    {
+                        /// IMPLEMENT FOLDER COPY
+                    }   
+                }
             }
         }
         public void Clear()
         {
-            Buffer.Clear();
+            SourceItems.Clear();
         }
     }
 }

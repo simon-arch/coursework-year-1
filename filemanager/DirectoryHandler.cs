@@ -28,7 +28,7 @@ namespace filemanager
             FileInfo[] files = directoryInfo.GetFiles();
 
             RootDirectory.appendDirectory(new Directory(
-                    "[..]", 
+                    "..", 
                     Path.GetFullPath(Path.Combine(RootDirectory.Path, @".."))
                     )
                 );
@@ -70,7 +70,7 @@ namespace filemanager
             foreach (DirectoryInfo d in dirs)
             {
                 Directory dir = new Directory( // ??????
-                        $"[{d.Name}]",
+                        d.Name,
                         d.FullName
                     );
                 if (d.Attributes.HasFlag(FileAttributes.Hidden))
@@ -101,10 +101,16 @@ namespace filemanager
                 }
             }
         }
-        public IEnumerable<string> SearchFor(string path, string key)
+        public IEnumerable<string> SearchForFiles(string path, string key, bool isRecursive)
         {
-            IEnumerable<string> files = System.IO.Directory.EnumerateFiles(path, $"*{key}*", new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true });
-            return files;
+            IEnumerable<string> result = System.IO.Directory.EnumerateFiles(path, $"*{key}*", new EnumerationOptions { RecurseSubdirectories = isRecursive, IgnoreInaccessible = true });
+            return result;
         }
+        public IEnumerable<string> SearchForDirectories(string path, string key, bool isRecursive)
+        {
+            IEnumerable<string> result = System.IO.Directory.EnumerateDirectories(path, $"*{key}*", new EnumerationOptions { RecurseSubdirectories = isRecursive, IgnoreInaccessible = true });
+            return result;
+        }
+
     }
 }

@@ -1,6 +1,3 @@
-using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-
 namespace filemanager
 {
     public partial class Form1 : Form
@@ -85,7 +82,6 @@ namespace filemanager
 
             // EDIT TAB
             refreshTool.Click += (sender, e) => { Refresh(); };
-            pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
 
             //////// MOVE TO CLASS METHOD LATER
             renameTool.Click += (sender, e) =>
@@ -165,6 +161,7 @@ namespace filemanager
                     RootDirectory root = new RootDirectory("dir", targetPath);
                     GoTo(root);
                     ListViewItem targetItem = displayHandler.ListView.FindItemWithText(targetName);
+                    if (targetItem == null) { targetItem = displayHandler.ListView.FindItemWithText("[" + targetName + "]"); }
                     targetItem.Selected = true;
                     targetItem.EnsureVisible();
                 }
@@ -184,8 +181,9 @@ namespace filemanager
             // BOTTOM TAB
             viewTool.Click += OnDoubleClick;
             editTool.Click += (sender, e) => { if (displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
-            copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); };
-            //moveTool.Click += (sender,e) => { }
+            copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
+            cutTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
+            pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
             newFolderTool.Click += (sender, e) => { Directory.Create(directoryHandler.RootDirectory.Path); Refresh(); };
             deleteTool.Click += (sender, e) => { displayHandler.DeleteSelection(); Refresh(); };
             exitTool.Click += (sender, e) => { Close(); };

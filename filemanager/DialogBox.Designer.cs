@@ -49,14 +49,14 @@
             userInput.Location = new Point(12, 57);
             userInput.Name = "userInput";
             userInput.Size = new Size(292, 27);
-            userInput.TabIndex = 1;
+            userInput.TabIndex = 0;
             // 
             // okButton
             // 
             okButton.Location = new Point(12, 104);
             okButton.Name = "okButton";
             okButton.Size = new Size(139, 32);
-            okButton.TabIndex = 0;
+            okButton.TabIndex = 1;
             okButton.Text = "okButton";
             okButton.UseVisualStyleBackColor = true;
             // 
