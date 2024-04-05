@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace filemanager
 {
     public partial class Form1 : Form
@@ -13,9 +15,10 @@ namespace filemanager
             InitializeEvents();
             Refresh();
         }
-        private new void Refresh()
+        private void Refresh()
         {
             directoryHandler.PopulateDirectory();
+            displayHandler.DisposeEvent.Cancel();
             displayHandler.populateList();
             displayHandler.populateDrives();
             displayHandler.getFileInfo();
@@ -23,6 +26,14 @@ namespace filemanager
             displayHandler.StorageSize();
             displayHandler.Preview("clear");
         }
+        // CRUDE FIX FOR NOW - REMOVES FLICKERING FROM LIST BY ENABLING DOUBLE BUFFER
+        public static void SetDoubleBuffering(System.Windows.Forms.Control control, bool value)
+        {
+            System.Reflection.PropertyInfo controlProperty = typeof(System.Windows.Forms.Control)
+                .GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            controlProperty.SetValue(control, value, null);
+        }
+        // CRUDE FIX FOR NOW
         private void InitializeHandlers()
         {
             displayHandler.ListView = listView1;
@@ -35,6 +46,7 @@ namespace filemanager
 
             displayHandler.PreviewBox = tabControl2;
 
+            SetDoubleBuffering(displayHandler.ListView, true); // CRUDE FIX FOR NOW
             displayHandler.setView(1);
             displayHandler.ShowExtensions = false;
             displayHandler.ShowHidden = false;
@@ -80,46 +92,13 @@ namespace filemanager
             //fileWatcher.Watcher.Deleted += (sender, e) => { Refresh(); };
             //
 
-            // EDIT TAB
-            refreshTool.Click += (sender, e) => { Refresh(); };
-
-            //////// MOVE TO CLASS METHOD LATER
-            renameTool.Click += (sender, e) =>
-            {
-                if (displayHandler.ListView.SelectedItems.Count > 0)
-                {
-                    DialogBox dialog = new DialogBox("Rename tool", "New name:", "Rename", "Cancel");
-
-                    DialogResult result = dialog.ShowDialog();
-                    if (result == DialogResult.OK)
-                    {
-                        string newname = dialog.ReturnValue;
-                        dialog.Dispose();
-                        if (newname != "")
-                        {
-                            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
-                            {
-                                newname = newname.Replace(c, '_');
-                            }
-                            Element renameTarget = (Element)displayHandler.ListView.SelectedItems[0].Tag;
-                            string oldpath = renameTarget.Path;
-                            string newpath = Path.Combine(Path.GetDirectoryName(renameTarget.Path), newname + renameTarget.Extension);
-
-                            System.IO.Directory.Move(oldpath, newpath);
-                            Refresh();
-                        }
-                    }
-                }
-            };
-            //
-
             // SHOW TAB
             showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
             showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
             //
 
             // TABS TAB
-            createTabTool.Click += (sender, e) => { displayHandler.CreateTab(false, OnClick, OnDoubleClick); Refresh(); };
+            createTabTool.Click += (sender, e) => { displayHandler.CreateTab(false, OnClick, OnDoubleClick); };
             deleteTabTool.Click += (sender, e) => { displayHandler.DeleteTab(); };
             //
 
@@ -184,11 +163,42 @@ namespace filemanager
             //
 
             // BOTTOM TAB
+            refreshTool.Click += (sender, e) =>
+            {
+                Refresh();
+            };
+            renameTool.Click += (sender, e) =>
+            {
+                if (displayHandler.ListView.SelectedItems.Count > 0)
+                {
+                    DialogBox dialog = new DialogBox("Rename tool", "New name:", "Rename", "Cancel");
+
+                    DialogResult result = dialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        string newname = (dialog.ReturnValue).Trim();
+                        dialog.Dispose();
+                        if (newname != "" && newname != ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Name)
+                        {
+                            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                            {
+                                newname = newname.Replace(c, '_');
+                            }
+                            Element renameTarget = (Element)displayHandler.ListView.SelectedItems[0].Tag;
+                            string oldpath = renameTarget.Path;
+                            string newpath = Path.Combine(Path.GetDirectoryName(renameTarget.Path), newname + renameTarget.Extension);
+
+                            System.IO.Directory.Move(oldpath, newpath);
+                            Refresh();
+                        }
+                    }
+                }
+            };
             viewTool.Click += OnDoubleClick;
             editTool.Click += (sender, e) => { if (displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
             copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
             cutTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
-            pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
+            pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); Refresh(); };
             newFolderTool.Click += (sender, e) => { Directory.Create(directoryHandler.RootDirectory.Path); Refresh(); };
             deleteTool.Click += (sender, e) => { displayHandler.DeleteSelection(); Refresh(); };
             exitTool.Click += (sender, e) => { Close(); };

@@ -25,25 +25,42 @@
             {
                 if (sourceItem.GetType().BaseType!.Name.Equals("File")) ///// MOVE SYSTEM.IO METHODS TO CLASS METHODS (FILE.MOVE, FILE.COPY, etc ...)
                 {
-                    if (Cut)
+                    try
                     {
-                        System.IO.File.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
+                        if (Cut)
+                        {
+                            System.IO.File.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
+                        }
+                        else
+                        {
+                            System.IO.File.Copy(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        System.IO.File.Copy(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
+                        MessageBox.Show(ex.Message);
+                        break;
                     }
                 }
                 else if (sourceItem.GetType().Name.Equals("Directory"))
                 {
-                    if (Cut)
+                    try
                     {
-                        System.IO.Directory.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
+                        if (Cut)
+                        {
+                            System.IO.Directory.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                            /// IMPLEMENT FOLDER COPY
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        /// IMPLEMENT FOLDER COPY
-                    }   
+                        MessageBox.Show(ex.Message);
+                        break;
+                    }
                 }
             }
         }

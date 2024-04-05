@@ -1,4 +1,7 @@
-﻿namespace filemanager
+﻿using System.ComponentModel;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace filemanager
 {
     public class DisplayHandler
     {
@@ -14,54 +17,79 @@
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
-        public void populateList()
+        public CancellationTokenSource DisposeEvent { get; set; }
+        public DisplayHandler()
         {
-            ListView.Clear();
-            ListView.SmallImageList = ImageList;
-            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
-
-            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Size", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
-
-            foreach (Directory d in RootDirectory.getDirs())
+            DisposeEvent = new CancellationTokenSource();
+        }
+        public async Task populateList()
+        {
+            DisposeEvent.Cancel();
+            CancellationTokenSource token = new CancellationTokenSource();
+            DisposeEvent = token;
+            await Task.Run(() =>
             {
-                if((ShowHidden && d.IsHidden) || d.IsHidden == false)
+                SynchronizedInvoke(TabControl, delegate () {
+                    TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
+                });
+
+                SynchronizedInvoke(ListView, delegate () {
+                    ListView.Clear();
+                    ListView.SmallImageList = ImageList;
+                    ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
+                    ListView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
+                    ListView.Columns.Add("Size", 100, HorizontalAlignment.Left);
+                    ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
+                });
+
+                foreach (Directory d in RootDirectory.getDirs())
                 {
-                    ListViewItem dirItem = new ListViewItem();
-                    dirItem.Text = $"[{d.Name}]";
-                    dirItem.SubItems.Add("");
-                    dirItem.SubItems.Add("<DIR>");
-                    dirItem.SubItems.Add(d.CreationDate);
-                    dirItem.Tag = d;
-                    dirItem.ImageIndex = d.IconIndex;
-                    ListView.Items.Add(dirItem);
+                    if (!token.Token.IsCancellationRequested)
+                    {
+                        if ((ShowHidden && d.IsHidden) || d.IsHidden == false)
+                        {
+                            SynchronizedInvoke(ListView, delegate () {
+                                ListViewItem dirItem = new ListViewItem();
+                                dirItem.Text = $"[{d.Name}]";
+                                dirItem.SubItems.Add("");
+                                dirItem.SubItems.Add("<DIR>");
+                                dirItem.SubItems.Add(d.CreationDate);
+                                dirItem.Tag = d;
+                                dirItem.ImageIndex = d.IconIndex;
+                                ListView.Items.Add(dirItem);
+                            });
+                        }
+                    }
                 }
-            }
 
-            foreach (File f in RootDirectory.getFiles())
-            {
-                ListViewItem fileItem = new ListViewItem();
-                switch (ShowExtensions)
+                foreach (File f in RootDirectory.getFiles())
                 {
-                    case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
-                    case false: fileItem.Text = $"{f.Name}"; break;
+                    if (!token.Token.IsCancellationRequested)
+                    {
+                        SynchronizedInvoke(ListView, delegate () {
+                            ListViewItem fileItem = new ListViewItem();
+                            switch (ShowExtensions)
+                            {
+                                case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
+                                case false: fileItem.Text = $"{f.Name}"; break;
+                            }
+                            fileItem.SubItems.Add(f.Extension.Replace(".", ""));
+                            fileItem.SubItems.Add($"{f.Size:n0}");
+                            fileItem.SubItems.Add(f.CreationDate);
+                            fileItem.Tag = f;
+                            fileItem.ImageIndex = f.IconIndex;
+                            ListView.Items.Add(fileItem);
+                        });
+                    }
                 }
-                fileItem.SubItems.Add(f.Extension);
-                fileItem.SubItems.Add(f.Size.ToString());
-                fileItem.SubItems.Add(f.CreationDate);
-                fileItem.Tag = f;
-                fileItem.ImageIndex = f.IconIndex;
-                ListView.Items.Add(fileItem);
-            }
 
-            //// TEMP ?????
-            foreach (ColumnHeader column in ListView.Columns)
-            {
-                column.Width = -2;
-            }
-            //// TEMP ?????
+                foreach (ColumnHeader column in ListView.Columns)
+                {
+                    SynchronizedInvoke(ListView, delegate () {
+                        column.Width = -2;
+                    });
+                }
+            });
         }
         public void populateDrives()
         {
@@ -92,12 +120,17 @@
             long selectedSize = 0;
             int count = 0;
             int selectedCount = 0;
-            foreach(File f in RootDirectory.getFiles())
+            int folders = 0;
+            int selectedFolders = 0;
+            foreach (File f in RootDirectory.getFiles())
             {
                 totalSize += f.Size;
                 count++;
             }
-
+            foreach (Directory f in RootDirectory.getDirs())
+            {
+                folders++;
+            }
             if (ListView.SelectedItems.Count > 0)
             {
                 foreach (ListViewItem f in ListView.SelectedItems)
@@ -107,10 +140,14 @@
                         selectedSize += ((File)f.Tag).Size;
                         selectedCount++;
                     }
+                    if (f.Tag.GetType().Name.Equals("Directory"))
+                    {
+                        selectedFolders++;
+                    }
                 }
             }
 
-            Label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s)";
+            Label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s), {selectedFolders} / {folders} dir(s)";
         }
         public void InvertSelection()
         {
@@ -228,6 +265,7 @@
             ListView.DoubleClick += OnDoubleClick;
             ListView.SelectedIndexChanged += OnClick;
             ListView.SelectedIndexChanged += (sender, e) => { getFileInfo(); };
+            SetDoubleBuffering(ListView, true);
 
             RootDirectory.Path = TabControl.SelectedTab.Tag.ToString()!;
             ListView = (ListView)TabControl.SelectedTab.Controls[0];
@@ -247,6 +285,22 @@
                     ((RichTextBox)PreviewBox.TabPages[1].Controls[0]).Text = null;
                     break;
             }
+        }
+        // TEMP TEMP TEMP TEMP TEMP
+        public static void SetDoubleBuffering(System.Windows.Forms.Control control, bool value)
+        {
+            System.Reflection.PropertyInfo controlProperty = typeof(System.Windows.Forms.Control)
+                .GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            controlProperty.SetValue(control, value, null);
+        }
+        static void SynchronizedInvoke(ISynchronizeInvoke sync, Action action)
+        {
+            if (!sync.InvokeRequired)
+            {
+                action();
+                return;
+            }
+            sync.Invoke(action, new object[] { });
         }
     }
 }

@@ -31,9 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip = new MenuStrip();
-            editTab = new ToolStripMenuItem();
-            refreshTool = new ToolStripMenuItem();
-            renameTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
             showHiddenFoldersTool = new ToolStripMenuItem();
@@ -79,6 +76,8 @@
             toolStripSeparator4 = new ToolStripSeparator();
             diskInfoTool = new ToolStripButton();
             menuStrip1 = new MenuStrip();
+            refreshTool = new ToolStripMenuItem();
+            renameTool = new ToolStripMenuItem();
             viewTool = new ToolStripMenuItem();
             editTool = new ToolStripMenuItem();
             copyTool = new ToolStripMenuItem();
@@ -104,32 +103,12 @@
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(20, 20);
-            menuStrip.Items.AddRange(new ToolStripItem[] { editTab, showTab, tabsTab, markToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { showTab, tabsTab, markToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(800, 28);
             menuStrip.TabIndex = 1;
             menuStrip.Text = "menuStrip";
-            // 
-            // editTab
-            // 
-            editTab.DropDownItems.AddRange(new ToolStripItem[] { refreshTool, renameTool });
-            editTab.Name = "editTab";
-            editTab.Size = new Size(49, 24);
-            editTab.Text = "Edit";
-            // 
-            // refreshTool
-            // 
-            refreshTool.Name = "refreshTool";
-            refreshTool.ShortcutKeys = Keys.F1;
-            refreshTool.Size = new Size(165, 26);
-            refreshTool.Text = "Refresh";
-            // 
-            // renameTool
-            // 
-            renameTool.Name = "renameTool";
-            renameTool.Size = new Size(165, 26);
-            renameTool.Text = "Rename";
             // 
             // showTab
             // 
@@ -266,7 +245,9 @@
             // 
             // comboBox1
             // 
+            comboBox1.Cursor = Cursors.Hand;
             comboBox1.Dock = DockStyle.Fill;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(3, 3);
             comboBox1.Name = "comboBox1";
@@ -554,12 +535,26 @@
             // 
             menuStrip1.Dock = DockStyle.Bottom;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { viewTool, editTool, copyTool, cutTool, pasteTool, newFolderTool, deleteTool, exitTool });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { refreshTool, renameTool, viewTool, editTool, copyTool, cutTool, pasteTool, newFolderTool, deleteTool, exitTool });
             menuStrip1.Location = new Point(0, 422);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
+            // 
+            // refreshTool
+            // 
+            refreshTool.Name = "refreshTool";
+            refreshTool.ShortcutKeys = Keys.F1;
+            refreshTool.Size = new Size(91, 24);
+            refreshTool.Text = "F1 Refresh";
+            // 
+            // renameTool
+            // 
+            renameTool.Name = "renameTool";
+            renameTool.ShortcutKeys = Keys.F2;
+            renameTool.Size = new Size(96, 24);
+            renameTool.Text = "F2 Rename";
             // 
             // viewTool
             // 
@@ -662,9 +657,7 @@
 
         #endregion
         private MenuStrip menuStrip;
-        private ToolStripMenuItem editTab;
         private ToolStripMenuItem deleteTool;
-        private ToolStripMenuItem refreshTool;
         private FileSystemWatcher fileSystemWatcher1;
         private ToolStripMenuItem copyTool;
         private ToolStripMenuItem pasteTool;
@@ -718,9 +711,10 @@
         private ToolStripButton searchTool;
         private ToolStripButton goUpTool;
         private ToolStripButton notepadTool;
-        private ToolStripMenuItem renameTool;
         private ToolStripMenuItem f8PasteToolStripMenuItem;
         private ToolStripButton diskInfoTool;
         private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem renameTool;
+        private ToolStripMenuItem refreshTool;
     }
 }

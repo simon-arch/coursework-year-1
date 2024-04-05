@@ -1,4 +1,6 @@
-﻿namespace filemanager
+﻿using System.Diagnostics;
+
+namespace filemanager
 {
     public class ImageFile : File
     {
@@ -8,6 +10,10 @@
             : base(name, path, size, extension) { }
         public ImageFile() { 
             IconIndex = 2;
+        }
+        public override void Edit()
+        {
+            Process.Start("mspaint.exe", Path);
         }
     }
 }

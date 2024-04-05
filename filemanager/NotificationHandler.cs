@@ -7,7 +7,7 @@
             switch(type)
             {
                 case 1:
-                    MessageBox.Show("Source path equals target path!");
+                    MessageBox.Show("Wrong path!");
                 break;
 
                 case 2:
