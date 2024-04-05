@@ -149,6 +149,11 @@ namespace filemanager
             invertSelectionTool.Click += (sender, e) => { displayHandler.InvertSelection(); };
             zipTool.Click += (sender, e) => { directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); };
             unzipTool.Click += (sender, e) => { directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); };
+            diskInfoTool.Click += (sender, e) =>
+            {
+                DiskChart disk = new DiskChart(displayHandler.ComboBox.Text);
+                DialogResult result = disk.ShowDialog();
+            };
             searchTool.Click += (sender, e) =>
             {
                 SearchBox searchBox = new SearchBox(directoryHandler.RootDirectory.Path);

@@ -76,6 +76,8 @@
             toolStripSeparator3 = new ToolStripSeparator();
             searchTool = new ToolStripButton();
             notepadTool = new ToolStripButton();
+            toolStripSeparator4 = new ToolStripSeparator();
+            diskInfoTool = new ToolStripButton();
             menuStrip1 = new MenuStrip();
             viewTool = new ToolStripMenuItem();
             editTool = new ToolStripMenuItem();
@@ -390,7 +392,7 @@
             // toolStrip
             // 
             toolStrip.ImageScalingSize = new Size(20, 20);
-            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool });
+            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool });
             toolStrip.Location = new Point(0, 28);
             toolStrip.Name = "toolStrip";
             toolStrip.Size = new Size(800, 25);
@@ -532,6 +534,21 @@
             notepadTool.Name = "notepadTool";
             notepadTool.Size = new Size(29, 22);
             notepadTool.Text = "Open Notepad";
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 25);
+            // 
+            // diskInfoTool
+            // 
+            diskInfoTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            diskInfoTool.Image = (Image)resources.GetObject("diskInfoTool.Image");
+            diskInfoTool.ImageScaling = ToolStripItemImageScaling.None;
+            diskInfoTool.ImageTransparentColor = Color.Black;
+            diskInfoTool.Name = "diskInfoTool";
+            diskInfoTool.Size = new Size(29, 22);
+            diskInfoTool.Text = "Show Disk Info";
             // 
             // menuStrip1
             // 
@@ -703,5 +720,7 @@
         private ToolStripButton notepadTool;
         private ToolStripMenuItem renameTool;
         private ToolStripMenuItem f8PasteToolStripMenuItem;
+        private ToolStripButton diskInfoTool;
+        private ToolStripSeparator toolStripSeparator4;
     }
 }
