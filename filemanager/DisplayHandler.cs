@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public class DisplayHandler
     {
@@ -17,22 +14,24 @@ namespace filemanager
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
+        public bool isBusy { get; set; }
         public CancellationTokenSource DisposeEvent { get; set; }
         public DisplayHandler()
         {
             DisposeEvent = new CancellationTokenSource();
+            isBusy = false;
         }
         public async Task populateList()
         {
             DisposeEvent.Cancel();
             CancellationTokenSource token = new CancellationTokenSource();
             DisposeEvent = token;
-            await Task.Run(() =>
+            await Task.Run(() => 
             {
+                isBusy = true;
                 SynchronizedInvoke(TabControl, delegate () {
                     TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
                 });
-
                 SynchronizedInvoke(ListView, delegate () {
                     ListView.Clear();
                     ListView.SmallImageList = ImageList;
@@ -89,6 +88,7 @@ namespace filemanager
                         column.Width = -2;
                     });
                 }
+                isBusy = false;
             });
         }
         public void populateDrives()
@@ -265,7 +265,7 @@ namespace filemanager
             ListView.DoubleClick += OnDoubleClick;
             ListView.SelectedIndexChanged += OnClick;
             ListView.SelectedIndexChanged += (sender, e) => { getFileInfo(); };
-            SetDoubleBuffering(ListView, true);
+            DoubleBuffering.SetDoubleBuffering(ListView, true);
 
             RootDirectory.Path = TabControl.SelectedTab.Tag.ToString()!;
             ListView = (ListView)TabControl.SelectedTab.Controls[0];
@@ -287,13 +287,7 @@ namespace filemanager
             }
         }
         // TEMP TEMP TEMP TEMP TEMP
-        public static void SetDoubleBuffering(System.Windows.Forms.Control control, bool value)
-        {
-            System.Reflection.PropertyInfo controlProperty = typeof(System.Windows.Forms.Control)
-                .GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            controlProperty.SetValue(control, value, null);
-        }
-        static void SynchronizedInvoke(ISynchronizeInvoke sync, Action action)
+        static void SynchronizedInvoke(System.ComponentModel.ISynchronizeInvoke sync, Action action)
         {
             if (!sync.InvokeRequired)
             {

@@ -6,6 +6,7 @@
         public SearchBox(string searchInPath)
         {
             InitializeComponent();
+            DoubleBuffering.SetDoubleBuffering(fileListView, true);
             searchInTextBox.Text = searchInPath;
             pathSelectButton.Click += (sender, e) =>
             {

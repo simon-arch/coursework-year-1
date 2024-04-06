@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace filemanager
 {
     public partial class Form1 : Form
@@ -26,14 +24,6 @@ namespace filemanager
             displayHandler.StorageSize();
             displayHandler.Preview("clear");
         }
-        // CRUDE FIX FOR NOW - REMOVES FLICKERING FROM LIST BY ENABLING DOUBLE BUFFER
-        public static void SetDoubleBuffering(System.Windows.Forms.Control control, bool value)
-        {
-            System.Reflection.PropertyInfo controlProperty = typeof(System.Windows.Forms.Control)
-                .GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            controlProperty.SetValue(control, value, null);
-        }
-        // CRUDE FIX FOR NOW
         private void InitializeHandlers()
         {
             displayHandler.ListView = listView1;
@@ -46,7 +36,7 @@ namespace filemanager
 
             displayHandler.PreviewBox = tabControl2;
 
-            SetDoubleBuffering(displayHandler.ListView, true); // CRUDE FIX FOR NOW
+            DoubleBuffering.SetDoubleBuffering(displayHandler.ListView, true);
             displayHandler.setView(1);
             displayHandler.ShowExtensions = false;
             displayHandler.ShowHidden = false;
@@ -86,12 +76,6 @@ namespace filemanager
             };
             //
 
-            // FILE WATCHER EVENTS (CURRENTLY DEPRECATED)
-            //fileWatcher.Watcher.Created += (sender, e) => { Refresh(); };
-            //fileWatcher.Watcher.Renamed += (sender, e) => { Refresh(); };
-            //fileWatcher.Watcher.Deleted += (sender, e) => { Refresh(); };
-            //
-
             // SHOW TAB
             showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
             showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(); };
@@ -120,7 +104,6 @@ namespace filemanager
                     GoTo(root);
                 }
             };
-            listViewSetView0.Click += (sender, e) => { displayHandler.setView(0); };
             listViewSetView1.Click += (sender, e) => { displayHandler.setView(1); };
             listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); };
             listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
@@ -144,16 +127,39 @@ namespace filemanager
                     searchBox.Dispose();
                     RootDirectory root = new RootDirectory("dir", targetPath);
                     GoTo(root);
-                    ListViewItem targetItem = displayHandler.ListView.FindItemWithText(targetName);
-                    if (targetItem == null) { targetItem = displayHandler.ListView.FindItemWithText("[" + targetName + "]"); }
-                    targetItem.Selected = true;
-                    targetItem.EnsureVisible();
                 }
                 else
                 {
                     searchBox.Dispose();
                 }
             };
+
+            searchTextBox.TextChanged += (sender, e) =>
+            {
+                foreach (ListViewItem listitem in displayHandler.ListView.Items)
+                {
+                    if (listitem != null)
+                    {
+                        if (listitem.Text.ToLower().Contains(searchTextBox.Text.ToLower()) && !searchTextBox.Text.Trim().Equals(""))
+                        {
+                            int n = displayHandler.ListView.Items.IndexOf(listitem);
+                            displayHandler.ListView.Items.RemoveAt(n);
+                            displayHandler.ListView.Items.Insert(1, listitem);
+                            listitem.ForeColor = Color.Black;
+                        }
+                        else if (searchTextBox.Text.Trim().Equals(""))
+                        {
+                            listitem.ForeColor = Color.Black;
+                            Refresh();
+                        }
+                        else
+                        {
+                            listitem.ForeColor = Color.Gray;
+                        }
+                    }
+                }
+            };
+
             notepadTool.Click += (sender, e) =>
             {
                 System.Diagnostics.Process explorer = new System.Diagnostics.Process();

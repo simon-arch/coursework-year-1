@@ -57,11 +57,11 @@
             imagePreviewTab = new TabPage();
             documentPreviewTab = new TabPage();
             richTextBox1 = new RichTextBox();
+            searchTextBox = new TextBox();
             toolStrip = new ToolStrip();
             quickRefreshTool = new ToolStripButton();
             goUpTool = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            listViewSetView0 = new ToolStripButton();
             listViewSetView1 = new ToolStripButton();
             listViewSetView2 = new ToolStripButton();
             listViewSetView3 = new ToolStripButton();
@@ -233,6 +233,7 @@
             tableLayoutPanel1.Controls.Add(label1, 0, 2);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
             tableLayoutPanel1.Controls.Add(tabControl2, 3, 1);
+            tableLayoutPanel1.Controls.Add(searchTextBox, 3, 2);
             tableLayoutPanel1.Location = new Point(25, 77);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
@@ -370,10 +371,18 @@
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             // 
+            // searchTextBox
+            // 
+            searchTextBox.Dock = DockStyle.Fill;
+            searchTextBox.Location = new Point(511, 297);
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.Size = new Size(237, 27);
+            searchTextBox.TabIndex = 9;
+            // 
             // toolStrip
             // 
             toolStrip.ImageScalingSize = new Size(20, 20);
-            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView0, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool });
+            toolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool });
             toolStrip.Location = new Point(0, 28);
             toolStrip.Name = "toolStrip";
             toolStrip.Size = new Size(800, 25);
@@ -405,16 +414,6 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 25);
-            // 
-            // listViewSetView0
-            // 
-            listViewSetView0.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            listViewSetView0.Image = (Image)resources.GetObject("listViewSetView0.Image");
-            listViewSetView0.ImageScaling = ToolStripItemImageScaling.None;
-            listViewSetView0.ImageTransparentColor = Color.Black;
-            listViewSetView0.Name = "listViewSetView0";
-            listViewSetView0.Size = new Size(29, 22);
-            listViewSetView0.Text = "Thumbnail View";
             // 
             // listViewSetView1
             // 
@@ -666,7 +665,6 @@
         private ToolStrip toolStrip;
         private ToolStripButton quickRefreshTool;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton listViewSetView0;
         private ToolStripButton listViewSetView1;
         private ToolStripButton listViewSetView2;
         private ToolStripButton listViewSetView3;
@@ -716,5 +714,6 @@
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem renameTool;
         private ToolStripMenuItem refreshTool;
+        private TextBox searchTextBox;
     }
 }

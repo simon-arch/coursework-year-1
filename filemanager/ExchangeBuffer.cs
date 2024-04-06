@@ -52,8 +52,15 @@
                         }
                         else
                         {
-                            System.IO.Directory.CreateDirectory(Path.Combine(targetPath, sourceItem.Name));
-                            CopyFilesRecursively(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
+                            if (!targetPath.Contains(sourceItem.Path))
+                            {
+                                System.IO.Directory.CreateDirectory(Path.Combine(targetPath, sourceItem.Name));
+                                CopyFilesRecursively(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException();
+                            }
                         }
                     }
                     catch (Exception ex)
