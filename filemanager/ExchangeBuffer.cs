@@ -52,8 +52,8 @@
                         }
                         else
                         {
-                            throw new NotImplementedException();
-                            /// IMPLEMENT FOLDER COPY
+                            System.IO.Directory.CreateDirectory(Path.Combine(targetPath, sourceItem.Name));
+                            CopyFilesRecursively(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
                         }
                     }
                     catch (Exception ex)
@@ -67,6 +67,19 @@
         public void Clear()
         {
             SourceItems.Clear();
+        }
+        public static void CopyFilesRecursively(string source, string target)
+        {
+            foreach (string dir in System.IO.Directory.GetDirectories(source))
+            {
+                string newpath = Path.Combine(target, Path.GetFileName(dir));
+                System.IO.Directory.CreateDirectory(newpath);
+                CopyFilesRecursively(dir, newpath);
+            }
+            foreach (string file in System.IO.Directory.GetFiles(source))
+            {
+                System.IO.File.Copy(file, Path.Combine(target, Path.GetFileName(file)));
+            }
         }
     }
 }
