@@ -6,9 +6,9 @@
         public int Height { get; set; }
         public int FrameRate { get; set; }
         public int BitRate { get; set; }
-        public VideoFile(string name, string path, long size, string extension)
-            : base(name, path, size, extension) { }
         public VideoFile() {
+            SubType = "videofile";
+            Type = "file";
             IconIndex = 4;
         }
     }

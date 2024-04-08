@@ -58,6 +58,7 @@
             documentPreviewTab = new TabPage();
             richTextBox1 = new RichTextBox();
             searchTextBox = new TextBox();
+            progressBar = new ProgressBar();
             toolStrip = new ToolStrip();
             quickRefreshTool = new ToolStripButton();
             goUpTool = new ToolStripButton();
@@ -215,7 +216,7 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(223, 243);
+            pictureBox1.Size = new Size(246, 220);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -223,25 +224,28 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnCount = 5;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.00000048F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.9999962F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 27F));
             tableLayoutPanel1.Controls.Add(comboBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
-            tableLayoutPanel1.Controls.Add(label1, 0, 2);
+            tableLayoutPanel1.Controls.Add(label1, 0, 3);
             tableLayoutPanel1.Controls.Add(label2, 1, 0);
-            tableLayoutPanel1.Controls.Add(tabControl2, 3, 1);
-            tableLayoutPanel1.Controls.Add(searchTextBox, 3, 2);
-            tableLayoutPanel1.Location = new Point(25, 77);
+            tableLayoutPanel1.Controls.Add(tabControl2, 3, 2);
+            tableLayoutPanel1.Controls.Add(searchTextBox, 3, 3);
+            tableLayoutPanel1.Controls.Add(progressBar, 0, 4);
+            tableLayoutPanel1.Location = new Point(25, 70);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowCount = 5;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 23F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 92.68292F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.317074F));
-            tableLayoutPanel1.Size = new Size(751, 340);
+            tableLayoutPanel1.Size = new Size(751, 347);
             tableLayoutPanel1.TabIndex = 6;
             // 
             // comboBox1
@@ -262,10 +266,11 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.ItemSize = new Size(74, 25);
-            tabControl1.Location = new Point(3, 33);
+            tabControl1.Location = new Point(3, 41);
             tabControl1.Name = "tabControl1";
+            tableLayoutPanel1.SetRowSpan(tabControl1, 2);
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(476, 258);
+            tabControl1.Size = new Size(460, 252);
             tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -274,7 +279,7 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(468, 225);
+            tabPage1.Size = new Size(452, 219);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
@@ -286,7 +291,7 @@
             listView1.Location = new Point(0, 0);
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(468, 225);
+            listView1.Size = new Size(452, 219);
             listView1.TabIndex = 7;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -295,7 +300,7 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(468, 225);
+            tabPage2.Size = new Size(452, 219);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
@@ -305,9 +310,9 @@
             label1.AutoSize = true;
             tableLayoutPanel1.SetColumnSpan(label1, 2);
             label1.Dock = DockStyle.Fill;
-            label1.Location = new Point(3, 294);
+            label1.Location = new Point(3, 296);
             label1.Name = "label1";
-            label1.Size = new Size(476, 25);
+            label1.Size = new Size(460, 32);
             label1.TabIndex = 6;
             label1.Text = "totalFileSize";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -318,7 +323,7 @@
             label2.Dock = DockStyle.Fill;
             label2.Location = new Point(83, 0);
             label2.Name = "label2";
-            label2.Size = new Size(396, 30);
+            label2.Size = new Size(380, 38);
             label2.TabIndex = 7;
             label2.Text = "totalFreeSpace";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -326,14 +331,16 @@
             // tabControl2
             // 
             tabControl2.Appearance = TabAppearance.FlatButtons;
+            tableLayoutPanel1.SetColumnSpan(tabControl2, 2);
             tabControl2.Controls.Add(imagePreviewTab);
             tabControl2.Controls.Add(documentPreviewTab);
             tabControl2.Dock = DockStyle.Fill;
             tabControl2.ItemSize = new Size(0, 1);
-            tabControl2.Location = new Point(511, 33);
+            tabControl2.Location = new Point(491, 61);
+            tabControl2.Margin = new Padding(0);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(237, 258);
+            tabControl2.Size = new Size(260, 235);
             tabControl2.SizeMode = TabSizeMode.Fixed;
             tabControl2.TabIndex = 8;
             // 
@@ -343,7 +350,7 @@
             imagePreviewTab.Location = new Point(4, 5);
             imagePreviewTab.Name = "imagePreviewTab";
             imagePreviewTab.Padding = new Padding(3);
-            imagePreviewTab.Size = new Size(229, 249);
+            imagePreviewTab.Size = new Size(252, 226);
             imagePreviewTab.TabIndex = 0;
             imagePreviewTab.Text = "image";
             imagePreviewTab.UseVisualStyleBackColor = true;
@@ -354,7 +361,7 @@
             documentPreviewTab.Location = new Point(4, 5);
             documentPreviewTab.Name = "documentPreviewTab";
             documentPreviewTab.Padding = new Padding(3);
-            documentPreviewTab.Size = new Size(229, 249);
+            documentPreviewTab.Size = new Size(252, 226);
             documentPreviewTab.TabIndex = 1;
             documentPreviewTab.Text = "text";
             documentPreviewTab.UseVisualStyleBackColor = true;
@@ -367,17 +374,26 @@
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
             richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical;
-            richTextBox1.Size = new Size(223, 243);
+            richTextBox1.Size = new Size(246, 220);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             // 
             // searchTextBox
             // 
+            tableLayoutPanel1.SetColumnSpan(searchTextBox, 2);
             searchTextBox.Dock = DockStyle.Fill;
-            searchTextBox.Location = new Point(511, 297);
+            searchTextBox.Location = new Point(497, 299);
+            searchTextBox.Margin = new Padding(6, 3, 6, 3);
             searchTextBox.Name = "searchTextBox";
-            searchTextBox.Size = new Size(237, 27);
+            searchTextBox.Size = new Size(248, 27);
             searchTextBox.TabIndex = 9;
+            // 
+            // progressBar
+            // 
+            progressBar.Location = new Point(3, 331);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(74, 13);
+            progressBar.TabIndex = 10;
             // 
             // toolStrip
             // 
@@ -621,6 +637,7 @@
             imageList1.Images.SetKeyName(3, "12.ico");
             imageList1.Images.SetKeyName(4, "13.ico");
             imageList1.Images.SetKeyName(5, "19.ico");
+            imageList1.Images.SetKeyName(6, "26.ico");
             // 
             // Form1
             // 
@@ -715,5 +732,6 @@
         private ToolStripMenuItem renameTool;
         private ToolStripMenuItem refreshTool;
         private TextBox searchTextBox;
+        private ProgressBar progressBar;
     }
 }

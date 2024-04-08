@@ -1,11 +1,10 @@
-﻿using System.IO.Compression;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using filemanager.Resources;
 
 namespace filemanager
 {
     public class DirectoryHandler
     {
-        protected static Dictionary<String, String> extensions = new Dictionary<String, String>()
+        protected static Dictionary<string, string> extensions = new Dictionary<string, string>()
         {
             {".jpg", "image"},
             {".png", "image"},
@@ -18,20 +17,20 @@ namespace filemanager
             {".doc", "document"},
             {".xml", "document"},
             {".pdf", "document"},
+
+            {".7z", "archive"},
+            {".rar", "archive"},
+            {".zip", "archive"},
         };
         public RootDirectory RootDirectory { get; set; }
-        public DirectoryHandler() { }
         public void PopulateDirectory()
         {
             RootDirectory.clearData();
             DirectoryInfo directoryInfo = new DirectoryInfo(RootDirectory.Path);
             FileInfo[] files = directoryInfo.GetFiles();
-
-            RootDirectory.appendDirectory(new Directory(
-                    "..", 
-                    Path.GetFullPath(Path.Combine(RootDirectory.Path, @".."))
-                    )
-                );
+            Directory root = new Directory("..", Path.GetFullPath(Path.Combine(RootDirectory.Path, @"..")));
+            root.IgnoreListing = true;
+            RootDirectory.appendDirectory(root);
 
             foreach (FileInfo f in files)
             {
@@ -52,6 +51,9 @@ namespace filemanager
                         case "document":
                             file = new DocumentFile();
                             break;
+                        case "archive":
+                            file = new ArchiveFile();
+                            break;
                     }
                 }
                 else
@@ -69,7 +71,7 @@ namespace filemanager
             DirectoryInfo[] dirs = directoryInfo.GetDirectories();
             foreach (DirectoryInfo d in dirs)
             {
-                Directory dir = new Directory( // ??????
+                Directory dir = new Directory(
                         d.Name,
                         d.FullName
                     );
@@ -83,21 +85,29 @@ namespace filemanager
         }
         public void ZipArchive(System.Windows.Forms.ListView.SelectedListViewItemCollection source)
         {
-            foreach (ListViewItem elem in source)
+            if(source.Count > 0)
             {
-                if (elem.Tag.GetType().Name == "Directory")
+                ExchangeBuffer buffer = new ExchangeBuffer();
+                string zipPath = Path.Combine(Path.GetDirectoryName(((Element)source[source.Count - 1].Tag).Path), $"temp-{DateTime.Now.Ticks.ToString()}");
+                System.IO.Directory.CreateDirectory(zipPath);
+
+                buffer.Copy(source);
+                buffer.Paste(zipPath);
+
+                if(buffer.SourceItems.Count > 0)
                 {
-                    ZipFile.CreateFromDirectory(((Element)elem.Tag).Path, ((Element)elem.Tag).Path + ".zip");
+                    System.IO.Compression.ZipFile.CreateFromDirectory(zipPath, $"{Path.Combine(zipPath, @"../")}{((Element)source[source.Count - 1].Tag).Name}.zip");
                 }
+                System.IO.Directory.Delete(zipPath, true);
             }
-        }   
-        public void UnzipArchive(System.Windows.Forms.ListView.SelectedListViewItemCollection source)
+        }
+        public void UnzipArchive(ListView.SelectedListViewItemCollection source)
         {
             foreach (ListViewItem elem in source)
             {
-                if (elem.Tag.GetType().Name == "UnknownFile")
+                if (((Element)elem.Tag).SubType == "archive")
                 {
-                    ZipFile.ExtractToDirectory(((Element)elem.Tag).Path, ((Element)elem.Tag).Path + " Unzipped");
+                    ((ArchiveFile)elem.Tag).Unzip();
                 }
             }
         }

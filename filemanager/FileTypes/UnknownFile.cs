@@ -4,6 +4,8 @@
     {
         public UnknownFile()
         {
+            SubType = "unknownfile";
+            Type = "file";
             IconIndex = 4;
         }
     }

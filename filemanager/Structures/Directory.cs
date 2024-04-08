@@ -9,8 +9,10 @@
             Path = path;
             IconIndex = 1;
             IsHidden = false;
+            Type = "directory";
+            IgnoreListing = false;
         }
-        public static void Create(string path)
+        public static void CreatePrompt(string path)
         {
             DialogBox dialog = new DialogBox("Folder creation", "Folder name:", "Create", "Cancel");
 

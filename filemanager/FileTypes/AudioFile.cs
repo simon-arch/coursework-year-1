@@ -10,6 +10,8 @@
             : base(name, path, size, extension) { }
         public AudioFile() {
             IconIndex = 3;
+            SubType = "audiofile";
+            Type = "file";
         }
     }
 }

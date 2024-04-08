@@ -1,25 +1,30 @@
+using filemanager.Resources;
+using System.Text.Json;
+
 namespace filemanager
 {
     public partial class Form1 : Form
     {
-        DisplayHandler displayHandler = new DisplayHandler();
         DirectoryHandler directoryHandler = new DirectoryHandler();
-        FileWatcher fileWatcher = new FileWatcher();
+        DisplayHandler displayHandler = new DisplayHandler();
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
+        ProcessHandler processHandler = new ProcessHandler();
+
         public Form1()
         {
             InitializeComponent();
             InitializeHandlers();
             InitializeEvents();
+            LoadSettings();
             Refresh();
         }
         private void Refresh()
         {
             directoryHandler.PopulateDirectory();
-            displayHandler.DisposeEvent.Cancel();
             displayHandler.populateList();
             displayHandler.populateDrives();
             displayHandler.getFileInfo();
+
             displayHandler.SelectDrive();
             displayHandler.StorageSize();
             displayHandler.Preview("clear");
@@ -33,26 +38,53 @@ namespace filemanager
             displayHandler.UsedStorage = label2;
             displayHandler.PictureBox = pictureBox1;
             displayHandler.ImageList = imageList1;
-
+            displayHandler.ProgressBar = progressBar;
             displayHandler.PreviewBox = tabControl2;
-
+            displayHandler.TextBox = searchTextBox;
             DoubleBuffering.SetDoubleBuffering(displayHandler.ListView, true);
             displayHandler.setView(1);
-            displayHandler.ShowExtensions = false;
-            displayHandler.ShowHidden = false;
+        }
+        private void LoadSettings()
+        {
+            string json = System.IO.File.ReadAllText(
+            Path.Combine(System.IO.Directory.GetCurrentDirectory(),
+            @"..\..\..\Resources\appsettings.json"));
+            UserSettings defaultSettings = new UserSettings();
+            UserSettings userSettings;
+            try
+            {
+                userSettings = JsonSerializer.Deserialize<UserSettings>(json);
+            }
+            catch (Exception ex)
+            {
+                userSettings = defaultSettings;
+                MessageBox.Show(ex.Message, "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            string startpath = userSettings.StartupFolder;
+            displayHandler.ShowExtensions = userSettings.ShowExtensions;
+            displayHandler.ShowHidden = userSettings.ShowHidden;
+            GoTo(new RootDirectory("dir", startpath));
+        }
+        private void SaveSettings()
+        {
+            UserSettings settings = new UserSettings
+            {
+                StartupFolder = displayHandler.RootDirectory.Path,
+                ShowExtensions = displayHandler.ShowExtensions,
+                ShowHidden = displayHandler.ShowHidden,
+            };
 
-            RootDirectory root = new RootDirectory("dir", @"D:\_SAVES");
-
-            fileWatcher.Watcher = fileSystemWatcher1;
-            displayHandler.TabControl.TabPages[0].Tag = root.Path;
-            directoryHandler.RootDirectory = root;
-            displayHandler.RootDirectory = root;
-            fileWatcher.ChangeRoot(root);
-
-            displayHandler.getFileInfo();
+            string json = JsonSerializer.Serialize(settings);
+            System.IO.File.WriteAllText(
+            Path.Combine(System.IO.Directory.GetCurrentDirectory(),
+            @"..\..\..\Resources\appsettings.json"), json);
         }
         private void InitializeEvents()
         {
+            // FORM EVENTS
+            this.FormClosed += (sender, e) => SaveSettings();
+            //
+
             // DISPLAY HANDLER EVENTS
             displayHandler.ListView.Click += OnClick;
             displayHandler.ListView.DoubleClick += OnDoubleClick;
@@ -63,9 +95,16 @@ namespace filemanager
             {
                 displayHandler.getFileInfo();
                 displayHandler.CreateTab(true, OnClick, OnDoubleClick);
-                directoryHandler.RootDirectory.Path = displayHandler.TabControl.SelectedTab.Tag!.ToString()!;
-                displayHandler.ListView = (ListView)displayHandler.TabControl.SelectedTab.Controls[0];
-                Refresh();
+                if (System.IO.Directory.Exists(displayHandler.TabControl.SelectedTab.Tag!.ToString()!))
+                {
+                    directoryHandler.RootDirectory.Path = displayHandler.TabControl.SelectedTab.Tag!.ToString()!;
+                    displayHandler.ListView = (ListView)displayHandler.TabControl.SelectedTab.Controls[0];
+                    Refresh();
+                }
+                else
+                {
+                    displayHandler.DeleteTab();
+                }
             };
 
             displayHandler.ComboBox.SelectionChangeCommitted += (sender, e) =>
@@ -75,6 +114,16 @@ namespace filemanager
                 Refresh();
             };
             //
+
+            // TEMP TEMP TEMP TEMP TEMP
+            displayHandler.PictureBox.Click += (sender, e) =>
+            {
+                if (displayHandler.PictureBox.Image != null)
+                {
+                    processHandler.RunProcess("explorer", displayHandler.PictureBox.ImageLocation);
+                }
+            };
+            // TEMP TEMP TEMP TEMP TEMP
 
             // SHOW TAB
             showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(); };
@@ -104,6 +153,7 @@ namespace filemanager
                     GoTo(root);
                 }
             };
+
             listViewSetView1.Click += (sender, e) => { displayHandler.setView(1); };
             listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); };
             listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); };
@@ -127,6 +177,9 @@ namespace filemanager
                     searchBox.Dispose();
                     RootDirectory root = new RootDirectory("dir", targetPath);
                     GoTo(root);
+                    ListViewItem targetItem = displayHandler.ListView.FindItemWithText(targetName);
+                    targetItem.Selected = true;
+                    targetItem.EnsureVisible();
                 }
                 else
                 {
@@ -134,69 +187,54 @@ namespace filemanager
                 }
             };
 
-            searchTextBox.TextChanged += (sender, e) =>
+            displayHandler.TextBox.TextChanged += (sender, e) =>
             {
                 foreach (ListViewItem listitem in displayHandler.ListView.Items)
                 {
-                    if (listitem != null)
+                    if (((Element)listitem.Tag).IgnoreListing == false)
                     {
-                        if (listitem.Text.ToLower().Contains(searchTextBox.Text.ToLower()) && !searchTextBox.Text.Trim().Equals(""))
+                        if (listitem != null)
                         {
-                            int n = displayHandler.ListView.Items.IndexOf(listitem);
-                            displayHandler.ListView.Items.RemoveAt(n);
-                            displayHandler.ListView.Items.Insert(1, listitem);
-                            listitem.ForeColor = Color.Black;
-                        }
-                        else if (searchTextBox.Text.Trim().Equals(""))
-                        {
-                            listitem.ForeColor = Color.Black;
-                            Refresh();
-                        }
-                        else
-                        {
-                            listitem.ForeColor = Color.Gray;
+                            if (listitem.Text.ToLower().Contains(displayHandler.TextBox.Text.ToLower())
+                            && !displayHandler.TextBox.Text.Trim().Equals(""))
+                            {
+                                int n = displayHandler.ListView.Items.IndexOf(listitem);
+                                displayHandler.ListView.Items.RemoveAt(n);
+                                displayHandler.ListView.Items.Insert(1, listitem);
+                                listitem.ForeColor = Color.Black;
+                            }
+                            else if (displayHandler.TextBox.Text.Trim().Equals(""))
+                            {
+                                listitem.ForeColor = Color.Black;
+                                Refresh();
+                                break;
+                            }
+                            else
+                            {
+                                listitem.ForeColor = Color.Gray;
+                            }
                         }
                     }
                 }
             };
 
-            notepadTool.Click += (sender, e) =>
-            {
-                System.Diagnostics.Process explorer = new System.Diagnostics.Process();
-                explorer.StartInfo.FileName = "notepad";
-                explorer.Start();
-            };
+            notepadTool.Click += (sender, e) => { processHandler.RunProcess("notepad", ""); };
             //
 
             // BOTTOM TAB
-            refreshTool.Click += (sender, e) =>
-            {
-                Refresh();
-            };
+            refreshTool.Click += (sender, e) => { Refresh(); };
             renameTool.Click += (sender, e) =>
             {
-                if (displayHandler.ListView.SelectedItems.Count > 0)
+                if (displayHandler.isSelected())
                 {
                     DialogBox dialog = new DialogBox("Rename tool", "New name:", "Rename", "Cancel");
-
                     DialogResult result = dialog.ShowDialog();
                     if (result == DialogResult.OK)
                     {
                         string newname = (dialog.ReturnValue).Trim();
                         dialog.Dispose();
-                        if (newname != "" && newname != ((Element)(displayHandler.ListView.SelectedItems[0].Tag)).Name)
-                        {
-                            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
-                            {
-                                newname = newname.Replace(c, '_');
-                            }
-                            Element renameTarget = (Element)displayHandler.ListView.SelectedItems[0].Tag;
-                            string oldpath = renameTarget.Path;
-                            string newpath = Path.Combine(Path.GetDirectoryName(renameTarget.Path), newname + renameTarget.Extension);
-
-                            System.IO.Directory.Move(oldpath, newpath);
-                            Refresh();
-                        }
+                        ((Element)displayHandler.ListView.SelectedItems[0].Tag).Rename(newname);
+                        Refresh();
                     }
                 }
             };
@@ -205,31 +243,30 @@ namespace filemanager
             copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
             cutTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
             pasteTool.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); Refresh(); };
-            newFolderTool.Click += (sender, e) => { Directory.Create(directoryHandler.RootDirectory.Path); Refresh(); };
+            newFolderTool.Click += (sender, e) => { Directory.CreatePrompt(directoryHandler.RootDirectory.Path); Refresh(); };
             deleteTool.Click += (sender, e) => { displayHandler.DeleteSelection(); Refresh(); };
             exitTool.Click += (sender, e) => { Close(); };
             //
         }
-        public void GoTo(RootDirectory root)
+        private void GoTo(RootDirectory root)
         {
             directoryHandler.RootDirectory = root;
             displayHandler.RootDirectory = root;
             displayHandler.TabControl.SelectedTab.Tag = root.Path;
-            fileWatcher.ChangeRoot(root);
             Refresh();
         }
         private void OnClick(object? sender, EventArgs e)
         {
-            if (displayHandler.ListView.SelectedItems.Count > 0)
+            if (displayHandler.isSelected())
             {
-                switch (displayHandler.ListView.SelectedItems[0].Tag.GetType().Name)
+                switch (((Element)displayHandler.ListView.SelectedItems[0].Tag).SubType)
                 {
-                    case "ImageFile":
+                    case "imagefile":
                         displayHandler.Preview("image");
                         displayHandler.PreviewBox.SelectedIndex = 0;
                         break;
 
-                    case "DocumentFile":
+                    case "documentfile":
                         displayHandler.Preview("document");
                         displayHandler.PreviewBox.SelectedIndex = 1;
                         break;
@@ -245,12 +282,12 @@ namespace filemanager
             ListView.SelectedListViewItemCollection selected = displayHandler.ListView.SelectedItems;
             if (selected.Count > 0)
             {
-                if (selected[0].Tag.GetType().Name.Equals("Directory"))
+                if (((Element)selected[0].Tag).Type == "directory")
                 {
                     RootDirectory root = new RootDirectory("dir", ((Element)(selected[0].Tag)).Path);
                     GoTo(root);
                 }
-                else if (selected[0].Tag.GetType().BaseType.Name.Equals("File"))
+                else if (((Element)selected[0].Tag).Type == "file")
                 {
                     ((File)selected[0].Tag).View();
                 }

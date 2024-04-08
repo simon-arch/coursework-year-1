@@ -11,8 +11,12 @@ namespace filemanager
             Path = path;
             Size = size;
             Extension = extension;
+            Type = "file";
         }
-        public File() { }
+        public File() 
+        {
+            Type = "file";
+        }
         public void View()
         {
             System.Diagnostics.Process explorer = new System.Diagnostics.Process();

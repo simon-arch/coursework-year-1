@@ -1,95 +1,77 @@
-﻿namespace filemanager
+﻿using System.Text.RegularExpressions;
+using filemanager.Resources;
+
+namespace filemanager
 {
     public class DisplayHandler
     {
         public ListView? ListView { get; set; }
         public ImageList? ImageList { get; set; }
         public Label? Label { get; set; }
+        public ProgressBar? ProgressBar { get; set; }
         public Label? UsedStorage { get; set; }
         public PictureBox? PictureBox { get; set; }
         public RootDirectory? RootDirectory { get; set; }
         public TabControl? TabControl { get; set; }
         public TabControl? PreviewBox { get; set; }
         public ComboBox? ComboBox { get; set; }
+        public TextBox TextBox { get; set; }
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
-        public bool isBusy { get; set; }
-        public CancellationTokenSource DisposeEvent { get; set; }
-        public DisplayHandler()
+        public static string PadNumbers(string input)
         {
-            DisposeEvent = new CancellationTokenSource();
-            isBusy = false;
-        }
-        public async Task populateList()
+            return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
+        } /// TEMP SOLUTION TEMP SOLUTION
+        public void populateList()
         {
-            DisposeEvent.Cancel();
-            CancellationTokenSource token = new CancellationTokenSource();
-            DisposeEvent = token;
-            await Task.Run(() => 
+            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
+            ListView.Clear();
+            ListView.SmallImageList = ImageList;
+            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Size", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
+            ProgressBar.Value = 0; ProgressBar.Show();
+            ProgressBar.Maximum = RootDirectory.getDirs().Count + RootDirectory.getFiles().Count;
+
+            foreach (Directory d in RootDirectory.getDirs().Take(1).Concat(RootDirectory.getDirs().Skip(1).OrderBy(x => PadNumbers(x.Name))))
             {
-                isBusy = true;
-                SynchronizedInvoke(TabControl, delegate () {
-                    TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
-                });
-                SynchronizedInvoke(ListView, delegate () {
-                    ListView.Clear();
-                    ListView.SmallImageList = ImageList;
-                    ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-                    ListView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
-                    ListView.Columns.Add("Size", 100, HorizontalAlignment.Left);
-                    ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
-                });
-
-                foreach (Directory d in RootDirectory.getDirs())
+                if ((ShowHidden && d.IsHidden) || d.IsHidden == false)
                 {
-                    if (!token.Token.IsCancellationRequested)
-                    {
-                        if ((ShowHidden && d.IsHidden) || d.IsHidden == false)
-                        {
-                            SynchronizedInvoke(ListView, delegate () {
-                                ListViewItem dirItem = new ListViewItem();
-                                dirItem.Text = $"[{d.Name}]";
-                                dirItem.SubItems.Add("");
-                                dirItem.SubItems.Add("<DIR>");
-                                dirItem.SubItems.Add(d.CreationDate);
-                                dirItem.Tag = d;
-                                dirItem.ImageIndex = d.IconIndex;
-                                ListView.Items.Add(dirItem);
-                            });
-                        }
-                    }
+                    ListViewItem dirItem = new ListViewItem();
+                    dirItem.Text = $"[{d.Name}]";
+                    dirItem.SubItems.Add("");
+                    dirItem.SubItems.Add("<DIR>");
+                    dirItem.SubItems.Add(d.CreationDate);
+                    dirItem.Tag = d;
+                    dirItem.ImageIndex = d.IconIndex;
+                    ListView.Items.Add(dirItem);
+                    ProgressBar.Value++;
                 }
-
-                foreach (File f in RootDirectory.getFiles())
+            }
+            foreach (File f in RootDirectory.getFiles().OrderBy(x => PadNumbers(x.Name)))
+            {
+                ListViewItem fileItem = new ListViewItem();
+                switch (ShowExtensions)
                 {
-                    if (!token.Token.IsCancellationRequested)
-                    {
-                        SynchronizedInvoke(ListView, delegate () {
-                            ListViewItem fileItem = new ListViewItem();
-                            switch (ShowExtensions)
-                            {
-                                case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
-                                case false: fileItem.Text = $"{f.Name}"; break;
-                            }
-                            fileItem.SubItems.Add(f.Extension.Replace(".", ""));
-                            fileItem.SubItems.Add($"{f.Size:n0}");
-                            fileItem.SubItems.Add(f.CreationDate);
-                            fileItem.Tag = f;
-                            fileItem.ImageIndex = f.IconIndex;
-                            ListView.Items.Add(fileItem);
-                        });
-                    }
+                    case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
+                    case false: fileItem.Text = $"{f.Name}"; break;
                 }
+                fileItem.SubItems.Add(f.Extension.Replace(".", ""));
+                fileItem.SubItems.Add($"{f.Size:n0}");
+                fileItem.SubItems.Add(f.CreationDate);
+                fileItem.Tag = f;
+                fileItem.ImageIndex = f.IconIndex;
+                ListView.Items.Add(fileItem);
+                ProgressBar.Value++;
+            }
 
-                foreach (ColumnHeader column in ListView.Columns)
-                {
-                    SynchronizedInvoke(ListView, delegate () {
-                        column.Width = -2;
-                    });
-                }
-                isBusy = false;
-            });
+            foreach (ColumnHeader column in ListView.Columns)
+            {
+                column.Width = -2;
+                ProgressBar.Hide();
+            }
         }
         public void populateDrives()
         {
@@ -170,7 +152,7 @@
                 }
             }
         }
-        public void DeleteTab() // [ISSUE] -> deleting folder which is opened in a new tab calls error.
+        public void DeleteTab()
         {
             if (TabControl.TabPages.Count > 2)
             {
@@ -285,16 +267,6 @@
                     ((RichTextBox)PreviewBox.TabPages[1].Controls[0]).Text = null;
                     break;
             }
-        }
-        // TEMP TEMP TEMP TEMP TEMP
-        static void SynchronizedInvoke(System.ComponentModel.ISynchronizeInvoke sync, Action action)
-        {
-            if (!sync.InvokeRequired)
-            {
-                action();
-                return;
-            }
-            sync.Invoke(action, new object[] { });
         }
     }
 }

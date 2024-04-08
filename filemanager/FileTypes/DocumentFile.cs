@@ -5,6 +5,8 @@
         public DocumentFile()
         {
             IconIndex = 5;
+            SubType = "documentfile";
+            Type = "file";
         }
     }
 }

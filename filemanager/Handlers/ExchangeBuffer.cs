@@ -7,6 +7,7 @@
         public bool Cut { get; set; }
         public ExchangeBuffer() { 
             SourceItems = new Queue<Element>();
+            Cut = false;
         }
         public void Copy(ListView.SelectedListViewItemCollection listitems)
         {
@@ -15,7 +16,10 @@
                 Clear();
                 for (int i = 0; i < listitems.Count; i++)
                 {
-                    SourceItems.Enqueue(((Element)listitems[i].Tag));
+                    if(((Element)listitems[i].Tag).IgnoreListing == false)
+                    {
+                        SourceItems.Enqueue(((Element)listitems[i].Tag));
+                    }
                 }
             }
         }
@@ -23,7 +27,7 @@
         {
             foreach (Element sourceItem in SourceItems)
             {
-                if (sourceItem.GetType().BaseType!.Name.Equals("File")) ///// MOVE SYSTEM.IO METHODS TO CLASS METHODS (FILE.MOVE, FILE.COPY, etc ...)
+                if (sourceItem.Type == "file") ///// MOVE SYSTEM.IO METHODS TO CLASS METHODS (FILE.MOVE, FILE.COPY, etc ...)
                 {
                     try
                     {
@@ -38,11 +42,11 @@
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
                 }
-                else if (sourceItem.GetType().Name.Equals("Directory"))
+                else if (sourceItem.Type == "directory")
                 {
                     try
                     {
@@ -65,7 +69,7 @@
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
                 }
@@ -75,7 +79,7 @@
         {
             SourceItems.Clear();
         }
-        public static void CopyFilesRecursively(string source, string target)
+        private static void CopyFilesRecursively(string source, string target)
         {
             foreach (string dir in System.IO.Directory.GetDirectories(source))
             {

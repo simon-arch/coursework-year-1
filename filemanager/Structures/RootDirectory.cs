@@ -1,4 +1,4 @@
-﻿namespace filemanager
+﻿namespace filemanager.Resources
 {
     public class RootDirectory : Directory
     {

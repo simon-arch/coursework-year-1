@@ -7,15 +7,15 @@
             switch(type)
             {
                 case 1:
-                    MessageBox.Show("Wrong path!");
+                    MessageBox.Show("Wrong path!", "Path Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
                 case 2:
-                    MessageBox.Show("Can't delete main tab!");
+                    MessageBox.Show("Can't delete main tab!", "Tab Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
                 default:
-                    MessageBox.Show("Unknown error.");
+                    MessageBox.Show("Unknown error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
             }
         }
