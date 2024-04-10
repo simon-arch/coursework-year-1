@@ -1,8 +1,10 @@
-﻿namespace filemanager
+﻿using System.Diagnostics;
+
+namespace filemanager
 {
-    public class ProcessHandler
+    public class ProcessCall
     {
-        public void RunProcess(string process, string arguments)
+        public static void RunProcess(string process, string arguments)
         {
             System.Diagnostics.Process explorer = new System.Diagnostics.Process();
             explorer.StartInfo.FileName = process;

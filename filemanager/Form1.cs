@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
@@ -9,7 +10,6 @@ namespace filemanager
         DirectoryHandler directoryHandlerLeftScreen = new DirectoryHandler();
 
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
-        ProcessHandler processHandler = new ProcessHandler();
 
         DisplayHandler displayHandlerRightScreen = new DisplayHandler();
         DisplayHandler displayHandlerLeftScreen = new DisplayHandler();
@@ -62,9 +62,49 @@ namespace filemanager
         private void InitializeSingletonEvents()
         {
             // ADD LATER MAYBE
+            desktopTool.Click += (sender, e) =>
+            {
+                File desktop = new File();
+                desktop.Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                desktop.View();
+            };  // REPLACE WITH SEPERATE CLASS WITH CONTROLLER FIELDS
+
+
+            // TEMP TEMP TEMP TEMP TEMP
+            imagePreviewBox.Click += (sender, e) =>
+            {
+                if (imagePreviewBox.Image != null)
+                {
+                    ProcessCall.RunProcess("explorer", imagePreviewBox.ImageLocation);
+                }
+            };
+            // TEMP TEMP TEMP TEMP TEMP
+
+            diskInfoTool.Click += (sender, e) =>
+            {
+                DiskChart disk = new DiskChart(driveComboBox.Text);
+                DialogResult result = disk.ShowDialog();
+            };
         }
         private void InitializeUniqueEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
+            deleteAfterUnzipTool.Click += (sender, e) => // SINGLETON BUTTON!
+            {
+                directoryHandler.DeleteSource = deleteAfterUnzipTool.Checked;
+            };
+
+            openConsoleTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        WorkingDirectory = displayHandler.RootDirectory.Path,
+                        FileName = "cmd.exe"
+                    };
+                    Process.Start(startInfo);
+                }
+            };
             goUpTool.Click += (sender, e) =>
             {
                 if (displayHandler.Focused)
@@ -83,14 +123,6 @@ namespace filemanager
             invertSelectionTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.InvertSelection(); };
             zipTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); };
             unzipTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); };
-            diskInfoTool.Click += (sender, e) =>
-            {
-                if (displayHandler.Focused)
-                {
-                    DiskChart disk = new DiskChart(displayHandler.ComboBox.Text);
-                    DialogResult result = disk.ShowDialog();
-                }
-            };
             searchTool.Click += (sender, e) =>
             {
                 if (displayHandler.Focused)
@@ -114,7 +146,7 @@ namespace filemanager
                     }
                 }
             };
-            notepadTool.Click += (sender, e) => { if (displayHandler.Focused) processHandler.RunProcess("notepad", ""); };
+            notepadTool.Click += (sender, e) => { if (displayHandler.Focused) ProcessCall.RunProcess("notepad", ""); };
             goToPathButton.Click += (sender, e) =>
             {
                 if (displayHandler.Focused)
@@ -295,32 +327,23 @@ namespace filemanager
 
             //
 
-            // TEMP TEMP TEMP TEMP TEMP
-            displayHandler.PictureBox.Click += (sender, e) =>
-            {
-                if (displayHandler.PictureBox.Image != null)
-                {
-                    processHandler.RunProcess("explorer", displayHandler.PictureBox.ImageLocation);
-                }
-            };
-            // TEMP TEMP TEMP TEMP TEMP
 
             // SHOW TAB
-            showHiddenFoldersTool.Click += (sender, e) => { displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(displayHandler, directoryHandler); };
-            showExtensionsTool.Click += (sender, e) => { displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(displayHandler, directoryHandler); };
+            showHiddenFoldersTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(displayHandler, directoryHandler); };
+            showExtensionsTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(displayHandler, directoryHandler); };
             //
 
             // TABS TAB
-            createTabTool.Click += (sender, e) => { displayHandler.CreateTab(false, Click, DoubleClick, directoryHandler); };
-            deleteTabTool.Click += (sender, e) => { displayHandler.DeleteTab(); };
+            createTabTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.CreateTab(false, Click, DoubleClick, directoryHandler); };
+            deleteTabTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.DeleteTab(); };
             //
 
             // MARK TAB
-            selectAllTool.Click += (sender, e) => { displayHandler.SelectAll(); };
-            unselectAllTool.Click += (sender, e) => { displayHandler.UnselectAll(); };
-            selectAllWithTheSameExtensionTool.Click += (sender, e) => { displayHandler.SelectAllWithTheSameExtension(); };
-            copySelectedNamesToClipboardTool.Click += (sender, e) => { displayHandler.CopyNamesToClipboard(false); };
-            copyNamesWithPathToClipboardTool.Click += (sender, e) => { displayHandler.CopyNamesToClipboard(true); };
+            selectAllTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.SelectAll(); };
+            unselectAllTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.UnselectAll(); };
+            selectAllWithTheSameExtensionTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.SelectAllWithTheSameExtension(); };
+            copySelectedNamesToClipboardTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.CopyNamesToClipboard(false); };
+            copyNamesWithPathToClipboardTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.CopyNamesToClipboard(true); };
             //
 
 

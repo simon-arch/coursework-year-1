@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public class DirectoryHandler
     {
@@ -27,6 +25,7 @@ namespace filemanager
         };
         public List<string> ListedExtensions { get; set; }
         public int DisplayMode { get; set; }
+        public bool DeleteSource { get; set; }
         public RootDirectory RootDirectory { get; set; }
         public void PopulateDirectory()
         {
@@ -143,6 +142,10 @@ namespace filemanager
                     try
                     {
                         ((ArchiveFile)elem.Tag).Unzip();
+                        if (DeleteSource)
+                        {
+                            ((ArchiveFile)elem.Tag).Delete();
+                        }
                     }
                     catch (Exception ex)
                     {
