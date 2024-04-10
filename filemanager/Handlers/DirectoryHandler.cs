@@ -1,4 +1,4 @@
-﻿using filemanager.Resources;
+﻿using System.Diagnostics;
 
 namespace filemanager
 {
@@ -9,6 +9,7 @@ namespace filemanager
             {".jpg", "image"},
             {".png", "image"},
             {".gif", "image"},
+            {".ico", "image"},
 
             {".mp4", "video"},
             {".mp3", "audio"},
@@ -21,7 +22,11 @@ namespace filemanager
             {".7z", "archive"},
             {".rar", "archive"},
             {".zip", "archive"},
+
+            {".lnk", "shortcut"}
         };
+        public List<string> ListedExtensions { get; set; }
+        public int DisplayMode { get; set; }
         public RootDirectory RootDirectory { get; set; }
         public void PopulateDirectory()
         {
@@ -35,9 +40,9 @@ namespace filemanager
             foreach (FileInfo f in files)
             {
                 File file = new File();
-                if(extensions.ContainsKey(f.Extension))
+                if(extensions.ContainsKey(f.Extension.ToLower()))
                 {
-                    switch (extensions[f.Extension])
+                    switch (extensions[f.Extension.ToLower()])
                     {
                         case "image":
                             file = new ImageFile();
@@ -54,6 +59,9 @@ namespace filemanager
                         case "archive":
                             file = new ArchiveFile();
                             break;
+                        case "shortcut":
+                            file = new ShortcutFile();
+                            break;
                     }
                 }
                 else
@@ -63,8 +71,33 @@ namespace filemanager
                 file.Name = Path.GetFileNameWithoutExtension(f.Name);
                 file.Path = f.FullName.ToString();
                 file.Size = f.Length;
-                file.Extension = f.Extension.ToString();
+                file.Extension = f.Extension.ToLower();
                 file.CreationDate = f.CreationTime.ToString();
+
+                switch (DisplayMode)
+                {
+                    case 0: file.IgnoreListing = false; break;
+                    case 1:
+                        if (file.Extension == ".exe")
+                        {
+                            file.IgnoreListing = false;
+                        }
+                        else
+                        {
+                            file.IgnoreListing = true;
+                        }
+                        break;
+                    case 2: 
+                        if (ListedExtensions.Contains(file.Extension.Replace('.',' ').Trim()))
+                        {
+                            file.IgnoreListing = false;
+                        }
+                        else
+                        {
+                            file.IgnoreListing = true;
+                        }
+                        break;
+                }
                 RootDirectory.appendFile(file);
             }
 
@@ -107,7 +140,14 @@ namespace filemanager
             {
                 if (((Element)elem.Tag).SubType == "archive")
                 {
-                    ((ArchiveFile)elem.Tag).Unzip();
+                    try
+                    {
+                        ((ArchiveFile)elem.Tag).Unzip();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Unzip Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -121,6 +161,5 @@ namespace filemanager
             IEnumerable<string> result = System.IO.Directory.EnumerateDirectories(path, $"*{key}*", new EnumerationOptions { RecurseSubdirectories = isRecursive, IgnoreInaccessible = true });
             return result;
         }
-
     }
 }

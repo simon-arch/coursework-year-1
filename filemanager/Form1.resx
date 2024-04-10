@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="topMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -183,10 +183,7 @@
         PmCNEM0MDAB0QIG/stQ39QAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>153, 17</value>
-  </metadata>
-  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="topToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>343, 17</value>
   </metadata>
   <data name="quickRefreshTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -351,42 +348,29 @@
         rkJggg==
 </value>
   </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>461, 17</value>
-  </metadata>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="printTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAEAEBAAAAAAAABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAADwAAABcAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAA
-        ABoAAAAXAAAADwAASqAAAGHMAABhzAAAYcwAAGHMAABhzAAAYcwAAGHMAABhzAAAYcwAAGHMAABhzAAA
-        YcwAAGHMAABhzAAASqAAAHnMLy/g/yUl2/8jI9r/ISHa/x8f2f8eHtj/HBzY/xsb1/8aGtf/GRnW/xgY
-        1v8YGNb/GBjW/xgY1v8AAHnMAACFzDk51v8mJsn/JibJ/yYmyf8mJsn/JibJ/xERmf8REZn/HByx/yYm
-        yf8mJsn/JibJ/yYmyf8mJsn/AACFzAAAi8xHR9L/MTG9/zExvf8xMb3/MTG9/zExvf/CwsL/wsLC/yEh
-        q/8xMb3/MTG9/zExvf8xMb3/NDTA/wAAi8wAAJLMERGZ/xERmf8REZn/ERGZ/xERmf8REZn/rKys/4iI
-        iP8JCYj/ERGZ/xERmf8REZn/ERGZ/xERmf8AAJLMAACYzFVV3f86OsL/OjrC/zo6wv86OsL/OjrC/9vb
-        2//b29v/Jiau/zo6wv86OsL/OjrC/zo6wv9ERMz/AACYzAAAncx3d///d3f//3d3//93d///d3f//3d3
-        //93d///d3f//3d3//93d///d3f//3d3//93d///d3f//wAAncwAAKLMaGjw/1hY4P9YWOD/WFjg/1hY
-        4P9YWOD/WFjg/1hY4P9YWOD/WFjg/1hY4P9YWOD/WFjg/2Ji6v8AAKLMAACmzHJy+v9tbfX/bW31/1xc
-        wv9LS4//XFzC/21t9f9sbPT/XFzC/0tLj/9bW8H/a2vz/2tr8/9vb/f/AACmzAAAqpkAAKrMAACqzAAA
-        qswAAFXKmZmZ/wAAVcoAAKrMAACqzAAAVcqZmZn/AABVygAAqswAAKrMAACqzAAAqpkAAAAAAAAAAAAA
-        AAAAAAAAAQErMAEBAb4AAAAAAAAAAAAAAAAAAAAAAQEBvgEBKzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAEBARcBAQG0AQEBhwEBAVkBAQFZAQEBhwEBAbQBAQEXAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAQEBVwEBAa0BAQGtAQEBrQEBAa0BAQFXAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAA//+sQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxB88+sQfAP
-        rEH4H6xB//+sQQ==
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAEKSURBVEhL3ZG9DsFQHMXvczDZvIOtXsHObuhqkViI3Quw
+        6CYmNoMYJJ0NBiFFIoIytOuf0+TeXP3yde+iyS+3OcP53Z4y3/dJJ4HAsiwyTVMp6BQCBIZhKAWdEcHV
+        vSlBmeB82NFy1KLluEWOPRC5MoHdMWhazwi4RJlALgf4EuT6BI+5kCsTrGddUY658E+QvyXYHq9UnRyC
+        U87f4aUApcXhnrI9Jzg/laQKFntXlHM+lSQK5psL5fvbp/JvJLGCQqmSWM5JkiCT84igXGtSrruKLQ0T
+        luAdmZxHBG37FFuWBC/j5XKOmX8WAH7rcI6ZMffPgjQwN2bXJgDo/COBTpjneQ2dML0PY3cISreGe8HM
+        qgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="bottomMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>461, 17</value>
+  </metadata>
+  <metadata name="fileIconList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>597, 17</value>
   </metadata>
-  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="fileIconList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAzg4AAAJNU0Z0AUkBTAIBAQcB
-        AAEgARwBIAEcARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
+        AAGQASMBkAEjARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAUADAAEgAwABAQEAAQgG
         AAEIGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQABMwUAATMB
         AAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQACUAH/AQAB
         kwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwCAAEzAwAC
@@ -449,6 +433,36 @@
         wAEPAwABBwIAAYABAQEAAQ8C/wHgAQcBgAEBAQABDwIAAeABBwHgAQcBgAMAAfABfwHAAQMBgAMAAfAB
         fwGAAQEBgAMAAfABfwGAAQEBgAMAAf8BTwGAAQEBgAUAAYABAQGABQABgAEBAYAFAAGAAQEBgAUAAYAB
         AQGABQABgAEBAYABAQQAAcABAwGAAQEEAAHgAQcB+AEBBAAB8AEPAfgBAQL/AgAC/wH4AQEC/wIACw==
+</value>
+  </data>
+  <metadata name="printDocument1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>728, 17</value>
+  </metadata>
+  <metadata name="printDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>892, 17</value>
+  </metadata>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAAABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAADwAAABcAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAA
+        ABoAAAAXAAAADwAASqAAAGHMAABhzAAAYcwAAGHMAABhzAAAYcwAAGHMAABhzAAAYcwAAGHMAABhzAAA
+        YcwAAGHMAABhzAAASqAAAHnMLy/g/yUl2/8jI9r/ISHa/x8f2f8eHtj/HBzY/xsb1/8aGtf/GRnW/xgY
+        1v8YGNb/GBjW/xgY1v8AAHnMAACFzDk51v8mJsn/JibJ/yYmyf8mJsn/JibJ/xERmf8REZn/HByx/yYm
+        yf8mJsn/JibJ/yYmyf8mJsn/AACFzAAAi8xHR9L/MTG9/zExvf8xMb3/MTG9/zExvf/CwsL/wsLC/yEh
+        q/8xMb3/MTG9/zExvf8xMb3/NDTA/wAAi8wAAJLMERGZ/xERmf8REZn/ERGZ/xERmf8REZn/rKys/4iI
+        iP8JCYj/ERGZ/xERmf8REZn/ERGZ/xERmf8AAJLMAACYzFVV3f86OsL/OjrC/zo6wv86OsL/OjrC/9vb
+        2//b29v/Jiau/zo6wv86OsL/OjrC/zo6wv9ERMz/AACYzAAAncx3d///d3f//3d3//93d///d3f//3d3
+        //93d///d3f//3d3//93d///d3f//3d3//93d///d3f//wAAncwAAKLMaGjw/1hY4P9YWOD/WFjg/1hY
+        4P9YWOD/WFjg/1hY4P9YWOD/WFjg/1hY4P9YWOD/WFjg/2Ji6v8AAKLMAACmzHJy+v9tbfX/bW31/1xc
+        wv9LS4//XFzC/21t9f9sbPT/XFzC/0tLj/9bW8H/a2vz/2tr8/9vb/f/AACmzAAAqpkAAKrMAACqzAAA
+        qswAAFXKmZmZ/wAAVcoAAKrMAACqzAAAVcqZmZn/AABVygAAqswAAKrMAACqzAAAqpkAAAAAAAAAAAAA
+        AAAAAAAAAQErMAEBAb4AAAAAAAAAAAAAAAAAAAAAAQEBvgEBKzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAEBARcBAQG0AQEBhwEBAVkBAQFZAQEBhwEBAbQBAQEXAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAQEBVwEBAa0BAQGtAQEBrQEBAa0BAQFXAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA//+sQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxB88+sQfAP
+        rEH4H6xB//+sQQ==
 </value>
   </data>
 </root>

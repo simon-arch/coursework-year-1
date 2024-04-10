@@ -16,9 +16,9 @@
                 Clear();
                 for (int i = 0; i < listitems.Count; i++)
                 {
-                    if(((Element)listitems[i].Tag).IgnoreListing == false)
+                    if(listitems[i].ETag().IgnoreListing == false)
                     {
-                        SourceItems.Enqueue(((Element)listitems[i].Tag));
+                        SourceItems.Enqueue(listitems[i].ETag());
                     }
                 }
             }

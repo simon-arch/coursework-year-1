@@ -1,4 +1,7 @@
-﻿namespace filemanager
+﻿using System.Diagnostics;
+using System.Reflection;
+
+namespace filemanager
 {
     public abstract class Element
     {
@@ -12,6 +15,7 @@
         public string CreationDate { get; set; }
         public virtual void Delete() { }
         public virtual void Edit() { }
+        public virtual long GetSize() { return 0; }
         public void Rename(string newname) {
             if (newname != "" && newname != (Name))
             {

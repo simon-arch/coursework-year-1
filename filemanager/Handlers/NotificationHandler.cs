@@ -14,6 +14,10 @@
                     MessageBox.Show("Can't delete main tab!", "Tab Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
+                case 3:
+                    MessageBox.Show("Path does not exist!", "Path Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                break;
+
                 default:
                     MessageBox.Show("Unknown error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;

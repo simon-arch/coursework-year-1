@@ -50,5 +50,9 @@
         {
             System.IO.Directory.Delete(Path, true);
         }
+        public override long GetSize()
+        {
+            return System.IO.Directory.GetFiles(Path, "*", new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true }).Sum(t => (new FileInfo(t).Length)); ;
+        }
     }
 }

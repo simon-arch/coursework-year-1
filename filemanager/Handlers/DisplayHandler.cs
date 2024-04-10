@@ -1,10 +1,9 @@
 ﻿using System.Text.RegularExpressions;
-using filemanager.Resources;
-
 namespace filemanager
 {
     public class DisplayHandler
     {
+        public bool Focused { get; set; }
         public ListView? ListView { get; set; }
         public ImageList? ImageList { get; set; }
         public Label? Label { get; set; }
@@ -25,7 +24,7 @@ namespace filemanager
         } /// TEMP SOLUTION TEMP SOLUTION
         public void populateList()
         {
-            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)![0]}:) {Path.GetFileName(RootDirectory.Path)}";
+            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)[0]}:) {Path.GetFileName(RootDirectory.Path)}";
             ListView.Clear();
             ListView.SmallImageList = ImageList;
             ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
@@ -52,18 +51,21 @@ namespace filemanager
             }
             foreach (File f in RootDirectory.getFiles().OrderBy(x => PadNumbers(x.Name)))
             {
-                ListViewItem fileItem = new ListViewItem();
-                switch (ShowExtensions)
+                if (f.IgnoreListing == false)
                 {
-                    case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
-                    case false: fileItem.Text = $"{f.Name}"; break;
+                    ListViewItem fileItem = new ListViewItem();
+                    switch (ShowExtensions)
+                    {
+                        case true: fileItem.Text = $"{f.Name}{f.Extension}"; break;
+                        case false: fileItem.Text = $"{f.Name}"; break;
+                    }
+                    fileItem.SubItems.Add(f.Extension.Replace(".", ""));
+                    fileItem.SubItems.Add($"{f.Size:n0}");
+                    fileItem.SubItems.Add(f.CreationDate);
+                    fileItem.Tag = f;
+                    fileItem.ImageIndex = f.IconIndex;
+                    ListView.Items.Add(fileItem);
                 }
-                fileItem.SubItems.Add(f.Extension.Replace(".", ""));
-                fileItem.SubItems.Add($"{f.Size:n0}");
-                fileItem.SubItems.Add(f.CreationDate);
-                fileItem.Tag = f;
-                fileItem.ImageIndex = f.IconIndex;
-                ListView.Items.Add(fileItem);
                 ProgressBar.Value++;
             }
 
@@ -148,7 +150,7 @@ namespace filemanager
             {
                 for (int i = 0; i < listitems.Count; i++)
                 {
-                    ((Element)listitems[i].Tag).Delete();
+                    listitems[i].ETag().Delete();
                 }
             }
         }
@@ -190,10 +192,10 @@ namespace filemanager
             ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
             if (listitems.Count > 0)
             {
-                string extens = ((Element)(ListView.SelectedItems[0].Tag)).Extension;
+                string extens = ListView.SelectedItems[0].ETag().Extension;
                 for (int i = 1; i < ListView.Items.Count; i++)
                 {
-                    if (((Element)(ListView.Items[i].Tag)).Extension == extens)
+                    if (ListView.Items[i].ETag().Extension == extens)
                     {
                         ListView.Items[i].Selected = true;
                     }
@@ -208,18 +210,19 @@ namespace filemanager
             {
                 if (copyWithPath)
                 {
-                    copystring += $"{((Element)tocopy.Tag).Name}\n";
+                    copystring += $"{tocopy.ETag().Name}\n";
                 }
                 else
                 {
-                    copystring += $"{((Element)tocopy.Tag).Path}\n";
+                    copystring += $"{tocopy.ETag().Path}\n";
                 }
             }
             Clipboard.SetText(copystring);
         }
         public void CreateTab(bool usePlusButton,
-            Action<object, EventArgs> OnClickFunc,
-            Action<object, EventArgs> OnDoubleClickFunc)
+            Action<DisplayHandler, DirectoryHandler> OnClickFunc,
+            Action<DisplayHandler, DirectoryHandler> OnDoubleClickFunc,
+            DirectoryHandler directoryHandler)
         {
             int lastTab = TabControl.TabCount - 1;
 
@@ -228,8 +231,8 @@ namespace filemanager
                 return;
             }
 
-            EventHandler OnClick = (obj, eventArg) => OnClickFunc(obj, eventArg);
-            EventHandler OnDoubleClick = (obj, eventArg) => OnDoubleClickFunc(obj, eventArg);
+            //EventHandler OnClick = (obj, eventArg) => OnClickFunc(obj, eventArg);
+            //EventHandler OnDoubleClick = (obj, eventArg) => OnDoubleClickFunc(obj, eventArg);
 
             ListView newListView = new ListView();
             newListView.Dock = DockStyle.Fill;
@@ -243,9 +246,9 @@ namespace filemanager
             TabControl.TabPages.Insert(lastTab, newTab);
             TabControl.SelectedIndex = lastTab;
 
-            ListView.Click += OnClick;
-            ListView.DoubleClick += OnDoubleClick;
-            ListView.SelectedIndexChanged += OnClick;
+            ListView.Click += (sender, e) => { OnClickFunc(this, directoryHandler); };//OnClick;
+            ListView.DoubleClick += (sender, e) => { OnDoubleClickFunc(this, directoryHandler); };//OnDoubleClick;
+            ListView.SelectedIndexChanged += (sender, e) => { OnClickFunc(this, directoryHandler); };//OnClick;
             ListView.SelectedIndexChanged += (sender, e) => { getFileInfo(); };
             DoubleBuffering.SetDoubleBuffering(ListView, true);
 
