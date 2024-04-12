@@ -32,9 +32,9 @@
             RootDirectory.clearData();
             DirectoryInfo directoryInfo = new DirectoryInfo(RootDirectory.Path);
             FileInfo[] files = directoryInfo.GetFiles();
-            Directory root = new Directory("..", Path.GetFullPath(Path.Combine(RootDirectory.Path, @"..")));
-            root.IgnoreListing = true;
-            RootDirectory.appendDirectory(root);
+            //Directory root = new Directory("..", Path.GetFullPath(Path.Combine(RootDirectory.Path, @"..")));
+            //root.IgnoreListing = true;
+            //RootDirectory.appendDirectory(root);
 
             foreach (FileInfo f in files)
             {
@@ -57,9 +57,6 @@
                             break;
                         case "archive":
                             file = new ArchiveFile();
-                            break;
-                        case "shortcut":
-                            file = new ShortcutFile();
                             break;
                     }
                 }
@@ -119,17 +116,16 @@
         {
             if(source.Count > 0)
             {
+                if (source.Count == 1 && source[0].ETag().Type == "utility") return;
+
                 ExchangeBuffer buffer = new ExchangeBuffer();
-                string zipPath = Path.Combine(Path.GetDirectoryName(((Element)source[source.Count - 1].Tag).Path), $"temp-{DateTime.Now.Ticks.ToString()}");
+                string zipPath = Path.Combine(Path.GetDirectoryName(source[source.Count - 1].ETag().Path), $"temp-{DateTime.Now.Ticks}");
                 System.IO.Directory.CreateDirectory(zipPath);
 
                 buffer.Copy(source);
                 buffer.Paste(zipPath);
 
-                if(buffer.SourceItems.Count > 0)
-                {
-                    System.IO.Compression.ZipFile.CreateFromDirectory(zipPath, $"{Path.Combine(zipPath, @"../")}{((Element)source[source.Count - 1].Tag).Name}.zip");
-                }
+                System.IO.Compression.ZipFile.CreateFromDirectory(zipPath, $"{Path.Combine(zipPath, @"../")}{source[source.Count - 1].ETag().Name}.zip");
                 System.IO.Directory.Delete(zipPath, true);
             }
         }
@@ -137,7 +133,7 @@
         {
             foreach (ListViewItem elem in source)
             {
-                if (((Element)elem.Tag).SubType == "archive")
+                if (elem.ETag().SubType == "archive")
                 {
                     try
                     {

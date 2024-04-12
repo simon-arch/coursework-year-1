@@ -1,4 +1,6 @@
-﻿namespace filemanager
+﻿using System.Text.RegularExpressions;
+
+namespace filemanager
 {
     public class RootDirectory : Directory
     {
@@ -29,6 +31,20 @@
         {
             Name = name;
             Path = path;
+        }
+        public static string PadNumbers(string input)
+        {
+            return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
+        }
+        public void SortData(string type)
+        {
+            switch (type)
+            {
+                case "name": containingFiles = containingFiles.OrderBy(o => PadNumbers(o.Name)).ToList(); break;
+                case "extension": containingFiles = containingFiles.OrderBy(o => o.Extension).ToList(); break;
+                case "date": containingFiles = containingFiles.OrderBy(o => o.CreationDate).ToList(); break;
+                case "size": containingFiles = containingFiles.OrderBy(o => o.Size).ToList(); break;
+            }
         }
     }
 }

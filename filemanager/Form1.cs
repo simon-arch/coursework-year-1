@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Text.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace filemanager
 {
@@ -16,9 +15,12 @@ namespace filemanager
 
         List<DisplayHandler> displayList = new List<DisplayHandler>();
         List<DirectoryHandler> directoryList = new List<DirectoryHandler>();
+
         public Form1()
         {
             InitializeComponent();
+
+
             displayList.Add(displayHandlerLeftScreen);
             displayList.Add(displayHandlerRightScreen);
 
@@ -44,6 +46,18 @@ namespace filemanager
 
             displayList[0].Focused = true;
 
+            /////
+
+
+            quickAccessList.Columns.Add("Quick Access", -2, HorizontalAlignment.Left);
+            quickAccessList.SmallImageList = fileIconList;
+
+
+            displayList.ForEach(x => x.SortType = "name");
+
+            /////
+
+
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);
         }
@@ -61,6 +75,12 @@ namespace filemanager
         }
         private void InitializeSingletonEvents()
         {
+
+
+
+
+
+
             // ADD LATER MAYBE
             desktopTool.Click += (sender, e) =>
             {
@@ -85,9 +105,105 @@ namespace filemanager
                 DiskChart disk = new DiskChart(driveComboBox.Text);
                 DialogResult result = disk.ShowDialog();
             };
+
+            binTool.Click += (sender, e) =>
+            {
+                ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
+            };
         }
         private void InitializeUniqueEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
+
+            quickAccessAddTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused && displayHandler.isSelected())
+                {
+                    foreach (ListViewItem lvi in displayHandler.ListView.SelectedItems)
+                    {
+                        if (lvi.ETag().Type != "utility")
+                        {
+                            quickAccessList.Items.Add((ListViewItem)lvi.Clone());
+                            quickAccessList.Items[quickAccessList.Items.Count - 1].Tag = lvi.ETag();
+                        }
+                    }
+                }
+            };
+            quickAccessRemoveTool.Click += (sender, e) =>
+            {
+                if (quickAccessList.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem lv in quickAccessList.SelectedItems)
+                    {
+                        lv.Remove();
+                    }
+                }
+            };
+            quickAccessList.DoubleClick += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    Element selection = quickAccessList.SelectedItems[0].ETag();
+                    RootDirectory root;
+                    switch (selection.Type)
+                    {
+                        case "directory":
+
+                            root = new RootDirectory("dir", selection.Path);
+                            GoTo(root, displayHandler, directoryHandler);
+                            break;
+                        case "file":
+                            root = new RootDirectory("dir", Path.GetDirectoryName(selection.Path));
+                            GoTo(root, displayHandler, directoryHandler);
+                            ListViewItem target = displayHandler.ListView.FindItemWithText(selection.Name);
+                            target.Selected = true;
+                            target.EnsureVisible();
+                            break;
+                    }
+                }
+            };
+
+
+
+
+
+
+
+            sortNameTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    displayHandler.SortType = "name";
+                    Refresh(displayHandler, directoryHandler);
+                }
+            };
+
+            sortDateTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    displayHandler.SortType = "date";
+                    Refresh(displayHandler, directoryHandler);
+                }
+            };
+
+            sortExtensionTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    displayHandler.SortType = "extension";
+                    Refresh(displayHandler, directoryHandler);
+                }
+            };
+
+            sortSizeTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    displayHandler.SortType = "size";
+                    Refresh(displayHandler, directoryHandler);
+                }
+            };
+
             deleteAfterUnzipTool.Click += (sender, e) => // SINGLETON BUTTON!
             {
                 directoryHandler.DeleteSource = deleteAfterUnzipTool.Checked;
@@ -105,6 +221,20 @@ namespace filemanager
                     Process.Start(startInfo);
                 }
             };
+
+            openPowershellTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        WorkingDirectory = displayHandler.RootDirectory.Path,
+                        FileName = "powershell.exe"
+                    };
+                    Process.Start(startInfo);
+                }
+            };
+
             goUpTool.Click += (sender, e) =>
             {
                 if (displayHandler.Focused)
@@ -116,6 +246,58 @@ namespace filemanager
                     }
                 }
             };
+
+            compareFilenamesTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                {
+                    displayList.ForEach(i => i.ListView.SelectedItems.Clear());
+                    List<List<string>> collections = new List<List<string>>();
+                    foreach (DisplayHandler displayHandler in displayList)
+                    {
+                        List<string> list = displayHandler.ListView.Items.Cast<ListViewItem>()
+                                        .Select(item => item.Text)
+                                        .ToList();
+                        collections.Add(list);
+                    }
+                    List<string> duplicates = collections[0].Intersect(collections[1]).ToList();
+                    if (displayHandler.Focused)
+                    {
+                        foreach (string item in duplicates)
+                        {
+                            foreach (DisplayHandler displayHandler in displayList)
+                            {
+                                displayHandler.ListView.FindItemWithText(item).Selected = true;
+                            }
+                        }
+                    }
+                }
+            };
+
+            multiRenameTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused && displayHandler.isSelected())
+                {
+                    DialogBox dialog = new DialogBox("Multi-Rename", "Enter filename", "OK", "Cancel");
+                    DialogResult result = dialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        int rep = 1;
+                        foreach (ListViewItem item in displayHandler.ListView.SelectedItems)
+                        {
+                            string newname = dialog.ReturnValue.Trim();
+                            dialog.Dispose();
+                            if (item.ETag().Type != "utility")
+                            {
+                                item.ETag().Rename($"{newname}({rep})");
+                                rep++;
+                            }
+                        }
+                    }
+                    Refresh(displayHandler, directoryHandler);
+                }
+            };
+
             listViewSetView1.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.setView(1); };
             listViewSetView2.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.setView(2); };
             listViewSetView3.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.setView(3); };
@@ -164,6 +346,7 @@ namespace filemanager
                     Refresh(displayHandler, directoryHandler);
                 }
             };
+
             printTool.Click += (sender, e) =>
             {
                 if (displayHandler.Focused && displayHandler.isSelected())
@@ -217,7 +400,7 @@ namespace filemanager
             {
                 if (displayHandler.Focused)
                 {
-                    DialogBox dialog = new DialogBox("Custom View", "Enter file types", "OK", "Cancel");
+                    DialogBox dialog = new DialogBox("Custom View", "Enter file types (e.g. .doc; .txt)", "OK", "Cancel");
                     DialogResult result = dialog.ShowDialog();
                     if (result == DialogResult.OK)
                     {
@@ -325,9 +508,6 @@ namespace filemanager
             };
 
 
-            //
-
-
             // SHOW TAB
             showHiddenFoldersTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.ShowHidden = showHiddenFoldersTool.Checked; Refresh(displayHandler, directoryHandler); };
             showExtensionsTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.ShowExtensions = showExtensionsTool.Checked; Refresh(displayHandler, directoryHandler); };
@@ -345,10 +525,6 @@ namespace filemanager
             copySelectedNamesToClipboardTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.CopyNamesToClipboard(false); };
             copyNamesWithPathToClipboardTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.CopyNamesToClipboard(true); };
             //
-
-
-
-
 
 
             // TOOL STRIP
@@ -399,14 +575,14 @@ namespace filemanager
                     DialogResult result = dialog.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        string newname = (dialog.ReturnValue).Trim();
+                        string newname = dialog.ReturnValue.Trim();
                         dialog.Dispose();
-                        ((Element)displayHandler.ListView.SelectedItems[0].Tag).Rename(newname);
+                        displayHandler.ListView.SelectedItems[0].ETag().Rename(newname);
                         Refresh(displayHandler, directoryHandler);
                     }
                 }
             };
-            viewTool.Click += (sender, e) => { Click(displayHandler, directoryHandler); };
+            viewTool.Click += (sender, e) => { DoubleClick(displayHandler, directoryHandler); };
             editTool.Click += (sender, e) => { if (displayHandler.isSelected()) ((Element)displayHandler.ListView.SelectedItems[0].Tag).Edit(); };
             copyTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
             cutTool.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
@@ -440,7 +616,7 @@ namespace filemanager
         {
             if (displayHandler.isSelected())
             {
-                switch (((Element)displayHandler.ListView.SelectedItems[0].Tag).SubType)
+                switch (displayHandler.ListView.SelectedItems[0].ETag().SubType)
                 {
                     case "imagefile":
                         displayHandler.Preview("image");
@@ -463,20 +639,19 @@ namespace filemanager
             ListView.SelectedListViewItemCollection selected = displayHandler.ListView.SelectedItems;
             if (selected.Count > 0)
             {
-                if (selected[0].ETag().Type == "directory")
+                if (selected[0].ETag().Type == "utility")
+                {
+                    RootDirectory root = new RootDirectory("dir", Path.Combine(directoryHandler.RootDirectory.Path, @".."));
+                    GoTo(root, displayHandler, directoryHandler);
+                }
+                else if (selected[0].ETag().Type == "directory")
                 {
                     RootDirectory root = new RootDirectory("dir", selected[0].ETag().Path);
                     GoTo(root, displayHandler, directoryHandler);
                 }
                 else if (selected[0].ETag().Type == "file")
                 {
-                    if (selected[0].ETag().SubType == "shortcut")
-                    {
-                        string linkpath = ((ShortcutFile)selected[0].Tag).GetShortcut();
-                        RootDirectory root = new RootDirectory("dir", linkpath);
-                        GoTo(root, displayHandler, directoryHandler);
-                    }
-                    else ((File)selected[0].Tag).View();
+                    ((File)selected[0].Tag).View();
                 }
             }
         }
@@ -486,9 +661,10 @@ namespace filemanager
 
         private void LoadSettings(List<DisplayHandler> displayList, List<DirectoryHandler> directoryList)
         {
+            // LIST SETTINGS //
             string json = System.IO.File.ReadAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\Resources\appsettings.json"));
+            @"..\..\..\Resources\listsettings.json"));
             UserSettings defaultSettings = new UserSettings();
             List<UserSettings> userSettings = new List<UserSettings>();
             try
@@ -508,9 +684,27 @@ namespace filemanager
                 displayList[i].ShowHidden = userSettings[i].ShowHidden;
                 GoTo(new RootDirectory("dir", startpath), displayList[i], directoryList[i]);
             }
+            //
+
+            // APP SETTINGS //
+            json = System.IO.File.ReadAllText(
+            Path.Combine(System.IO.Directory.GetCurrentDirectory(),
+            @"..\..\..\Resources\appsettings.json"));
+            AppSettings appSettings = new AppSettings();
+            try
+            {
+                appSettings = JsonSerializer.Deserialize<AppSettings>(json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // . . . . .
+
         }
         private void SaveSettings(List<DisplayHandler> displayList)
         {
+            // LIST SETTINGS //
             List<UserSettings> viewSettings = new List<UserSettings>();
             foreach (DisplayHandler displayHandler in displayList)
             {
@@ -525,7 +719,16 @@ namespace filemanager
             string json = JsonSerializer.Serialize(viewSettings);
             System.IO.File.WriteAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),
+            @"..\..\..\Resources\listsettings.json"), json);
+            //
+
+            // APP SETTINGS //
+            AppSettings appSettings = new AppSettings() { }; // { ... }
+            json = JsonSerializer.Serialize(appSettings);
+            System.IO.File.WriteAllText(
+            Path.Combine(System.IO.Directory.GetCurrentDirectory(),
             @"..\..\..\Resources\appsettings.json"), json);
+            //
         }
     }
 }

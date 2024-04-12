@@ -10,7 +10,7 @@ namespace filemanager
         public ProgressBar? ProgressBar { get; set; }
         public Label? UsedStorage { get; set; }
         public PictureBox? PictureBox { get; set; }
-        public RootDirectory? RootDirectory { get; set; }
+        public RootDirectory RootDirectory { get; set; }
         public TabControl? TabControl { get; set; }
         public TabControl? PreviewBox { get; set; }
         public ComboBox? ComboBox { get; set; }
@@ -18,13 +18,15 @@ namespace filemanager
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
+        public string SortType {  get; set; }
         public static string PadNumbers(string input)
         {
             return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
         } /// TEMP SOLUTION TEMP SOLUTION
         public void populateList()
         {
-            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)[0]}:) {Path.GetFileName(RootDirectory.Path)}";
+            RootDirectory.SortData(SortType);
+            TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)[0]}:) {Path.GetFileName(Path.GetFullPath(RootDirectory.Path))}";
             ListView.Clear();
             ListView.SmallImageList = ImageList;
             ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
@@ -33,6 +35,19 @@ namespace filemanager
             ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
             ProgressBar.Value = 0; ProgressBar.Show();
             ProgressBar.Maximum = RootDirectory.getDirs().Count + RootDirectory.getFiles().Count;
+
+
+            ListViewItem dd = new ListViewItem();
+            dd.Text = $"[..]";
+            dd.SubItems.Add("");
+            dd.SubItems.Add("<DIR>");
+            dd.SubItems.Add("");
+            dd.Tag = new MovementDirectory();
+            dd.ImageIndex = 1;
+            ListView.Items.Add(dd);
+
+
+
 
             foreach (Directory d in RootDirectory.getDirs().Take(1).Concat(RootDirectory.getDirs().Skip(1).OrderBy(x => PadNumbers(x.Name))))
             {
@@ -49,7 +64,7 @@ namespace filemanager
                     ProgressBar.Value++;
                 }
             }
-            foreach (File f in RootDirectory.getFiles().OrderBy(x => PadNumbers(x.Name)))
+            foreach (File f in RootDirectory.getFiles())
             {
                 if (f.IgnoreListing == false)
                 {
@@ -169,7 +184,10 @@ namespace filemanager
         {
             if (ListView.SelectedItems.Count > 0)
             {
-                return true;
+                if(ListView.SelectedItems[0].Tag != "SPECIAL")
+                {
+                    return true;
+                }
             } 
             return false;
         }
@@ -237,6 +255,7 @@ namespace filemanager
             ListView newListView = new ListView();
             newListView.Dock = DockStyle.Fill;
             newListView.FullRowSelect = true;
+            newListView.GridLines = true;
 
             TabPage newTab = new TabPage("Loading...");
             newTab.Tag = RootDirectory.Path;

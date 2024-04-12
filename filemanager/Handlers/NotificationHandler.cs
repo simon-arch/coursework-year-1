@@ -18,6 +18,10 @@
                     MessageBox.Show("Path does not exist!", "Path Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
+                case 4:
+                    MessageBox.Show("Error while zipping files!", "Zip Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                break;
+
                 default:
                     MessageBox.Show("Unknown error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;

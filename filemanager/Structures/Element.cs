@@ -16,7 +16,7 @@ namespace filemanager
         public virtual void Delete() { }
         public virtual void Edit() { }
         public virtual long GetSize() { return 0; }
-        public void Rename(string newname) {
+        public virtual void Rename(string newname) {
             if (newname != "" && newname != (Name))
             {
                 foreach (char c in System.IO.Path.GetInvalidFileNameChars())

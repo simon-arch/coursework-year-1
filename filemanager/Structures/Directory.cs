@@ -10,6 +10,7 @@
             IconIndex = 1;
             IsHidden = false;
             Type = "directory";
+            SubType = "directory";
             IgnoreListing = false;
         }
         public static void CreatePrompt(string path)
