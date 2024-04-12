@@ -56,7 +56,7 @@
             showAllFilesTool = new ToolStripMenuItem();
             showProgramsTool = new ToolStripMenuItem();
             showCustomTool = new ToolStripMenuItem();
-            toolStripSeparator5 = new ToolStripSeparator();
+            sortToolStripMenuItem = new ToolStripMenuItem();
             sortNameTool = new ToolStripMenuItem();
             sortExtensionTool = new ToolStripMenuItem();
             sortDateTool = new ToolStripMenuItem();
@@ -86,9 +86,10 @@
             richTextBox1 = new RichTextBox();
             searchTextBox = new TextBox();
             progressBar = new ProgressBar();
-            pathTextBox = new TextBox();
-            goToPathButton = new Button();
+            selectPathTextBox = new TextBox();
+            goToSelectedPathButton = new Button();
             quickAccessList = new ListView();
+            logTextBox = new RichTextBox();
             topToolStrip = new ToolStrip();
             quickRefreshTool = new ToolStripButton();
             goUpTool = new ToolStripButton();
@@ -139,7 +140,7 @@
             // topMenuStrip
             // 
             topMenuStrip.ImageScalingSize = new Size(20, 20);
-            topMenuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, markToolStripMenuItem, commandsToolStripMenuItem, showTab, tabsTab, quickAccessToolStripMenuItem });
+            topMenuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, markToolStripMenuItem, commandsToolStripMenuItem, showTab, sortToolStripMenuItem, tabsTab, quickAccessToolStripMenuItem });
             topMenuStrip.Location = new Point(0, 0);
             topMenuStrip.Name = "topMenuStrip";
             topMenuStrip.Size = new Size(1118, 28);
@@ -273,7 +274,7 @@
             // 
             // showTab
             // 
-            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool, toolStripSeparator6, showAllFilesTool, showProgramsTool, showCustomTool, toolStripSeparator5, sortNameTool, sortExtensionTool, sortDateTool, sortSizeTool });
+            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool, toolStripSeparator6, showAllFilesTool, showProgramsTool, showCustomTool });
             showTab.Name = "showTab";
             showTab.Size = new Size(59, 24);
             showTab.Text = "Show";
@@ -315,33 +316,35 @@
             showCustomTool.Size = new Size(193, 26);
             showCustomTool.Text = "Custom...";
             // 
-            // toolStripSeparator5
+            // sortToolStripMenuItem
             // 
-            toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(190, 6);
+            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortNameTool, sortExtensionTool, sortDateTool, sortSizeTool });
+            sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            sortToolStripMenuItem.Size = new Size(50, 24);
+            sortToolStripMenuItem.Text = "Sort";
             // 
             // sortNameTool
             // 
             sortNameTool.Name = "sortNameTool";
-            sortNameTool.Size = new Size(193, 26);
+            sortNameTool.Size = new Size(155, 26);
             sortNameTool.Text = "Name";
             // 
             // sortExtensionTool
             // 
             sortExtensionTool.Name = "sortExtensionTool";
-            sortExtensionTool.Size = new Size(193, 26);
+            sortExtensionTool.Size = new Size(155, 26);
             sortExtensionTool.Text = "Extension";
             // 
             // sortDateTool
             // 
             sortDateTool.Name = "sortDateTool";
-            sortDateTool.Size = new Size(193, 26);
+            sortDateTool.Size = new Size(155, 26);
             sortDateTool.Text = "Date";
             // 
             // sortSizeTool
             // 
             sortSizeTool.Name = "sortSizeTool";
-            sortSizeTool.Size = new Size(193, 26);
+            sortSizeTool.Size = new Size(155, 26);
             sortSizeTool.Text = "Size";
             // 
             // tabsTab
@@ -388,7 +391,7 @@
             imagePreviewBox.Dock = DockStyle.Fill;
             imagePreviewBox.Location = new Point(3, 3);
             imagePreviewBox.Name = "imagePreviewBox";
-            imagePreviewBox.Size = new Size(248, 220);
+            imagePreviewBox.Size = new Size(281, 220);
             imagePreviewBox.SizeMode = PictureBoxSizeMode.Zoom;
             imagePreviewBox.TabIndex = 2;
             imagePreviewBox.TabStop = false;
@@ -399,10 +402,10 @@
             tableLayoutPanel1.ColumnCount = 7;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.1943321F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43.927124F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 313F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.98258352F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.9303341F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 241F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 209F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.4343433F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.4646473F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 273F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Controls.Add(tabControl2, 2, 1);
             tableLayoutPanel1.Controls.Add(driveComboBox, 0, 0);
@@ -412,9 +415,10 @@
             tableLayoutPanel1.Controls.Add(previewBoxTabControl, 5, 2);
             tableLayoutPanel1.Controls.Add(searchTextBox, 5, 3);
             tableLayoutPanel1.Controls.Add(progressBar, 0, 4);
-            tableLayoutPanel1.Controls.Add(pathTextBox, 2, 3);
-            tableLayoutPanel1.Controls.Add(goToPathButton, 3, 3);
+            tableLayoutPanel1.Controls.Add(selectPathTextBox, 2, 3);
+            tableLayoutPanel1.Controls.Add(goToSelectedPathButton, 3, 3);
             tableLayoutPanel1.Controls.Add(quickAccessList, 4, 2);
+            tableLayoutPanel1.Controls.Add(logTextBox, 3, 2);
             tableLayoutPanel1.Location = new Point(25, 70);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 5;
@@ -432,11 +436,11 @@
             tabControl2.Controls.Add(tabPage4);
             tabControl2.Dock = DockStyle.Fill;
             tabControl2.ItemSize = new Size(74, 25);
-            tabControl2.Location = new Point(300, 41);
+            tabControl2.Location = new Point(343, 41);
             tabControl2.Name = "tabControl2";
             tableLayoutPanel1.SetRowSpan(tabControl2, 2);
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(307, 252);
+            tabControl2.Size = new Size(203, 252);
             tabControl2.TabIndex = 11;
             // 
             // tabPage3
@@ -445,7 +449,7 @@
             tabPage3.Location = new Point(4, 29);
             tabPage3.Margin = new Padding(0);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(299, 219);
+            tabPage3.Size = new Size(195, 219);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "tabPage3";
             tabPage3.UseVisualStyleBackColor = true;
@@ -458,7 +462,7 @@
             listView2.Location = new Point(0, 0);
             listView2.Margin = new Padding(0);
             listView2.Name = "listView2";
-            listView2.Size = new Size(299, 219);
+            listView2.Size = new Size(195, 219);
             listView2.TabIndex = 7;
             listView2.UseCompatibleStateImageBehavior = false;
             // 
@@ -467,7 +471,7 @@
             tabPage4.Location = new Point(4, 29);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(299, 219);
+            tabPage4.Size = new Size(195, 219);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "+";
             tabPage4.UseVisualStyleBackColor = true;
@@ -480,7 +484,7 @@
             driveComboBox.FormattingEnabled = true;
             driveComboBox.Location = new Point(3, 3);
             driveComboBox.Name = "driveComboBox";
-            driveComboBox.Size = new Size(74, 28);
+            driveComboBox.Size = new Size(85, 28);
             driveComboBox.TabIndex = 6;
             // 
             // tabControl1
@@ -494,7 +498,7 @@
             tabControl1.Name = "tabControl1";
             tableLayoutPanel1.SetRowSpan(tabControl1, 2);
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(291, 252);
+            tabControl1.Size = new Size(334, 252);
             tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -503,7 +507,7 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(283, 219);
+            tabPage1.Size = new Size(326, 219);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
@@ -511,12 +515,13 @@
             // listView1
             // 
             listView1.Dock = DockStyle.Fill;
+            listView1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
             listView1.Location = new Point(0, 0);
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(283, 219);
+            listView1.Size = new Size(326, 219);
             listView1.TabIndex = 7;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -525,7 +530,7 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(283, 219);
+            tabPage2.Size = new Size(326, 219);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
@@ -537,7 +542,7 @@
             selectedFileSizeLabel.Dock = DockStyle.Fill;
             selectedFileSizeLabel.Location = new Point(3, 296);
             selectedFileSizeLabel.Name = "selectedFileSizeLabel";
-            selectedFileSizeLabel.Size = new Size(291, 32);
+            selectedFileSizeLabel.Size = new Size(334, 32);
             selectedFileSizeLabel.TabIndex = 6;
             selectedFileSizeLabel.Text = "totalFileSize";
             selectedFileSizeLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -546,9 +551,9 @@
             // 
             freeSpaceLabel.AutoSize = true;
             freeSpaceLabel.Dock = DockStyle.Fill;
-            freeSpaceLabel.Location = new Point(83, 0);
+            freeSpaceLabel.Location = new Point(94, 0);
             freeSpaceLabel.Name = "freeSpaceLabel";
-            freeSpaceLabel.Size = new Size(211, 38);
+            freeSpaceLabel.Size = new Size(243, 38);
             freeSpaceLabel.TabIndex = 7;
             freeSpaceLabel.Text = "totalFreeSpace";
             freeSpaceLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -561,11 +566,11 @@
             previewBoxTabControl.Controls.Add(documentPreviewTab);
             previewBoxTabControl.Dock = DockStyle.Fill;
             previewBoxTabControl.ItemSize = new Size(0, 1);
-            previewBoxTabControl.Location = new Point(807, 61);
+            previewBoxTabControl.Location = new Point(774, 61);
             previewBoxTabControl.Margin = new Padding(0);
             previewBoxTabControl.Name = "previewBoxTabControl";
             previewBoxTabControl.SelectedIndex = 0;
-            previewBoxTabControl.Size = new Size(262, 235);
+            previewBoxTabControl.Size = new Size(295, 235);
             previewBoxTabControl.SizeMode = TabSizeMode.Fixed;
             previewBoxTabControl.TabIndex = 8;
             // 
@@ -575,7 +580,7 @@
             imagePreviewTab.Location = new Point(4, 5);
             imagePreviewTab.Name = "imagePreviewTab";
             imagePreviewTab.Padding = new Padding(3);
-            imagePreviewTab.Size = new Size(254, 226);
+            imagePreviewTab.Size = new Size(287, 226);
             imagePreviewTab.TabIndex = 0;
             imagePreviewTab.Text = "image";
             imagePreviewTab.UseVisualStyleBackColor = true;
@@ -586,7 +591,7 @@
             documentPreviewTab.Location = new Point(4, 5);
             documentPreviewTab.Name = "documentPreviewTab";
             documentPreviewTab.Padding = new Padding(3);
-            documentPreviewTab.Size = new Size(254, 226);
+            documentPreviewTab.Size = new Size(287, 226);
             documentPreviewTab.TabIndex = 1;
             documentPreviewTab.Text = "text";
             documentPreviewTab.UseVisualStyleBackColor = true;
@@ -599,7 +604,7 @@
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
             richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical;
-            richTextBox1.Size = new Size(248, 220);
+            richTextBox1.Size = new Size(281, 220);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             // 
@@ -607,10 +612,10 @@
             // 
             tableLayoutPanel1.SetColumnSpan(searchTextBox, 2);
             searchTextBox.Dock = DockStyle.Fill;
-            searchTextBox.Location = new Point(813, 299);
+            searchTextBox.Location = new Point(780, 299);
             searchTextBox.Margin = new Padding(6, 3, 6, 3);
             searchTextBox.Name = "searchTextBox";
-            searchTextBox.Size = new Size(250, 27);
+            searchTextBox.Size = new Size(283, 27);
             searchTextBox.TabIndex = 9;
             // 
             // progressBar
@@ -620,34 +625,49 @@
             progressBar.Size = new Size(74, 13);
             progressBar.TabIndex = 10;
             // 
-            // pathTextBox
+            // selectPathTextBox
             // 
-            pathTextBox.Dock = DockStyle.Fill;
-            pathTextBox.Location = new Point(303, 299);
-            pathTextBox.Margin = new Padding(6, 3, 6, 3);
-            pathTextBox.Name = "pathTextBox";
-            pathTextBox.Size = new Size(301, 27);
-            pathTextBox.TabIndex = 12;
+            selectPathTextBox.Dock = DockStyle.Fill;
+            selectPathTextBox.Location = new Point(346, 299);
+            selectPathTextBox.Margin = new Padding(6, 3, 6, 3);
+            selectPathTextBox.Name = "selectPathTextBox";
+            selectPathTextBox.Size = new Size(197, 27);
+            selectPathTextBox.TabIndex = 12;
             // 
-            // goToPathButton
+            // goToSelectedPathButton
             // 
-            goToPathButton.Location = new Point(613, 299);
-            goToPathButton.Name = "goToPathButton";
-            goToPathButton.Size = new Size(27, 26);
-            goToPathButton.TabIndex = 13;
-            goToPathButton.Text = ">";
-            goToPathButton.UseVisualStyleBackColor = true;
+            goToSelectedPathButton.Location = new Point(552, 299);
+            goToSelectedPathButton.Name = "goToSelectedPathButton";
+            goToSelectedPathButton.Size = new Size(27, 26);
+            goToSelectedPathButton.TabIndex = 13;
+            goToSelectedPathButton.Text = ">";
+            goToSelectedPathButton.UseVisualStyleBackColor = true;
             // 
             // quickAccessList
             // 
             quickAccessList.FullRowSelect = true;
             quickAccessList.GridLines = true;
-            quickAccessList.Location = new Point(652, 64);
+            quickAccessList.Location = new Point(656, 64);
             quickAccessList.Name = "quickAccessList";
-            quickAccessList.Size = new Size(151, 194);
+            quickAccessList.Size = new Size(115, 106);
             quickAccessList.TabIndex = 14;
             quickAccessList.UseCompatibleStateImageBehavior = false;
             quickAccessList.View = View.Details;
+            // 
+            // logTextBox
+            // 
+            logTextBox.AcceptsTab = true;
+            logTextBox.BackColor = SystemColors.ControlText;
+            logTextBox.DetectUrls = false;
+            logTextBox.Dock = DockStyle.Fill;
+            logTextBox.ForeColor = SystemColors.Window;
+            logTextBox.Location = new Point(552, 64);
+            logTextBox.Name = "logTextBox";
+            logTextBox.ReadOnly = true;
+            logTextBox.Size = new Size(98, 229);
+            logTextBox.TabIndex = 15;
+            logTextBox.Text = "";
+            logTextBox.WordWrap = false;
             // 
             // topToolStrip
             // 
@@ -1014,8 +1034,8 @@
         private TabPage tabPage3;
         private ListView listView2;
         private TabPage tabPage4;
-        private TextBox pathTextBox;
-        private Button goToPathButton;
+        private TextBox selectPathTextBox;
+        private Button goToSelectedPathButton;
         private ToolStripButton printTool;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintDialog printDialog1;
@@ -1031,13 +1051,8 @@
         private ToolStripMenuItem deleteAfterUnzipTool;
         private ToolStripMenuItem multiRenameTool;
         private ToolStripMenuItem compareFilenamesTool;
-        private ToolStripMenuItem sortNameTool;
-        private ToolStripMenuItem sortExtensionTool;
-        private ToolStripMenuItem sortDateTool;
-        private ToolStripMenuItem sortSizeTool;
         private ToolStripMenuItem openPowershellTool;
         private ToolStripSeparator toolStripSeparator6;
-        private ToolStripSeparator toolStripSeparator5;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripSeparator toolStripSeparator7;
         private ToolStripButton binTool;
@@ -1045,5 +1060,11 @@
         private ToolStripMenuItem quickAccessToolStripMenuItem;
         private ToolStripMenuItem quickAccessAddTool;
         private ToolStripMenuItem quickAccessRemoveTool;
+        private RichTextBox logTextBox;
+        private ToolStripMenuItem sortToolStripMenuItem;
+        private ToolStripMenuItem sortNameTool;
+        private ToolStripMenuItem sortExtensionTool;
+        private ToolStripMenuItem sortDateTool;
+        private ToolStripMenuItem sortSizeTool;
     }
 }

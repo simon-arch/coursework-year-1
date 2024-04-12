@@ -47,8 +47,6 @@ namespace filemanager
             ListView.Items.Add(dd);
 
 
-
-
             foreach (Directory d in RootDirectory.getDirs().Take(1).Concat(RootDirectory.getDirs().Skip(1).OrderBy(x => PadNumbers(x.Name))))
             {
                 if ((ShowHidden && d.IsHidden) || d.IsHidden == false)
@@ -177,7 +175,7 @@ namespace filemanager
             }
             else
             {
-                NotificationHandler.invokeError(2);
+                NotificationHandler.invokeError(ErrorType.tabDeletionError);
             }
         }
         public bool isSelected()
@@ -249,9 +247,6 @@ namespace filemanager
                 return;
             }
 
-            //EventHandler OnClick = (obj, eventArg) => OnClickFunc(obj, eventArg);
-            //EventHandler OnDoubleClick = (obj, eventArg) => OnDoubleClickFunc(obj, eventArg);
-
             ListView newListView = new ListView();
             newListView.Dock = DockStyle.Fill;
             newListView.FullRowSelect = true;
@@ -265,9 +260,9 @@ namespace filemanager
             TabControl.TabPages.Insert(lastTab, newTab);
             TabControl.SelectedIndex = lastTab;
 
-            ListView.Click += (sender, e) => { OnClickFunc(this, directoryHandler); };//OnClick;
-            ListView.DoubleClick += (sender, e) => { OnDoubleClickFunc(this, directoryHandler); };//OnDoubleClick;
-            ListView.SelectedIndexChanged += (sender, e) => { OnClickFunc(this, directoryHandler); };//OnClick;
+            ListView.Click += (sender, e) => { OnClickFunc(this, directoryHandler); };
+            ListView.DoubleClick += (sender, e) => { OnDoubleClickFunc(this, directoryHandler); };
+            ListView.SelectedIndexChanged += (sender, e) => { OnClickFunc(this, directoryHandler); };
             ListView.SelectedIndexChanged += (sender, e) => { getFileInfo(); };
             DoubleBuffering.SetDoubleBuffering(ListView, true);
 

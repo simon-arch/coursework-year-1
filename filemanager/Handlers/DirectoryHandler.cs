@@ -143,9 +143,9 @@
                             ((ArchiveFile)elem.Tag).Delete();
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        MessageBox.Show(ex.Message, "Unzip Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        NotificationHandler.invokeError(ErrorType.unzipError);
                     }
                 }
             }

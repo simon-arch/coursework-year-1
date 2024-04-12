@@ -1,25 +1,37 @@
 ﻿namespace filemanager
 {
+    public enum ErrorType
+    {
+        wrongPathError,
+        tabDeletionError,
+        noPathError,
+        zipError,
+        unzipError
+    }
     public class NotificationHandler
     {
-        public static void invokeError(int type)
+        public static void invokeError(ErrorType type)
         {
             switch(type)
             {
-                case 1:
+                case ErrorType.wrongPathError:
                     MessageBox.Show("Wrong path!", "Path Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
-                case 2:
+                case ErrorType.tabDeletionError:
                     MessageBox.Show("Can't delete main tab!", "Tab Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
-                case 3:
+                case ErrorType.noPathError:
                     MessageBox.Show("Path does not exist!", "Path Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
-                case 4:
+                case ErrorType.zipError:
                     MessageBox.Show("Error while zipping files!", "Zip Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                break;
+
+                case ErrorType.unzipError:
+                    MessageBox.Show("Error while unzipping files!", "Unzip Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 break;
 
                 default:
