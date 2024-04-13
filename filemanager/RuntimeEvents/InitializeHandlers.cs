@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         private void InitializeHandlers(DisplayHandler displayHandler, ListView listView, TabControl tabControl, ComboBox comboBox, Label label1, Label label2, PictureBox pictureBox, ImageList imageList, ProgressBar progressBar, TabControl tabControl2, TextBox textBox)
         {

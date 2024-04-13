@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-
-namespace filemanager
+﻿namespace filemanager
 {
-    public class ProcessCall
+    public static class ProcessCall
     {
         public static void RunProcess(string process, string arguments)
         {

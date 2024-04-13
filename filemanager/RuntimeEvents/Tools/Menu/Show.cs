@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         public void ShowCustom(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {

@@ -1,6 +1,6 @@
 namespace filemanager
 {
-    public partial class Form1 : Form
+    public partial class Manager : Form
     {
         DirectoryHandler directoryHandlerRightScreen = new DirectoryHandler();
         DirectoryHandler directoryHandlerLeftScreen = new DirectoryHandler();
@@ -14,7 +14,7 @@ namespace filemanager
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
         LoggerHandler loggerHandler = new LoggerHandler();
 
-        public Form1()
+        public Manager()
         {
             InitializeComponent();
 
@@ -39,10 +39,9 @@ namespace filemanager
 
             loggerHandler.rtb = logTextBox;
             displayList[0].Focused = true;
-            quickAccessList.Columns.Add("Quick Access", -2, HorizontalAlignment.Left);
             quickAccessList.SmallImageList = fileIconList;
-            displayList.ForEach(x => x.SortType = "name");
-            loggerHandler.Log(Category.start);
+            displayList.ForEach(x => x.SortType = SortType.name);
+            loggerHandler.Log(LogCategory.start);
 
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);

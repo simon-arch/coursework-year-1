@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         private void DoubleClick(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
@@ -22,7 +22,7 @@
                     ((File)selected[0].Tag).View();
 
                     //* [log] *//
-                    if (displayHandler.Focused) loggerHandler.Log(Category.interaction,
+                    if (displayHandler.Focused) loggerHandler.Log(LogCategory.interaction,
                         selected[0].ETag().Type,
                         selected[0].ETag().SubType,
                         selected[0].ETag().Name,

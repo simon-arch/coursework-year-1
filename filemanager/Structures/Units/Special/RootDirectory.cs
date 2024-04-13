@@ -2,6 +2,13 @@
 
 namespace filemanager
 {
+    public enum SortType
+    {
+        name,
+        extension,
+        date,
+        size
+    }
     public class RootDirectory : Directory
     {
         protected List<File> containingFiles = new List<File>();
@@ -36,14 +43,14 @@ namespace filemanager
         {
             return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
         }
-        public void SortData(string type)
+        public void SortData(SortType type)
         {
             switch (type)
             {
-                case "name": containingFiles = containingFiles.OrderBy(o => PadNumbers(o.Name)).ToList(); break;
-                case "extension": containingFiles = containingFiles.OrderBy(o => o.Extension).ToList(); break;
-                case "date": containingFiles = containingFiles.OrderBy(o => o.CreationDate).ToList(); break;
-                case "size": containingFiles = containingFiles.OrderBy(o => o.Size).ToList(); break;
+                case SortType.name: containingFiles = containingFiles.OrderBy(o => PadNumbers(o.Name)).ToList(); break;
+                case SortType.extension: containingFiles = containingFiles.OrderBy(o => o.Extension).ToList(); break;
+                case SortType.date: containingFiles = containingFiles.OrderBy(o => o.CreationDate).ToList(); break;
+                case SortType.size: containingFiles = containingFiles.OrderBy(o => o.Size).ToList(); break;
             }
         }
     }

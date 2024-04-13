@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public enum Category
+    public enum LogCategory
     {
         start,
         navigation,
@@ -17,24 +17,24 @@
             showNavigation = true;
             showInteraction = true;
         }
-        public void Log(Category category, params string[] logdata)
+        public void Log(LogCategory category, params string[] logdata)
         {
             rtb.AppendText($" [{DateTime.Now}] <{category}> ");
             switch (category)
             {
-                case Category.start:
+                case LogCategory.start:
                     rtb.AppendText($"Logging started...");
                 break;
 
-                case Category.navigation: 
+                case LogCategory.navigation: 
                     if(showNavigation) rtb.AppendText($"Moving from {logdata[0]} to {logdata[1]}");
                 break;
 
-                case Category.interaction:
+                case LogCategory.interaction:
                     if (showInteraction) rtb.AppendText($"Interacting with ({logdata[0]}:{logdata[1]}) {logdata[2]}{logdata[3]}");
                 break;
 
-                case Category.end:
+                case LogCategory.end:
                     rtb.AppendText($"Logging ended...\n");
                 break;
             }

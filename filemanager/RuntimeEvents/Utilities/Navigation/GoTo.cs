@@ -1,13 +1,13 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         public void GoTo(RootDirectory root, DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
             if (Path.Exists(root.Path))
             {
                 //* [log] *//
-                if (displayHandler.Focused) loggerHandler.Log(Category.navigation, directoryHandler.RootDirectory.Path, root.Path);
+                if (displayHandler.Focused) loggerHandler.Log(LogCategory.navigation, directoryHandler.RootDirectory.Path, root.Path);
 
                 directoryHandler.RootDirectory = root;
                 displayHandler.RootDirectory = root;

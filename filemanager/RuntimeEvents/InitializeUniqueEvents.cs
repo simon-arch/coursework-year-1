@@ -1,13 +1,13 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         public void InitializeUniqueEvents()
         {
             this.FormClosing += (sender, e) =>
             {
-                loggerHandler.Log(Category.end);
-                string logpath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"..\..\..\Resources\log.txt");
+                loggerHandler.Log(LogCategory.end);
+                string logpath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"..\..\..\AppData\log.txt");
                 System.IO.File.AppendAllText(logpath, logTextBox.Text);
             };
 

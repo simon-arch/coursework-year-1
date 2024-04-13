@@ -2,14 +2,14 @@
 
 namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         private void LoadSettings(List<DisplayHandler> displayList, List<DirectoryHandler> directoryList)
         {
             // LIST SETTINGS //
             string json = System.IO.File.ReadAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\Resources\listsettings.json"));
+            @"..\..\..\AppData\listsettings.json"));
             UserSettings defaultSettings = new UserSettings();
             List<UserSettings> userSettings = new List<UserSettings>();
             try
@@ -34,7 +34,7 @@ namespace filemanager
             // APP SETTINGS //
             json = System.IO.File.ReadAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\Resources\appsettings.json"));
+            @"..\..\..\AppData\appsettings.json"));
             AppSettings appSettings = new AppSettings();
             try
             {

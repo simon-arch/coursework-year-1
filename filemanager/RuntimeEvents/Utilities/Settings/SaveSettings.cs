@@ -2,7 +2,7 @@
 
 namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         private void SaveSettings(List<DisplayHandler> displayList)
         {
@@ -21,7 +21,7 @@ namespace filemanager
             string json = JsonSerializer.Serialize(viewSettings);
             System.IO.File.WriteAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\Resources\listsettings.json"), json);
+            @"..\..\..\AppData\listsettings.json"), json);
             //
 
             // APP SETTINGS //
@@ -29,7 +29,7 @@ namespace filemanager
             json = JsonSerializer.Serialize(appSettings);
             System.IO.File.WriteAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\Resources\appsettings.json"), json);
+            @"..\..\..\AppData\appsettings.json"), json);
             //
         }
     }

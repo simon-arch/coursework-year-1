@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-
-namespace filemanager
+﻿namespace filemanager
 {
     public abstract class Element
     {

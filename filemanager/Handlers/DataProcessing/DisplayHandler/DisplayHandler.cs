@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 namespace filemanager
 {
-    public class DisplayHandler
+    public partial class DisplayHandler : DataHandler
     {
         public bool Focused { get; set; }
         public ListView? ListView { get; set; }
@@ -10,7 +10,6 @@ namespace filemanager
         public ProgressBar? ProgressBar { get; set; }
         public Label? UsedStorage { get; set; }
         public PictureBox? PictureBox { get; set; }
-        public RootDirectory RootDirectory { get; set; }
         public TabControl? TabControl { get; set; }
         public TabControl? PreviewBox { get; set; }
         public ComboBox? ComboBox { get; set; }
@@ -18,7 +17,7 @@ namespace filemanager
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
-        public string SortType {  get; set; }
+        public SortType SortType {  get; set; }
         public static string PadNumbers(string input)
         {
             return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
@@ -45,7 +44,6 @@ namespace filemanager
             dd.Tag = new MovementDirectory();
             dd.ImageIndex = 1;
             ListView.Items.Add(dd);
-
 
             foreach (Directory d in RootDirectory.getDirs().Take(1).Concat(RootDirectory.getDirs().Skip(1).OrderBy(x => PadNumbers(x.Name))))
             {
@@ -146,27 +144,6 @@ namespace filemanager
 
             Label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s), {selectedFolders} / {folders} dir(s)";
         }
-        public void InvertSelection()
-        {
-            if (ListView.SelectedItems.Count > 0 && ListView.SelectedItems[0].Index != 0)
-            {
-                for (int i = 1; i < ListView.Items.Count; i++)
-                {
-                    ListView.Items[i].Selected = !ListView.Items[i].Selected;
-                }
-            }
-        }
-        public void DeleteSelection()
-        {
-            ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
-            if (listitems.Count > 0)
-            {
-                for (int i = 0; i < listitems.Count; i++)
-                {
-                    listitems[i].ETag().Delete();
-                }
-            }
-        }
         public void DeleteTab()
         {
             if (TabControl.TabPages.Count > 2)
@@ -188,35 +165,6 @@ namespace filemanager
                 }
             } 
             return false;
-        }
-        public void SelectAll()
-        {
-            for (int i = 1; i < ListView.Items.Count; i++)
-            {
-                ListView.Items[i].Selected = true;
-            }
-        }
-        public void UnselectAll()
-        {
-            for (int i = 1; i < ListView.Items.Count; i++)
-            {
-                ListView.Items[i].Selected = false;
-            }
-        }
-        public void SelectAllWithTheSameExtension()
-        {
-            ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
-            if (listitems.Count > 0)
-            {
-                string extens = ListView.SelectedItems[0].ETag().Extension;
-                for (int i = 1; i < ListView.Items.Count; i++)
-                {
-                    if (ListView.Items[i].ETag().Extension == extens)
-                    {
-                        ListView.Items[i].Selected = true;
-                    }
-                }
-            }
         }
         public void CopyNamesToClipboard(bool copyWithPath)
         {

@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         private void InitializeSharedEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
@@ -8,10 +8,10 @@
             quickAccessAddTool.Click += (sender, e) => AccessAdd(displayHandler);
             quickAccessRemoveTool.Click += (sender, e) => AccessRemove();
             quickAccessList.DoubleClick += (sender, e) => AccessDoubleClick(displayHandler, directoryHandler);
-            sortNameTool.Click += (sender, e) => Sort("name", displayHandler, directoryHandler);
-            sortDateTool.Click += (sender, e) => Sort("date", displayHandler, directoryHandler);
-            sortSizeTool.Click += (sender, e) => Sort("size", displayHandler, directoryHandler);
-            sortExtensionTool.Click += (sender, e) => Sort("extension", displayHandler, directoryHandler);
+            sortNameTool.Click += (sender, e) => Sort(SortType.name, displayHandler, directoryHandler);
+            sortDateTool.Click += (sender, e) => Sort(SortType.date, displayHandler, directoryHandler);
+            sortSizeTool.Click += (sender, e) => Sort(SortType.size, displayHandler, directoryHandler);
+            sortExtensionTool.Click += (sender, e) => Sort(SortType.extension, displayHandler, directoryHandler);
             deleteAfterUnzipTool.Click += (sender, e) => { directoryHandler.DeleteSource = deleteAfterUnzipTool.Checked; };
             openConsoleTool.Click += (sender, e) => Console(displayHandler);
             openPowershellTool.Click += (sender, e) => PowerShell(displayHandler);

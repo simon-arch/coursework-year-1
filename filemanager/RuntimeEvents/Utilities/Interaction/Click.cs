@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    public partial class Form1
+    public partial class Manager
     {
         private void Click(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {

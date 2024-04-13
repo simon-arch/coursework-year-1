@@ -1,6 +1,6 @@
 ﻿namespace filemanager
 {
-    partial class Form1
+    partial class Manager
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             topMenuStrip = new MenuStrip();
             filesToolStripMenuItem = new ToolStripMenuItem();
             propertiesTool = new ToolStripMenuItem();
@@ -68,28 +68,27 @@
             quickAccessAddTool = new ToolStripMenuItem();
             quickAccessRemoveTool = new ToolStripMenuItem();
             imagePreviewBox = new PictureBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tabControl2 = new TabControl();
-            tabPage3 = new TabPage();
-            listView2 = new ListView();
-            tabPage4 = new TabPage();
-            driveComboBox = new ComboBox();
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
-            listView1 = new ListView();
-            tabPage2 = new TabPage();
             selectedFileSizeLabel = new Label();
             freeSpaceLabel = new Label();
+            driveComboBox = new ComboBox();
+            selectPathTextBox = new TextBox();
+            goToSelectedPathButton = new Button();
+            searchTextBox = new TextBox();
             previewBoxTabControl = new TabControl();
             imagePreviewTab = new TabPage();
             documentPreviewTab = new TabPage();
             richTextBox1 = new RichTextBox();
-            searchTextBox = new TextBox();
-            progressBar = new ProgressBar();
-            selectPathTextBox = new TextBox();
-            goToSelectedPathButton = new Button();
-            quickAccessList = new ListView();
             logTextBox = new RichTextBox();
+            tabControl2 = new TabControl();
+            tabPage3 = new TabPage();
+            listView2 = new ListView();
+            tabPage4 = new TabPage();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            listView1 = new ListView();
+            tabPage2 = new TabPage();
+            quickAccessList = new ListView();
+            columnHeader1 = new ColumnHeader();
             topToolStrip = new ToolStrip();
             quickRefreshTool = new ToolStripButton();
             goUpTool = new ToolStripButton();
@@ -123,18 +122,28 @@
             fileIconList = new ImageList(components);
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             printDialog1 = new PrintDialog();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            tableLayoutPanel6 = new TableLayoutPanel();
+            progressBar = new ProgressBar();
             topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).BeginInit();
-            tableLayoutPanel1.SuspendLayout();
+            previewBoxTabControl.SuspendLayout();
+            imagePreviewTab.SuspendLayout();
+            documentPreviewTab.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            previewBoxTabControl.SuspendLayout();
-            imagePreviewTab.SuspendLayout();
-            documentPreviewTab.SuspendLayout();
             topToolStrip.SuspendLayout();
             bottomMenuStrip.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
             SuspendLayout();
             // 
             // topMenuStrip
@@ -143,7 +152,7 @@
             topMenuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, markToolStripMenuItem, commandsToolStripMenuItem, showTab, sortToolStripMenuItem, tabsTab, quickAccessToolStripMenuItem });
             topMenuStrip.Location = new Point(0, 0);
             topMenuStrip.Name = "topMenuStrip";
-            topMenuStrip.Size = new Size(1118, 28);
+            topMenuStrip.Size = new Size(982, 28);
             topMenuStrip.TabIndex = 1;
             topMenuStrip.Text = "menuStrip";
             // 
@@ -389,46 +398,148 @@
             // 
             imagePreviewBox.BorderStyle = BorderStyle.FixedSingle;
             imagePreviewBox.Dock = DockStyle.Fill;
-            imagePreviewBox.Location = new Point(3, 3);
+            imagePreviewBox.Location = new Point(0, 0);
+            imagePreviewBox.Margin = new Padding(0);
             imagePreviewBox.Name = "imagePreviewBox";
-            imagePreviewBox.Size = new Size(281, 220);
+            imagePreviewBox.Size = new Size(312, 115);
             imagePreviewBox.SizeMode = PictureBoxSizeMode.Zoom;
             imagePreviewBox.TabIndex = 2;
             imagePreviewBox.TabStop = false;
             // 
-            // tableLayoutPanel1
+            // selectedFileSizeLabel
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.ColumnCount = 7;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.1943321F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43.927124F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 209F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.4343433F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.4646473F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 273F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(tabControl2, 2, 1);
-            tableLayoutPanel1.Controls.Add(driveComboBox, 0, 0);
-            tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
-            tableLayoutPanel1.Controls.Add(selectedFileSizeLabel, 0, 3);
-            tableLayoutPanel1.Controls.Add(freeSpaceLabel, 1, 0);
-            tableLayoutPanel1.Controls.Add(previewBoxTabControl, 5, 2);
-            tableLayoutPanel1.Controls.Add(searchTextBox, 5, 3);
-            tableLayoutPanel1.Controls.Add(progressBar, 0, 4);
-            tableLayoutPanel1.Controls.Add(selectPathTextBox, 2, 3);
-            tableLayoutPanel1.Controls.Add(goToSelectedPathButton, 3, 3);
-            tableLayoutPanel1.Controls.Add(quickAccessList, 4, 2);
-            tableLayoutPanel1.Controls.Add(logTextBox, 3, 2);
-            tableLayoutPanel1.Location = new Point(25, 70);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 23F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 92.68292F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.317074F));
-            tableLayoutPanel1.Size = new Size(1069, 347);
-            tableLayoutPanel1.TabIndex = 6;
+            selectedFileSizeLabel.AutoSize = true;
+            tableLayoutPanel6.SetColumnSpan(selectedFileSizeLabel, 2);
+            selectedFileSizeLabel.Dock = DockStyle.Fill;
+            selectedFileSizeLabel.Location = new Point(0, 334);
+            selectedFileSizeLabel.Margin = new Padding(0);
+            selectedFileSizeLabel.Name = "selectedFileSizeLabel";
+            selectedFileSizeLabel.Size = new Size(355, 30);
+            selectedFileSizeLabel.TabIndex = 6;
+            selectedFileSizeLabel.Text = "totalFileSize";
+            selectedFileSizeLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // freeSpaceLabel
+            // 
+            freeSpaceLabel.AutoSize = true;
+            freeSpaceLabel.Dock = DockStyle.Fill;
+            freeSpaceLabel.Location = new Point(70, 0);
+            freeSpaceLabel.Margin = new Padding(0);
+            freeSpaceLabel.Name = "freeSpaceLabel";
+            freeSpaceLabel.Size = new Size(285, 30);
+            freeSpaceLabel.TabIndex = 7;
+            freeSpaceLabel.Text = "totalFreeSpace";
+            freeSpaceLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // driveComboBox
+            // 
+            driveComboBox.Cursor = Cursors.Hand;
+            driveComboBox.Dock = DockStyle.Fill;
+            driveComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            driveComboBox.FormattingEnabled = true;
+            driveComboBox.Location = new Point(0, 0);
+            driveComboBox.Margin = new Padding(0);
+            driveComboBox.Name = "driveComboBox";
+            driveComboBox.Size = new Size(70, 28);
+            driveComboBox.TabIndex = 6;
+            // 
+            // selectPathTextBox
+            // 
+            selectPathTextBox.Dock = DockStyle.Fill;
+            selectPathTextBox.Location = new Point(641, 307);
+            selectPathTextBox.Margin = new Padding(0, 3, 0, 0);
+            selectPathTextBox.Name = "selectPathTextBox";
+            selectPathTextBox.Size = new Size(285, 27);
+            selectPathTextBox.TabIndex = 12;
+            // 
+            // goToSelectedPathButton
+            // 
+            goToSelectedPathButton.Dock = DockStyle.Fill;
+            goToSelectedPathButton.Location = new Point(926, 307);
+            goToSelectedPathButton.Margin = new Padding(0, 3, 3, 0);
+            goToSelectedPathButton.Name = "goToSelectedPathButton";
+            goToSelectedPathButton.Size = new Size(29, 27);
+            goToSelectedPathButton.TabIndex = 13;
+            goToSelectedPathButton.Text = ">";
+            goToSelectedPathButton.UseVisualStyleBackColor = true;
+            // 
+            // searchTextBox
+            // 
+            tableLayoutPanel6.SetColumnSpan(searchTextBox, 2);
+            searchTextBox.Dock = DockStyle.Fill;
+            searchTextBox.Location = new Point(0, 307);
+            searchTextBox.Margin = new Padding(0, 3, 40, 0);
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.Size = new Size(315, 27);
+            searchTextBox.TabIndex = 9;
+            // 
+            // previewBoxTabControl
+            // 
+            previewBoxTabControl.Appearance = TabAppearance.FlatButtons;
+            tableLayoutPanel5.SetColumnSpan(previewBoxTabControl, 2);
+            previewBoxTabControl.Controls.Add(imagePreviewTab);
+            previewBoxTabControl.Controls.Add(documentPreviewTab);
+            previewBoxTabControl.Dock = DockStyle.Fill;
+            previewBoxTabControl.ItemSize = new Size(0, 1);
+            previewBoxTabControl.Location = new Point(0, 25);
+            previewBoxTabControl.Margin = new Padding(0);
+            previewBoxTabControl.Name = "previewBoxTabControl";
+            previewBoxTabControl.SelectedIndex = 0;
+            previewBoxTabControl.Size = new Size(320, 124);
+            previewBoxTabControl.SizeMode = TabSizeMode.Fixed;
+            previewBoxTabControl.TabIndex = 8;
+            // 
+            // imagePreviewTab
+            // 
+            imagePreviewTab.Controls.Add(imagePreviewBox);
+            imagePreviewTab.Location = new Point(4, 5);
+            imagePreviewTab.Margin = new Padding(0);
+            imagePreviewTab.Name = "imagePreviewTab";
+            imagePreviewTab.Size = new Size(312, 115);
+            imagePreviewTab.TabIndex = 0;
+            imagePreviewTab.Text = "image";
+            imagePreviewTab.UseVisualStyleBackColor = true;
+            // 
+            // documentPreviewTab
+            // 
+            documentPreviewTab.Controls.Add(richTextBox1);
+            documentPreviewTab.Location = new Point(4, 5);
+            documentPreviewTab.Margin = new Padding(0);
+            documentPreviewTab.Name = "documentPreviewTab";
+            documentPreviewTab.Size = new Size(312, 115);
+            documentPreviewTab.TabIndex = 1;
+            documentPreviewTab.Text = "text";
+            documentPreviewTab.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
+            richTextBox1.Dock = DockStyle.Fill;
+            richTextBox1.Location = new Point(0, 0);
+            richTextBox1.Margin = new Padding(0);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
+            richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical;
+            richTextBox1.Size = new Size(312, 115);
+            richTextBox1.TabIndex = 0;
+            richTextBox1.Text = "";
+            // 
+            // logTextBox
+            // 
+            logTextBox.AcceptsTab = true;
+            logTextBox.BackColor = SystemColors.ControlText;
+            logTextBox.BorderStyle = BorderStyle.FixedSingle;
+            logTextBox.DetectUrls = false;
+            logTextBox.Dock = DockStyle.Fill;
+            logTextBox.ForeColor = SystemColors.Window;
+            logTextBox.Location = new Point(4, 149);
+            logTextBox.Margin = new Padding(4, 0, 0, 0);
+            logTextBox.Name = "logTextBox";
+            logTextBox.ReadOnly = true;
+            logTextBox.Size = new Size(156, 125);
+            logTextBox.TabIndex = 15;
+            logTextBox.Text = "";
+            logTextBox.WordWrap = false;
             // 
             // tabControl2
             // 
@@ -436,11 +547,12 @@
             tabControl2.Controls.Add(tabPage4);
             tabControl2.Dock = DockStyle.Fill;
             tabControl2.ItemSize = new Size(74, 25);
-            tabControl2.Location = new Point(343, 41);
+            tabControl2.Location = new Point(0, 0);
+            tabControl2.Margin = new Padding(0);
             tabControl2.Name = "tabControl2";
-            tableLayoutPanel1.SetRowSpan(tabControl2, 2);
+            tableLayoutPanel4.SetRowSpan(tabControl2, 2);
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(203, 252);
+            tabControl2.Size = new Size(319, 274);
             tabControl2.TabIndex = 11;
             // 
             // tabPage3
@@ -449,7 +561,7 @@
             tabPage3.Location = new Point(4, 29);
             tabPage3.Margin = new Padding(0);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(195, 219);
+            tabPage3.Size = new Size(311, 241);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "tabPage3";
             tabPage3.UseVisualStyleBackColor = true;
@@ -462,7 +574,7 @@
             listView2.Location = new Point(0, 0);
             listView2.Margin = new Padding(0);
             listView2.Name = "listView2";
-            listView2.Size = new Size(195, 219);
+            listView2.Size = new Size(311, 241);
             listView2.TabIndex = 7;
             listView2.UseCompatibleStateImageBehavior = false;
             // 
@@ -471,34 +583,23 @@
             tabPage4.Location = new Point(4, 29);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(195, 219);
+            tabPage4.Size = new Size(311, 241);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "+";
             tabPage4.UseVisualStyleBackColor = true;
             // 
-            // driveComboBox
-            // 
-            driveComboBox.Cursor = Cursors.Hand;
-            driveComboBox.Dock = DockStyle.Fill;
-            driveComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            driveComboBox.FormattingEnabled = true;
-            driveComboBox.Location = new Point(3, 3);
-            driveComboBox.Name = "driveComboBox";
-            driveComboBox.Size = new Size(85, 28);
-            driveComboBox.TabIndex = 6;
-            // 
             // tabControl1
             // 
-            tableLayoutPanel1.SetColumnSpan(tabControl1, 2);
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.ItemSize = new Size(74, 25);
-            tabControl1.Location = new Point(3, 41);
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Margin = new Padding(0);
             tabControl1.Name = "tabControl1";
-            tableLayoutPanel1.SetRowSpan(tabControl1, 2);
+            tableLayoutPanel3.SetRowSpan(tabControl1, 2);
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(334, 252);
+            tabControl1.Size = new Size(319, 274);
             tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -507,7 +608,7 @@
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(0);
             tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(326, 219);
+            tabPage1.Size = new Size(311, 241);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
@@ -521,7 +622,7 @@
             listView1.Location = new Point(0, 0);
             listView1.Margin = new Padding(0);
             listView1.Name = "listView1";
-            listView1.Size = new Size(326, 219);
+            listView1.Size = new Size(311, 241);
             listView1.TabIndex = 7;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -530,144 +631,29 @@
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(326, 219);
+            tabPage2.Size = new Size(311, 241);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "+";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // selectedFileSizeLabel
-            // 
-            selectedFileSizeLabel.AutoSize = true;
-            tableLayoutPanel1.SetColumnSpan(selectedFileSizeLabel, 2);
-            selectedFileSizeLabel.Dock = DockStyle.Fill;
-            selectedFileSizeLabel.Location = new Point(3, 296);
-            selectedFileSizeLabel.Name = "selectedFileSizeLabel";
-            selectedFileSizeLabel.Size = new Size(334, 32);
-            selectedFileSizeLabel.TabIndex = 6;
-            selectedFileSizeLabel.Text = "totalFileSize";
-            selectedFileSizeLabel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // freeSpaceLabel
-            // 
-            freeSpaceLabel.AutoSize = true;
-            freeSpaceLabel.Dock = DockStyle.Fill;
-            freeSpaceLabel.Location = new Point(94, 0);
-            freeSpaceLabel.Name = "freeSpaceLabel";
-            freeSpaceLabel.Size = new Size(243, 38);
-            freeSpaceLabel.TabIndex = 7;
-            freeSpaceLabel.Text = "totalFreeSpace";
-            freeSpaceLabel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // previewBoxTabControl
-            // 
-            previewBoxTabControl.Appearance = TabAppearance.FlatButtons;
-            tableLayoutPanel1.SetColumnSpan(previewBoxTabControl, 2);
-            previewBoxTabControl.Controls.Add(imagePreviewTab);
-            previewBoxTabControl.Controls.Add(documentPreviewTab);
-            previewBoxTabControl.Dock = DockStyle.Fill;
-            previewBoxTabControl.ItemSize = new Size(0, 1);
-            previewBoxTabControl.Location = new Point(774, 61);
-            previewBoxTabControl.Margin = new Padding(0);
-            previewBoxTabControl.Name = "previewBoxTabControl";
-            previewBoxTabControl.SelectedIndex = 0;
-            previewBoxTabControl.Size = new Size(295, 235);
-            previewBoxTabControl.SizeMode = TabSizeMode.Fixed;
-            previewBoxTabControl.TabIndex = 8;
-            // 
-            // imagePreviewTab
-            // 
-            imagePreviewTab.Controls.Add(imagePreviewBox);
-            imagePreviewTab.Location = new Point(4, 5);
-            imagePreviewTab.Name = "imagePreviewTab";
-            imagePreviewTab.Padding = new Padding(3);
-            imagePreviewTab.Size = new Size(287, 226);
-            imagePreviewTab.TabIndex = 0;
-            imagePreviewTab.Text = "image";
-            imagePreviewTab.UseVisualStyleBackColor = true;
-            // 
-            // documentPreviewTab
-            // 
-            documentPreviewTab.Controls.Add(richTextBox1);
-            documentPreviewTab.Location = new Point(4, 5);
-            documentPreviewTab.Name = "documentPreviewTab";
-            documentPreviewTab.Padding = new Padding(3);
-            documentPreviewTab.Size = new Size(287, 226);
-            documentPreviewTab.TabIndex = 1;
-            documentPreviewTab.Text = "text";
-            documentPreviewTab.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Dock = DockStyle.Fill;
-            richTextBox1.Location = new Point(3, 3);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.ScrollBars = RichTextBoxScrollBars.Vertical;
-            richTextBox1.Size = new Size(281, 220);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = "";
-            // 
-            // searchTextBox
-            // 
-            tableLayoutPanel1.SetColumnSpan(searchTextBox, 2);
-            searchTextBox.Dock = DockStyle.Fill;
-            searchTextBox.Location = new Point(780, 299);
-            searchTextBox.Margin = new Padding(6, 3, 6, 3);
-            searchTextBox.Name = "searchTextBox";
-            searchTextBox.Size = new Size(283, 27);
-            searchTextBox.TabIndex = 9;
-            // 
-            // progressBar
-            // 
-            progressBar.Location = new Point(3, 331);
-            progressBar.Name = "progressBar";
-            progressBar.Size = new Size(74, 13);
-            progressBar.TabIndex = 10;
-            // 
-            // selectPathTextBox
-            // 
-            selectPathTextBox.Dock = DockStyle.Fill;
-            selectPathTextBox.Location = new Point(346, 299);
-            selectPathTextBox.Margin = new Padding(6, 3, 6, 3);
-            selectPathTextBox.Name = "selectPathTextBox";
-            selectPathTextBox.Size = new Size(197, 27);
-            selectPathTextBox.TabIndex = 12;
-            // 
-            // goToSelectedPathButton
-            // 
-            goToSelectedPathButton.Location = new Point(552, 299);
-            goToSelectedPathButton.Name = "goToSelectedPathButton";
-            goToSelectedPathButton.Size = new Size(27, 26);
-            goToSelectedPathButton.TabIndex = 13;
-            goToSelectedPathButton.Text = ">";
-            goToSelectedPathButton.UseVisualStyleBackColor = true;
-            // 
             // quickAccessList
             // 
+            quickAccessList.Columns.AddRange(new ColumnHeader[] { columnHeader1 });
+            quickAccessList.Dock = DockStyle.Fill;
             quickAccessList.FullRowSelect = true;
             quickAccessList.GridLines = true;
-            quickAccessList.Location = new Point(656, 64);
+            quickAccessList.Location = new Point(160, 149);
+            quickAccessList.Margin = new Padding(0, 0, 4, 0);
             quickAccessList.Name = "quickAccessList";
-            quickAccessList.Size = new Size(115, 106);
+            quickAccessList.Size = new Size(156, 125);
             quickAccessList.TabIndex = 14;
             quickAccessList.UseCompatibleStateImageBehavior = false;
             quickAccessList.View = View.Details;
             // 
-            // logTextBox
+            // columnHeader1
             // 
-            logTextBox.AcceptsTab = true;
-            logTextBox.BackColor = SystemColors.ControlText;
-            logTextBox.DetectUrls = false;
-            logTextBox.Dock = DockStyle.Fill;
-            logTextBox.ForeColor = SystemColors.Window;
-            logTextBox.Location = new Point(552, 64);
-            logTextBox.Name = "logTextBox";
-            logTextBox.ReadOnly = true;
-            logTextBox.Size = new Size(98, 229);
-            logTextBox.TabIndex = 15;
-            logTextBox.Text = "";
-            logTextBox.WordWrap = false;
+            columnHeader1.Text = "Quick Access";
+            columnHeader1.Width = 500;
             // 
             // topToolStrip
             // 
@@ -675,7 +661,7 @@
             topToolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool, printTool, binTool });
             topToolStrip.Location = new Point(0, 28);
             topToolStrip.Name = "topToolStrip";
-            topToolStrip.Size = new Size(1118, 27);
+            topToolStrip.Size = new Size(982, 27);
             topToolStrip.TabIndex = 4;
             topToolStrip.Text = "toolStrip";
             // 
@@ -844,9 +830,9 @@
             bottomMenuStrip.Dock = DockStyle.Bottom;
             bottomMenuStrip.ImageScalingSize = new Size(20, 20);
             bottomMenuStrip.Items.AddRange(new ToolStripItem[] { refreshTool, renameTool, viewTool, editTool, copyTool, cutTool, pasteTool, newFolderTool, deleteTool, exitTool });
-            bottomMenuStrip.Location = new Point(0, 422);
+            bottomMenuStrip.Location = new Point(0, 425);
             bottomMenuStrip.Name = "bottomMenuStrip";
-            bottomMenuStrip.Size = new Size(1118, 28);
+            bottomMenuStrip.Size = new Size(982, 28);
             bottomMenuStrip.TabIndex = 6;
             bottomMenuStrip.Text = "menuStrip1";
             // 
@@ -936,35 +922,157 @@
             // 
             printDialog1.UseEXDialog = true;
             // 
-            // Form1
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel6.SetColumnSpan(tableLayoutPanel2, 45);
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333244F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel5, 2, 0);
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel4, 1, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 30);
+            tableLayoutPanel2.Margin = new Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new Size(958, 274);
+            tableLayoutPanel2.TabIndex = 7;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 1;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.Controls.Add(tabControl1, 0, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Margin = new Padding(0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel2.SetRowSpan(tableLayoutPanel3, 2);
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.Size = new Size(319, 274);
+            tableLayoutPanel3.TabIndex = 8;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.ColumnCount = 2;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.Controls.Add(logTextBox, 0, 2);
+            tableLayoutPanel5.Controls.Add(quickAccessList, 1, 2);
+            tableLayoutPanel5.Controls.Add(previewBoxTabControl, 0, 1);
+            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Location = new Point(638, 0);
+            tableLayoutPanel5.Margin = new Padding(0);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 3;
+            tableLayoutPanel2.SetRowSpan(tableLayoutPanel5, 2);
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel5.Size = new Size(320, 274);
+            tableLayoutPanel5.TabIndex = 10;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel4.Controls.Add(tabControl2, 0, 0);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(319, 0);
+            tableLayoutPanel4.Margin = new Padding(0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 2;
+            tableLayoutPanel2.SetRowSpan(tableLayoutPanel4, 2);
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel4.Size = new Size(319, 274);
+            tableLayoutPanel4.TabIndex = 9;
+            // 
+            // tableLayoutPanel6
+            // 
+            tableLayoutPanel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel6.ColumnCount = 5;
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 70F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel6.Controls.Add(driveComboBox, 0, 0);
+            tableLayoutPanel6.Controls.Add(freeSpaceLabel, 1, 0);
+            tableLayoutPanel6.Controls.Add(tableLayoutPanel2, 0, 1);
+            tableLayoutPanel6.Controls.Add(goToSelectedPathButton, 4, 2);
+            tableLayoutPanel6.Controls.Add(selectPathTextBox, 3, 2);
+            tableLayoutPanel6.Controls.Add(selectedFileSizeLabel, 0, 3);
+            tableLayoutPanel6.Controls.Add(searchTextBox, 0, 2);
+            tableLayoutPanel6.Controls.Add(progressBar, 3, 3);
+            tableLayoutPanel6.Location = new Point(12, 58);
+            tableLayoutPanel6.Margin = new Padding(0);
+            tableLayoutPanel6.Name = "tableLayoutPanel6";
+            tableLayoutPanel6.RowCount = 4;
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel6.Size = new Size(958, 364);
+            tableLayoutPanel6.TabIndex = 8;
+            // 
+            // progressBar
+            // 
+            tableLayoutPanel6.SetColumnSpan(progressBar, 2);
+            progressBar.Dock = DockStyle.Right;
+            progressBar.Location = new Point(876, 334);
+            progressBar.Margin = new Padding(0);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(82, 30);
+            progressBar.TabIndex = 14;
+            // 
+            // Manager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1118, 450);
+            ClientSize = new Size(982, 453);
+            Controls.Add(tableLayoutPanel6);
             Controls.Add(topToolStrip);
-            Controls.Add(tableLayoutPanel1);
             Controls.Add(topMenuStrip);
             Controls.Add(bottomMenuStrip);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = topMenuStrip;
-            Name = "Form1";
+            Name = "Manager";
             Text = "Sapphire Toolkit";
             topMenuStrip.ResumeLayout(false);
             topMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).EndInit();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            previewBoxTabControl.ResumeLayout(false);
+            imagePreviewTab.ResumeLayout(false);
+            documentPreviewTab.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            previewBoxTabControl.ResumeLayout(false);
-            imagePreviewTab.ResumeLayout(false);
-            documentPreviewTab.ResumeLayout(false);
             topToolStrip.ResumeLayout(false);
             topToolStrip.PerformLayout();
             bottomMenuStrip.ResumeLayout(false);
             bottomMenuStrip.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel6.ResumeLayout(false);
+            tableLayoutPanel6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -975,7 +1083,6 @@
         private ToolStripMenuItem copyTool;
         private ToolStripMenuItem pasteTool;
         private PictureBox imagePreviewBox;
-        private TableLayoutPanel tableLayoutPanel1;
         private ToolStrip topToolStrip;
         private ToolStripButton quickRefreshTool;
         private ToolStripSeparator toolStripSeparator1;
@@ -1029,7 +1136,6 @@
         private ToolStripMenuItem renameTool;
         private ToolStripMenuItem refreshTool;
         private TextBox searchTextBox;
-        private ProgressBar progressBar;
         private TabControl tabControl2;
         private TabPage tabPage3;
         private ListView listView2;
@@ -1066,5 +1172,12 @@
         private ToolStripMenuItem sortExtensionTool;
         private ToolStripMenuItem sortDateTool;
         private ToolStripMenuItem sortSizeTool;
+        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tableLayoutPanel4;
+        private TableLayoutPanel tableLayoutPanel5;
+        private ColumnHeader columnHeader1;
+        private TableLayoutPanel tableLayoutPanel6;
+        private ProgressBar progressBar;
     }
 }
