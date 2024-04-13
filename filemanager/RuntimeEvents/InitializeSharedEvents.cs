@@ -55,8 +55,27 @@
             // // // // // // // // // // // //
 
             // DISPLAY HANDLER EVENTS
-            displayHandler.ListView.Click += (sender, e) => { Click(displayHandler, directoryHandler); };
-            displayHandler.ListView.DoubleClick += (sender, e) => { DoubleClick(displayHandler, directoryHandler); };
+            displayHandler.ListView.MouseClick += (sender, e) => {
+                MouseEventArgs me = (MouseEventArgs)e;
+                if (me.Button == System.Windows.Forms.MouseButtons.Left) 
+                { 
+                    Click(displayHandler, directoryHandler); 
+                }
+                if (me.Button == System.Windows.Forms.MouseButtons.Right) 
+                {
+                    ShowContext(displayHandler, directoryHandler);
+                }
+            };
+
+            displayHandler.ListView.MouseDoubleClick += (sender, e) => {
+                MouseEventArgs me = (MouseEventArgs)e;
+                if (me.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    DoubleClick(displayHandler, directoryHandler);
+                }
+            };
+            
+            
             displayHandler.ListView.SelectedIndexChanged += (sender, e) => { Click(displayHandler, directoryHandler); };
             displayHandler.ListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
 

@@ -128,6 +128,29 @@
             tableLayoutPanel4 = new TableLayoutPanel();
             tableLayoutPanel6 = new TableLayoutPanel();
             progressBar = new ProgressBar();
+            contextMenu = new ContextMenuStrip(components);
+            openContext = new ToolStripMenuItem();
+            viewToolContext = new ToolStripMenuItem();
+            viewDetailsContext = new ToolStripMenuItem();
+            viewSmallIconsContext = new ToolStripMenuItem();
+            viewListContext = new ToolStripMenuItem();
+            viewTilesContext = new ToolStripMenuItem();
+            sortByToolContext = new ToolStripMenuItem();
+            sortNameContext = new ToolStripMenuItem();
+            sortExtensionContext = new ToolStripMenuItem();
+            sortDateContext = new ToolStripMenuItem();
+            sortSizeContext = new ToolStripMenuItem();
+            refreshToolContext = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            toolStripMenuItem2 = new ToolStripSeparator();
+            copyContext = new ToolStripMenuItem();
+            cutContext = new ToolStripMenuItem();
+            deleteContext = new ToolStripMenuItem();
+            renameContext = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripSeparator();
+            toolStripMenuItem4 = new ToolStripSeparator();
+            pasteContext = new ToolStripMenuItem();
+            newFolderContext = new ToolStripMenuItem();
             topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).BeginInit();
             previewBoxTabControl.SuspendLayout();
@@ -144,6 +167,7 @@
             tableLayoutPanel5.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
+            contextMenu.SuspendLayout();
             SuspendLayout();
             // 
             // topMenuStrip
@@ -1040,6 +1064,143 @@
             progressBar.Size = new Size(82, 30);
             progressBar.TabIndex = 14;
             // 
+            // contextMenu
+            // 
+            contextMenu.ImageScalingSize = new Size(20, 20);
+            contextMenu.Items.AddRange(new ToolStripItem[] { openContext, toolStripMenuItem2, cutContext, copyContext, pasteContext, toolStripMenuItem1, deleteContext, renameContext, toolStripMenuItem3, viewToolContext, sortByToolContext, toolStripMenuItem4, newFolderContext, refreshToolContext });
+            contextMenu.Name = "contextMenuStrip1";
+            contextMenu.Size = new Size(211, 296);
+            // 
+            // openContext
+            // 
+            openContext.Name = "openContext";
+            openContext.Size = new Size(210, 24);
+            openContext.Text = "Open";
+            // 
+            // viewToolContext
+            // 
+            viewToolContext.DropDownItems.AddRange(new ToolStripItem[] { viewDetailsContext, viewSmallIconsContext, viewListContext, viewTilesContext });
+            viewToolContext.Name = "viewToolContext";
+            viewToolContext.Size = new Size(210, 24);
+            viewToolContext.Text = "View";
+            // 
+            // viewDetailsContext
+            // 
+            viewDetailsContext.Name = "viewDetailsContext";
+            viewDetailsContext.Size = new Size(224, 26);
+            viewDetailsContext.Text = "Details";
+            // 
+            // viewSmallIconsContext
+            // 
+            viewSmallIconsContext.Name = "viewSmallIconsContext";
+            viewSmallIconsContext.Size = new Size(224, 26);
+            viewSmallIconsContext.Text = "Small Icons";
+            // 
+            // viewListContext
+            // 
+            viewListContext.Name = "viewListContext";
+            viewListContext.Size = new Size(224, 26);
+            viewListContext.Text = "List";
+            // 
+            // viewTilesContext
+            // 
+            viewTilesContext.Name = "viewTilesContext";
+            viewTilesContext.Size = new Size(224, 26);
+            viewTilesContext.Text = "Tiles";
+            // 
+            // sortByToolContext
+            // 
+            sortByToolContext.DropDownItems.AddRange(new ToolStripItem[] { sortNameContext, sortExtensionContext, sortDateContext, sortSizeContext });
+            sortByToolContext.Name = "sortByToolContext";
+            sortByToolContext.Size = new Size(210, 24);
+            sortByToolContext.Text = "Sort by";
+            // 
+            // sortNameContext
+            // 
+            sortNameContext.Name = "sortNameContext";
+            sortNameContext.Size = new Size(155, 26);
+            sortNameContext.Text = "Name";
+            // 
+            // sortExtensionContext
+            // 
+            sortExtensionContext.Name = "sortExtensionContext";
+            sortExtensionContext.Size = new Size(155, 26);
+            sortExtensionContext.Text = "Extension";
+            // 
+            // sortDateContext
+            // 
+            sortDateContext.Name = "sortDateContext";
+            sortDateContext.Size = new Size(155, 26);
+            sortDateContext.Text = "Date";
+            // 
+            // sortSizeContext
+            // 
+            sortSizeContext.Name = "sortSizeContext";
+            sortSizeContext.Size = new Size(155, 26);
+            sortSizeContext.Text = "Size";
+            // 
+            // refreshToolContext
+            // 
+            refreshToolContext.Name = "refreshToolContext";
+            refreshToolContext.Size = new Size(210, 24);
+            refreshToolContext.Text = "Refresh";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(207, 6);
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(207, 6);
+            // 
+            // copyContext
+            // 
+            copyContext.Name = "copyContext";
+            copyContext.Size = new Size(210, 24);
+            copyContext.Text = "Copy";
+            // 
+            // cutContext
+            // 
+            cutContext.Name = "cutContext";
+            cutContext.Size = new Size(210, 24);
+            cutContext.Text = "Cut";
+            // 
+            // deleteContext
+            // 
+            deleteContext.Name = "deleteContext";
+            deleteContext.Size = new Size(210, 24);
+            deleteContext.Text = "Delete";
+            // 
+            // renameContext
+            // 
+            renameContext.Name = "renameContext";
+            renameContext.Size = new Size(210, 24);
+            renameContext.Text = "Rename";
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(207, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
+            toolStripMenuItem4.Size = new Size(207, 6);
+            // 
+            // pasteContext
+            // 
+            pasteContext.Name = "pasteContext";
+            pasteContext.Size = new Size(210, 24);
+            pasteContext.Text = "Paste";
+            // 
+            // newFolderContext
+            // 
+            newFolderContext.Name = "newFolderContext";
+            newFolderContext.Size = new Size(210, 24);
+            newFolderContext.Text = "New Folder";
+            // 
             // Manager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1073,6 +1234,7 @@
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel6.PerformLayout();
+            contextMenu.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1113,10 +1275,10 @@
         private MenuStrip bottomMenuStrip;
         private ToolStripMenuItem viewTool;
         private ToolStripMenuItem editTool;
-        private ToolStripMenuItem copyToolStripMenuItem;
+        private ToolStripMenuItem copyContext;
         private ToolStripMenuItem cutTool;
         private ToolStripMenuItem newFolderTool;
-        private ToolStripMenuItem deleteToolStripMenuItem;
+        private ToolStripMenuItem deleteContext;
         private ToolStripMenuItem exitTool;
         private Label selectedFileSizeLabel;
         private ImageList fileIconList;
@@ -1179,5 +1341,26 @@
         private ColumnHeader columnHeader1;
         private TableLayoutPanel tableLayoutPanel6;
         private ProgressBar progressBar;
+        private ContextMenuStrip contextMenu;
+        private ToolStripMenuItem viewToolContext;
+        private ToolStripMenuItem sortByToolContext;
+        private ToolStripMenuItem refreshToolContext;
+        private ToolStripMenuItem viewDetailsContext;
+        private ToolStripMenuItem viewSmallIconsContext;
+        private ToolStripMenuItem viewListContext;
+        private ToolStripMenuItem viewTilesContext;
+        private ToolStripMenuItem sortNameContext;
+        private ToolStripMenuItem sortExtensionContext;
+        private ToolStripMenuItem sortDateContext;
+        private ToolStripMenuItem sortSizeContext;
+        private ToolStripMenuItem openContext;
+        private ToolStripSeparator toolStripMenuItem2;
+        private ToolStripMenuItem cutContext;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem renameContext;
+        private ToolStripSeparator toolStripMenuItem3;
+        private ToolStripSeparator toolStripMenuItem4;
+        private ToolStripMenuItem pasteContext;
+        private ToolStripMenuItem newFolderContext;
     }
 }

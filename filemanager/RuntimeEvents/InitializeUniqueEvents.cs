@@ -14,9 +14,8 @@
             desktopTool.Click += (sender, e) => Desktop();
 
             // TEMP TEMP TEMP TEMP TEMP
-            imagePreviewBox.Click += (sender, e) =>
-            {
-                if (imagePreviewBox.Image != null)
+            imagePreviewBox.MouseClick += (sender, e) => { 
+                if (imagePreviewBox.Image != null && e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
                     ProcessCall.RunProcess("explorer", imagePreviewBox.ImageLocation);
                 }

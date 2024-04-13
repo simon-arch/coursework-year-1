@@ -37,6 +37,9 @@ namespace filemanager
             LoadSettings(displayList, directoryList);
             InitializeUniqueEvents();
 
+            InitContextEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen);
+            InitContextEvents(displayHandlerRightScreen, directoryHandlerRightScreen);
+
             loggerHandler.rtb = logTextBox;
             displayList[0].Focused = true;
             quickAccessList.SmallImageList = fileIconList;
