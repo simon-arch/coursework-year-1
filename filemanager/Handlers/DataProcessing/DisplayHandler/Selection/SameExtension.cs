@@ -4,6 +4,7 @@
     {
         public void SelectAllWithTheSameExtension()
         {
+            if (!Focused) return;
             ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
             if (listitems.Count > 0)
             {

@@ -105,6 +105,7 @@ namespace filemanager
         }
         public void setView(int view)
         {
+            if (!Focused) return;
             ViewType = view;
             ListView.View = (View)ViewType;
         }
@@ -146,6 +147,7 @@ namespace filemanager
         }
         public void DeleteTab()
         {
+            if (!Focused) return;
             if (TabControl.TabPages.Count > 2)
             {
                 TabControl.TabPages.Remove(TabControl.SelectedTab);
@@ -166,28 +168,27 @@ namespace filemanager
             } 
             return false;
         }
-        public void CopyNamesToClipboard(bool copyWithPath)
+        public void CopyNamesToClipboard(bool copyWithPath, bool copyWithExtension)
         {
+            if (!Focused) return;
             string copystring = string.Empty;
-
             foreach (ListViewItem tocopy in ListView.SelectedItems)
             {
-                if (copyWithPath)
-                {
-                    copystring += $"{tocopy.ETag().Name}\n";
-                }
-                else
-                {
-                    copystring += $"{tocopy.ETag().Path}\n";
-                }
+                if (tocopy.ETag().IgnoreListing) continue;
+                if (copyWithPath) copystring += Path.Combine(Path.GetDirectoryName(tocopy.ETag().Path), tocopy.ETag().Name);
+                else copystring += tocopy.ETag().Name;
+                if (copyWithExtension) copystring += tocopy.ETag().Extension;
+                copystring += "\n";
             }
+            if (copystring == string.Empty) return;
             Clipboard.SetText(copystring);
         }
         public void CreateTab(bool usePlusButton,
             Action<DisplayHandler, DirectoryHandler> OnClickFunc,
-            Action<DisplayHandler, DirectoryHandler> OnDoubleClickFunc,
-            DirectoryHandler directoryHandler)
+            Action<DisplayHandler, DirectoryHandler, FileWatcher> OnDoubleClickFunc,
+            DirectoryHandler directoryHandler, FileWatcher fileWatcher)
         {
+            if (!Focused) return;
             int lastTab = TabControl.TabCount - 1;
 
             if(usePlusButton && TabControl.SelectedIndex != lastTab)
@@ -209,7 +210,7 @@ namespace filemanager
             TabControl.SelectedIndex = lastTab;
 
             ListView.Click += (sender, e) => { OnClickFunc(this, directoryHandler); };
-            ListView.DoubleClick += (sender, e) => { OnDoubleClickFunc(this, directoryHandler); };
+            ListView.DoubleClick += (sender, e) => { OnDoubleClickFunc(this, directoryHandler, fileWatcher); };
             ListView.SelectedIndexChanged += (sender, e) => { OnClickFunc(this, directoryHandler); };
             ListView.SelectedIndexChanged += (sender, e) => { getFileInfo(); };
             DoubleBuffering.SetDoubleBuffering(ListView, true);

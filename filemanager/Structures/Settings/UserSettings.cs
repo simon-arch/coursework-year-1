@@ -18,10 +18,12 @@
         }
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
+        public SortType SortType { get; set; }
         public UserSettings() {
             StartupFolder = DriveInfo.GetDrives()[0].Name;
             ShowExtensions = false;
             ShowHidden = false;
+            SortType = SortType.name;
         }
     }
 }

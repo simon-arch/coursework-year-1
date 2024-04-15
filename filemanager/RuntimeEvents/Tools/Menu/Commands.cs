@@ -4,29 +4,23 @@
     {
         public void PowerShell(DisplayHandler displayHandler)
         {
+            if (!displayHandler.Focused) return;
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo
             {
-                if (displayHandler.Focused)
-                {
-                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo
-                    {
-                        WorkingDirectory = displayHandler.RootDirectory.Path,
-                        FileName = "powershell.exe"
-                    };
-                    System.Diagnostics.Process.Start(startInfo);
-                }
+                WorkingDirectory = displayHandler.RootDirectory.Path,
+                FileName = "powershell.exe"
             };
+            System.Diagnostics.Process.Start(startInfo);
         }
         public void Console(DisplayHandler displayHandler)
         {
-            if (displayHandler.Focused)
+            if (!displayHandler.Focused) return;
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo
             {
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo
-                {
-                    WorkingDirectory = displayHandler.RootDirectory.Path,
-                    FileName = "cmd.exe"
-                };
-                System.Diagnostics.Process.Start(startInfo);
-            }
+                WorkingDirectory = displayHandler.RootDirectory.Path,
+                FileName = "cmd.exe"
+            };
+            System.Diagnostics.Process.Start(startInfo);
         }
         public void Desktop()
         {

@@ -2,20 +2,21 @@
 {
     public partial class Manager
     {
-        private void DoubleClick(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
+        private void DoubleClick(DisplayHandler displayHandler, DirectoryHandler directoryHandler, FileWatcher fileWatcher)
         {
+            if (!displayHandler.Focused) return;
             ListView.SelectedListViewItemCollection selected = displayHandler.ListView.SelectedItems;
             if (selected.Count > 0)
             {
                 if (selected[0].ETag().Type == "utility")
                 {
                     RootDirectory root = new RootDirectory("dir", Path.GetFullPath(Path.Combine(directoryHandler.RootDirectory.Path, @"..")));
-                    GoTo(root, displayHandler, directoryHandler);
+                    GoTo(root, displayHandler, directoryHandler, fileWatcher);
                 }
                 else if (selected[0].ETag().Type == "directory")
                 {
                     RootDirectory root = new RootDirectory("dir", selected[0].ETag().Path);
-                    GoTo(root, displayHandler, directoryHandler);
+                    GoTo(root, displayHandler, directoryHandler, fileWatcher);
                 }
                 else if (selected[0].ETag().Type == "file")
                 {

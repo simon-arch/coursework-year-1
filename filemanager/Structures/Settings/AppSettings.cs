@@ -2,8 +2,10 @@
 {
     public class AppSettings
     {
-        public AppSettings() 
+        public bool DeleteAfterUnzip { get; set; }
+        public AppSettings()
         {
+            DeleteAfterUnzip = false;
         }
     }
 }

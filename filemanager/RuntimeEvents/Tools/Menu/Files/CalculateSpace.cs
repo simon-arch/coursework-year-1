@@ -4,7 +4,8 @@
     {
         public void CalculateSpace(DisplayHandler displayHandler)
         {
-            if (displayHandler.Focused && displayHandler.isSelected())
+            if (!displayHandler.Focused) return;
+            if (displayHandler.isSelected())
             {
                 long totalSize = 0;
                 int totalFiles = 0;

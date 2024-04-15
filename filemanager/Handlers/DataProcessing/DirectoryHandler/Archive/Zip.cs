@@ -2,7 +2,7 @@
 {
     public partial class DirectoryHandler
     {
-        public void ZipArchive(System.Windows.Forms.ListView.SelectedListViewItemCollection source)
+        public void ZipArchive(ListView.SelectedListViewItemCollection source)
         {
             if (source.Count > 0)
             {
@@ -15,7 +15,11 @@
                 buffer.Copy(source);
                 buffer.Paste(zipPath);
 
-                System.IO.Compression.ZipFile.CreateFromDirectory(zipPath, $"{Path.Combine(zipPath, @"../")}{source[source.Count - 1].ETag().Name}.zip");
+                string targetname = RecurringNames.GetExistingFileName($"{Path.Combine(zipPath, @"../")}" +
+                    $"{source[source.Count - 1].ETag().Name}", ".zip");
+                try { System.IO.Compression.ZipFile.CreateFromDirectory(zipPath, targetname); }
+                catch { NotificationHandler.invokeError(ErrorType.zipError); }
+
                 System.IO.Directory.Delete(zipPath, true);
             }
         }

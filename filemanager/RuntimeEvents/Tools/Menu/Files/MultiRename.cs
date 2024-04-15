@@ -4,7 +4,8 @@
     {
         public void MultiRename(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
-            if (displayHandler.Focused && displayHandler.isSelected())
+            if (!displayHandler.Focused) return;
+            if (displayHandler.isSelected())
             {
                 DialogBox dialog = new DialogBox("Multi-Rename", "Enter filename", "OK", "Cancel");
                 DialogResult result = dialog.ShowDialog();

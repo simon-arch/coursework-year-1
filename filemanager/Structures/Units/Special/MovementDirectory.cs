@@ -5,6 +5,7 @@
         public MovementDirectory() 
         {
             Type = "utility";
+            IgnoreListing = true;
         }
         public override void Delete() { }
         public override void Edit() { }

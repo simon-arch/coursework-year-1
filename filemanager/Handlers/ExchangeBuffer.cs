@@ -14,13 +14,16 @@
             if (listitems.Count > 0)
             {
                 Clear();
+                System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
                 for (int i = 0; i < listitems.Count; i++)
                 {
                     if(listitems[i].ETag().IgnoreListing == false)
                     {
                         SourceItems.Enqueue(listitems[i].ETag());
+                        paths.Add(listitems[i].ETag().Path);
                     }
                 }
+                Clipboard.SetFileDropList(paths);
             }
         }
         public void Paste(string targetPath) 
@@ -37,7 +40,8 @@
                         }
                         else
                         {
-                            System.IO.File.Copy(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
+                            string targetname = RecurringNames.GetExistingFileName(Path.Combine(targetPath, sourceItem.Name), sourceItem.Extension);
+                            System.IO.File.Copy(sourceItem.Path, targetname);
                         }
                     }
                     catch (Exception ex)
@@ -56,10 +60,11 @@
                         }
                         else
                         {
+                            string targetname = RecurringNames.GetExistingDirectoryName(Path.Combine(targetPath, sourceItem.Name));
                             if (!targetPath.Contains(sourceItem.Path))
                             {
-                                System.IO.Directory.CreateDirectory(Path.Combine(targetPath, sourceItem.Name));
-                                CopyFilesRecursively(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
+                                System.IO.Directory.CreateDirectory(targetname);
+                                CopyFilesRecursively(sourceItem.Path, targetname);
                             }
                             else
                             {

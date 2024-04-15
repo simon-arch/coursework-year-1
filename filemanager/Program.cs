@@ -7,7 +7,6 @@ namespace filemanager
         {
             ApplicationConfiguration.Initialize();
             Application.Run(new Manager());
-            Console.WriteLine("test");
         }
     }
 }

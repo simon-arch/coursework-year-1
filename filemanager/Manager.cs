@@ -8,11 +8,17 @@ namespace filemanager
         DisplayHandler displayHandlerRightScreen = new DisplayHandler();
         DisplayHandler displayHandlerLeftScreen = new DisplayHandler();
 
+        FileWatcher watcherRightScreen = new FileWatcher();
+        FileWatcher watcherLeftScreen = new FileWatcher();
+
         List<DirectoryHandler> directoryList = new List<DirectoryHandler>();
         List<DisplayHandler> displayList = new List<DisplayHandler>();
+        List<FileWatcher> watcherList = new List<FileWatcher>();
 
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
         LoggerHandler loggerHandler = new LoggerHandler();
+
+        FileWatcher fileWatcher = new FileWatcher();
 
         public Manager()
         {
@@ -24,27 +30,39 @@ namespace filemanager
             directoryList.Add(directoryHandlerLeftScreen);
             directoryList.Add(directoryHandlerRightScreen);
 
+            watcherList.Add(watcherLeftScreen);
+            watcherList.Add(watcherRightScreen);
+
+            watcherList[0].Init();
+            watcherList[1].Init();
+
             InitializeHandlers(displayHandlerLeftScreen, listView1, tabControl1, driveComboBox,
             selectedFileSizeLabel, freeSpaceLabel, imagePreviewBox, fileIconList, progressBar,
             previewBoxTabControl, searchTextBox);
-            InitializeSharedEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen);
+            InitializeSharedEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen, watcherLeftScreen);
 
             InitializeHandlers(displayHandlerRightScreen, listView2, tabControl2, driveComboBox,
             selectedFileSizeLabel, freeSpaceLabel, imagePreviewBox, fileIconList, progressBar,
             previewBoxTabControl, searchTextBox);
-            InitializeSharedEvents(displayHandlerRightScreen, directoryHandlerRightScreen);
+            InitializeSharedEvents(displayHandlerRightScreen, directoryHandlerRightScreen, watcherRightScreen);
 
-            LoadSettings(displayList, directoryList);
+            LoadSettings(displayList, directoryList, watcherList);
             InitializeUniqueEvents();
 
-            InitContextEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen);
-            InitContextEvents(displayHandlerRightScreen, directoryHandlerRightScreen);
+            InitContextEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen, watcherLeftScreen);
+            InitContextEvents(displayHandlerRightScreen, directoryHandlerRightScreen, watcherRightScreen);
 
             loggerHandler.rtb = logTextBox;
             displayList[0].Focused = true;
             quickAccessList.SmallImageList = fileIconList;
             displayList.ForEach(x => x.SortType = SortType.name);
             loggerHandler.Log(LogCategory.start);
+
+            DoubleBuffering.SetDoubleBuffering(displayList[0].ListView, true);
+            DoubleBuffering.SetDoubleBuffering(displayList[1].ListView, true);
+
+            Focus(displayList[0]); displayList[0].setView(1);
+            Focus(displayList[1]); displayList[1].setView(1);
 
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);

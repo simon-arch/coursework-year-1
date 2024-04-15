@@ -4,7 +4,8 @@
     {
         public void AccessAdd(DisplayHandler displayHandler)
         {
-            if (displayHandler.Focused && displayHandler.isSelected())
+            if (!displayHandler.Focused) return;
+            if (displayHandler.isSelected())
             {
                 foreach (ListViewItem lvi in displayHandler.ListView.SelectedItems)
                 {

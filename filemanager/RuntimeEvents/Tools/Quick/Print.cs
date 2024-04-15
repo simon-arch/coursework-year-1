@@ -4,7 +4,8 @@
     {
         public void Print(DisplayHandler displayHandler)
         {
-            if (displayHandler.Focused && displayHandler.isSelected())
+            if (!displayHandler.Focused) return;
+            if (displayHandler.isSelected())
             {
                 Element printfile = displayHandler.ListView.SelectedItems[0].ETag();
                 if (printfile.SubType == "documentfile")

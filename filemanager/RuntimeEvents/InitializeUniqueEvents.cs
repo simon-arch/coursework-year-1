@@ -1,4 +1,6 @@
-﻿namespace filemanager
+﻿using System.Diagnostics;
+
+namespace filemanager
 {
     public partial class Manager
     {
@@ -11,11 +13,19 @@
                 System.IO.File.AppendAllText(logpath, logTextBox.Text);
             };
 
+            exitTool.Click += (sender, e) => Close();
             desktopTool.Click += (sender, e) => Desktop();
+            sourceTargetEqualTool.Click += (sender, e) => GoTo(displayList[0].RootDirectory, displayList[1], directoryList[1], watcherList[1]);
+            sourceTargetSwitchTool.Click += (sender, e) => 
+            {
+                RootDirectory temp = displayList[0].RootDirectory;
+                GoTo(displayList[1].RootDirectory, displayList[0], directoryList[0], watcherList[0]);
+                GoTo(temp, displayList[1], directoryList[1], watcherList[1]);
+            };
 
             // TEMP TEMP TEMP TEMP TEMP
             imagePreviewBox.MouseClick += (sender, e) => { 
-                if (imagePreviewBox.Image != null && e.Button == System.Windows.Forms.MouseButtons.Left)
+                if (imagePreviewBox.Image != null && e.Button == MouseButtons.Left)
                 {
                     ProcessCall.RunProcess("explorer", imagePreviewBox.ImageLocation);
                 }
@@ -28,10 +38,7 @@
                 DialogResult result = disk.ShowDialog();
             };
 
-            binTool.Click += (sender, e) =>
-            {
-                ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
-            };
+            binTool.Click += (sender, e) => ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
         }
     }
 }

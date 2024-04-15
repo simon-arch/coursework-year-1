@@ -4,11 +4,9 @@
     {
         public void Sort(SortType sortType, DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
-            if (displayHandler.Focused)
-            {
-                displayHandler.SortType = sortType;
-                Refresh(displayHandler, directoryHandler);
-            }
+            if (!displayHandler.Focused) return;
+            displayHandler.SortType = sortType;
+            Refresh(displayHandler, directoryHandler);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace filemanager
                     StartupFolder = displayHandler.RootDirectory.Path,
                     ShowExtensions = displayHandler.ShowExtensions,
                     ShowHidden = displayHandler.ShowHidden,
+                    SortType = displayHandler.SortType,
                 };
                 viewSettings.Add(settings);
             }
@@ -25,7 +26,10 @@ namespace filemanager
             //
 
             // APP SETTINGS //
-            AppSettings appSettings = new AppSettings() { }; // { ... }
+            AppSettings appSettings = new AppSettings()
+            {
+                DeleteAfterUnzip = deleteAfterUnzipTool.Checked
+            }; // { ... }
             json = JsonSerializer.Serialize(appSettings);
             System.IO.File.WriteAllText(
             Path.Combine(System.IO.Directory.GetCurrentDirectory(),

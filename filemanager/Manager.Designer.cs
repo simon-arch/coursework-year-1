@@ -37,18 +37,24 @@
             deleteAfterUnzipTool = new ToolStripMenuItem();
             multiRenameTool = new ToolStripMenuItem();
             markToolStripMenuItem = new ToolStripMenuItem();
+            selectGroupTool = new ToolStripMenuItem();
+            unselectGroupTool = new ToolStripMenuItem();
             selectAllTool = new ToolStripMenuItem();
             unselectAllTool = new ToolStripMenuItem();
             selectAllWithTheSameExtensionTool = new ToolStripMenuItem();
             toolStripSeparator8 = new ToolStripSeparator();
             copySelectedNamesToClipboardTool = new ToolStripMenuItem();
             copyNamesWithPathToClipboardTool = new ToolStripMenuItem();
+            copyToClipboardWithExtensions = new ToolStripMenuItem();
+            copyToClipboardWithPathExtensions = new ToolStripMenuItem();
             toolStripSeparator7 = new ToolStripSeparator();
             compareFilenamesTool = new ToolStripMenuItem();
             commandsToolStripMenuItem = new ToolStripMenuItem();
             desktopTool = new ToolStripMenuItem();
             openConsoleTool = new ToolStripMenuItem();
             openPowershellTool = new ToolStripMenuItem();
+            sourceTargetSwitchTool = new ToolStripMenuItem();
+            sourceTargetEqualTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
             showHiddenFoldersTool = new ToolStripMenuItem();
@@ -130,6 +136,14 @@
             progressBar = new ProgressBar();
             contextMenu = new ContextMenuStrip(components);
             openContext = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripSeparator();
+            cutContext = new ToolStripMenuItem();
+            copyContext = new ToolStripMenuItem();
+            pasteContext = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            deleteContext = new ToolStripMenuItem();
+            renameContext = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripSeparator();
             viewToolContext = new ToolStripMenuItem();
             viewDetailsContext = new ToolStripMenuItem();
             viewSmallIconsContext = new ToolStripMenuItem();
@@ -140,17 +154,9 @@
             sortExtensionContext = new ToolStripMenuItem();
             sortDateContext = new ToolStripMenuItem();
             sortSizeContext = new ToolStripMenuItem();
-            refreshToolContext = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripSeparator();
-            toolStripMenuItem2 = new ToolStripSeparator();
-            copyContext = new ToolStripMenuItem();
-            cutContext = new ToolStripMenuItem();
-            deleteContext = new ToolStripMenuItem();
-            renameContext = new ToolStripMenuItem();
-            toolStripMenuItem3 = new ToolStripSeparator();
             toolStripMenuItem4 = new ToolStripSeparator();
-            pasteContext = new ToolStripMenuItem();
             newFolderContext = new ToolStripMenuItem();
+            refreshToolContext = new ToolStripMenuItem();
             topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).BeginInit();
             previewBoxTabControl.SuspendLayout();
@@ -214,10 +220,22 @@
             // 
             // markToolStripMenuItem
             // 
-            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, toolStripSeparator8, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool, toolStripSeparator7, compareFilenamesTool });
+            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectGroupTool, unselectGroupTool, selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, toolStripSeparator8, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool, copyToClipboardWithExtensions, copyToClipboardWithPathExtensions, toolStripSeparator7, compareFilenamesTool });
             markToolStripMenuItem.Name = "markToolStripMenuItem";
             markToolStripMenuItem.Size = new Size(56, 24);
             markToolStripMenuItem.Text = "Mark";
+            // 
+            // selectGroupTool
+            // 
+            selectGroupTool.Name = "selectGroupTool";
+            selectGroupTool.Size = new Size(357, 26);
+            selectGroupTool.Text = "Select Group...";
+            // 
+            // unselectGroupTool
+            // 
+            unselectGroupTool.Name = "unselectGroupTool";
+            unselectGroupTool.Size = new Size(357, 26);
+            unselectGroupTool.Text = "Unselect Group...";
             // 
             // selectAllTool
             // 
@@ -225,7 +243,7 @@
             selectAllTool.ImageScaling = ToolStripItemImageScaling.None;
             selectAllTool.ImageTransparentColor = Color.Black;
             selectAllTool.Name = "selectAllTool";
-            selectAllTool.Size = new Size(325, 26);
+            selectAllTool.Size = new Size(357, 26);
             selectAllTool.Text = "Select all";
             // 
             // unselectAllTool
@@ -234,7 +252,7 @@
             unselectAllTool.ImageScaling = ToolStripItemImageScaling.None;
             unselectAllTool.ImageTransparentColor = Color.Black;
             unselectAllTool.Name = "unselectAllTool";
-            unselectAllTool.Size = new Size(325, 26);
+            unselectAllTool.Size = new Size(357, 26);
             unselectAllTool.Text = "Unselect all";
             // 
             // selectAllWithTheSameExtensionTool
@@ -243,13 +261,13 @@
             selectAllWithTheSameExtensionTool.ImageScaling = ToolStripItemImageScaling.None;
             selectAllWithTheSameExtensionTool.ImageTransparentColor = Color.Black;
             selectAllWithTheSameExtensionTool.Name = "selectAllWithTheSameExtensionTool";
-            selectAllWithTheSameExtensionTool.Size = new Size(325, 26);
+            selectAllWithTheSameExtensionTool.Size = new Size(357, 26);
             selectAllWithTheSameExtensionTool.Text = "Select all with the same extension";
             // 
             // toolStripSeparator8
             // 
             toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new Size(322, 6);
+            toolStripSeparator8.Size = new Size(354, 6);
             // 
             // copySelectedNamesToClipboardTool
             // 
@@ -257,7 +275,7 @@
             copySelectedNamesToClipboardTool.ImageScaling = ToolStripItemImageScaling.None;
             copySelectedNamesToClipboardTool.ImageTransparentColor = Color.Black;
             copySelectedNamesToClipboardTool.Name = "copySelectedNamesToClipboardTool";
-            copySelectedNamesToClipboardTool.Size = new Size(325, 26);
+            copySelectedNamesToClipboardTool.Size = new Size(357, 26);
             copySelectedNamesToClipboardTool.Text = "Copy selected names to clipboard";
             // 
             // copyNamesWithPathToClipboardTool
@@ -266,23 +284,35 @@
             copyNamesWithPathToClipboardTool.ImageScaling = ToolStripItemImageScaling.None;
             copyNamesWithPathToClipboardTool.ImageTransparentColor = Color.Black;
             copyNamesWithPathToClipboardTool.Name = "copyNamesWithPathToClipboardTool";
-            copyNamesWithPathToClipboardTool.Size = new Size(325, 26);
+            copyNamesWithPathToClipboardTool.Size = new Size(357, 26);
             copyNamesWithPathToClipboardTool.Text = "Copy names with path to clipboard";
+            // 
+            // copyToClipboardWithExtensions
+            // 
+            copyToClipboardWithExtensions.Name = "copyToClipboardWithExtensions";
+            copyToClipboardWithExtensions.Size = new Size(357, 26);
+            copyToClipboardWithExtensions.Text = "Copy to clipboard with extensions";
+            // 
+            // copyToClipboardWithPathExtensions
+            // 
+            copyToClipboardWithPathExtensions.Name = "copyToClipboardWithPathExtensions";
+            copyToClipboardWithPathExtensions.Size = new Size(357, 26);
+            copyToClipboardWithPathExtensions.Text = "Copy to clipboard with path+extensions";
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(322, 6);
+            toolStripSeparator7.Size = new Size(354, 6);
             // 
             // compareFilenamesTool
             // 
             compareFilenamesTool.Name = "compareFilenamesTool";
-            compareFilenamesTool.Size = new Size(325, 26);
+            compareFilenamesTool.Size = new Size(357, 26);
             compareFilenamesTool.Text = "Compare Filenames";
             // 
             // commandsToolStripMenuItem
             // 
-            commandsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { desktopTool, openConsoleTool, openPowershellTool });
+            commandsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { desktopTool, openConsoleTool, openPowershellTool, sourceTargetSwitchTool, sourceTargetEqualTool });
             commandsToolStripMenuItem.Name = "commandsToolStripMenuItem";
             commandsToolStripMenuItem.Size = new Size(98, 24);
             commandsToolStripMenuItem.Text = "Commands";
@@ -304,6 +334,18 @@
             openPowershellTool.Name = "openPowershellTool";
             openPowershellTool.Size = new Size(238, 26);
             openPowershellTool.Text = "Open Powershell Here";
+            // 
+            // sourceTargetSwitchTool
+            // 
+            sourceTargetSwitchTool.Name = "sourceTargetSwitchTool";
+            sourceTargetSwitchTool.Size = new Size(238, 26);
+            sourceTargetSwitchTool.Text = "Source <-> Target";
+            // 
+            // sourceTargetEqualTool
+            // 
+            sourceTargetEqualTool.Name = "sourceTargetEqualTool";
+            sourceTargetEqualTool.Size = new Size(238, 26);
+            sourceTargetEqualTool.Text = "Source = Target";
             // 
             // showTab
             // 
@@ -1069,50 +1111,95 @@
             contextMenu.ImageScalingSize = new Size(20, 20);
             contextMenu.Items.AddRange(new ToolStripItem[] { openContext, toolStripMenuItem2, cutContext, copyContext, pasteContext, toolStripMenuItem1, deleteContext, renameContext, toolStripMenuItem3, viewToolContext, sortByToolContext, toolStripMenuItem4, newFolderContext, refreshToolContext });
             contextMenu.Name = "contextMenuStrip1";
-            contextMenu.Size = new Size(211, 296);
+            contextMenu.Size = new Size(155, 268);
             // 
             // openContext
             // 
             openContext.Name = "openContext";
-            openContext.Size = new Size(210, 24);
+            openContext.Size = new Size(154, 24);
             openContext.Text = "Open";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(151, 6);
+            // 
+            // cutContext
+            // 
+            cutContext.Name = "cutContext";
+            cutContext.Size = new Size(154, 24);
+            cutContext.Text = "Cut";
+            // 
+            // copyContext
+            // 
+            copyContext.Name = "copyContext";
+            copyContext.Size = new Size(154, 24);
+            copyContext.Text = "Copy";
+            // 
+            // pasteContext
+            // 
+            pasteContext.Name = "pasteContext";
+            pasteContext.Size = new Size(154, 24);
+            pasteContext.Text = "Paste";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(151, 6);
+            // 
+            // deleteContext
+            // 
+            deleteContext.Name = "deleteContext";
+            deleteContext.Size = new Size(154, 24);
+            deleteContext.Text = "Delete";
+            // 
+            // renameContext
+            // 
+            renameContext.Name = "renameContext";
+            renameContext.Size = new Size(154, 24);
+            renameContext.Text = "Rename";
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(151, 6);
             // 
             // viewToolContext
             // 
             viewToolContext.DropDownItems.AddRange(new ToolStripItem[] { viewDetailsContext, viewSmallIconsContext, viewListContext, viewTilesContext });
             viewToolContext.Name = "viewToolContext";
-            viewToolContext.Size = new Size(210, 24);
+            viewToolContext.Size = new Size(154, 24);
             viewToolContext.Text = "View";
             // 
             // viewDetailsContext
             // 
             viewDetailsContext.Name = "viewDetailsContext";
-            viewDetailsContext.Size = new Size(224, 26);
+            viewDetailsContext.Size = new Size(167, 26);
             viewDetailsContext.Text = "Details";
             // 
             // viewSmallIconsContext
             // 
             viewSmallIconsContext.Name = "viewSmallIconsContext";
-            viewSmallIconsContext.Size = new Size(224, 26);
+            viewSmallIconsContext.Size = new Size(167, 26);
             viewSmallIconsContext.Text = "Small Icons";
             // 
             // viewListContext
             // 
             viewListContext.Name = "viewListContext";
-            viewListContext.Size = new Size(224, 26);
+            viewListContext.Size = new Size(167, 26);
             viewListContext.Text = "List";
             // 
             // viewTilesContext
             // 
             viewTilesContext.Name = "viewTilesContext";
-            viewTilesContext.Size = new Size(224, 26);
+            viewTilesContext.Size = new Size(167, 26);
             viewTilesContext.Text = "Tiles";
             // 
             // sortByToolContext
             // 
             sortByToolContext.DropDownItems.AddRange(new ToolStripItem[] { sortNameContext, sortExtensionContext, sortDateContext, sortSizeContext });
             sortByToolContext.Name = "sortByToolContext";
-            sortByToolContext.Size = new Size(210, 24);
+            sortByToolContext.Size = new Size(154, 24);
             sortByToolContext.Text = "Sort by";
             // 
             // sortNameContext
@@ -1139,67 +1226,22 @@
             sortSizeContext.Size = new Size(155, 26);
             sortSizeContext.Text = "Size";
             // 
-            // refreshToolContext
-            // 
-            refreshToolContext.Name = "refreshToolContext";
-            refreshToolContext.Size = new Size(210, 24);
-            refreshToolContext.Text = "Refresh";
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(207, 6);
-            // 
-            // toolStripMenuItem2
-            // 
-            toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(207, 6);
-            // 
-            // copyContext
-            // 
-            copyContext.Name = "copyContext";
-            copyContext.Size = new Size(210, 24);
-            copyContext.Text = "Copy";
-            // 
-            // cutContext
-            // 
-            cutContext.Name = "cutContext";
-            cutContext.Size = new Size(210, 24);
-            cutContext.Text = "Cut";
-            // 
-            // deleteContext
-            // 
-            deleteContext.Name = "deleteContext";
-            deleteContext.Size = new Size(210, 24);
-            deleteContext.Text = "Delete";
-            // 
-            // renameContext
-            // 
-            renameContext.Name = "renameContext";
-            renameContext.Size = new Size(210, 24);
-            renameContext.Text = "Rename";
-            // 
-            // toolStripMenuItem3
-            // 
-            toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(207, 6);
-            // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new Size(207, 6);
-            // 
-            // pasteContext
-            // 
-            pasteContext.Name = "pasteContext";
-            pasteContext.Size = new Size(210, 24);
-            pasteContext.Text = "Paste";
+            toolStripMenuItem4.Size = new Size(151, 6);
             // 
             // newFolderContext
             // 
             newFolderContext.Name = "newFolderContext";
-            newFolderContext.Size = new Size(210, 24);
+            newFolderContext.Size = new Size(154, 24);
             newFolderContext.Text = "New Folder";
+            // 
+            // refreshToolContext
+            // 
+            refreshToolContext.Name = "refreshToolContext";
+            refreshToolContext.Size = new Size(154, 24);
+            refreshToolContext.Text = "Refresh";
             // 
             // Manager
             // 
@@ -1362,5 +1404,11 @@
         private ToolStripSeparator toolStripMenuItem4;
         private ToolStripMenuItem pasteContext;
         private ToolStripMenuItem newFolderContext;
+        private ToolStripMenuItem sourceTargetSwitchTool;
+        private ToolStripMenuItem sourceTargetEqualTool;
+        private ToolStripMenuItem selectGroupTool;
+        private ToolStripMenuItem unselectGroupTool;
+        private ToolStripMenuItem copyToClipboardWithExtensions;
+        private ToolStripMenuItem copyToClipboardWithPathExtensions;
     }
 }

@@ -14,9 +14,6 @@
             displayHandler.ProgressBar = progressBar;
             displayHandler.PreviewBox = tabControl2;
             displayHandler.TextBox = textBox;
-
-            DoubleBuffering.SetDoubleBuffering(displayHandler.ListView, true);
-            displayHandler.setView(1);
         }
     }
 }

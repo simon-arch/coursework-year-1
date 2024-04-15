@@ -4,7 +4,7 @@ namespace filemanager
 {
     public partial class Manager
     {
-        private void LoadSettings(List<DisplayHandler> displayList, List<DirectoryHandler> directoryList)
+        private void LoadSettings(List<DisplayHandler> displayList, List<DirectoryHandler> directoryList, List<FileWatcher> watcherList)
         {
             // LIST SETTINGS //
             string json = System.IO.File.ReadAllText(
@@ -24,10 +24,12 @@ namespace filemanager
             }
             for (int i = displayList.Count - 1; i >= 0; i--)
             {
+                //Focus(displayList[i]);
                 string startpath = userSettings[i].StartupFolder;
                 displayList[i].ShowExtensions = userSettings[i].ShowExtensions;
                 displayList[i].ShowHidden = userSettings[i].ShowHidden;
-                GoTo(new RootDirectory("dir", startpath), displayList[i], directoryList[i]);
+                displayList[i].SortType = userSettings[i].SortType;
+                GoTo(new RootDirectory("dir", startpath), displayList[i], directoryList[i], watcherList[i]);
             }
             //
 
@@ -43,6 +45,11 @@ namespace filemanager
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            deleteAfterUnzipTool.Checked = appSettings.DeleteAfterUnzip;
+            for (int i = directoryList.Count - 1; i >= 0; i--)
+            {
+                directoryList[i].DeleteSource = appSettings.DeleteAfterUnzip;
             }
             // . . . . .
         }

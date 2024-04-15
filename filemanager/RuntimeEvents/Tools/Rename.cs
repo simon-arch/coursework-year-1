@@ -4,6 +4,7 @@
     {
         public void Rename(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
+            if (!displayHandler.Focused) return;
             if (displayHandler.isSelected())
             {
                 DialogBox dialog = new DialogBox("Rename tool", "New name:", "Rename", "Cancel");
@@ -13,7 +14,6 @@
                     string newname = dialog.ReturnValue.Trim();
                     dialog.Dispose();
                     displayHandler.ListView.SelectedItems[0].ETag().Rename(newname);
-                    Refresh(displayHandler, directoryHandler);
                 }
             }
         }

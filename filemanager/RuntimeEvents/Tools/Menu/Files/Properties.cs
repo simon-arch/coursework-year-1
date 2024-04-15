@@ -4,7 +4,8 @@
     {
         public void Properties(DisplayHandler displayHandler)
         {
-            if (displayHandler.Focused && displayHandler.isSelected())
+            if (!displayHandler.Focused) return;
+            if (displayHandler.isSelected())
             {
                 Element selected = displayHandler.ListView.SelectedItems[0].ETag();
                 if (selected.Type == "file")

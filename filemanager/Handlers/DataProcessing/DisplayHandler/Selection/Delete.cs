@@ -4,6 +4,7 @@
     {
         public void DeleteSelection()
         {
+            if (!Focused) return;
             ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
             if (listitems.Count > 0)
             {

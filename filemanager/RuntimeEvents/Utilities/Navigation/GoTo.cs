@@ -2,7 +2,7 @@
 {
     public partial class Manager
     {
-        public void GoTo(RootDirectory root, DisplayHandler displayHandler, DirectoryHandler directoryHandler)
+        public void GoTo(RootDirectory root, DisplayHandler displayHandler, DirectoryHandler directoryHandler, FileWatcher fileWatcher)
         {
             if (Path.Exists(root.Path))
             {
@@ -12,6 +12,7 @@
                 directoryHandler.RootDirectory = root;
                 displayHandler.RootDirectory = root;
                 displayHandler.TabControl.SelectedTab.Tag = root.Path;
+                fileWatcher.Watcher.Path = root.Path;
                 Refresh(displayHandler, directoryHandler);
             }
             else

@@ -2,11 +2,12 @@
 {
     public partial class DisplayHandler
     {
-        public void SelectAll()
+        public void SetSelection(bool value)
         {
+            if (!Focused) return;
             for (int i = 1; i < ListView.Items.Count; i++)
             {
-                ListView.Items[i].Selected = true;
+                ListView.Items[i].Selected = value;
             }
         }
     }
