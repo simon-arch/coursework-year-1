@@ -13,7 +13,7 @@
         public virtual void Delete() { }
         public virtual void Edit() { }
         public virtual long GetSize() { return 0; }
-        public virtual void Rename(string newname) {
+        public virtual void Rename(string newname, bool useExtension, bool ignoreError) {
             if (newname != "" && newname != (Name))
             {
                 foreach (char c in System.IO.Path.GetInvalidFileNameChars())
@@ -21,14 +21,16 @@
                     newname = newname.Replace(c, '_');
                 }
                 string oldpath = Path;
-                string newpath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Path), newname + Extension);
+                string newpath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Path), newname);
+
+                if (useExtension) newpath += Extension;
                 try
                 {
                     System.IO.Directory.Move(oldpath, newpath);
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if(!ignoreError) MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -13,7 +13,7 @@
                 {
                     string newname = dialog.ReturnValue.Trim();
                     dialog.Dispose();
-                    displayHandler.ListView.SelectedItems[0].ETag().Rename(newname);
+                    displayHandler.ListView.SelectedItems[0].ETag().Rename(newname, true, false);
                 }
             }
         }

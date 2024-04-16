@@ -1,4 +1,6 @@
-﻿namespace filemanager
+﻿using filemanager.Dialogs;
+
+namespace filemanager
 {
     public partial class Manager
     {
@@ -7,23 +9,11 @@
             if (!displayHandler.Focused) return;
             if (displayHandler.isSelected())
             {
-                DialogBox dialog = new DialogBox("Multi-Rename", "Enter filename", "OK", "Cancel");
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    int rep = 1;
-                    foreach (ListViewItem item in displayHandler.ListView.SelectedItems)
-                    {
-                        string newname = dialog.ReturnValue.Trim();
-                        dialog.Dispose();
-                        if (item.ETag().Type != "utility")
-                        {
-                            item.ETag().Rename($"{newname}({rep})");
-                            rep++;
-                        }
-                    }
-                }
-                Refresh(displayHandler, directoryHandler);
+                List<Element> data = new List<Element>();
+                foreach (ListViewItem item in displayHandler.ListView.SelectedItems)
+                    if (item.ETag().Type != "utility") data.Add(item.ETag());
+                DialogMultiRename dialog = new DialogMultiRename(data);
+                dialog.ShowDialog();
             }
         }
     }

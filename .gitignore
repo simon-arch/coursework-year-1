@@ -386,4 +386,6 @@ InteropTests/NativeTests/out
 **/ScratchProject/
 **/ScratchProjectWithInternals/
 
-/filemanager/Resources/log.txt
+/filemanager/AppData/log.txt
+/filemanager/AppData/appsettings.json
+/filemanager/AppData/listsettings.json
