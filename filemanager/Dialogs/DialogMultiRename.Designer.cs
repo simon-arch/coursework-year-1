@@ -46,7 +46,7 @@
             nameMaskAddPath = new Button();
             nameMaskAddCounter = new Button();
             tableLayoutPanel6 = new TableLayoutPanel();
-            button6 = new Button();
+            fileNameContextCall = new Button();
             nameMaskClear = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox2 = new GroupBox();
@@ -54,7 +54,7 @@
             extensionMaskAddExtension = new Button();
             extensionMaskAddCounter = new Button();
             tableLayoutPanel7 = new TableLayoutPanel();
-            button9 = new Button();
+            fileExtensionContextCall = new Button();
             extensionMaskClear = new Button();
             groupBox3 = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -251,7 +251,7 @@
             tableLayoutPanel6.ColumnCount = 2;
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel6.Controls.Add(button6, 0, 0);
+            tableLayoutPanel6.Controls.Add(fileNameContextCall, 0, 0);
             tableLayoutPanel6.Controls.Add(nameMaskClear, 1, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
             tableLayoutPanel6.Location = new Point(112, 114);
@@ -261,16 +261,16 @@
             tableLayoutPanel6.Size = new Size(97, 32);
             tableLayoutPanel6.TabIndex = 7;
             // 
-            // button6
+            // fileNameContextCall
             // 
-            button6.Dock = DockStyle.Fill;
-            button6.Location = new Point(0, 0);
-            button6.Margin = new Padding(0, 0, 2, 0);
-            button6.Name = "button6";
-            button6.Size = new Size(46, 32);
-            button6.TabIndex = 7;
-            button6.Text = "+";
-            button6.UseVisualStyleBackColor = true;
+            fileNameContextCall.Dock = DockStyle.Fill;
+            fileNameContextCall.Location = new Point(0, 0);
+            fileNameContextCall.Margin = new Padding(0, 0, 2, 0);
+            fileNameContextCall.Name = "fileNameContextCall";
+            fileNameContextCall.Size = new Size(46, 32);
+            fileNameContextCall.TabIndex = 7;
+            fileNameContextCall.Text = "+";
+            fileNameContextCall.UseVisualStyleBackColor = true;
             // 
             // nameMaskClear
             // 
@@ -362,7 +362,7 @@
             tableLayoutPanel7.ColumnCount = 2;
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel7.Controls.Add(button9, 0, 0);
+            tableLayoutPanel7.Controls.Add(fileExtensionContextCall, 0, 0);
             tableLayoutPanel7.Controls.Add(extensionMaskClear, 1, 0);
             tableLayoutPanel7.Dock = DockStyle.Fill;
             tableLayoutPanel7.Location = new Point(3, 114);
@@ -372,16 +372,16 @@
             tableLayoutPanel7.Size = new Size(102, 32);
             tableLayoutPanel7.TabIndex = 5;
             // 
-            // button9
+            // fileExtensionContextCall
             // 
-            button9.Dock = DockStyle.Fill;
-            button9.Location = new Point(0, 0);
-            button9.Margin = new Padding(0, 0, 2, 0);
-            button9.Name = "button9";
-            button9.Size = new Size(49, 32);
-            button9.TabIndex = 5;
-            button9.Text = "+";
-            button9.UseVisualStyleBackColor = true;
+            fileExtensionContextCall.Dock = DockStyle.Fill;
+            fileExtensionContextCall.Location = new Point(0, 0);
+            fileExtensionContextCall.Margin = new Padding(0, 0, 2, 0);
+            fileExtensionContextCall.Name = "fileExtensionContextCall";
+            fileExtensionContextCall.Size = new Size(49, 32);
+            fileExtensionContextCall.TabIndex = 5;
+            fileExtensionContextCall.Text = "+";
+            fileExtensionContextCall.UseVisualStyleBackColor = true;
             // 
             // extensionMaskClear
             // 
@@ -751,10 +751,10 @@
         private Button nameMaskAddTime;
         private Button nameMaskAddPath;
         private Button nameMaskAddCounter;
-        private Button button6;
+        private Button fileNameContextCall;
         private Button extensionMaskAddExtension;
         private Button extensionMaskAddCounter;
-        private Button button9;
+        private Button fileExtensionContextCall;
         private TableLayoutPanel tableLayoutPanel6;
         private Button nameMaskClear;
         private NumericUpDown numericStartAt;

@@ -1,4 +1,6 @@
-﻿namespace filemanager
+﻿using System.ComponentModel;
+
+namespace filemanager
 {
     public partial class Manager
     {
@@ -66,26 +68,25 @@
             // DISPLAY HANDLER EVENTS
             displayHandler.ListView.MouseClick += (sender, e) => {
                 MouseEventArgs me = (MouseEventArgs)e;
-                if (me.Button == MouseButtons.Left) 
-                { 
-                    Click(displayHandler, directoryHandler); 
+                if (me.Button == MouseButtons.Left)
+                {
+                    Click(displayHandler, directoryHandler);
                 }
-                if (me.Button == MouseButtons.Right) 
+                if (me.Button == MouseButtons.Right)
                 {
                     ShowContext(displayHandler, directoryHandler);
                 }
             };
 
             displayHandler.ListView.MouseDoubleClick += (sender, e) => {
-                MouseEventArgs me = (MouseEventArgs)e;
-                if (me.Button == MouseButtons.Left)
+                if (e.Button == MouseButtons.Left)
                 {
                     DoubleClick(displayHandler, directoryHandler, fileWatcher);
                 }
             };
-            
-            displayHandler.ListView.SelectedIndexChanged += (sender, e) => { Click(displayHandler, directoryHandler); };
-            displayHandler.ListView.SelectedIndexChanged += (sender, e) => { displayHandler.getFileInfo(); };
+
+            displayHandler.ListView.SelectedIndexChanged += (sender, e) => Click(displayHandler, directoryHandler);
+            displayHandler.ListView.SelectedIndexChanged += (sender, e) => displayHandler.getFileInfo();
 
             displayHandler.TabControl.SelectedIndexChanged += (sender, e) =>
             {
@@ -104,15 +105,15 @@
             };
 
             // SHOW TAB
-            showHiddenFoldersTool.Click += (sender, e) => 
-            { 
-                if (displayHandler.Focused) displayHandler.ShowHidden = showHiddenFoldersTool.Checked; 
-                Refresh(displayHandler, directoryHandler); 
+            showHiddenFoldersTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused) displayHandler.ShowHidden = showHiddenFoldersTool.Checked;
+                Refresh(displayHandler, directoryHandler);
             };
-            showExtensionsTool.Click += (sender, e) => 
-            { 
-                if (displayHandler.Focused) displayHandler.ShowExtensions = showExtensionsTool.Checked; 
-                Refresh(displayHandler, directoryHandler); 
+            showExtensionsTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused) displayHandler.ShowExtensions = showExtensionsTool.Checked;
+                Refresh(displayHandler, directoryHandler);
             };
             //
 
@@ -168,7 +169,12 @@
             refreshTool.Click += (sender, e) => { Refresh(displayHandler, directoryHandler); };
             renameTool.Click += (sender, e) => { Rename(displayHandler, directoryHandler); }; //focused //watched
             viewTool.Click += (sender, e) => { DoubleClick(displayHandler, directoryHandler, fileWatcher); }; //focused
-            editTool.Click += (sender, e) => { if (displayHandler.Focused) if (displayHandler.isSelected()) displayHandler.ListView.SelectedItems[0].ETag().Edit(); };
+            editTool.Click += (sender, e) =>
+            {
+                if (displayHandler.Focused)
+                    if (displayHandler.isSelected())
+                        displayHandler.ListView.SelectedItems[0].ETag().Edit();
+            };
             copyTool.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
             cutTool.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
             pasteTool.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); }; //watched

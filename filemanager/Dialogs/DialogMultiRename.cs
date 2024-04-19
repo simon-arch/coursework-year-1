@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.Globalization;
-using static System.Windows.Forms.DataFormats;
-
-namespace filemanager.Dialogs
+﻿namespace filemanager.Dialogs
 {
     public partial class DialogMultiRename : Form
     {
@@ -42,40 +38,61 @@ namespace filemanager.Dialogs
                 start = (int)numericStartAt.Value;
                 PreviewData(renameData, start, step, digits);
             };
+
             numericStep.ValueChanged += (sender, e) =>
             {
                 step = (int)numericStep.Value;
                 PreviewData(renameData, start, step, digits);
             };
+
             comboDigits.TextChanged += (sender, e) =>
             {
                 digits = Int32.Parse(comboDigits.Text);
                 PreviewData(renameData, start, step, digits);
             };
-            comboLetterCase.TextChanged += (sender, e) =>
-            {
-                PreviewData(renameData, start, step, digits);
-            };
-            searchForTextBox.TextChanged += (sender, e) =>
-            {
-                PreviewData(renameData, start, step, digits);
-            };
-            replaceWithTextBox.TextChanged += (sender, e) =>
-            {
-                PreviewData(renameData, start, step, digits);
-            };
-            respectUpperCaseCheck.CheckedChanged += (sender, e) =>
-            {
-                PreviewData(renameData, start, step, digits);
-            };
-            extensionReplaceCheck.CheckedChanged += (sender, e) =>
-            {
-                PreviewData(renameData, start, step, digits);
-            };
+
+            comboLetterCase.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
+            searchForTextBox.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
+            replaceWithTextBox.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
+            respectUpperCaseCheck.CheckedChanged += (sender, e) => PreviewData(renameData, start, step, digits);
+            extensionReplaceCheck.CheckedChanged += (sender, e) => PreviewData(renameData, start, step, digits);
+
             closeButton.Click += (sender, e) => Dispose();
             startButton.Click += (sender, e) => RunData();
+
+            fileNameContextCall.Click += (sender, e) => CallContext(fileNameMask);
+            fileExtensionContextCall.Click += (sender, e) => CallContext(fileExtensionMask);
+
             fileNameMask.Text += "[N]";
             fileExtensionMask.Text = "[E]";
+        }
+        private void CallContext(TextBox textBox)
+        {
+            Dictionary<string, string> values = new Dictionary<string, string>
+            {
+                { "[N]",          "File name" },
+                { "[E]",          "File extension" },
+                { "[YMD]",        "Date" },
+                { "[HMS]",        "Time" },
+                { "[C]",          "Index" },
+                { "[P]",          "Parent" },
+                { "[A]",          "File name and extension" },
+                { "[S]",          "File size" },
+                { "[%USERNAME%]", "Username" },
+                { "[[]",          "[" },
+                { "[]]",          "]" },
+                { "[X]",          Clipboard.GetText() },
+            };
+
+            ContextMenuStrip context = new ContextMenuStrip();
+            foreach (KeyValuePair<string, string> data in values)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = $"{data.Key} {data.Value}";
+                item.Click += (sender, e) => textBox.Text += data.Key;
+                context.Items.Add(item);
+            }
+            context.Show(Cursor.Position);
         }
         private void PreviewData(List<Element> renameData, int index, int step, int digits)
         {

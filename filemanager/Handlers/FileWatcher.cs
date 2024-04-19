@@ -2,8 +2,10 @@
 {
     public class FileWatcher
     {
+        public DirectoryHandler DirectoryHandler { get; set; }
+        public DisplayHandler DisplayHandler { get; set; }
         public FileSystemWatcher Watcher { get; set; }
-        public RootDirectory RootDirectory { get; set; }
+        public Manager Form { get; set; }
         public void Init()
         {
             Watcher = new FileSystemWatcher();
@@ -16,26 +18,12 @@
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.Security
                                  | NotifyFilters.Size;
-
-            Watcher.Created += OnCreated;
-            Watcher.Deleted += OnDeleted;
-            Watcher.Renamed += OnRenamed;
-
-            Watcher.Filter = "*";
+            Watcher.InternalBufferSize = 1;
+            Watcher.Created += (sender, e) => Form.Invoke(() => Form.Refresh(DisplayHandler, DirectoryHandler));
+            Watcher.Deleted += (sender, e) => Form.Invoke(() => Form.Refresh(DisplayHandler, DirectoryHandler));
+            Watcher.Renamed += (sender, e) => Form.Invoke(() => Form.Refresh(DisplayHandler, DirectoryHandler));
             Watcher.EnableRaisingEvents = true;
-
-        }
-        private static void OnCreated(object sender, FileSystemEventArgs e)
-        {
-            MessageBox.Show("CREATED");
-        }
-        private static void OnDeleted(object sender, FileSystemEventArgs e)
-        {
-            MessageBox.Show("DELETED");
-        }
-        private static void OnRenamed(object sender, RenamedEventArgs e)
-        {
-            MessageBox.Show("RENAMED");
+            Watcher.Filter = "*";
         }
     }
 }

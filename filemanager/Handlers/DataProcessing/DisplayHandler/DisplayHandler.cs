@@ -17,7 +17,7 @@ namespace filemanager
         public bool ShowExtensions { get; set; }
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
-        public SortType SortType {  get; set; }
+        public SortType SortType { get; set; }
         public static string PadNumbers(string input)
         {
             return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
@@ -35,6 +35,7 @@ namespace filemanager
             ProgressBar.Value = 0; ProgressBar.Show();
             ProgressBar.Maximum = RootDirectory.getDirs().Count + RootDirectory.getFiles().Count;
 
+            ListView.BeginUpdate();
 
             ListViewItem dd = new ListViewItem();
             dd.Text = $"[..]";
@@ -80,6 +81,8 @@ namespace filemanager
                 ProgressBar.Value++;
             }
 
+            ListView.EndUpdate();
+
             foreach (ColumnHeader column in ListView.Columns)
             {
                 column.Width = -2;
@@ -97,7 +100,7 @@ namespace filemanager
         public void StorageSize()
         {
             DriveInfo drive = new DriveInfo(ComboBox.GetItemText(ComboBox.SelectedItem));
-            UsedStorage.Text = $"{drive.TotalFreeSpace/1000:n0} k of {drive.TotalSize/1000:n0} k free";
+            UsedStorage.Text = $"{drive.TotalFreeSpace / 1000:n0} k of {drive.TotalSize / 1000:n0} k free";
         }
         public void SelectDrive()
         {
@@ -118,6 +121,7 @@ namespace filemanager
             int selectedCount = 0;
             int folders = 0;
             int selectedFolders = 0;
+
             foreach (File f in RootDirectory.getFiles())
             {
                 totalSize += f.Size;
@@ -142,8 +146,7 @@ namespace filemanager
                     }
                 }
             }
-
-            Label.Text = $"{selectedSize/1000:n0} k / {totalSize/1000:n0} k in {selectedCount} / {count} file(s), {selectedFolders} / {folders} dir(s)";
+            Label.Text = $"{selectedSize / 1000:n0} k / {totalSize / 1000:n0} k in {selectedCount} / {count} file(s), {selectedFolders} / {folders} dir(s)";
         }
         public void DeleteTab()
         {
@@ -161,11 +164,11 @@ namespace filemanager
         {
             if (ListView.SelectedItems.Count > 0)
             {
-                if(ListView.SelectedItems[0].Tag != "SPECIAL")
+                if (ListView.SelectedItems[0].Tag != "utility")
                 {
                     return true;
                 }
-            } 
+            }
             return false;
         }
         public void CopyNamesToClipboard(bool copyWithPath, bool copyWithExtension)
@@ -191,7 +194,7 @@ namespace filemanager
             if (!Focused) return;
             int lastTab = TabControl.TabCount - 1;
 
-            if(usePlusButton && TabControl.SelectedIndex != lastTab)
+            if (usePlusButton && TabControl.SelectedIndex != lastTab)
             {
                 return;
             }

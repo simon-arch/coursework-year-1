@@ -1082,9 +1082,9 @@
             tableLayoutPanel6.Controls.Add(tableLayoutPanel2, 0, 1);
             tableLayoutPanel6.Controls.Add(goToSelectedPathButton, 4, 2);
             tableLayoutPanel6.Controls.Add(selectPathTextBox, 3, 2);
+            tableLayoutPanel6.Controls.Add(progressBar, 3, 3);
             tableLayoutPanel6.Controls.Add(selectedFileSizeLabel, 0, 3);
             tableLayoutPanel6.Controls.Add(searchTextBox, 0, 2);
-            tableLayoutPanel6.Controls.Add(progressBar, 3, 3);
             tableLayoutPanel6.Location = new Point(12, 58);
             tableLayoutPanel6.Margin = new Padding(0);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -1098,12 +1098,11 @@
             // 
             // progressBar
             // 
-            tableLayoutPanel6.SetColumnSpan(progressBar, 2);
-            progressBar.Dock = DockStyle.Right;
-            progressBar.Location = new Point(876, 334);
+            progressBar.Anchor = AnchorStyles.Right;
+            progressBar.Location = new Point(844, 341);
             progressBar.Margin = new Padding(0);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(82, 30);
+            progressBar.Size = new Size(82, 16);
             progressBar.TabIndex = 14;
             // 
             // contextMenu

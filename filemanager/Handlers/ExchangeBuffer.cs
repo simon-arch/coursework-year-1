@@ -5,7 +5,8 @@
         public Queue<Element> SourceItems { get; set; }
         public List<Element> Buffer { get; set; }
         public bool Cut { get; set; }
-        public ExchangeBuffer() { 
+        public ExchangeBuffer()
+        {
             SourceItems = new Queue<Element>();
             Cut = false;
         }
@@ -17,16 +18,16 @@
                 System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
                 for (int i = 0; i < listitems.Count; i++)
                 {
-                    if(listitems[i].ETag().IgnoreListing == false)
+                    if (listitems[i].ETag().IgnoreListing == false)
                     {
                         SourceItems.Enqueue(listitems[i].ETag());
                         paths.Add(listitems[i].ETag().Path);
                     }
                 }
-                Clipboard.SetFileDropList(paths);
+                if (paths.Count > 0) Clipboard.SetFileDropList(paths);
             }
         }
-        public void Paste(string targetPath) 
+        public void Paste(string targetPath)
         {
             foreach (Element sourceItem in SourceItems)
             {

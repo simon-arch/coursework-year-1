@@ -17,9 +17,6 @@ namespace filemanager
 
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
         LoggerHandler loggerHandler = new LoggerHandler();
-
-        FileWatcher fileWatcher = new FileWatcher();
-
         public Manager()
         {
             InitializeComponent();
@@ -34,7 +31,13 @@ namespace filemanager
             watcherList.Add(watcherRightScreen);
 
             watcherList[0].Init();
+            watcherList[0].DisplayHandler = displayList[0];
+            watcherList[0].DirectoryHandler = directoryList[0];
+            watcherList[0].Form = this;
             watcherList[1].Init();
+            watcherList[1].DisplayHandler = displayList[1];
+            watcherList[1].DirectoryHandler = directoryList[1];
+            watcherList[1].Form = this;
 
             InitializeHandlers(displayHandlerLeftScreen, listView1, tabControl1, driveComboBox,
             selectedFileSizeLabel, freeSpaceLabel, imagePreviewBox, fileIconList, progressBar,
