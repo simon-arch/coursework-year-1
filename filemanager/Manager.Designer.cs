@@ -32,10 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             topMenuStrip = new MenuStrip();
             filesToolStripMenuItem = new ToolStripMenuItem();
-            propertiesTool = new ToolStripMenuItem();
-            calculateSpaceTool = new ToolStripMenuItem();
+            packTool = new ToolStripMenuItem();
+            unpackSpecificTool = new ToolStripMenuItem();
+            unpackAllTool = new ToolStripMenuItem();
             deleteAfterUnzipTool = new ToolStripMenuItem();
+            calculateSpaceTool = new ToolStripMenuItem();
             multiRenameTool = new ToolStripMenuItem();
+            printTool = new ToolStripMenuItem();
             markToolStripMenuItem = new ToolStripMenuItem();
             selectGroupTool = new ToolStripMenuItem();
             unselectGroupTool = new ToolStripMenuItem();
@@ -43,36 +46,55 @@
             unselectAllTool = new ToolStripMenuItem();
             selectAllWithTheSameExtensionTool = new ToolStripMenuItem();
             toolStripSeparator8 = new ToolStripSeparator();
+            saveSelectionTool = new ToolStripMenuItem();
+            restoreSelectionTool = new ToolStripMenuItem();
+            saveSelectionToFileTool = new ToolStripMenuItem();
+            loadSelectionFromFileTool = new ToolStripMenuItem();
+            toolStripMenuItem8 = new ToolStripSeparator();
             copySelectedNamesToClipboardTool = new ToolStripMenuItem();
             copyNamesWithPathToClipboardTool = new ToolStripMenuItem();
             copyToClipboardWithExtensions = new ToolStripMenuItem();
             copyToClipboardWithPathExtensions = new ToolStripMenuItem();
-            toolStripSeparator7 = new ToolStripSeparator();
+            toolStripMenuItem5 = new ToolStripSeparator();
             compareFilenamesTool = new ToolStripMenuItem();
             commandsToolStripMenuItem = new ToolStripMenuItem();
             desktopTool = new ToolStripMenuItem();
             openConsoleTool = new ToolStripMenuItem();
             openPowershellTool = new ToolStripMenuItem();
+            openInExplorerTool = new ToolStripMenuItem();
+            toolStripSeparator9 = new ToolStripSeparator();
+            systemPropertiesTool = new ToolStripMenuItem();
             sourceTargetSwitchTool = new ToolStripMenuItem();
             sourceTargetEqualTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
             showHiddenFoldersTool = new ToolStripMenuItem();
             toolStripSeparator6 = new ToolStripSeparator();
+            detailsTool = new ToolStripMenuItem();
+            smallIconsTool = new ToolStripMenuItem();
+            tilesTool = new ToolStripMenuItem();
+            listTool = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
             showAllFilesTool = new ToolStripMenuItem();
             showProgramsTool = new ToolStripMenuItem();
             showCustomTool = new ToolStripMenuItem();
+            toolStripMenuItem6 = new ToolStripSeparator();
+            refreshListTool = new ToolStripMenuItem();
             sortToolStripMenuItem = new ToolStripMenuItem();
             sortNameTool = new ToolStripMenuItem();
             sortExtensionTool = new ToolStripMenuItem();
             sortDateTool = new ToolStripMenuItem();
             sortSizeTool = new ToolStripMenuItem();
+            toolStripMenuItem7 = new ToolStripSeparator();
+            reversedTool = new ToolStripMenuItem();
             tabsTab = new ToolStripMenuItem();
             createTabTool = new ToolStripMenuItem();
             deleteTabTool = new ToolStripMenuItem();
             quickAccessToolStripMenuItem = new ToolStripMenuItem();
             quickAccessAddTool = new ToolStripMenuItem();
             quickAccessRemoveTool = new ToolStripMenuItem();
+            viewToolStripMenuItem = new ToolStripMenuItem();
+            darkNormalThemeTool = new ToolStripMenuItem();
             imagePreviewBox = new PictureBox();
             selectedFileSizeLabel = new Label();
             freeSpaceLabel = new Label();
@@ -112,7 +134,7 @@
             notepadTool = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             diskInfoTool = new ToolStripButton();
-            printTool = new ToolStripButton();
+            quickPrintTool = new ToolStripButton();
             binTool = new ToolStripButton();
             bottomMenuStrip = new MenuStrip();
             refreshTool = new ToolStripMenuItem();
@@ -157,6 +179,8 @@
             toolStripMenuItem4 = new ToolStripSeparator();
             newFolderContext = new ToolStripMenuItem();
             refreshToolContext = new ToolStripMenuItem();
+            loadSelectionFileDialog = new OpenFileDialog();
+            saveSelectionFileDialog = new SaveFileDialog();
             topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).BeginInit();
             previewBoxTabControl.SuspendLayout();
@@ -179,7 +203,7 @@
             // topMenuStrip
             // 
             topMenuStrip.ImageScalingSize = new Size(20, 20);
-            topMenuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, markToolStripMenuItem, commandsToolStripMenuItem, showTab, sortToolStripMenuItem, tabsTab, quickAccessToolStripMenuItem });
+            topMenuStrip.Items.AddRange(new ToolStripItem[] { filesToolStripMenuItem, markToolStripMenuItem, commandsToolStripMenuItem, showTab, sortToolStripMenuItem, tabsTab, quickAccessToolStripMenuItem, viewToolStripMenuItem });
             topMenuStrip.Location = new Point(0, 0);
             topMenuStrip.Name = "topMenuStrip";
             topMenuStrip.Size = new Size(982, 28);
@@ -188,22 +212,28 @@
             // 
             // filesToolStripMenuItem
             // 
-            filesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { propertiesTool, calculateSpaceTool, deleteAfterUnzipTool, multiRenameTool });
+            filesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { packTool, unpackSpecificTool, unpackAllTool, deleteAfterUnzipTool, calculateSpaceTool, multiRenameTool, printTool });
             filesToolStripMenuItem.Name = "filesToolStripMenuItem";
             filesToolStripMenuItem.Size = new Size(52, 24);
             filesToolStripMenuItem.Text = "Files";
             // 
-            // propertiesTool
+            // packTool
             // 
-            propertiesTool.Name = "propertiesTool";
-            propertiesTool.Size = new Size(273, 26);
-            propertiesTool.Text = "Properties...";
+            packTool.Name = "packTool";
+            packTool.Size = new Size(273, 26);
+            packTool.Text = "Pack...";
             // 
-            // calculateSpaceTool
+            // unpackSpecificTool
             // 
-            calculateSpaceTool.Name = "calculateSpaceTool";
-            calculateSpaceTool.Size = new Size(273, 26);
-            calculateSpaceTool.Text = "Calculate Occupied Space...";
+            unpackSpecificTool.Name = "unpackSpecificTool";
+            unpackSpecificTool.Size = new Size(273, 26);
+            unpackSpecificTool.Text = "Unpack Specific Files...";
+            // 
+            // unpackAllTool
+            // 
+            unpackAllTool.Name = "unpackAllTool";
+            unpackAllTool.Size = new Size(273, 26);
+            unpackAllTool.Text = "Unpack All";
             // 
             // deleteAfterUnzipTool
             // 
@@ -212,15 +242,27 @@
             deleteAfterUnzipTool.Size = new Size(273, 26);
             deleteAfterUnzipTool.Text = "Delete Source After Unzip";
             // 
+            // calculateSpaceTool
+            // 
+            calculateSpaceTool.Name = "calculateSpaceTool";
+            calculateSpaceTool.Size = new Size(273, 26);
+            calculateSpaceTool.Text = "Calculate Occupied Space...";
+            // 
             // multiRenameTool
             // 
             multiRenameTool.Name = "multiRenameTool";
             multiRenameTool.Size = new Size(273, 26);
             multiRenameTool.Text = "Multi-Rename Tool...";
             // 
+            // printTool
+            // 
+            printTool.Name = "printTool";
+            printTool.Size = new Size(273, 26);
+            printTool.Text = "Print...";
+            // 
             // markToolStripMenuItem
             // 
-            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectGroupTool, unselectGroupTool, selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, toolStripSeparator8, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool, copyToClipboardWithExtensions, copyToClipboardWithPathExtensions, toolStripSeparator7, compareFilenamesTool });
+            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectGroupTool, unselectGroupTool, selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, toolStripSeparator8, saveSelectionTool, restoreSelectionTool, saveSelectionToFileTool, loadSelectionFromFileTool, toolStripMenuItem8, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool, copyToClipboardWithExtensions, copyToClipboardWithPathExtensions, toolStripMenuItem5, compareFilenamesTool });
             markToolStripMenuItem.Name = "markToolStripMenuItem";
             markToolStripMenuItem.Size = new Size(56, 24);
             markToolStripMenuItem.Text = "Mark";
@@ -269,6 +311,35 @@
             toolStripSeparator8.Name = "toolStripSeparator8";
             toolStripSeparator8.Size = new Size(354, 6);
             // 
+            // saveSelectionTool
+            // 
+            saveSelectionTool.Name = "saveSelectionTool";
+            saveSelectionTool.Size = new Size(357, 26);
+            saveSelectionTool.Text = "Save Selection";
+            // 
+            // restoreSelectionTool
+            // 
+            restoreSelectionTool.Name = "restoreSelectionTool";
+            restoreSelectionTool.Size = new Size(357, 26);
+            restoreSelectionTool.Text = "Restore Selection";
+            // 
+            // saveSelectionToFileTool
+            // 
+            saveSelectionToFileTool.Name = "saveSelectionToFileTool";
+            saveSelectionToFileTool.Size = new Size(357, 26);
+            saveSelectionToFileTool.Text = "Save Selection To File";
+            // 
+            // loadSelectionFromFileTool
+            // 
+            loadSelectionFromFileTool.Name = "loadSelectionFromFileTool";
+            loadSelectionFromFileTool.Size = new Size(357, 26);
+            loadSelectionFromFileTool.Text = "Load Selection From File";
+            // 
+            // toolStripMenuItem8
+            // 
+            toolStripMenuItem8.Name = "toolStripMenuItem8";
+            toolStripMenuItem8.Size = new Size(354, 6);
+            // 
             // copySelectedNamesToClipboardTool
             // 
             copySelectedNamesToClipboardTool.Image = (Image)resources.GetObject("copySelectedNamesToClipboardTool.Image");
@@ -299,10 +370,10 @@
             copyToClipboardWithPathExtensions.Size = new Size(357, 26);
             copyToClipboardWithPathExtensions.Text = "Copy to clipboard with path+extensions";
             // 
-            // toolStripSeparator7
+            // toolStripMenuItem5
             // 
-            toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(354, 6);
+            toolStripMenuItem5.Name = "toolStripMenuItem5";
+            toolStripMenuItem5.Size = new Size(354, 6);
             // 
             // compareFilenamesTool
             // 
@@ -312,7 +383,7 @@
             // 
             // commandsToolStripMenuItem
             // 
-            commandsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { desktopTool, openConsoleTool, openPowershellTool, sourceTargetSwitchTool, sourceTargetEqualTool });
+            commandsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { desktopTool, openConsoleTool, openPowershellTool, openInExplorerTool, toolStripSeparator9, systemPropertiesTool, sourceTargetSwitchTool, sourceTargetEqualTool });
             commandsToolStripMenuItem.Name = "commandsToolStripMenuItem";
             commandsToolStripMenuItem.Size = new Size(98, 24);
             commandsToolStripMenuItem.Text = "Commands";
@@ -320,36 +391,53 @@
             // desktopTool
             // 
             desktopTool.Name = "desktopTool";
-            desktopTool.Size = new Size(238, 26);
+            desktopTool.Size = new Size(264, 26);
             desktopTool.Text = "Open Desktop Folder";
             // 
             // openConsoleTool
             // 
             openConsoleTool.Name = "openConsoleTool";
-            openConsoleTool.Size = new Size(238, 26);
+            openConsoleTool.Size = new Size(264, 26);
             openConsoleTool.Text = "Open Console Here";
             // 
             // openPowershellTool
             // 
             openPowershellTool.Name = "openPowershellTool";
-            openPowershellTool.Size = new Size(238, 26);
+            openPowershellTool.Size = new Size(264, 26);
             openPowershellTool.Text = "Open Powershell Here";
+            // 
+            // openInExplorerTool
+            // 
+            openInExplorerTool.Name = "openInExplorerTool";
+            openInExplorerTool.Size = new Size(264, 26);
+            openInExplorerTool.Text = "Open Selected in Explorer";
+            // 
+            // toolStripSeparator9
+            // 
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            toolStripSeparator9.Size = new Size(261, 6);
+            // 
+            // systemPropertiesTool
+            // 
+            systemPropertiesTool.Name = "systemPropertiesTool";
+            systemPropertiesTool.Size = new Size(264, 26);
+            systemPropertiesTool.Text = "System Properties";
             // 
             // sourceTargetSwitchTool
             // 
             sourceTargetSwitchTool.Name = "sourceTargetSwitchTool";
-            sourceTargetSwitchTool.Size = new Size(238, 26);
+            sourceTargetSwitchTool.Size = new Size(264, 26);
             sourceTargetSwitchTool.Text = "Source <-> Target";
             // 
             // sourceTargetEqualTool
             // 
             sourceTargetEqualTool.Name = "sourceTargetEqualTool";
-            sourceTargetEqualTool.Size = new Size(238, 26);
+            sourceTargetEqualTool.Size = new Size(264, 26);
             sourceTargetEqualTool.Text = "Source = Target";
             // 
             // showTab
             // 
-            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool, toolStripSeparator6, showAllFilesTool, showProgramsTool, showCustomTool });
+            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool, toolStripSeparator6, detailsTool, smallIconsTool, tilesTool, listTool, toolStripSeparator5, showAllFilesTool, showProgramsTool, showCustomTool, toolStripMenuItem6, refreshListTool });
             showTab.Name = "showTab";
             showTab.Size = new Size(59, 24);
             showTab.Text = "Show";
@@ -373,6 +461,35 @@
             toolStripSeparator6.Name = "toolStripSeparator6";
             toolStripSeparator6.Size = new Size(190, 6);
             // 
+            // detailsTool
+            // 
+            detailsTool.Name = "detailsTool";
+            detailsTool.Size = new Size(193, 26);
+            detailsTool.Text = "Details";
+            // 
+            // smallIconsTool
+            // 
+            smallIconsTool.Name = "smallIconsTool";
+            smallIconsTool.Size = new Size(193, 26);
+            smallIconsTool.Text = "Small Icons";
+            // 
+            // tilesTool
+            // 
+            tilesTool.Name = "tilesTool";
+            tilesTool.Size = new Size(193, 26);
+            tilesTool.Text = "Tiles";
+            // 
+            // listTool
+            // 
+            listTool.Name = "listTool";
+            listTool.Size = new Size(193, 26);
+            listTool.Text = "List";
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(190, 6);
+            // 
             // showAllFilesTool
             // 
             showAllFilesTool.Name = "showAllFilesTool";
@@ -391,9 +508,20 @@
             showCustomTool.Size = new Size(193, 26);
             showCustomTool.Text = "Custom...";
             // 
+            // toolStripMenuItem6
+            // 
+            toolStripMenuItem6.Name = "toolStripMenuItem6";
+            toolStripMenuItem6.Size = new Size(190, 6);
+            // 
+            // refreshListTool
+            // 
+            refreshListTool.Name = "refreshListTool";
+            refreshListTool.Size = new Size(193, 26);
+            refreshListTool.Text = "Refresh List";
+            // 
             // sortToolStripMenuItem
             // 
-            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortNameTool, sortExtensionTool, sortDateTool, sortSizeTool });
+            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortNameTool, sortExtensionTool, sortDateTool, sortSizeTool, toolStripMenuItem7, reversedTool });
             sortToolStripMenuItem.Name = "sortToolStripMenuItem";
             sortToolStripMenuItem.Size = new Size(50, 24);
             sortToolStripMenuItem.Text = "Sort";
@@ -401,26 +529,38 @@
             // sortNameTool
             // 
             sortNameTool.Name = "sortNameTool";
-            sortNameTool.Size = new Size(155, 26);
+            sortNameTool.Size = new Size(194, 26);
             sortNameTool.Text = "Name";
             // 
             // sortExtensionTool
             // 
             sortExtensionTool.Name = "sortExtensionTool";
-            sortExtensionTool.Size = new Size(155, 26);
+            sortExtensionTool.Size = new Size(194, 26);
             sortExtensionTool.Text = "Extension";
             // 
             // sortDateTool
             // 
             sortDateTool.Name = "sortDateTool";
-            sortDateTool.Size = new Size(155, 26);
+            sortDateTool.Size = new Size(194, 26);
             sortDateTool.Text = "Date";
             // 
             // sortSizeTool
             // 
             sortSizeTool.Name = "sortSizeTool";
-            sortSizeTool.Size = new Size(155, 26);
+            sortSizeTool.Size = new Size(194, 26);
             sortSizeTool.Text = "Size";
+            // 
+            // toolStripMenuItem7
+            // 
+            toolStripMenuItem7.Name = "toolStripMenuItem7";
+            toolStripMenuItem7.Size = new Size(191, 6);
+            // 
+            // reversedTool
+            // 
+            reversedTool.CheckOnClick = true;
+            reversedTool.Name = "reversedTool";
+            reversedTool.Size = new Size(194, 26);
+            reversedTool.Text = "Reversed Order";
             // 
             // tabsTab
             // 
@@ -459,6 +599,19 @@
             quickAccessRemoveTool.Name = "quickAccessRemoveTool";
             quickAccessRemoveTool.Size = new Size(176, 26);
             quickAccessRemoveTool.Text = "Remove Link";
+            // 
+            // viewToolStripMenuItem
+            // 
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkNormalThemeTool });
+            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            viewToolStripMenuItem.Size = new Size(55, 24);
+            viewToolStripMenuItem.Text = "View";
+            // 
+            // darkNormalThemeTool
+            // 
+            darkNormalThemeTool.Name = "darkNormalThemeTool";
+            darkNormalThemeTool.Size = new Size(207, 26);
+            darkNormalThemeTool.Text = "Dark <-> Normal";
             // 
             // imagePreviewBox
             // 
@@ -593,11 +746,11 @@
             // logTextBox
             // 
             logTextBox.AcceptsTab = true;
-            logTextBox.BackColor = SystemColors.ControlText;
+            logTextBox.BackColor = SystemColors.Window;
             logTextBox.BorderStyle = BorderStyle.FixedSingle;
             logTextBox.DetectUrls = false;
             logTextBox.Dock = DockStyle.Fill;
-            logTextBox.ForeColor = SystemColors.Window;
+            logTextBox.ForeColor = SystemColors.ControlText;
             logTextBox.Location = new Point(4, 149);
             logTextBox.Margin = new Padding(4, 0, 0, 0);
             logTextBox.Name = "logTextBox";
@@ -724,7 +877,7 @@
             // topToolStrip
             // 
             topToolStrip.ImageScalingSize = new Size(20, 20);
-            topToolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool, printTool, binTool });
+            topToolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool, quickPrintTool, binTool });
             topToolStrip.Location = new Point(0, 28);
             topToolStrip.Name = "topToolStrip";
             topToolStrip.Size = new Size(982, 27);
@@ -872,15 +1025,15 @@
             diskInfoTool.Size = new Size(29, 24);
             diskInfoTool.Text = "Show Disk Info";
             // 
-            // printTool
+            // quickPrintTool
             // 
-            printTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            printTool.Image = (Image)resources.GetObject("printTool.Image");
-            printTool.ImageScaling = ToolStripItemImageScaling.None;
-            printTool.ImageTransparentColor = Color.Black;
-            printTool.Name = "printTool";
-            printTool.Size = new Size(29, 24);
-            printTool.Text = "Print Document";
+            quickPrintTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            quickPrintTool.Image = (Image)resources.GetObject("quickPrintTool.Image");
+            quickPrintTool.ImageScaling = ToolStripItemImageScaling.None;
+            quickPrintTool.ImageTransparentColor = Color.Black;
+            quickPrintTool.Name = "quickPrintTool";
+            quickPrintTool.Size = new Size(29, 24);
+            quickPrintTool.Text = "Print Document";
             // 
             // binTool
             // 
@@ -1242,6 +1395,10 @@
             refreshToolContext.Size = new Size(154, 24);
             refreshToolContext.Text = "Refresh";
             // 
+            // loadSelectionFileDialog
+            // 
+            loadSelectionFileDialog.FileName = "openFileDialog1";
+            // 
             // Manager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1345,11 +1502,10 @@
         private TabPage tabPage4;
         private TextBox selectPathTextBox;
         private Button goToSelectedPathButton;
-        private ToolStripButton printTool;
+        private ToolStripButton quickPrintTool;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintDialog printDialog1;
         private ToolStripMenuItem filesToolStripMenuItem;
-        private ToolStripMenuItem propertiesTool;
         private ToolStripMenuItem calculateSpaceTool;
         private ToolStripMenuItem showAllFilesTool;
         private ToolStripMenuItem showProgramsTool;
@@ -1359,11 +1515,9 @@
         private ToolStripMenuItem openConsoleTool;
         private ToolStripMenuItem deleteAfterUnzipTool;
         private ToolStripMenuItem multiRenameTool;
-        private ToolStripMenuItem compareFilenamesTool;
         private ToolStripMenuItem openPowershellTool;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripSeparator toolStripSeparator8;
-        private ToolStripSeparator toolStripSeparator7;
         private ToolStripButton binTool;
         private ListView quickAccessList;
         private ToolStripMenuItem quickAccessToolStripMenuItem;
@@ -1409,5 +1563,32 @@
         private ToolStripMenuItem unselectGroupTool;
         private ToolStripMenuItem copyToClipboardWithExtensions;
         private ToolStripMenuItem copyToClipboardWithPathExtensions;
+        private ToolStripMenuItem systemPropertiesTool;
+        private ToolStripMenuItem smallIconsTool;
+        private ToolStripMenuItem detailsTool;
+        private ToolStripMenuItem tilesTool;
+        private ToolStripMenuItem listTool;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem openInExplorerTool;
+        private ToolStripSeparator toolStripSeparator9;
+        private ToolStripMenuItem printTool;
+        private ToolStripMenuItem packTool;
+        private ToolStripMenuItem unpackSpecificTool;
+        private ToolStripMenuItem unpackAllTool;
+        private ToolStripSeparator toolStripMenuItem5;
+        private ToolStripMenuItem compareFilenamesTool;
+        private ToolStripMenuItem reversedTool;
+        private ToolStripSeparator toolStripMenuItem7;
+        private ToolStripSeparator toolStripMenuItem6;
+        private ToolStripMenuItem refreshListTool;
+        private ToolStripMenuItem saveSelectionToFileTool;
+        private ToolStripMenuItem saveSelectionTool;
+        private ToolStripMenuItem restoreSelectionTool;
+        private ToolStripMenuItem loadSelectionFromFileTool;
+        private ToolStripSeparator toolStripMenuItem8;
+        private OpenFileDialog loadSelectionFileDialog;
+        private SaveFileDialog saveSelectionFileDialog;
+        private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStripMenuItem darkNormalThemeTool;
     }
 }

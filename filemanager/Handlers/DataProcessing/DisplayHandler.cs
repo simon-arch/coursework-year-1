@@ -1,8 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.DirectoryServices;
+using System.Drawing;
+using System.Text.RegularExpressions;
 namespace filemanager
 {
-    public partial class DisplayHandler : DataHandler
+    public class DisplayHandler : DataHandler
     {
+        public List<int> SavedSelection { get; set; }
+        public string SavedSelectionPath { get; set; }
         public bool Focused { get; set; }
         public ListView? ListView { get; set; }
         public ImageList? ImageList { get; set; }
@@ -18,13 +22,18 @@ namespace filemanager
         public bool ShowHidden { get; set; }
         public int ViewType { get; set; }
         public SortType SortType { get; set; }
+        public bool SortReversed { get; set; }
+        public DisplayHandler()
+        {
+            SavedSelection = new List<int>();
+        }
         public static string PadNumbers(string input)
         {
             return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
         } /// TEMP SOLUTION TEMP SOLUTION
         public void populateList()
         {
-            RootDirectory.SortData(SortType);
+            RootDirectory.SortData(SortType, SortReversed);
             TabControl.Controls[TabControl.SelectedIndex].Text = $"({Path.GetPathRoot(RootDirectory.Path)[0]}:) {Path.GetFileName(Path.GetFullPath(RootDirectory.Path))}";
             ListView.Clear();
             ListView.SmallImageList = ImageList;
@@ -32,6 +41,7 @@ namespace filemanager
             ListView.Columns.Add("Ext", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("Size", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("Date", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Attr", 100, HorizontalAlignment.Left);
             ProgressBar.Value = 0; ProgressBar.Show();
             ProgressBar.Maximum = RootDirectory.getDirs().Count + RootDirectory.getFiles().Count;
 
@@ -41,6 +51,7 @@ namespace filemanager
             dd.Text = $"[..]";
             dd.SubItems.Add("");
             dd.SubItems.Add("<DIR>");
+            dd.SubItems.Add("");
             dd.SubItems.Add("");
             dd.Tag = new MovementDirectory();
             dd.ImageIndex = 1;
@@ -55,6 +66,7 @@ namespace filemanager
                     dirItem.SubItems.Add("");
                     dirItem.SubItems.Add("<DIR>");
                     dirItem.SubItems.Add(d.CreationDate);
+                    dirItem.SubItems.Add(d.Attributes);
                     dirItem.Tag = d;
                     dirItem.ImageIndex = d.IconIndex;
                     ListView.Items.Add(dirItem);
@@ -74,6 +86,7 @@ namespace filemanager
                     fileItem.SubItems.Add(f.Extension.Replace(".", ""));
                     fileItem.SubItems.Add($"{f.Size:n0}");
                     fileItem.SubItems.Add(f.CreationDate);
+                    fileItem.SubItems.Add(f.Attributes);
                     fileItem.Tag = f;
                     fileItem.ImageIndex = f.IconIndex;
                     ListView.Items.Add(fileItem);
@@ -235,6 +248,53 @@ namespace filemanager
                     ((PictureBox)PreviewBox.TabPages[0].Controls[0]).ImageLocation = null;
                     ((RichTextBox)PreviewBox.TabPages[1].Controls[0]).Text = null;
                     break;
+            }
+        }
+        public void DeleteSelection()
+        {
+            if (!Focused) return;
+            ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
+            if (listitems.Count > 0)
+            {
+                for (int i = 0; i < listitems.Count; i++)
+                {
+                    listitems[i].ETag().Delete();
+                }
+            }
+        }
+        public void InvertSelection()
+        {
+            if (!Focused) return;
+            if (ListView.SelectedItems.Count > 0 && ListView.SelectedItems[0].Index != 0)
+            {
+                for (int i = 1; i < ListView.Items.Count; i++)
+                {
+                    ListView.Items[i].Selected = !ListView.Items[i].Selected;
+                }
+            }
+        }
+        public void SelectAllWithTheSameExtension()
+        {
+            if (!Focused) return;
+            ListView.SelectedListViewItemCollection listitems = ListView.SelectedItems;
+            if (listitems.Count > 0)
+            {
+                string extens = ListView.SelectedItems[0].ETag().Extension;
+                for (int i = 1; i < ListView.Items.Count; i++)
+                {
+                    if (ListView.Items[i].ETag().Extension == extens)
+                    {
+                        ListView.Items[i].Selected = true;
+                    }
+                }
+            }
+        }
+        public void SetSelection(bool value)
+        {
+            if (!Focused) return;
+            for (int i = 1; i < ListView.Items.Count; i++)
+            {
+                ListView.Items[i].Selected = value;
             }
         }
     }

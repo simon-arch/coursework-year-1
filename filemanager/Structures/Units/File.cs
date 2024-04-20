@@ -33,16 +33,6 @@ namespace filemanager
         {
             System.IO.File.Delete(Path);
         }
-        public void Properties()
-        {
-            ProcessStartInfo info = new ProcessStartInfo()
-            {
-                FileName = Path,
-                UseShellExecute = true,
-                Verb = "Properties"
-            };
-            Process.Start(info);
-        }
         public override long GetSize()
         {
             return new FileInfo(Path).Length;

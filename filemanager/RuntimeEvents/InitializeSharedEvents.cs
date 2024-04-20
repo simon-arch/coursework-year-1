@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using System.Windows.Forms;
 
 namespace filemanager
 {
@@ -6,7 +6,94 @@ namespace filemanager
     {
         private void InitializeSharedEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler, FileWatcher fileWatcher)
         {
+            openInExplorerTool.Click += (sender, e) => 
+            {
+                if (!displayHandler.Focused) return;
+                if (displayHandler.isSelected())
+                {
+                    if (displayHandler.ListView.SelectedItems[0].ETag().Type == "directory")
+                    {
+                        ProcessCall.RunProcess("explorer.exe", displayHandler.ListView.SelectedItems[0].ETag().Path);
+                    }
+                    else if (displayHandler.ListView.SelectedItems[0].ETag().Type == "file")
+                    {
+                        ProcessCall.RunProcess("explorer.exe", Path.GetDirectoryName(displayHandler.ListView.SelectedItems[0].ETag().Path));
+                    }
+                }
+            };
 
+            saveSelectionTool.Click += (sender, e) => 
+            {
+                if (!displayHandler.Focused) return;
+                if (displayHandler.isSelected())
+                {
+                    displayHandler.SavedSelection.Clear();
+                    foreach (ListViewItem listitem in displayHandler.ListView.SelectedItems)
+                    {
+                        displayHandler.SavedSelection.Add(listitem.Index);
+                    }
+                    displayHandler.SavedSelectionPath = displayHandler.RootDirectory.Path;
+                }
+            };
+
+            restoreSelectionTool.Click += (sender, e) =>
+            {
+                if (!displayHandler.Focused) return;
+                if (displayHandler.SavedSelectionPath == displayHandler.RootDirectory.Path)
+                {
+                    displayHandler.ListView.SelectedItems.Clear();
+                    foreach (int index in displayHandler.SavedSelection)
+                    {
+                        displayHandler.ListView.Items[index].Selected = true;
+                    }
+                }
+            };
+
+            saveSelectionToFileTool.Click += (sender, e) =>
+            {
+                if (!displayHandler.Focused) return;
+                if (displayHandler.isSelected())
+                {
+                    saveSelectionFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+                    saveSelectionFileDialog.FileName = "selection.txt";
+                    saveSelectionFileDialog.Filter = ".txt file (*.txt)|*.txt";
+
+                    if (saveSelectionFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string savepath = saveSelectionFileDialog.FileName;
+                        List<string> target = displayHandler.ListView.SelectedItems.Cast<ListViewItem>().Select(item => item.Index.ToString()).ToList();
+                        target.Insert(0, displayHandler.RootDirectory.Path);
+                        System.IO.File.WriteAllLines(savepath, target);
+                    }
+                }
+            };
+
+            loadSelectionFromFileTool.Click += (sender, e) =>
+            {
+                if (!displayHandler.Focused) return;
+                List<string> source = new List<string>();
+
+                loadSelectionFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+                loadSelectionFileDialog.Filter = ".txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                loadSelectionFileDialog.FileName = "selection.txt";
+
+                if (loadSelectionFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    source = System.IO.File.ReadAllLines(loadSelectionFileDialog.FileName).ToList();
+                }
+                else return;
+                
+                if (source[0] == displayHandler.RootDirectory.Path)
+                {
+                    source.RemoveAt(0);
+                    foreach (string s in source)
+                    {
+                        int index = Int32.Parse(s);
+                        displayHandler.ListView.Items[index].Selected = true;
+                    }
+                }
+            };
+            refreshListTool.Click += (sender, e) => { if (displayHandler.Focused) Refresh(displayHandler, directoryHandler); };
             quickAccessAddTool.Click += (sender, e) => AccessAdd(displayHandler); //focused
             quickAccessRemoveTool.Click += (sender, e) => AccessRemove(); //SHOULD BE UNIQUE
             quickAccessList.DoubleClick += (sender, e) => AccessDoubleClick(displayHandler, directoryHandler, fileWatcher); //focused
@@ -14,12 +101,17 @@ namespace filemanager
             sortDateTool.Click += (sender, e) => Sort(SortType.date, displayHandler, directoryHandler); //focused
             sortSizeTool.Click += (sender, e) => Sort(SortType.size, displayHandler, directoryHandler); //focused
             sortExtensionTool.Click += (sender, e) => Sort(SortType.extension, displayHandler, directoryHandler); //focused
+            reversedTool.Click += (sender, e) => { if (displayHandler.Focused) displayHandler.SortReversed = reversedTool.Checked; Refresh(displayHandler, directoryHandler); };
             deleteAfterUnzipTool.Click += (sender, e) => { directoryHandler.DeleteSource = deleteAfterUnzipTool.Checked; }; //SHOULD BE UNIQUE
             openConsoleTool.Click += (sender, e) => Console(displayHandler); //focused
             openPowershellTool.Click += (sender, e) => PowerShell(displayHandler); //focused
             goUpTool.Click += (sender, e) => GoUp(displayHandler, directoryHandler, fileWatcher); //focused
             compareFilenamesTool.Click += (sender, e) => CompareFilenames(displayHandler); //SHOULD NOT BE FOCUSED
             multiRenameTool.Click += (sender, e) => { MultiRename(displayHandler, directoryHandler); }; //focused
+            detailsTool.Click += (sender, e) => { displayHandler.setView(1); }; //focused
+            smallIconsTool.Click += (sender, e) => { displayHandler.setView(2); }; //focused
+            listTool.Click += (sender, e) => { displayHandler.setView(3); }; //focused
+            tilesTool.Click += (sender, e) => { displayHandler.setView(4); }; //focused
             listViewSetView1.Click += (sender, e) => { displayHandler.setView(1); }; //focused
             listViewSetView2.Click += (sender, e) => { displayHandler.setView(2); }; //focused
             listViewSetView3.Click += (sender, e) => { displayHandler.setView(3); }; //focused
@@ -27,6 +119,11 @@ namespace filemanager
             invertSelectionTool.Click += (sender, e) => { displayHandler.InvertSelection(); }; //focused
             zipTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
             unzipTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
+
+            packTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
+            unpackAllTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
+            unpackSpecificTool.Click += (sender, e) => { throw new Exception(); }; // TODO
+
             searchTool.Click += (sender, e) => SearchFor(displayHandler, directoryHandler, fileWatcher); //focused (???)
             notepadTool.Click += (sender, e) => { if (displayHandler.Focused) ProcessCall.RunProcess("notepad", ""); }; //NOT focused
             goToSelectedPathButton.Click += (sender, e) => { GoToSelected(displayHandler, directoryHandler, fileWatcher); }; //focused
@@ -39,8 +136,8 @@ namespace filemanager
                 Refresh(displayHandler, directoryHandler);
             };
 
+            quickPrintTool.Click += (sender, e) => Print(displayHandler); //focused
             printTool.Click += (sender, e) => Print(displayHandler); //focused
-            propertiesTool.Click += (sender, e) => Properties(displayHandler);//focused
             showAllFilesTool.Click += (sender, e) => ShowAll(displayHandler, directoryHandler); //focused
             showProgramsTool.Click += (sender, e) => ShowPrograms(displayHandler, directoryHandler); //focused
             showCustomTool.Click += (sender, e) => ShowCustom(displayHandler, directoryHandler); //focused
@@ -52,7 +149,7 @@ namespace filemanager
             unselectGroupTool.Click += (sender, e) => SetGroupSelection(displayHandler, directoryHandler, false); //focused
 
             // FORM EVENTS
-            this.FormClosed += (sender, e) => { SaveSettings(displayList); }; //SHOULD NOT BE FOCUSED
+            FormClosed += (sender, e) => { SaveSettings(displayList); }; //SHOULD NOT BE FOCUSED
 
             void SetData(DisplayHandler displayHandler)
             {
@@ -67,22 +164,12 @@ namespace filemanager
 
             // DISPLAY HANDLER EVENTS
             displayHandler.ListView.MouseClick += (sender, e) => {
-                MouseEventArgs me = (MouseEventArgs)e;
-                if (me.Button == MouseButtons.Left)
-                {
-                    Click(displayHandler, directoryHandler);
-                }
-                if (me.Button == MouseButtons.Right)
-                {
-                    ShowContext(displayHandler, directoryHandler);
-                }
+                if (e.Button == MouseButtons.Left) Click(displayHandler, directoryHandler);
+                if (e.Button == MouseButtons.Right) ShowContext();
             };
 
             displayHandler.ListView.MouseDoubleClick += (sender, e) => {
-                if (e.Button == MouseButtons.Left)
-                {
-                    DoubleClick(displayHandler, directoryHandler, fileWatcher);
-                }
+                if (e.Button == MouseButtons.Left) DoubleClick(displayHandler, directoryHandler, fileWatcher);
             };
 
             displayHandler.ListView.SelectedIndexChanged += (sender, e) => Click(displayHandler, directoryHandler);
@@ -97,10 +184,6 @@ namespace filemanager
                     directoryHandler.RootDirectory.Path = displayHandler.TabControl.SelectedTab.Tag!.ToString()!;
                     displayHandler.ListView = (ListView)displayHandler.TabControl.SelectedTab.Controls[0];
                     Refresh(displayHandler, directoryHandler);
-                }
-                else
-                {
-                    displayHandler.DeleteTab();
                 }
             };
 
@@ -165,6 +248,7 @@ namespace filemanager
                     }
                 }
             };
+
             // BOTTOM TAB
             refreshTool.Click += (sender, e) => { Refresh(displayHandler, directoryHandler); };
             renameTool.Click += (sender, e) => { Rename(displayHandler, directoryHandler); }; //focused //watched

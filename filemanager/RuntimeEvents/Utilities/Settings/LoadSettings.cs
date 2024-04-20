@@ -6,26 +6,26 @@ namespace filemanager
     {
         private void LoadSettings(List<DisplayHandler> displayList, List<DirectoryHandler> directoryList, List<FileWatcher> watcherList)
         {
+            System.IO.Directory.CreateDirectory(Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"AppData"));
+            string target, json;
+
             // LIST SETTINGS //
-            string json = System.IO.File.ReadAllText(
-            Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\AppData\listsettings.json"));
+            target = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "AppData/listsettings.json");
+            using (FileStream file = new FileStream(target, FileMode.OpenOrCreate));
+            json = System.IO.File.ReadAllText(target);
             UserSettings defaultSettings = new UserSettings();
             List<UserSettings> userSettings = new List<UserSettings>();
-            try
-            {
-                userSettings = JsonSerializer.Deserialize<List<UserSettings>>(json);
-            }
+            try { userSettings = JsonSerializer.Deserialize<List<UserSettings>>(json); }
             catch (Exception ex)
             {
                 userSettings.Add(defaultSettings);
                 userSettings.Add(defaultSettings);
-                MessageBox.Show(ex.Message, "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while loading listsettings.json\nUsing default settings", "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             for (int i = displayList.Count - 1; i >= 0; i--)
             {
-                //Focus(displayList[i]);
                 string startpath = userSettings[i].StartupFolder;
+                if (!Path.Exists(startpath)) startpath = DriveInfo.GetDrives()[0].Name;
                 displayList[i].ShowExtensions = userSettings[i].ShowExtensions;
                 displayList[i].ShowHidden = userSettings[i].ShowHidden;
                 displayList[i].SortType = userSettings[i].SortType;
@@ -34,9 +34,9 @@ namespace filemanager
             //
 
             // APP SETTINGS //
-            json = System.IO.File.ReadAllText(
-            Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-            @"..\..\..\AppData\appsettings.json"));
+            target = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "AppData/appsettings.json");
+            using (FileStream file = new FileStream(target, FileMode.OpenOrCreate)) ;
+            json = System.IO.File.ReadAllText(target);
             AppSettings appSettings = new AppSettings();
             try
             {
@@ -44,7 +44,7 @@ namespace filemanager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occured while loading appsettings.json\nUsing default settings", "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             deleteAfterUnzipTool.Checked = appSettings.DeleteAfterUnzip;
             for (int i = directoryList.Count - 1; i >= 0; i--)

@@ -1,4 +1,6 @@
-﻿namespace filemanager
+﻿using System.IO;
+
+namespace filemanager
 {
     public enum LogCategory
     {
@@ -36,7 +38,9 @@
 
                 case LogCategory.end:
                     rtb.AppendText($"Logging ended...\n");
-                break;
+                    string logpath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"log.txt");
+                    using (var file = new StreamWriter(logpath, true)) file.WriteLine(rtb.Text);
+                    break;
             }
             rtb.AppendText($"\n");
         }

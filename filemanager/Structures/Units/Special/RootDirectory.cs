@@ -43,14 +43,27 @@ namespace filemanager
         {
             return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
         }
-        public void SortData(SortType type)
+        public void SortData(SortType type, bool reverse)
         {
-            switch (type)
+            if (reverse)
             {
-                case SortType.name: containingFiles = containingFiles.OrderBy(o => PadNumbers(o.Name)).ToList(); break;
-                case SortType.extension: containingFiles = containingFiles.OrderBy(o => o.Extension).ToList(); break;
-                case SortType.date: containingFiles = containingFiles.OrderBy(o => o.CreationDate).ToList(); break;
-                case SortType.size: containingFiles = containingFiles.OrderBy(o => o.Size).ToList(); break;
+                switch (type)
+                {
+                    case SortType.name: containingFiles = containingFiles.OrderByDescending(o => PadNumbers(o.Name)).ToList(); break;
+                    case SortType.extension: containingFiles = containingFiles.OrderByDescending(o => o.Extension).ToList(); break;
+                    case SortType.date: containingFiles = containingFiles.OrderByDescending(o => o.CreationDate).ToList(); break;
+                    case SortType.size: containingFiles = containingFiles.OrderByDescending(o => o.Size).ToList(); break;
+                }
+            }
+            else
+            {
+                switch (type)
+                {
+                    case SortType.name: containingFiles = containingFiles.OrderBy(o => PadNumbers(o.Name)).ToList(); break;
+                    case SortType.extension: containingFiles = containingFiles.OrderBy(o => o.Extension).ToList(); break;
+                    case SortType.date: containingFiles = containingFiles.OrderBy(o => o.CreationDate).ToList(); break;
+                    case SortType.size: containingFiles = containingFiles.OrderBy(o => o.Size).ToList(); break;
+                }
             }
         }
     }

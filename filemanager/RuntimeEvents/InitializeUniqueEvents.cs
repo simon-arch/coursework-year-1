@@ -6,11 +6,13 @@ namespace filemanager
     {
         public void InitializeUniqueEvents()
         {
-            this.FormClosing += (sender, e) =>
-            {
-                loggerHandler.Log(LogCategory.end);
-                string logpath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"..\..\..\AppData\log.txt");
-                System.IO.File.AppendAllText(logpath, logTextBox.Text);
+
+            FormClosing += (sender, e) => loggerHandler.Log(LogCategory.end);
+
+            systemPropertiesTool.Click += (sender, e) => { 
+                ProcessCall.RunProcessInfo(new ProcessStartInfo()  { 
+                    FileName = "sysdm.cpl", UseShellExecute = true 
+                }); 
             };
 
             exitTool.Click += (sender, e) => Close();
@@ -23,14 +25,12 @@ namespace filemanager
                 GoTo(temp, displayList[1], directoryList[1], watcherList[1]);
             };
 
-            // TEMP TEMP TEMP TEMP TEMP
             imagePreviewBox.MouseClick += (sender, e) => { 
                 if (imagePreviewBox.Image != null && e.Button == MouseButtons.Left)
                 {
                     ProcessCall.RunProcess("explorer", imagePreviewBox.ImageLocation);
                 }
             };
-            // TEMP TEMP TEMP TEMP TEMP
 
             diskInfoTool.Click += (sender, e) =>
             {

@@ -4,6 +4,7 @@
     {
         public int IconIndex { get; protected set; }
         public bool IgnoreListing { get; set; }
+        public string Attributes { get; set; }
         public string Type { get; set; }
         public string SubType { get; set; }
         public string Name { get; set; }

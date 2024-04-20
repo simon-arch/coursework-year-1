@@ -13,20 +13,15 @@
             sortDateContext.Click += (sender, e) => Sort(SortType.date, displayHandler, directoryHandler);
             sortSizeContext.Click += (sender, e) => Sort(SortType.size, displayHandler, directoryHandler);
             openContext.Click += (sender, e) => { DoubleClick(displayHandler, directoryHandler, fileWatcher); };
-            cutContext.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
-            copyContext.Click += (sender, e) => { exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
-            pasteContext.Click += (sender, e) => { exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
+            cutContext.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
+            copyContext.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
+            pasteContext.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
             deleteContext.Click += (sender, e) => { displayHandler.DeleteSelection(); };
             renameContext.Click += (sender, e) => { Rename(displayHandler, directoryHandler); };
-            newFolderContext.Click += (sender, e) => { Directory.CreatePrompt(directoryHandler.RootDirectory.Path); };
-            refreshToolContext.Click += (sender, e) => { Refresh(displayHandler, directoryHandler); };
+            newFolderContext.Click += (sender, e) => { if (displayHandler.Focused) Directory.CreatePrompt(directoryHandler.RootDirectory.Path); };
+            refreshToolContext.Click += (sender, e) => { if(displayHandler.Focused) Refresh(displayHandler, directoryHandler); };
         }
-        private void ShowContext() 
-        {
-            ContextMenuStrip context = new ContextMenuStrip();
-            contextMenu.Show(Cursor.Position);
-        }
-        private void ShowContext(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
+        private void ShowContext()
         {
             contextMenu.Show(Cursor.Position);
         }
