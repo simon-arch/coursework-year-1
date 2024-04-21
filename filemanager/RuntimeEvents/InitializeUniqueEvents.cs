@@ -1,18 +1,48 @@
 ﻿using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace filemanager
 {
     public partial class Manager
     {
+        // TEMP TEMP TEMP TEMP
         public void InitializeUniqueEvents()
         {
-
             FormClosing += (sender, e) => loggerHandler.Log(LogCategory.end);
 
             systemPropertiesTool.Click += (sender, e) => { 
                 ProcessCall.RunProcessInfo(new ProcessStartInfo()  { 
                     FileName = "sysdm.cpl", UseShellExecute = true 
                 }); 
+            };
+
+            verticalArrangementTool.Click += (sender, e) => 
+            {
+                switch (verticalArrangementTool.Checked)
+                {
+                    case true:
+                        tableLayoutPanel3.SetColumnSpan(tableLayoutPanel3, 2);
+                        tableLayoutPanel3.SetRowSpan(tableLayoutPanel3, 1);
+
+                        tableLayoutPanel4.SetColumnSpan(tableLayoutPanel4, 2);
+                        tableLayoutPanel4.SetRowSpan(tableLayoutPanel4, 1);
+
+                        tableLayoutPanel4.SetColumn(tableLayoutPanel4, 0);
+                        tableLayoutPanel4.SetRow(tableLayoutPanel4, 1);
+                    break;
+
+                    case false:
+                        tableLayoutPanel3.SetColumnSpan(tableLayoutPanel3, 1);
+                        tableLayoutPanel3.SetRowSpan(tableLayoutPanel3, 2);
+
+                        tableLayoutPanel4.SetColumnSpan(tableLayoutPanel4, 1);
+                        tableLayoutPanel4.SetRowSpan(tableLayoutPanel4, 2);
+
+                        tableLayoutPanel4.SetColumn(tableLayoutPanel4, 1);
+                        tableLayoutPanel4.SetRow(tableLayoutPanel4, 0);
+                    break;
+                }
+                
             };
 
             exitTool.Click += (sender, e) => Close();

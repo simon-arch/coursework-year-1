@@ -11,7 +11,6 @@
             {
                 string targetPath = Path.GetDirectoryName(searchBox.ReturnValue);
                 string targetName = Path.GetFileNameWithoutExtension(searchBox.ReturnValue);
-                searchBox.Dispose();
                 RootDirectory root = new RootDirectory("dir", targetPath);
                 GoTo(root, displayHandler, directoryHandler, fileWatcher);
                 ListViewItem targetItem = displayHandler.ListView.FindItemWithText(targetName);

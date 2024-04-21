@@ -177,10 +177,11 @@ namespace filemanager
         {
             if (ListView.SelectedItems.Count > 0)
             {
-                if (ListView.SelectedItems[0].Tag != "utility")
+                if (ListView.SelectedItems[0].ETag().Type != "utility")
                 {
                     return true;
                 }
+                else if (ListView.SelectedItems.Count > 1) return true;
             }
             return false;
         }

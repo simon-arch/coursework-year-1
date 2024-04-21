@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using filemanager.Dialogs;
 
 namespace filemanager
 {
@@ -6,6 +6,19 @@ namespace filemanager
     {
         private void InitializeSharedEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler, FileWatcher fileWatcher)
         {
+            changeAttributesTool.Click += (sender, e) =>
+            {
+                if (!displayHandler.Focused) return;
+                if (displayHandler.isSelected())
+                {
+                    DialogChangeAttribute dialog = new DialogChangeAttribute(
+                        displayHandler.ListView.SelectedItems.Cast<ListViewItem>()
+                            .Select(item => item.ETag().Path)
+                            .ToList());
+                    dialog.ShowDialog(); Refresh(displayHandler, directoryHandler);
+                }
+            };
+            
             openInExplorerTool.Click += (sender, e) => 
             {
                 if (!displayHandler.Focused) return;
@@ -177,6 +190,7 @@ namespace filemanager
 
             displayHandler.TabControl.SelectedIndexChanged += (sender, e) =>
             {
+                Focus(displayHandler);
                 displayHandler.getFileInfo();
                 displayHandler.CreateTab(true, Click, DoubleClick, directoryHandler, fileWatcher);
                 if (System.IO.Directory.Exists(displayHandler.TabControl.SelectedTab.Tag!.ToString()!))

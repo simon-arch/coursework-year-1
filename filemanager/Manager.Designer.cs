@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             topMenuStrip = new MenuStrip();
             filesToolStripMenuItem = new ToolStripMenuItem();
+            changeAttributesTool = new ToolStripMenuItem();
             packTool = new ToolStripMenuItem();
             unpackSpecificTool = new ToolStripMenuItem();
             unpackAllTool = new ToolStripMenuItem();
@@ -79,6 +80,7 @@
             showProgramsTool = new ToolStripMenuItem();
             showCustomTool = new ToolStripMenuItem();
             toolStripMenuItem6 = new ToolStripSeparator();
+            verticalArrangementTool = new ToolStripMenuItem();
             refreshListTool = new ToolStripMenuItem();
             sortToolStripMenuItem = new ToolStripMenuItem();
             sortNameTool = new ToolStripMenuItem();
@@ -94,7 +96,7 @@
             quickAccessAddTool = new ToolStripMenuItem();
             quickAccessRemoveTool = new ToolStripMenuItem();
             viewToolStripMenuItem = new ToolStripMenuItem();
-            darkNormalThemeTool = new ToolStripMenuItem();
+            editQuickActionBarTool = new ToolStripMenuItem();
             imagePreviewBox = new PictureBox();
             selectedFileSizeLabel = new Label();
             freeSpaceLabel = new Label();
@@ -212,10 +214,16 @@
             // 
             // filesToolStripMenuItem
             // 
-            filesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { packTool, unpackSpecificTool, unpackAllTool, deleteAfterUnzipTool, calculateSpaceTool, multiRenameTool, printTool });
+            filesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { changeAttributesTool, packTool, unpackSpecificTool, unpackAllTool, deleteAfterUnzipTool, calculateSpaceTool, multiRenameTool, printTool });
             filesToolStripMenuItem.Name = "filesToolStripMenuItem";
             filesToolStripMenuItem.Size = new Size(52, 24);
             filesToolStripMenuItem.Text = "Files";
+            // 
+            // changeAttributesTool
+            // 
+            changeAttributesTool.Name = "changeAttributesTool";
+            changeAttributesTool.Size = new Size(273, 26);
+            changeAttributesTool.Text = "Change Attributes";
             // 
             // packTool
             // 
@@ -437,7 +445,7 @@
             // 
             // showTab
             // 
-            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool, toolStripSeparator6, detailsTool, smallIconsTool, tilesTool, listTool, toolStripSeparator5, showAllFilesTool, showProgramsTool, showCustomTool, toolStripMenuItem6, refreshListTool });
+            showTab.DropDownItems.AddRange(new ToolStripItem[] { showExtensionsTool, showHiddenFoldersTool, toolStripSeparator6, detailsTool, smallIconsTool, tilesTool, listTool, toolStripSeparator5, showAllFilesTool, showProgramsTool, showCustomTool, toolStripMenuItem6, verticalArrangementTool, refreshListTool });
             showTab.Name = "showTab";
             showTab.Size = new Size(59, 24);
             showTab.Text = "Show";
@@ -446,77 +454,84 @@
             // 
             showExtensionsTool.CheckOnClick = true;
             showExtensionsTool.Name = "showExtensionsTool";
-            showExtensionsTool.Size = new Size(193, 26);
+            showExtensionsTool.Size = new Size(232, 26);
             showExtensionsTool.Text = "File Extensions";
             // 
             // showHiddenFoldersTool
             // 
             showHiddenFoldersTool.CheckOnClick = true;
             showHiddenFoldersTool.Name = "showHiddenFoldersTool";
-            showHiddenFoldersTool.Size = new Size(193, 26);
+            showHiddenFoldersTool.Size = new Size(232, 26);
             showHiddenFoldersTool.Text = "Hidden Folders";
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(190, 6);
+            toolStripSeparator6.Size = new Size(229, 6);
             // 
             // detailsTool
             // 
             detailsTool.Name = "detailsTool";
-            detailsTool.Size = new Size(193, 26);
+            detailsTool.Size = new Size(232, 26);
             detailsTool.Text = "Details";
             // 
             // smallIconsTool
             // 
             smallIconsTool.Name = "smallIconsTool";
-            smallIconsTool.Size = new Size(193, 26);
+            smallIconsTool.Size = new Size(232, 26);
             smallIconsTool.Text = "Small Icons";
             // 
             // tilesTool
             // 
             tilesTool.Name = "tilesTool";
-            tilesTool.Size = new Size(193, 26);
+            tilesTool.Size = new Size(232, 26);
             tilesTool.Text = "Tiles";
             // 
             // listTool
             // 
             listTool.Name = "listTool";
-            listTool.Size = new Size(193, 26);
+            listTool.Size = new Size(232, 26);
             listTool.Text = "List";
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(190, 6);
+            toolStripSeparator5.Size = new Size(229, 6);
             // 
             // showAllFilesTool
             // 
             showAllFilesTool.Name = "showAllFilesTool";
-            showAllFilesTool.Size = new Size(193, 26);
+            showAllFilesTool.Size = new Size(232, 26);
             showAllFilesTool.Text = "All Files";
             // 
             // showProgramsTool
             // 
             showProgramsTool.Name = "showProgramsTool";
-            showProgramsTool.Size = new Size(193, 26);
+            showProgramsTool.Size = new Size(232, 26);
             showProgramsTool.Text = "Programs";
             // 
             // showCustomTool
             // 
             showCustomTool.Name = "showCustomTool";
-            showCustomTool.Size = new Size(193, 26);
+            showCustomTool.Size = new Size(232, 26);
             showCustomTool.Text = "Custom...";
             // 
             // toolStripMenuItem6
             // 
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new Size(190, 6);
+            toolStripMenuItem6.Size = new Size(229, 6);
+            // 
+            // verticalArrangementTool
+            // 
+            verticalArrangementTool.CheckOnClick = true;
+            verticalArrangementTool.Name = "verticalArrangementTool";
+            verticalArrangementTool.Size = new Size(232, 26);
+            verticalArrangementTool.Text = "Vertical Arrangement";
             // 
             // refreshListTool
             // 
             refreshListTool.Name = "refreshListTool";
-            refreshListTool.Size = new Size(193, 26);
+            refreshListTool.Size = new Size(232, 26);
             refreshListTool.Text = "Refresh List";
             // 
             // sortToolStripMenuItem
@@ -602,16 +617,16 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkNormalThemeTool });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(55, 24);
             viewToolStripMenuItem.Text = "View";
             // 
-            // darkNormalThemeTool
+            // editQuickActionBarTool
             // 
-            darkNormalThemeTool.Name = "darkNormalThemeTool";
-            darkNormalThemeTool.Size = new Size(207, 26);
-            darkNormalThemeTool.Text = "Dark <-> Normal";
+            editQuickActionBarTool.Name = "editQuickActionBarTool";
+            editQuickActionBarTool.Size = new Size(232, 26);
+            editQuickActionBarTool.Text = "Edit Quick Action Bar";
             // 
             // imagePreviewBox
             // 
@@ -1159,6 +1174,8 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.Size = new Size(958, 274);
             tableLayoutPanel2.TabIndex = 7;
             // 
@@ -1452,7 +1469,6 @@
         private ToolStripButton listViewSetView4;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton invertSelectionTool;
-        private TabControl tabControl1;
         private ListView listView1;
         private TabPage tabPage1;
         private ToolStripMenuItem showTab;
@@ -1496,7 +1512,6 @@
         private ToolStripMenuItem renameTool;
         private ToolStripMenuItem refreshTool;
         private TextBox searchTextBox;
-        private TabControl tabControl2;
         private TabPage tabPage3;
         private ListView listView2;
         private TabPage tabPage4;
@@ -1589,6 +1604,10 @@
         private OpenFileDialog loadSelectionFileDialog;
         private SaveFileDialog saveSelectionFileDialog;
         private ToolStripMenuItem viewToolStripMenuItem;
-        private ToolStripMenuItem darkNormalThemeTool;
+        private TabControl tabControl1;
+        private TabControl tabControl2;
+        private ToolStripMenuItem editQuickActionBarTool;
+        private ToolStripMenuItem changeAttributesTool;
+        private ToolStripMenuItem verticalArrangementTool;
     }
 }

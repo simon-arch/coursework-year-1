@@ -42,8 +42,15 @@
             goToFileButton = new Button();
             folderBrowserDialog1 = new FolderBrowserDialog();
             tableLayoutPanel1 = new TableLayoutPanel();
+            progressBar = new ProgressBar();
             includeSubdirs = new CheckBox();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            includeDirsCheck = new CheckBox();
+            includeFilesCheck = new CheckBox();
+            matchCaseCheck = new CheckBox();
+            searchExactCheck = new CheckBox();
             tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // searchForTextBox
@@ -52,7 +59,7 @@
             searchForTextBox.Dock = DockStyle.Fill;
             searchForTextBox.Location = new Point(111, 3);
             searchForTextBox.Name = "searchForTextBox";
-            searchForTextBox.Size = new Size(232, 27);
+            searchForTextBox.Size = new Size(231, 27);
             searchForTextBox.TabIndex = 0;
             // 
             // searchInTextBox
@@ -70,10 +77,10 @@
             tableLayoutPanel1.SetColumnSpan(fileListView, 4);
             fileListView.FullRowSelect = true;
             fileListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            fileListView.Location = new Point(3, 111);
+            fileListView.Location = new Point(3, 162);
             fileListView.MultiSelect = false;
             fileListView.Name = "fileListView";
-            fileListView.Size = new Size(436, 270);
+            fileListView.Size = new Size(436, 296);
             fileListView.TabIndex = 2;
             fileListView.UseCompatibleStateImageBehavior = false;
             fileListView.View = View.Details;
@@ -108,7 +115,7 @@
             pathSelectButton.Dock = DockStyle.Fill;
             pathSelectButton.Location = new Point(291, 39);
             pathSelectButton.Name = "pathSelectButton";
-            pathSelectButton.Size = new Size(52, 30);
+            pathSelectButton.Size = new Size(51, 30);
             pathSelectButton.TabIndex = 5;
             pathSelectButton.Text = ">>";
             pathSelectButton.UseVisualStyleBackColor = true;
@@ -126,9 +133,9 @@
             // searchButton
             // 
             searchButton.Dock = DockStyle.Fill;
-            searchButton.Location = new Point(349, 3);
+            searchButton.Location = new Point(348, 3);
             searchButton.Name = "searchButton";
-            searchButton.Size = new Size(90, 30);
+            searchButton.Size = new Size(91, 30);
             searchButton.TabIndex = 7;
             searchButton.Text = "Search";
             searchButton.UseVisualStyleBackColor = true;
@@ -136,9 +143,9 @@
             // cancelButton
             // 
             cancelButton.Dock = DockStyle.Fill;
-            cancelButton.Location = new Point(349, 39);
+            cancelButton.Location = new Point(348, 39);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(90, 30);
+            cancelButton.Size = new Size(91, 30);
             cancelButton.TabIndex = 8;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
@@ -146,9 +153,9 @@
             // goToFileButton
             // 
             goToFileButton.Dock = DockStyle.Fill;
-            goToFileButton.Location = new Point(349, 75);
+            goToFileButton.Location = new Point(348, 75);
             goToFileButton.Name = "goToFileButton";
-            goToFileButton.Size = new Size(90, 30);
+            goToFileButton.Size = new Size(91, 30);
             goToFileButton.TabIndex = 9;
             goToFileButton.Text = "Go to file";
             goToFileButton.UseVisualStyleBackColor = true;
@@ -159,10 +166,11 @@
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 108F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 58F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 96F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 57F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 97F));
+            tableLayoutPanel1.Controls.Add(progressBar, 0, 5);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            tableLayoutPanel1.Controls.Add(fileListView, 0, 3);
+            tableLayoutPanel1.Controls.Add(fileListView, 0, 4);
             tableLayoutPanel1.Controls.Add(label3, 0, 2);
             tableLayoutPanel1.Controls.Add(searchForTextBox, 1, 0);
             tableLayoutPanel1.Controls.Add(label2, 0, 1);
@@ -172,15 +180,27 @@
             tableLayoutPanel1.Controls.Add(searchInTextBox, 1, 1);
             tableLayoutPanel1.Controls.Add(goToFileButton, 3, 2);
             tableLayoutPanel1.Controls.Add(includeSubdirs, 1, 2);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 3);
             tableLayoutPanel1.Location = new Point(12, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowCount = 6;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 51F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(442, 384);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(442, 481);
             tableLayoutPanel1.TabIndex = 10;
+            // 
+            // progressBar
+            // 
+            tableLayoutPanel1.SetColumnSpan(progressBar, 4);
+            progressBar.Dock = DockStyle.Fill;
+            progressBar.Location = new Point(3, 464);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(436, 14);
+            progressBar.TabIndex = 11;
             // 
             // includeSubdirs
             // 
@@ -195,17 +215,85 @@
             includeSubdirs.Text = "Search in subdirectories";
             includeSubdirs.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel1.SetColumnSpan(tableLayoutPanel2, 4);
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 173F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 157F));
+            tableLayoutPanel2.Controls.Add(includeDirsCheck, 0, 0);
+            tableLayoutPanel2.Controls.Add(includeFilesCheck, 0, 1);
+            tableLayoutPanel2.Controls.Add(matchCaseCheck, 1, 0);
+            tableLayoutPanel2.Controls.Add(searchExactCheck, 1, 1);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 108);
+            tableLayoutPanel2.Margin = new Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 51.8518524F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 48.1481476F));
+            tableLayoutPanel2.Size = new Size(442, 51);
+            tableLayoutPanel2.TabIndex = 12;
+            // 
+            // includeDirsCheck
+            // 
+            includeDirsCheck.AutoSize = true;
+            includeDirsCheck.Location = new Point(3, 0);
+            includeDirsCheck.Margin = new Padding(3, 0, 0, 0);
+            includeDirsCheck.Name = "includeDirsCheck";
+            includeDirsCheck.Size = new Size(153, 24);
+            includeDirsCheck.TabIndex = 0;
+            includeDirsCheck.Text = "Include directories";
+            includeDirsCheck.UseVisualStyleBackColor = true;
+            // 
+            // includeFilesCheck
+            // 
+            includeFilesCheck.AutoSize = true;
+            includeFilesCheck.Location = new Point(3, 26);
+            includeFilesCheck.Margin = new Padding(3, 0, 0, 0);
+            includeFilesCheck.Name = "includeFilesCheck";
+            includeFilesCheck.Size = new Size(110, 24);
+            includeFilesCheck.TabIndex = 1;
+            includeFilesCheck.Text = "Include files";
+            includeFilesCheck.UseVisualStyleBackColor = true;
+            // 
+            // matchCaseCheck
+            // 
+            matchCaseCheck.AutoSize = true;
+            matchCaseCheck.Location = new Point(173, 0);
+            matchCaseCheck.Margin = new Padding(0);
+            matchCaseCheck.Name = "matchCaseCheck";
+            matchCaseCheck.Size = new Size(105, 24);
+            matchCaseCheck.TabIndex = 2;
+            matchCaseCheck.Text = "Match case";
+            matchCaseCheck.UseVisualStyleBackColor = true;
+            // 
+            // searchExactCheck
+            // 
+            searchExactCheck.AutoSize = true;
+            searchExactCheck.Location = new Point(173, 26);
+            searchExactCheck.Margin = new Padding(0);
+            searchExactCheck.Name = "searchExactCheck";
+            searchExactCheck.Size = new Size(114, 24);
+            searchExactCheck.TabIndex = 3;
+            searchExactCheck.Text = "Search exact";
+            searchExactCheck.UseVisualStyleBackColor = true;
+            // 
             // SearchBox
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(466, 408);
+            ClientSize = new Size(466, 499);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimumSize = new Size(484, 546);
             Name = "SearchBox";
             Text = "File Search";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -225,5 +313,11 @@
         private ColumnHeader filesColumn;
         private TableLayoutPanel tableLayoutPanel1;
         private CheckBox includeSubdirs;
+        private ProgressBar progressBar;
+        private TableLayoutPanel tableLayoutPanel2;
+        private CheckBox includeDirsCheck;
+        private CheckBox includeFilesCheck;
+        private CheckBox matchCaseCheck;
+        private CheckBox searchExactCheck;
     }
 }

@@ -17,31 +17,64 @@
                 }
             };
             cancelButton.Click += (sender, e) => { this.DialogResult = DialogResult.Cancel; };
-            searchButton.Click += (sender, e) =>
+            searchButton.Click += async (sender, e) =>
             {
                 if (searchInTextBox.Text != "" && searchForTextBox.Text != "")
                 {
                     DirectoryHandler directoryHandler = new DirectoryHandler();
-                    IEnumerable<string> fileSearchResult = directoryHandler.SearchForFiles(searchInTextBox.Text, searchForTextBox.Text, includeSubdirs.Checked);
-                    IEnumerable<string> directorySearchResult = directoryHandler.SearchForDirectories(searchInTextBox.Text, searchForTextBox.Text, includeSubdirs.Checked);
+                    IEnumerable<string> directorySearchResult = Empty();
+                    IEnumerable<string> fileSearchResult = Empty();
+                    string searchTarget = searchForTextBox.Text;
+                    if (searchExactCheck.Checked == false) searchTarget = $"*{searchTarget}*";
+
+                    if (includeDirsCheck.Checked)
+                        directorySearchResult = System.IO.Directory.EnumerateDirectories(searchInTextBox.Text,
+                            searchTarget,
+                            new EnumerationOptions
+                            {
+                                RecurseSubdirectories = includeSubdirs.Checked,
+                                IgnoreInaccessible = true,
+                                MatchCasing = (matchCaseCheck.Checked) ? MatchCasing.CaseSensitive : MatchCasing.CaseInsensitive,
+                            });
+
+                    if (includeFilesCheck.Checked)
+                        fileSearchResult = System.IO.Directory.EnumerateFiles(searchInTextBox.Text,
+                            searchTarget,
+                            new EnumerationOptions
+                            {
+                                RecurseSubdirectories = includeSubdirs.Checked,
+                                IgnoreInaccessible = true,
+                                MatchCasing = (matchCaseCheck.Checked) ? MatchCasing.CaseSensitive : MatchCasing.CaseInsensitive,
+                            });
+
                     fileListView.Clear();
                     fileListView.Columns.Add($"[{fileSearchResult.Count()} files and {directorySearchResult.Count()} directories found]", -2);
+
+                    progressBar.Value = 0;
+                    progressBar.Maximum = directorySearchResult.Count() + fileSearchResult.Count();
+
+                    fileListView.BeginUpdate();
                     if (fileSearchResult.Count() > 0)
                     {
                         foreach (string result in fileSearchResult)
                         {
                             fileListView.Items.Add(result);
-                            fileListView.Columns[0].Width = -2;
+                            progressBar.Value++;
                         }
                     }
+
                     if (directorySearchResult.Count() > 0)
                     {
                         foreach (string result in directorySearchResult)
                         {
                             fileListView.Items.Add(result);
-                            fileListView.Columns[0].Width = -2;
+                            progressBar.Value++;
                         }
                     }
+                    fileListView.Columns[0].Width = -2;
+                    fileListView.EndUpdate();
+
+                    progressBar.Value = 0;
                 }
             };
             goToFileButton.Click += (sender, e) =>
@@ -50,9 +83,12 @@
                 {
                     ReturnValue = fileListView.SelectedItems[0].Text;
                     DialogResult = DialogResult.OK;
-                    Close();
                 }
             };
+        }
+        public static IEnumerable<string> Empty()
+        {
+            yield break;
         }
     }
 }

@@ -4,6 +4,7 @@
     {
         private void Click(DisplayHandler displayHandler, DirectoryHandler directoryHandler)
         {
+            Focus(displayHandler);
             if (displayHandler.isSelected())
             {
                 switch (displayHandler.ListView.SelectedItems[0].ETag().SubType)

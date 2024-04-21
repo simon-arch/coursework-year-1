@@ -118,8 +118,6 @@
             {".xml", "document"},
             {".pdf", "document"},
 
-            {".7z", "archive"},
-            {".rar", "archive"},
             {".zip", "archive"},
 
             {".lnk", "shortcut"}
