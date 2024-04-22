@@ -40,9 +40,11 @@
             calculateSpaceTool = new ToolStripMenuItem();
             multiRenameTool = new ToolStripMenuItem();
             printTool = new ToolStripMenuItem();
+            searchTool = new ToolStripMenuItem();
             markToolStripMenuItem = new ToolStripMenuItem();
             selectGroupTool = new ToolStripMenuItem();
             unselectGroupTool = new ToolStripMenuItem();
+            invertSelectionTool = new ToolStripMenuItem();
             selectAllTool = new ToolStripMenuItem();
             unselectAllTool = new ToolStripMenuItem();
             selectAllWithTheSameExtensionTool = new ToolStripMenuItem();
@@ -67,6 +69,11 @@
             systemPropertiesTool = new ToolStripMenuItem();
             sourceTargetSwitchTool = new ToolStripMenuItem();
             sourceTargetEqualTool = new ToolStripMenuItem();
+            toolStripMenuItem9 = new ToolStripSeparator();
+            goUpTool = new ToolStripMenuItem();
+            diskInfoTool = new ToolStripMenuItem();
+            binTool = new ToolStripMenuItem();
+            notepadTool = new ToolStripMenuItem();
             showTab = new ToolStripMenuItem();
             showExtensionsTool = new ToolStripMenuItem();
             showHiddenFoldersTool = new ToolStripMenuItem();
@@ -97,6 +104,7 @@
             quickAccessRemoveTool = new ToolStripMenuItem();
             viewToolStripMenuItem = new ToolStripMenuItem();
             editQuickActionBarTool = new ToolStripMenuItem();
+            reloadQuickActionBarTool = new ToolStripMenuItem();
             imagePreviewBox = new PictureBox();
             selectedFileSizeLabel = new Label();
             freeSpaceLabel = new Label();
@@ -119,25 +127,6 @@
             tabPage2 = new TabPage();
             quickAccessList = new ListView();
             columnHeader1 = new ColumnHeader();
-            topToolStrip = new ToolStrip();
-            quickRefreshTool = new ToolStripButton();
-            goUpTool = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            listViewSetView1 = new ToolStripButton();
-            listViewSetView2 = new ToolStripButton();
-            listViewSetView3 = new ToolStripButton();
-            listViewSetView4 = new ToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
-            invertSelectionTool = new ToolStripButton();
-            zipTool = new ToolStripButton();
-            unzipTool = new ToolStripButton();
-            toolStripSeparator3 = new ToolStripSeparator();
-            searchTool = new ToolStripButton();
-            notepadTool = new ToolStripButton();
-            toolStripSeparator4 = new ToolStripSeparator();
-            diskInfoTool = new ToolStripButton();
-            quickPrintTool = new ToolStripButton();
-            binTool = new ToolStripButton();
             bottomMenuStrip = new MenuStrip();
             refreshTool = new ToolStripMenuItem();
             renameTool = new ToolStripMenuItem();
@@ -183,6 +172,7 @@
             refreshToolContext = new ToolStripMenuItem();
             loadSelectionFileDialog = new OpenFileDialog();
             saveSelectionFileDialog = new SaveFileDialog();
+            topToolStrip = new ToolStrip();
             topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).BeginInit();
             previewBoxTabControl.SuspendLayout();
@@ -192,7 +182,6 @@
             tabPage3.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            topToolStrip.SuspendLayout();
             bottomMenuStrip.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -214,7 +203,7 @@
             // 
             // filesToolStripMenuItem
             // 
-            filesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { changeAttributesTool, packTool, unpackSpecificTool, unpackAllTool, deleteAfterUnzipTool, calculateSpaceTool, multiRenameTool, printTool });
+            filesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { changeAttributesTool, packTool, unpackSpecificTool, unpackAllTool, deleteAfterUnzipTool, calculateSpaceTool, multiRenameTool, printTool, searchTool });
             filesToolStripMenuItem.Name = "filesToolStripMenuItem";
             filesToolStripMenuItem.Size = new Size(52, 24);
             filesToolStripMenuItem.Text = "Files";
@@ -268,9 +257,15 @@
             printTool.Size = new Size(273, 26);
             printTool.Text = "Print...";
             // 
+            // searchTool
+            // 
+            searchTool.Name = "searchTool";
+            searchTool.Size = new Size(273, 26);
+            searchTool.Text = "Search For...";
+            // 
             // markToolStripMenuItem
             // 
-            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectGroupTool, unselectGroupTool, selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, toolStripSeparator8, saveSelectionTool, restoreSelectionTool, saveSelectionToFileTool, loadSelectionFromFileTool, toolStripMenuItem8, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool, copyToClipboardWithExtensions, copyToClipboardWithPathExtensions, toolStripMenuItem5, compareFilenamesTool });
+            markToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectGroupTool, unselectGroupTool, invertSelectionTool, selectAllTool, unselectAllTool, selectAllWithTheSameExtensionTool, toolStripSeparator8, saveSelectionTool, restoreSelectionTool, saveSelectionToFileTool, loadSelectionFromFileTool, toolStripMenuItem8, copySelectedNamesToClipboardTool, copyNamesWithPathToClipboardTool, copyToClipboardWithExtensions, copyToClipboardWithPathExtensions, toolStripMenuItem5, compareFilenamesTool });
             markToolStripMenuItem.Name = "markToolStripMenuItem";
             markToolStripMenuItem.Size = new Size(56, 24);
             markToolStripMenuItem.Text = "Mark";
@@ -287,9 +282,14 @@
             unselectGroupTool.Size = new Size(357, 26);
             unselectGroupTool.Text = "Unselect Group...";
             // 
+            // invertSelectionTool
+            // 
+            invertSelectionTool.Name = "invertSelectionTool";
+            invertSelectionTool.Size = new Size(357, 26);
+            invertSelectionTool.Text = "Invert Selection";
+            // 
             // selectAllTool
             // 
-            selectAllTool.Image = (Image)resources.GetObject("selectAllTool.Image");
             selectAllTool.ImageScaling = ToolStripItemImageScaling.None;
             selectAllTool.ImageTransparentColor = Color.Black;
             selectAllTool.Name = "selectAllTool";
@@ -298,7 +298,6 @@
             // 
             // unselectAllTool
             // 
-            unselectAllTool.Image = (Image)resources.GetObject("unselectAllTool.Image");
             unselectAllTool.ImageScaling = ToolStripItemImageScaling.None;
             unselectAllTool.ImageTransparentColor = Color.Black;
             unselectAllTool.Name = "unselectAllTool";
@@ -307,7 +306,6 @@
             // 
             // selectAllWithTheSameExtensionTool
             // 
-            selectAllWithTheSameExtensionTool.Image = (Image)resources.GetObject("selectAllWithTheSameExtensionTool.Image");
             selectAllWithTheSameExtensionTool.ImageScaling = ToolStripItemImageScaling.None;
             selectAllWithTheSameExtensionTool.ImageTransparentColor = Color.Black;
             selectAllWithTheSameExtensionTool.Name = "selectAllWithTheSameExtensionTool";
@@ -350,7 +348,6 @@
             // 
             // copySelectedNamesToClipboardTool
             // 
-            copySelectedNamesToClipboardTool.Image = (Image)resources.GetObject("copySelectedNamesToClipboardTool.Image");
             copySelectedNamesToClipboardTool.ImageScaling = ToolStripItemImageScaling.None;
             copySelectedNamesToClipboardTool.ImageTransparentColor = Color.Black;
             copySelectedNamesToClipboardTool.Name = "copySelectedNamesToClipboardTool";
@@ -359,7 +356,6 @@
             // 
             // copyNamesWithPathToClipboardTool
             // 
-            copyNamesWithPathToClipboardTool.Image = (Image)resources.GetObject("copyNamesWithPathToClipboardTool.Image");
             copyNamesWithPathToClipboardTool.ImageScaling = ToolStripItemImageScaling.None;
             copyNamesWithPathToClipboardTool.ImageTransparentColor = Color.Black;
             copyNamesWithPathToClipboardTool.Name = "copyNamesWithPathToClipboardTool";
@@ -391,7 +387,7 @@
             // 
             // commandsToolStripMenuItem
             // 
-            commandsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { desktopTool, openConsoleTool, openPowershellTool, openInExplorerTool, toolStripSeparator9, systemPropertiesTool, sourceTargetSwitchTool, sourceTargetEqualTool });
+            commandsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { desktopTool, openConsoleTool, openPowershellTool, openInExplorerTool, toolStripSeparator9, systemPropertiesTool, sourceTargetSwitchTool, sourceTargetEqualTool, toolStripMenuItem9, goUpTool, diskInfoTool, binTool, notepadTool });
             commandsToolStripMenuItem.Name = "commandsToolStripMenuItem";
             commandsToolStripMenuItem.Size = new Size(98, 24);
             commandsToolStripMenuItem.Text = "Commands";
@@ -442,6 +438,35 @@
             sourceTargetEqualTool.Name = "sourceTargetEqualTool";
             sourceTargetEqualTool.Size = new Size(264, 26);
             sourceTargetEqualTool.Text = "Source = Target";
+            // 
+            // toolStripMenuItem9
+            // 
+            toolStripMenuItem9.Name = "toolStripMenuItem9";
+            toolStripMenuItem9.Size = new Size(261, 6);
+            // 
+            // goUpTool
+            // 
+            goUpTool.Name = "goUpTool";
+            goUpTool.Size = new Size(264, 26);
+            goUpTool.Text = "Go Up";
+            // 
+            // diskInfoTool
+            // 
+            diskInfoTool.Name = "diskInfoTool";
+            diskInfoTool.Size = new Size(264, 26);
+            diskInfoTool.Text = "Disk Info";
+            // 
+            // binTool
+            // 
+            binTool.Name = "binTool";
+            binTool.Size = new Size(264, 26);
+            binTool.Text = "Recycle Bin";
+            // 
+            // notepadTool
+            // 
+            notepadTool.Name = "notepadTool";
+            notepadTool.Size = new Size(264, 26);
+            notepadTool.Text = "Open Notepad";
             // 
             // showTab
             // 
@@ -617,7 +642,7 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool, reloadQuickActionBarTool });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(55, 24);
             viewToolStripMenuItem.Text = "View";
@@ -625,8 +650,14 @@
             // editQuickActionBarTool
             // 
             editQuickActionBarTool.Name = "editQuickActionBarTool";
-            editQuickActionBarTool.Size = new Size(232, 26);
+            editQuickActionBarTool.Size = new Size(253, 26);
             editQuickActionBarTool.Text = "Edit Quick Action Bar";
+            // 
+            // reloadQuickActionBarTool
+            // 
+            reloadQuickActionBarTool.Name = "reloadQuickActionBarTool";
+            reloadQuickActionBarTool.Size = new Size(253, 26);
+            reloadQuickActionBarTool.Text = "Reload Quick Action Bar";
             // 
             // imagePreviewBox
             // 
@@ -888,176 +919,6 @@
             // 
             columnHeader1.Text = "Quick Access";
             columnHeader1.Width = 500;
-            // 
-            // topToolStrip
-            // 
-            topToolStrip.ImageScalingSize = new Size(20, 20);
-            topToolStrip.Items.AddRange(new ToolStripItem[] { quickRefreshTool, goUpTool, toolStripSeparator1, listViewSetView1, listViewSetView2, listViewSetView3, listViewSetView4, toolStripSeparator2, invertSelectionTool, zipTool, unzipTool, toolStripSeparator3, searchTool, notepadTool, toolStripSeparator4, diskInfoTool, quickPrintTool, binTool });
-            topToolStrip.Location = new Point(0, 28);
-            topToolStrip.Name = "topToolStrip";
-            topToolStrip.Size = new Size(982, 27);
-            topToolStrip.TabIndex = 4;
-            topToolStrip.Text = "toolStrip";
-            // 
-            // quickRefreshTool
-            // 
-            quickRefreshTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            quickRefreshTool.Image = (Image)resources.GetObject("quickRefreshTool.Image");
-            quickRefreshTool.ImageScaling = ToolStripItemImageScaling.None;
-            quickRefreshTool.ImageTransparentColor = Color.Black;
-            quickRefreshTool.Name = "quickRefreshTool";
-            quickRefreshTool.Size = new Size(29, 24);
-            quickRefreshTool.Text = "toolStripButton1";
-            quickRefreshTool.ToolTipText = "Refresh";
-            // 
-            // goUpTool
-            // 
-            goUpTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            goUpTool.Image = (Image)resources.GetObject("goUpTool.Image");
-            goUpTool.ImageScaling = ToolStripItemImageScaling.None;
-            goUpTool.ImageTransparentColor = Color.Black;
-            goUpTool.Name = "goUpTool";
-            goUpTool.Size = new Size(29, 24);
-            goUpTool.Text = "Go Up";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 27);
-            // 
-            // listViewSetView1
-            // 
-            listViewSetView1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            listViewSetView1.Image = (Image)resources.GetObject("listViewSetView1.Image");
-            listViewSetView1.ImageScaling = ToolStripItemImageScaling.None;
-            listViewSetView1.ImageTransparentColor = Color.Black;
-            listViewSetView1.Name = "listViewSetView1";
-            listViewSetView1.Size = new Size(29, 24);
-            listViewSetView1.Text = "File Details View";
-            // 
-            // listViewSetView2
-            // 
-            listViewSetView2.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            listViewSetView2.Image = (Image)resources.GetObject("listViewSetView2.Image");
-            listViewSetView2.ImageScaling = ToolStripItemImageScaling.None;
-            listViewSetView2.ImageTransparentColor = Color.Black;
-            listViewSetView2.Name = "listViewSetView2";
-            listViewSetView2.Size = new Size(29, 24);
-            listViewSetView2.Text = "Small Icon View";
-            // 
-            // listViewSetView3
-            // 
-            listViewSetView3.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            listViewSetView3.Image = (Image)resources.GetObject("listViewSetView3.Image");
-            listViewSetView3.ImageScaling = ToolStripItemImageScaling.None;
-            listViewSetView3.ImageTransparentColor = Color.Black;
-            listViewSetView3.Name = "listViewSetView3";
-            listViewSetView3.Size = new Size(29, 24);
-            listViewSetView3.Text = "List View";
-            // 
-            // listViewSetView4
-            // 
-            listViewSetView4.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            listViewSetView4.Image = (Image)resources.GetObject("listViewSetView4.Image");
-            listViewSetView4.ImageScaling = ToolStripItemImageScaling.None;
-            listViewSetView4.ImageTransparentColor = Color.Black;
-            listViewSetView4.Name = "listViewSetView4";
-            listViewSetView4.Size = new Size(29, 24);
-            listViewSetView4.Text = "Tile View";
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 27);
-            // 
-            // invertSelectionTool
-            // 
-            invertSelectionTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            invertSelectionTool.Image = (Image)resources.GetObject("invertSelectionTool.Image");
-            invertSelectionTool.ImageScaling = ToolStripItemImageScaling.None;
-            invertSelectionTool.ImageTransparentColor = Color.Black;
-            invertSelectionTool.Name = "invertSelectionTool";
-            invertSelectionTool.Size = new Size(29, 24);
-            invertSelectionTool.Text = "Invert Selection";
-            // 
-            // zipTool
-            // 
-            zipTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            zipTool.Image = (Image)resources.GetObject("zipTool.Image");
-            zipTool.ImageScaling = ToolStripItemImageScaling.None;
-            zipTool.ImageTransparentColor = Color.Black;
-            zipTool.Name = "zipTool";
-            zipTool.Size = new Size(29, 24);
-            zipTool.Text = "Zip Selected Folders";
-            // 
-            // unzipTool
-            // 
-            unzipTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            unzipTool.Image = (Image)resources.GetObject("unzipTool.Image");
-            unzipTool.ImageScaling = ToolStripItemImageScaling.None;
-            unzipTool.ImageTransparentColor = Color.Black;
-            unzipTool.Name = "unzipTool";
-            unzipTool.Size = new Size(29, 24);
-            unzipTool.Text = "Unzip Selected Archives";
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 27);
-            // 
-            // searchTool
-            // 
-            searchTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            searchTool.Image = (Image)resources.GetObject("searchTool.Image");
-            searchTool.ImageScaling = ToolStripItemImageScaling.None;
-            searchTool.ImageTransparentColor = Color.Black;
-            searchTool.Name = "searchTool";
-            searchTool.Size = new Size(29, 24);
-            searchTool.Text = "Search For...";
-            // 
-            // notepadTool
-            // 
-            notepadTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            notepadTool.Image = (Image)resources.GetObject("notepadTool.Image");
-            notepadTool.ImageScaling = ToolStripItemImageScaling.None;
-            notepadTool.ImageTransparentColor = Color.Black;
-            notepadTool.Name = "notepadTool";
-            notepadTool.Size = new Size(29, 24);
-            notepadTool.Text = "Open Notepad";
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(6, 27);
-            // 
-            // diskInfoTool
-            // 
-            diskInfoTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            diskInfoTool.Image = (Image)resources.GetObject("diskInfoTool.Image");
-            diskInfoTool.ImageScaling = ToolStripItemImageScaling.None;
-            diskInfoTool.ImageTransparentColor = Color.Black;
-            diskInfoTool.Name = "diskInfoTool";
-            diskInfoTool.Size = new Size(29, 24);
-            diskInfoTool.Text = "Show Disk Info";
-            // 
-            // quickPrintTool
-            // 
-            quickPrintTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            quickPrintTool.Image = (Image)resources.GetObject("quickPrintTool.Image");
-            quickPrintTool.ImageScaling = ToolStripItemImageScaling.None;
-            quickPrintTool.ImageTransparentColor = Color.Black;
-            quickPrintTool.Name = "quickPrintTool";
-            quickPrintTool.Size = new Size(29, 24);
-            quickPrintTool.Text = "Print Document";
-            // 
-            // binTool
-            // 
-            binTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            binTool.Image = (Image)resources.GetObject("binTool.Image");
-            binTool.ImageTransparentColor = Color.Magenta;
-            binTool.Name = "binTool";
-            binTool.Size = new Size(29, 24);
-            binTool.Text = "Open Recycle Bin";
             // 
             // bottomMenuStrip
             // 
@@ -1416,6 +1277,17 @@
             // 
             loadSelectionFileDialog.FileName = "openFileDialog1";
             // 
+            // topToolStrip
+            // 
+            topToolStrip.AllowItemReorder = true;
+            topToolStrip.AutoSize = false;
+            topToolStrip.ImageScalingSize = new Size(20, 20);
+            topToolStrip.Location = new Point(0, 28);
+            topToolStrip.Name = "topToolStrip";
+            topToolStrip.Size = new Size(982, 25);
+            topToolStrip.TabIndex = 4;
+            topToolStrip.Text = "toolStrip";
+            // 
             // Manager
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1439,8 +1311,6 @@
             tabPage3.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            topToolStrip.ResumeLayout(false);
-            topToolStrip.PerformLayout();
             bottomMenuStrip.ResumeLayout(false);
             bottomMenuStrip.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
@@ -1460,15 +1330,6 @@
         private ToolStripMenuItem copyTool;
         private ToolStripMenuItem pasteTool;
         private PictureBox imagePreviewBox;
-        private ToolStrip topToolStrip;
-        private ToolStripButton quickRefreshTool;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton listViewSetView1;
-        private ToolStripButton listViewSetView2;
-        private ToolStripButton listViewSetView3;
-        private ToolStripButton listViewSetView4;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton invertSelectionTool;
         private ListView listView1;
         private TabPage tabPage1;
         private ToolStripMenuItem showTab;
@@ -1485,7 +1346,6 @@
         private ToolStripMenuItem selectAllWithTheSameExtensionTool;
         private ToolStripMenuItem copySelectedNamesToClipboardTool;
         private ToolStripMenuItem copyNamesWithPathToClipboardTool;
-        private ToolStripButton zipTool;
         private MenuStrip bottomMenuStrip;
         private ToolStripMenuItem viewTool;
         private ToolStripMenuItem editTool;
@@ -1500,15 +1360,8 @@
         private TabControl previewBoxTabControl;
         private TabPage imagePreviewTab;
         private TabPage documentPreviewTab;
-        private ToolStripButton unzipTool;
         private RichTextBox richTextBox1;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripButton searchTool;
-        private ToolStripButton goUpTool;
-        private ToolStripButton notepadTool;
         private ToolStripMenuItem f8PasteToolStripMenuItem;
-        private ToolStripButton diskInfoTool;
-        private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem renameTool;
         private ToolStripMenuItem refreshTool;
         private TextBox searchTextBox;
@@ -1517,7 +1370,6 @@
         private TabPage tabPage4;
         private TextBox selectPathTextBox;
         private Button goToSelectedPathButton;
-        private ToolStripButton quickPrintTool;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintDialog printDialog1;
         private ToolStripMenuItem filesToolStripMenuItem;
@@ -1533,7 +1385,6 @@
         private ToolStripMenuItem openPowershellTool;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripSeparator toolStripSeparator8;
-        private ToolStripButton binTool;
         private ListView quickAccessList;
         private ToolStripMenuItem quickAccessToolStripMenuItem;
         private ToolStripMenuItem quickAccessAddTool;
@@ -1609,5 +1460,15 @@
         private ToolStripMenuItem editQuickActionBarTool;
         private ToolStripMenuItem changeAttributesTool;
         private ToolStripMenuItem verticalArrangementTool;
+        private ToolStripSeparator toolStripMenuItem9;
+        private ToolStripMenuItem goUpToolQ;
+        private ToolStripMenuItem goUpTool;
+        private ToolStripMenuItem invertSelectionTool;
+        private ToolStripMenuItem diskInfoTool;
+        private ToolStripMenuItem binTool;
+        private ToolStripMenuItem notepadTool;
+        private ToolStripMenuItem searchTool;
+        private ToolStripMenuItem reloadQuickActionBarTool;
+        private ToolStrip topToolStrip;
     }
 }

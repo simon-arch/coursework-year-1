@@ -238,6 +238,8 @@
             // includeDirsCheck
             // 
             includeDirsCheck.AutoSize = true;
+            includeDirsCheck.Checked = true;
+            includeDirsCheck.CheckState = CheckState.Checked;
             includeDirsCheck.Location = new Point(3, 0);
             includeDirsCheck.Margin = new Padding(3, 0, 0, 0);
             includeDirsCheck.Name = "includeDirsCheck";
@@ -249,6 +251,8 @@
             // includeFilesCheck
             // 
             includeFilesCheck.AutoSize = true;
+            includeFilesCheck.Checked = true;
+            includeFilesCheck.CheckState = CheckState.Checked;
             includeFilesCheck.Location = new Point(3, 26);
             includeFilesCheck.Margin = new Padding(3, 0, 0, 0);
             includeFilesCheck.Name = "includeFilesCheck";

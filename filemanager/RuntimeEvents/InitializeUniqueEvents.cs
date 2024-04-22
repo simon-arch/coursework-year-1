@@ -1,5 +1,6 @@
-﻿using System.Diagnostics;
-using System.Windows.Forms;
+﻿using filemanager.Dialogs;
+using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace filemanager
 {
@@ -8,6 +9,13 @@ namespace filemanager
         // TEMP TEMP TEMP TEMP
         public void InitializeUniqueEvents()
         {
+            editQuickActionBarTool.Click += (sender, e) => 
+            {
+                EditQuickBar dialog = new EditQuickBar(Controllers);
+                if (dialog.ShowDialog() == DialogResult.OK) InitQuickbar();
+            };
+            reloadQuickActionBarTool.Click += (sender, e) => InitQuickbar();
+
             FormClosing += (sender, e) => loggerHandler.Log(LogCategory.end);
 
             systemPropertiesTool.Click += (sender, e) => { 

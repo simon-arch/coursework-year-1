@@ -20,7 +20,6 @@ namespace filemanager
             {
                 userSettings.Add(defaultSettings);
                 userSettings.Add(defaultSettings);
-                MessageBox.Show("An error occured while loading listsettings.json\nUsing default settings", "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             for (int i = displayList.Count - 1; i >= 0; i--)
             {
@@ -42,9 +41,9 @@ namespace filemanager
             {
                 appSettings = JsonSerializer.Deserialize<AppSettings>(json);
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("An error occured while loading appsettings.json\nUsing default settings", "JSON error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             deleteAfterUnzipTool.Checked = appSettings.DeleteAfterUnzip;
             for (int i = directoryList.Count - 1; i >= 0; i--)

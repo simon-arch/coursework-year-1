@@ -59,5 +59,65 @@ namespace filemanager.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_GoUp {
+            get {
+                object obj = ResourceManager.GetObject("Ico_GoUp", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_Refresh {
+            get {
+                object obj = ResourceManager.GetObject("Ico_Refresh", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_ViewDetails {
+            get {
+                object obj = ResourceManager.GetObject("Ico_ViewDetails", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_ViewList {
+            get {
+                object obj = ResourceManager.GetObject("Ico_ViewList", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_ViewSmallIcons {
+            get {
+                object obj = ResourceManager.GetObject("Ico_ViewSmallIcons", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_ViewTiles {
+            get {
+                object obj = ResourceManager.GetObject("Ico_ViewTiles", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

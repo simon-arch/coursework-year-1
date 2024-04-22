@@ -1,3 +1,7 @@
+using filemanager.Properties;
+using System.Drawing.Drawing2D;
+using System.Resources;
+
 namespace filemanager
 {
     public partial class Manager : Form
@@ -17,9 +21,155 @@ namespace filemanager
 
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
         LoggerHandler loggerHandler = new LoggerHandler();
+
+        Dictionary<string, ToolStripMenuItem> Controllers = new Dictionary<string, ToolStripMenuItem>();
+        string[] defaultQuickBar = {
+            "25, 20",
+            "00, stk_Refresh, Ico_Refresh",
+            "01, stk_GoUp, Ico_GoUp",
+            "02, stk_separator, null",
+            "03, stk_ViewDetails, Ico_ViewDetails",
+            "04, stk_ViewSmallIcons, Ico_ViewSmallIcons",
+            "05, stk_ViewList, Ico_ViewList",
+            "06, stk_ViewTiles, Ico_ViewTiles",
+            "07, stk_separator, null",
+            "08, stk_InvertSelection, Ico_Refresh",
+            "09, stk_ZipAll, Ico_Refresh", //not ready
+            "10, stk_UnzipAll, Ico_Refresh", //not ready
+            "11, stk_separator, null",
+            "12, stk_SearchFor, Ico_Refresh",
+            "13, notepad.exe, Ico_Refresh",
+            "14, stk_separator, null",
+            "15, stk_DiskInfo, Ico_Refresh", //not ready
+            "16, stk_Print, Ico_Refresh",
+            "17, stk_RecycleBin, Ico_Refresh", //not ready
+        };
+
+        public void InitQuickbar()
+        {
+            topToolStrip.Items.Clear();
+            string[] lines = { "" };
+            string[] prefs = { "" };
+            string currPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickbar.ini");
+            try
+            {
+                lines = System.IO.File.ReadAllLines(currPath);
+                prefs = lines[0].Split(", ");
+            }
+            catch
+            {
+                System.IO.File.Create(currPath).Close();
+                System.IO.File.WriteAllLines(currPath, defaultQuickBar);
+                lines = System.IO.File.ReadAllLines(currPath);
+                prefs = lines[0].Split(", ");
+            }
+
+            try { topToolStrip.Size = new Size(topToolStrip.Size.Width, Int32.Parse(prefs[0])); }
+            catch { topToolStrip.Size = new Size(topToolStrip.Size.Width, topToolStrip.Size.Height); }
+
+            try { topToolStrip.ImageScalingSize = new Size(Int32.Parse(prefs[1]), Int32.Parse(prefs[1])); }
+            catch { topToolStrip.ImageScalingSize = new Size(topToolStrip.ImageScalingSize.Width, topToolStrip.ImageScalingSize.Height); }
+
+            foreach (string line in lines.Skip(1))
+            {
+                string[] data = line.Split(", ");
+                string command = data[1];
+                string icon = data[2];
+
+                var btn = new ToolStripButton();
+                if (command.StartsWith("stk_"))
+                {
+                    if (command == "stk_separator")
+                    {
+                        topToolStrip.Items.Add(new ToolStripSeparator());
+                        continue;
+                    }
+                    else
+                    {
+                        btn.Click += (sender, e) =>
+                        {
+                            try { Controllers[command.Replace("stk_", "")].PerformClick(); }
+                            catch { System.Media.SystemSounds.Hand.Play(); }
+                        };
+                    }
+                }
+                else
+                {
+                    btn.Click += (sender, e) =>
+                    {
+                        try { System.Diagnostics.Process.Start(command); }
+                        catch { System.Media.SystemSounds.Hand.Play(); }
+                    };
+                }
+                btn.Image = ((Icon)Resources.ResourceManager.GetObject(icon, Resources.Culture)).ToBitmap();
+                btn.ImageScaling = ToolStripItemImageScaling.None;
+                topToolStrip.Items.Add(btn);
+            }
+        }
+
+
+
         public Manager()
         {
             InitializeComponent();
+
+
+            //
+            Controllers["Refresh"] = refreshListTool;
+            Controllers["InvertSelection"] = invertSelectionTool;
+            Controllers["QuickAccessAdd"] = quickAccessAddTool;
+            Controllers["QuickAccessRemove"] = quickAccessRemoveTool;
+
+            Controllers["SortName"] = sortNameTool;
+            Controllers["SortDate"] = sortDateTool;
+            Controllers["SortSize"] = sortSizeTool;
+            Controllers["SortExtension"] = sortExtensionTool;
+            Controllers["SortReversed"] = reversedTool;
+
+            Controllers["OpenConsole"] = openConsoleTool;
+            Controllers["OpenPowershell"] = openPowershellTool;
+
+            Controllers["ViewDetails"] = detailsTool;
+            Controllers["ViewSmallIcons"] = smallIconsTool;
+            Controllers["ViewList"] = listTool;
+            Controllers["ViewTiles"] = tilesTool;
+
+            Controllers["GoUp"] = goUpTool;
+            Controllers["Print"] = printTool;
+            Controllers["SearchFor"] = searchTool;
+
+            Controllers["ShowAllFiles"] = showAllFilesTool;
+            Controllers["ShowPrograms"] = showProgramsTool;
+            Controllers["ShowCustom"] = showCustomTool;
+
+            Controllers["CalculateSpace"] = calculateSpaceTool;
+            Controllers["MultiRename"] = multiRenameTool;
+
+            Controllers["SelectGroup"] = selectGroupTool;
+            Controllers["UnselectGroup"] = unselectGroupTool;
+
+            Controllers["CreateTab"] = createTabTool;
+            Controllers["DeleteTab"] = deleteTabTool;
+
+            Controllers["SelectAll"] = selectAllTool;
+            Controllers["UnelectAll"] = unselectAllTool;
+            Controllers["SelectExtensions"] = selectAllWithTheSameExtensionTool;
+            Controllers["ClipSelected"] = copySelectedNamesToClipboardTool;
+            Controllers["ClipWithPath"] = copyNamesWithPathToClipboardTool;
+            Controllers["ClipWithExtensions"] = copyToClipboardWithExtensions;
+            Controllers["ClipPathExtensions"] = copyToClipboardWithPathExtensions;
+
+            Controllers["Rename"] = renameTool;
+            Controllers["View"] = viewTool;
+            Controllers["Edit"] = editTool;
+            Controllers["Copy"] = copyTool;
+            Controllers["Cut"] = cutTool;
+            Controllers["Paste"] = pasteTool;
+            Controllers["NewFolder"] = newFolderTool;
+            Controllers["Delete"] = deleteTool;
+            //
+
+            InitQuickbar();
 
             displayList.Add(displayHandlerLeftScreen);
             displayList.Add(displayHandlerRightScreen);
@@ -66,6 +216,8 @@ namespace filemanager
 
             Focus(displayList[0]); displayList[0].setView(1);
             Focus(displayList[1]); displayList[1].setView(1);
+
+
 
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);
