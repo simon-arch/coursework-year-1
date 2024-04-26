@@ -4,7 +4,6 @@
     {
         public ArchiveFile() 
         {
-            IconIndex = 6;
             SubType = "archive";
             Type = "file";
         }

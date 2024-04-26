@@ -63,6 +63,36 @@ namespace filemanager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon Ico_CreateTab {
+            get {
+                object obj = ResourceManager.GetObject("Ico_CreateTab", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_DeleteTab {
+            get {
+                object obj = ResourceManager.GetObject("Ico_DeleteTab", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Ico_EditQuickBar {
+            get {
+                object obj = ResourceManager.GetObject("Ico_EditQuickBar", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon Ico_GoUp {
             get {
                 object obj = ResourceManager.GetObject("Ico_GoUp", resourceCulture);

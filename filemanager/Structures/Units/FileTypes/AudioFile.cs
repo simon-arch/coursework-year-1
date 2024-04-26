@@ -9,7 +9,6 @@
         public AudioFile(string name, string path, long size, string extension)
             : base(name, path, size, extension) { }
         public AudioFile() {
-            IconIndex = 3;
             SubType = "audiofile";
             Type = "file";
         }

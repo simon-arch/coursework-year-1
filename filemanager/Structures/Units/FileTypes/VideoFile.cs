@@ -9,7 +9,6 @@
         public VideoFile() {
             SubType = "videofile";
             Type = "file";
-            IconIndex = 4;
         }
     }
 }

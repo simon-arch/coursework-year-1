@@ -1,6 +1,5 @@
 ﻿using filemanager.Dialogs;
 using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace filemanager
 {
@@ -9,16 +8,16 @@ namespace filemanager
         // TEMP TEMP TEMP TEMP
         public void InitializeUniqueEvents()
         {
-            editQuickActionBarTool.Click += (sender, e) => 
+            Controllers["EditQuickBar"].Click += (sender, e) => 
             {
                 EditQuickBar dialog = new EditQuickBar(Controllers);
                 if (dialog.ShowDialog() == DialogResult.OK) InitQuickbar();
             };
-            reloadQuickActionBarTool.Click += (sender, e) => InitQuickbar();
+            Controllers["ReloadQuickBar"].Click += (sender, e) => InitQuickbar();
 
             FormClosing += (sender, e) => loggerHandler.Log(LogCategory.end);
 
-            systemPropertiesTool.Click += (sender, e) => { 
+            Controllers["SystemProperties"].Click += (sender, e) => { 
                 ProcessCall.RunProcessInfo(new ProcessStartInfo()  { 
                     FileName = "sysdm.cpl", UseShellExecute = true 
                 }); 
@@ -53,10 +52,10 @@ namespace filemanager
                 
             };
 
-            exitTool.Click += (sender, e) => Close();
-            desktopTool.Click += (sender, e) => Desktop();
-            sourceTargetEqualTool.Click += (sender, e) => GoTo(displayList[0].RootDirectory, displayList[1], directoryList[1], watcherList[1]);
-            sourceTargetSwitchTool.Click += (sender, e) => 
+            Controllers["Exit"].Click += (sender, e) => Close();
+            Controllers["Desktop"].Click += (sender, e) => Desktop();
+            Controllers["TargetTarget"].Click += (sender, e) => GoTo(displayList[0].RootDirectory, displayList[1], directoryList[1], watcherList[1]);
+            Controllers["TargetSource"].Click += (sender, e) => 
             {
                 RootDirectory temp = displayList[0].RootDirectory;
                 GoTo(displayList[1].RootDirectory, displayList[0], directoryList[0], watcherList[0]);
@@ -70,13 +69,13 @@ namespace filemanager
                 }
             };
 
-            diskInfoTool.Click += (sender, e) =>
+            Controllers["DiskInfo"].Click += (sender, e) =>
             {
                 DiskChart disk = new DiskChart(driveComboBox.Text);
                 DialogResult result = disk.ShowDialog();
             };
 
-            binTool.Click += (sender, e) => ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
+            Controllers["RecycleBin"].Click += (sender, e) => ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
         }
     }
 }

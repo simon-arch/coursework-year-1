@@ -2,24 +2,23 @@
 {
     public partial class Manager
     {
-        private void InitContextEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler, FileWatcher fileWatcher)
+        private void InitContextEvents()
         {
-            viewDetailsContext.Click += (sender, e) => { displayHandler.setView(1); };
-            viewSmallIconsContext.Click += (sender, e) => { displayHandler.setView(2); };
-            viewListContext.Click += (sender, e) => { displayHandler.setView(3); };
-            viewTilesContext.Click += (sender, e) => { displayHandler.setView(4); };
-            sortNameContext.Click += (sender, e) => Sort(SortType.name, displayHandler, directoryHandler);
-            sortExtensionContext.Click += (sender, e) => Sort(SortType.extension, displayHandler, directoryHandler);
-            sortDateContext.Click += (sender, e) => Sort(SortType.date, displayHandler, directoryHandler);
-            sortSizeContext.Click += (sender, e) => Sort(SortType.size, displayHandler, directoryHandler);
-            openContext.Click += (sender, e) => { DoubleClick(displayHandler, directoryHandler, fileWatcher); };
-            cutContext.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = true; };
-            copyContext.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Copy(displayHandler.ListView.SelectedItems); exchangeBuffer.Cut = false; };
-            pasteContext.Click += (sender, e) => { if (displayHandler.Focused) exchangeBuffer.Paste(directoryHandler.RootDirectory.Path); };
-            deleteContext.Click += (sender, e) => { displayHandler.DeleteSelection(); };
-            renameContext.Click += (sender, e) => { Rename(displayHandler, directoryHandler); };
-            newFolderContext.Click += (sender, e) => { if (displayHandler.Focused) Directory.CreatePrompt(directoryHandler.RootDirectory.Path); };
-            refreshToolContext.Click += (sender, e) => { if(displayHandler.Focused) Refresh(displayHandler, directoryHandler); };
+            viewDetailsContext.Click    += (sender, e) => Controllers["ViewDetails"].PerformClick();
+            viewSmallIconsContext.Click += (sender, e) => Controllers["ViewSmallIcons"].PerformClick();
+            viewListContext.Click       += (sender, e) => Controllers["ViewList"].PerformClick();
+            viewTilesContext.Click      += (sender, e) => Controllers["ViewTiles"].PerformClick();
+            sortNameContext.Click       += (sender, e) => Controllers["SortName"].PerformClick();
+            sortExtensionContext.Click  += (sender, e) => Controllers["SortExtension"].PerformClick();
+            sortDateContext.Click       += (sender, e) => Controllers["SortDate"].PerformClick();
+            sortSizeContext.Click       += (sender, e) => Controllers["SortSize"].PerformClick();
+            cutContext.Click            += (sender, e) => Controllers["Cut"].PerformClick();
+            copyContext.Click           += (sender, e) => Controllers["Copy"].PerformClick();
+            pasteContext.Click          += (sender, e) => Controllers["Paste"].PerformClick();
+            deleteContext.Click         += (sender, e) => Controllers["Delete"].PerformClick();
+            renameContext.Click         += (sender, e) => Controllers["Rename"].PerformClick();
+            newFolderContext.Click      += (sender, e) => Controllers["NewFolder"].PerformClick();
+            refreshToolContext.Click    += (sender, e) => Controllers["Refresh"].PerformClick();
         }
         private void ShowContext()
         {

@@ -1,6 +1,8 @@
 ﻿using System.DirectoryServices;
 using System.Drawing;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
 namespace filemanager
 {
     public class DisplayHandler : DataHandler
@@ -54,7 +56,7 @@ namespace filemanager
             dd.SubItems.Add("");
             dd.SubItems.Add("");
             dd.Tag = new MovementDirectory();
-            dd.ImageIndex = 1;
+            dd.ImageKey = "directory.ico";
             ListView.Items.Add(dd);
 
             foreach (Directory d in RootDirectory.getDirs().Take(1).Concat(RootDirectory.getDirs().Skip(1).OrderBy(x => PadNumbers(x.Name))))
@@ -68,7 +70,7 @@ namespace filemanager
                     dirItem.SubItems.Add(d.CreationDate);
                     dirItem.SubItems.Add(d.Attributes);
                     dirItem.Tag = d;
-                    dirItem.ImageIndex = d.IconIndex;
+                    dirItem.ImageKey = d.SubType + ".ico";
                     ListView.Items.Add(dirItem);
                     ProgressBar.Value++;
                 }
@@ -88,7 +90,13 @@ namespace filemanager
                     fileItem.SubItems.Add(f.CreationDate);
                     fileItem.SubItems.Add(f.Attributes);
                     fileItem.Tag = f;
-                    fileItem.ImageIndex = f.IconIndex;
+                    if (!ImageList.Images.ContainsKey(f.Extension))
+                    {
+                        Image icon = Icon.ExtractAssociatedIcon(f.Path).ToBitmap(); 
+                        ImageList.Images.Add(f.Extension, icon);
+                    }
+                    fileItem.ImageKey = ImageList.Images.ContainsKey("override_" + f.Extension) 
+                        ? "override_" + f.Extension : f.Extension;
                     ListView.Items.Add(fileItem);
                 }
                 ProgressBar.Value++;

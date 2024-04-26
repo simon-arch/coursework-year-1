@@ -6,8 +6,7 @@ namespace filemanager
     {
         private void InitializeSharedEvents(DisplayHandler displayHandler, DirectoryHandler directoryHandler, FileWatcher fileWatcher)
         {
-
-            changeAttributesTool.Click += (sender, e) =>
+            Controllers["ChangeAttributes"].Click += (sender, e) =>
             {
                 if (!displayHandler.Focused) return;
                 if (displayHandler.isSelected())
@@ -19,8 +18,8 @@ namespace filemanager
                     dialog.ShowDialog(); Refresh(displayHandler, directoryHandler);
                 }
             };
-            
-            openInExplorerTool.Click += (sender, e) => 
+
+            Controllers["OpenInExplorer"].Click += (sender, e) => 
             {
                 if (!displayHandler.Focused) return;
                 if (displayHandler.isSelected())
@@ -36,7 +35,7 @@ namespace filemanager
                 }
             };
 
-            saveSelectionTool.Click += (sender, e) => 
+            Controllers["SaveSelection"].Click += (sender, e) => 
             {
                 if (!displayHandler.Focused) return;
                 if (displayHandler.isSelected())
@@ -50,7 +49,7 @@ namespace filemanager
                 }
             };
 
-            restoreSelectionTool.Click += (sender, e) =>
+            Controllers["RestoreSelection"].Click += (sender, e) =>
             {
                 if (!displayHandler.Focused) return;
                 if (displayHandler.SavedSelectionPath == displayHandler.RootDirectory.Path)
@@ -63,7 +62,7 @@ namespace filemanager
                 }
             };
 
-            saveSelectionToFileTool.Click += (sender, e) =>
+            Controllers["SelectionToFile"].Click += (sender, e) =>
             {
                 if (!displayHandler.Focused) return;
                 if (displayHandler.isSelected())
@@ -82,7 +81,7 @@ namespace filemanager
                 }
             };
 
-            loadSelectionFromFileTool.Click += (sender, e) =>
+            Controllers["LoadSelectionFile"].Click += (sender, e) =>
             {
                 if (!displayHandler.Focused) return;
                 List<string> source = new List<string>();
@@ -107,11 +106,10 @@ namespace filemanager
                     }
                 }
             };
+
             quickAccessList.DoubleClick += (sender, e) => AccessDoubleClick(displayHandler, directoryHandler, fileWatcher); //focused
             FormClosed += (sender, e) => { SaveSettings(displayList); }; //SHOULD NOT BE FOCUSED
 
-
-            Controllers["Refresh"].Click            += (sender, e) => Refresh(displayHandler, directoryHandler);
             Controllers["InvertSelection"].Click    += (sender, e) => displayHandler.InvertSelection(); //focused
             Controllers["QuickAccessAdd"].Click     += (sender, e) => AccessAdd(displayHandler); //focused
             Controllers["QuickAccessRemove"].Click  += (sender, e) => AccessRemove(); //SHOULD BE UNIQUE
@@ -125,10 +123,10 @@ namespace filemanager
             Controllers["OpenConsole"].Click        += (sender, e) => Console(displayHandler); //focused
             Controllers["OpenPowershell"].Click     += (sender, e) => PowerShell(displayHandler); //focused
 
-            Controllers["ViewDetails"].Click        += (sender, e) => { displayHandler.setView(1); }; //focused
-            Controllers["ViewSmallIcons"].Click     += (sender, e) => { displayHandler.setView(2); }; //focused
-            Controllers["ViewList"].Click           += (sender, e) => { displayHandler.setView(3); }; //focused
-            Controllers["ViewTiles"].Click          += (sender, e) => { displayHandler.setView(4); }; //focused
+            Controllers["ViewDetails"].Click        += (sender, e) => displayHandler.setView(1); //focused
+            Controllers["ViewSmallIcons"].Click     += (sender, e) => displayHandler.setView(2); //focused
+            Controllers["ViewList"].Click           += (sender, e) => displayHandler.setView(3); //focused
+            Controllers["ViewTiles"].Click          += (sender, e) => displayHandler.setView(4); //focused
 
             Controllers["GoUp"].Click               += (sender, e) => GoUp(displayHandler, directoryHandler, fileWatcher); //focused
             Controllers["Print"].Click              += (sender, e) => Print(displayHandler); //focused
@@ -156,9 +154,8 @@ namespace filemanager
             Controllers["ClipPathExtensions"].Click += (sender, e) => displayHandler.CopyNamesToClipboard(true, true); //focused
 
 
-
             // BOTTOM TAB - REPLACE WITH TOP STRIP SEPARATE BUTTONS
-            refreshTool.Click += (sender, e) => { Refresh(displayHandler, directoryHandler); };
+            Controllers["Refresh"].Click            += (sender, e) => { Refresh(displayHandler, directoryHandler); };
             Controllers["Rename"].Click             += (sender, e) => { Rename(displayHandler, directoryHandler); }; //focused //watched
             Controllers["View"].Click               += (sender, e) => { DoubleClick(displayHandler, directoryHandler, fileWatcher); }; //focused
             Controllers["Edit"].Click               += (sender, e) => { if (displayHandler.Focused) if (displayHandler.isSelected()) displayHandler.ListView.SelectedItems[0].ETag().Edit(); };
@@ -169,17 +166,15 @@ namespace filemanager
             Controllers["Delete"].Click             += (sender, e) => { displayHandler.DeleteSelection(); }; //focused //watched
             //
 
+            Controllers["CompareNames"].Click       += (sender, e) => CompareFilenames(displayHandler); //SHOULD NOT BE FOCUSED
+            Controllers["PackZip"].Click            += (sender, e) => { if (displayHandler.Focused) directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
+            Controllers["UnpackAll"].Click          += (sender, e) => { if (displayHandler.Focused) directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
 
 
             deleteAfterUnzipTool.Click += (sender, e) => { directoryHandler.DeleteSource = deleteAfterUnzipTool.Checked; }; //SHOULD BE UNIQUE
-            compareFilenamesTool.Click += (sender, e) => CompareFilenames(displayHandler); //SHOULD NOT BE FOCUSED
 
-
-            packTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.ZipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
-            unpackAllTool.Click += (sender, e) => { if (displayHandler.Focused) directoryHandler.UnzipArchive(displayHandler.ListView.SelectedItems); }; //NOT focused
+            
             unpackSpecificTool.Click += (sender, e) => { throw new Exception(); }; // TODO
-
-            notepadTool.Click += (sender, e) => { if (displayHandler.Focused) ProcessCall.RunProcess("notepad", ""); }; //NOT focused
             goToSelectedPathButton.Click += (sender, e) => { GoToSelected(displayHandler, directoryHandler, fileWatcher); }; //focused
 
             displayHandler.ComboBox.SelectionChangeCommitted += (sender, e) =>
@@ -199,9 +194,9 @@ namespace filemanager
                 showExtensionsTool.Checked = displayHandler.ShowExtensions;
             }
 
-            displayHandler.ListView.MouseDown += (sender, e) => SetData(displayHandler);
+            displayHandler.ListView.MouseDown   += (sender, e) => SetData(displayHandler);
             displayHandler.TabControl.MouseDown += (sender, e) => SetData(displayHandler);
-            displayHandler.ListView.MouseDown += (sender, e) => { if (e.Button == MouseButtons.Right) ShowContext(); };
+            displayHandler.ListView.MouseDown   += (sender, e) => { if (e.Button == MouseButtons.Right) ShowContext(); };
 
             // DISPLAY HANDLER EVENTS
             displayHandler.ListView.MouseClick += (sender, e) => {

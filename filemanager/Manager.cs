@@ -113,9 +113,7 @@ namespace filemanager
         {
             InitializeComponent();
 
-
-            //
-            Controllers["Refresh"] = refreshListTool;
+            // SYNC EVENTS
             Controllers["InvertSelection"] = invertSelectionTool;
             Controllers["QuickAccessAdd"] = quickAccessAddTool;
             Controllers["QuickAccessRemove"] = quickAccessRemoveTool;
@@ -159,6 +157,7 @@ namespace filemanager
             Controllers["ClipWithExtensions"] = copyToClipboardWithExtensions;
             Controllers["ClipPathExtensions"] = copyToClipboardWithPathExtensions;
 
+            Controllers["Refresh"] = refreshTool;
             Controllers["Rename"] = renameTool;
             Controllers["View"] = viewTool;
             Controllers["Edit"] = editTool;
@@ -167,8 +166,35 @@ namespace filemanager
             Controllers["Paste"] = pasteTool;
             Controllers["NewFolder"] = newFolderTool;
             Controllers["Delete"] = deleteTool;
+
+            Controllers["CompareNames"] = compareFilenamesTool;
+            Controllers["PackZip"] = packTool;
+            Controllers["UnpackAll"] = unpackAllTool;
+
+            Controllers["ChangeAttributes"] = changeAttributesTool;
+            Controllers["OpenInExplorer"] = openInExplorerTool;
+
+            Controllers["SaveSelection"] = saveSelectionTool;
+            Controllers["RestoreSelection"] = restoreSelectionTool;
+            Controllers["SelectionToFile"] = saveSelectionToFileTool;
+            Controllers["LoadSelectionFile"] = loadSelectionFromFileTool;
             //
 
+            // UNSYNC EVENTS
+            Controllers["Exit"] = exitTool;
+            Controllers["Desktop"] = desktopTool;
+            Controllers["TargetTarget"] = sourceTargetEqualTool;
+            Controllers["TargetSource"] = sourceTargetSwitchTool;
+            Controllers["DiskInfo"] = diskInfoTool;
+            Controllers["RecycleBin"] = binTool;
+            Controllers["SystemProperties"] = systemPropertiesTool;
+            Controllers["EditQuickBar"] = editQuickActionBarTool;
+            Controllers["ReloadQuickBar"] = reloadQuickActionBarTool;
+            //
+
+
+
+            //
             InitQuickbar();
 
             displayList.Add(displayHandlerLeftScreen);
@@ -202,9 +228,6 @@ namespace filemanager
             LoadSettings(displayList, directoryList, watcherList);
             InitializeUniqueEvents();
 
-            InitContextEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen, watcherLeftScreen);
-            InitContextEvents(displayHandlerRightScreen, directoryHandlerRightScreen, watcherRightScreen);
-
             loggerHandler.rtb = logTextBox;
             displayList[0].Focused = true;
             quickAccessList.SmallImageList = fileIconList;
@@ -217,7 +240,7 @@ namespace filemanager
             Focus(displayList[0]); displayList[0].setView(1);
             Focus(displayList[1]); displayList[1].setView(1);
 
-
+            InitContextEvents();
 
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);

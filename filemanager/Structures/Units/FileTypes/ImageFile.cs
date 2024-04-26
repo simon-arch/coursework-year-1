@@ -7,7 +7,6 @@ namespace filemanager
         public int Width { get; set; }
         public int Height { get; set; }
         public ImageFile() { 
-            IconIndex = 2;
             SubType = "imagefile";
             Type = "file";
         }

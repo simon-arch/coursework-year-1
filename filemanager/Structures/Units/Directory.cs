@@ -7,7 +7,6 @@
         {
             Name = name;
             Path = path;
-            IconIndex = 1;
             IsHidden = false;
             Type = "directory";
             SubType = "directory";
