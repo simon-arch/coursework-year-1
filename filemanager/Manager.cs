@@ -1,6 +1,8 @@
+using filemanager.Dialogs;
 using filemanager.Properties;
 using System.Drawing.Drawing2D;
 using System.Resources;
+using System.Text.Json;
 
 namespace filemanager
 {
@@ -44,6 +46,9 @@ namespace filemanager
             "16, stk_Print, Ico_Refresh",
             "17, stk_RecycleBin, Ico_Refresh", //not ready
         };
+
+        Dictionary<string, string> associated = new Dictionary<string, string>();
+        Dictionary<string, string> icons = new Dictionary<string, string>();
 
         public void InitQuickbar()
         {
@@ -107,8 +112,19 @@ namespace filemanager
             }
         }
 
-
-
+        public void InitCustomResources(string filename, int type)
+        {
+            string jsonPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(),
+                filename);
+            if (!System.IO.File.Exists(jsonPath)) System.IO.File.Create(jsonPath).Close();
+            string jsonText = System.IO.File.ReadAllText(jsonPath);
+            if (jsonText != string.Empty & jsonText != null)
+            {
+                if (type == 0) associated = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
+                if (type == 1) icons = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
+                Controllers["Refresh"].PerformClick();
+            }
+        }
         public Manager()
         {
             InitializeComponent();
@@ -190,9 +206,10 @@ namespace filemanager
             Controllers["SystemProperties"] = systemPropertiesTool;
             Controllers["EditQuickBar"] = editQuickActionBarTool;
             Controllers["ReloadQuickBar"] = reloadQuickActionBarTool;
+
+            Controllers["EditAssociations"] = editAssociationsTool;
+            Controllers["ReloadAssociations"] = reloadAssociationsTool;
             //
-
-
 
             //
             InitQuickbar();
@@ -244,6 +261,15 @@ namespace filemanager
 
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);
+
+            InitCustomResources("extensionAssociations.json", 0);
+            InitCustomResources("customIcons.json", 1);
+
+            foreach (KeyValuePair<string, string> data in icons)
+            {
+                fileIconList.Images.Add($"override_{data.Key}", new Bitmap(data.Value));
+            }
+            Controllers["Refresh"].PerformClick();
         }
     }
 }

@@ -103,6 +103,8 @@
             viewToolStripMenuItem = new ToolStripMenuItem();
             editQuickActionBarTool = new ToolStripMenuItem();
             reloadQuickActionBarTool = new ToolStripMenuItem();
+            editAssociationsTool = new ToolStripMenuItem();
+            reloadAssociationsTool = new ToolStripMenuItem();
             imagePreviewBox = new PictureBox();
             selectedFileSizeLabel = new Label();
             freeSpaceLabel = new Label();
@@ -718,7 +720,7 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool, reloadQuickActionBarTool });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool, reloadQuickActionBarTool, editAssociationsTool, reloadAssociationsTool });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(55, 24);
             viewToolStripMenuItem.Text = "View";
@@ -737,6 +739,20 @@
             reloadQuickActionBarTool.Name = "reloadQuickActionBarTool";
             reloadQuickActionBarTool.Size = new Size(253, 26);
             reloadQuickActionBarTool.Text = "Reload Quick Action Bar";
+            // 
+            // editAssociationsTool
+            // 
+            editAssociationsTool.Image = (Image)resources.GetObject("editAssociationsTool.Image");
+            editAssociationsTool.ImageScaling = ToolStripItemImageScaling.None;
+            editAssociationsTool.Name = "editAssociationsTool";
+            editAssociationsTool.Size = new Size(253, 26);
+            editAssociationsTool.Text = "Edit Associations";
+            // 
+            // reloadAssociationsTool
+            // 
+            reloadAssociationsTool.Name = "reloadAssociationsTool";
+            reloadAssociationsTool.Size = new Size(253, 26);
+            reloadAssociationsTool.Text = "Reload Associations";
             // 
             // imagePreviewBox
             // 
@@ -1532,5 +1548,7 @@
         private ToolStripMenuItem reloadQuickActionBarTool;
         private ToolStrip topToolStrip;
         private ImageList fileIconList;
+        private ToolStripMenuItem editAssociationsTool;
+        private ToolStripMenuItem reloadAssociationsTool;
     }
 }

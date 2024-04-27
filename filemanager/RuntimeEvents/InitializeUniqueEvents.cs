@@ -8,6 +8,14 @@ namespace filemanager
         // TEMP TEMP TEMP TEMP
         public void InitializeUniqueEvents()
         {
+            Controllers["EditAssociations"].Click += (sender, e) =>
+            {
+                AssociationsDialog dialog = new AssociationsDialog(associated);
+                if (dialog.ShowDialog() == DialogResult.OK) InitCustomResources("extensionAssociations.json", 0);
+            };
+
+            Controllers["ReloadAssociations"].Click += (sender, e) => InitCustomResources("extensionAssociations.json", 0);
+
             Controllers["EditQuickBar"].Click += (sender, e) => 
             {
                 EditQuickBar dialog = new EditQuickBar(Controllers);

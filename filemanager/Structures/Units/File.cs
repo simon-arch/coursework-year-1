@@ -18,12 +18,20 @@ namespace filemanager
         {
             Type = "file";
         }
-        public void View()
+        public void View(Dictionary<string, string> associated)
         {
             System.Diagnostics.Process explorer = new System.Diagnostics.Process();
-            explorer.StartInfo.FileName = "explorer";
+
+            explorer.StartInfo.FileName = associated.ContainsKey(Extension) 
+                ? associated[Extension] : "explorer";
+
             explorer.StartInfo.Arguments = Path;
-            explorer.Start();
+            try { explorer.Start(); }
+            catch
+            {
+                explorer.StartInfo.FileName = "explorer";
+                explorer.Start();
+            }
         }
         public override void Edit()
         {

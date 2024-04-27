@@ -26,7 +26,7 @@
         {
             File desktop = new File();
             desktop.Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            desktop.View();
+            //desktop.View();
         }
     }
 }

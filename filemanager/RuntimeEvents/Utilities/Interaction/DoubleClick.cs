@@ -20,7 +20,7 @@
                 }
                 else if (selected[0].ETag().Type == "file")
                 {
-                    ((File)selected[0].Tag).View();
+                    ((File)selected[0].Tag).View(associated);
 
                     //* [log] *//
                     if (displayHandler.Focused) loggerHandler.Log(LogCategory.interaction,
