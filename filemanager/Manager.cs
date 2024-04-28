@@ -3,6 +3,7 @@ using filemanager.Properties;
 using System.Drawing.Drawing2D;
 using System.Resources;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace filemanager
 {
@@ -48,8 +49,7 @@ namespace filemanager
         };
 
         Dictionary<string, string> associated = new Dictionary<string, string>();
-        Dictionary<string, string> icons = new Dictionary<string, string>();
-
+        static string currentIconPack = "none";
         public void InitQuickbar()
         {
             topToolStrip.Items.Clear();
@@ -112,18 +112,39 @@ namespace filemanager
             }
         }
 
-        public void InitCustomResources(string filename, int type)
+        public void InitCustomAssociations()
         {
             string jsonPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-                filename);
+                "extensionAssociations.json");
             if (!System.IO.File.Exists(jsonPath)) System.IO.File.Create(jsonPath).Close();
             string jsonText = System.IO.File.ReadAllText(jsonPath);
             if (jsonText != string.Empty & jsonText != null)
             {
-                if (type == 0) associated = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
-                if (type == 1) icons = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
+                associated = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonText);
                 Controllers["Refresh"].PerformClick();
             }
+        }
+        public void InitCustomIcons(string packName)
+        {
+            if (packName == "none")
+            {
+                List<string> remove = fileIconList.Images.Keys.Cast<string>()
+                        .Where(key => key.Contains("override_."))
+                        .ToList();
+                foreach (string key in remove)
+                    fileIconList.Images.RemoveByKey(key);
+                return;
+            }
+
+            string iconsPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Icons");
+            if (!Path.Exists(iconsPath)) System.IO.Directory.CreateDirectory(iconsPath);
+            string target = Path.Combine(iconsPath, packName);
+            if (!Path.Exists(target)) return;
+            DirectoryInfo dir = new DirectoryInfo(target);
+            foreach (FileInfo file in dir.GetFiles("*"))
+                try { fileIconList.Images.Add($"override_.{Path.GetFileNameWithoutExtension(file.FullName)}", new Bitmap(file.FullName)); }
+                catch { continue; }
+            Controllers["Refresh"].PerformClick();
         }
         public Manager()
         {
@@ -204,11 +225,15 @@ namespace filemanager
             Controllers["DiskInfo"] = diskInfoTool;
             Controllers["RecycleBin"] = binTool;
             Controllers["SystemProperties"] = systemPropertiesTool;
+
             Controllers["EditQuickBar"] = editQuickActionBarTool;
             Controllers["ReloadQuickBar"] = reloadQuickActionBarTool;
 
             Controllers["EditAssociations"] = editAssociationsTool;
             Controllers["ReloadAssociations"] = reloadAssociationsTool;
+
+            Controllers["ViewCustomIcons"] = viewCustomIconsTool;
+            Controllers["ReloadCustomIcons"] = reloadCustomIconsTool;
             //
 
             //
@@ -262,14 +287,8 @@ namespace filemanager
             Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
             Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);
 
-            InitCustomResources("extensionAssociations.json", 0);
-            InitCustomResources("customIcons.json", 1);
-
-            foreach (KeyValuePair<string, string> data in icons)
-            {
-                fileIconList.Images.Add($"override_{data.Key}", new Bitmap(data.Value));
-            }
-            Controllers["Refresh"].PerformClick();
+            InitCustomAssociations();
+            InitCustomIcons(currentIconPack);
         }
     }
 }

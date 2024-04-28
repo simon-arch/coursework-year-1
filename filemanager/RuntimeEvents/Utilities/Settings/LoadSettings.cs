@@ -46,6 +46,7 @@ namespace filemanager
 
             }
             deleteAfterUnzipTool.Checked = appSettings.DeleteAfterUnzip;
+            currentIconPack = appSettings.SelectedIconPack;
             for (int i = directoryList.Count - 1; i >= 0; i--)
             {
                 directoryList[i].DeleteSource = appSettings.DeleteAfterUnzip;

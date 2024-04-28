@@ -24,14 +24,8 @@
                 string newpath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Path), newname);
 
                 if (useExtension) newpath += Extension;
-                try
-                {
-                    System.IO.Directory.Move(oldpath, newpath);
-                }
-                catch(Exception ex)
-                {
-                    if(!ignoreError) MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                try { System.IO.Directory.Move(oldpath, newpath); }
+                catch(Exception ex) { if(!ignoreError) MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
         }
     }

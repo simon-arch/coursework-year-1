@@ -5,16 +5,29 @@ namespace filemanager
 {
     public partial class Manager
     {
-        // TEMP TEMP TEMP TEMP
         public void InitializeUniqueEvents()
         {
+            Controllers["ReloadCustomIcons"].Click += (sender, e) => InitCustomIcons(currentIconPack);
+
+            Controllers["ViewCustomIcons"].Click += (sender, e) =>
+            {
+                CustomIconsDialog dialog = new CustomIconsDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    currentIconPack = dialog.SelectedPack;
+                    InitCustomIcons("none");
+                    if (currentIconPack == "none") Controllers["Refresh"].PerformClick();
+                    else InitCustomIcons(currentIconPack);
+                }
+            };
+
             Controllers["EditAssociations"].Click += (sender, e) =>
             {
                 AssociationsDialog dialog = new AssociationsDialog(associated);
-                if (dialog.ShowDialog() == DialogResult.OK) InitCustomResources("extensionAssociations.json", 0);
+                if (dialog.ShowDialog() == DialogResult.OK) InitCustomAssociations();
             };
 
-            Controllers["ReloadAssociations"].Click += (sender, e) => InitCustomResources("extensionAssociations.json", 0);
+            Controllers["ReloadAssociations"].Click += (sender, e) => InitCustomAssociations();
 
             Controllers["EditQuickBar"].Click += (sender, e) => 
             {
@@ -36,28 +49,23 @@ namespace filemanager
                 switch (verticalArrangementTool.Checked)
                 {
                     case true:
-                        tableLayoutPanel3.SetColumnSpan(tableLayoutPanel3, 2);
-                        tableLayoutPanel3.SetRowSpan(tableLayoutPanel3, 1);
-
-                        tableLayoutPanel4.SetColumnSpan(tableLayoutPanel4, 2);
-                        tableLayoutPanel4.SetRowSpan(tableLayoutPanel4, 1);
-
-                        tableLayoutPanel4.SetColumn(tableLayoutPanel4, 0);
-                        tableLayoutPanel4.SetRow(tableLayoutPanel4, 1);
+                        leftPanel.SetColumnSpan(leftPanel, 2);
+                        leftPanel.SetRowSpan(leftPanel, 1);
+                        rightPanel.SetColumnSpan(rightPanel, 2);
+                        rightPanel.SetRowSpan(rightPanel, 1);
+                        rightPanel.SetColumn(rightPanel, 0);
+                        rightPanel.SetRow(rightPanel, 1);
                     break;
 
                     case false:
-                        tableLayoutPanel3.SetColumnSpan(tableLayoutPanel3, 1);
-                        tableLayoutPanel3.SetRowSpan(tableLayoutPanel3, 2);
-
-                        tableLayoutPanel4.SetColumnSpan(tableLayoutPanel4, 1);
-                        tableLayoutPanel4.SetRowSpan(tableLayoutPanel4, 2);
-
-                        tableLayoutPanel4.SetColumn(tableLayoutPanel4, 1);
-                        tableLayoutPanel4.SetRow(tableLayoutPanel4, 0);
+                        leftPanel.SetColumnSpan(leftPanel, 1);
+                        leftPanel.SetRowSpan(leftPanel, 2);
+                        rightPanel.SetColumnSpan(rightPanel, 1);
+                        rightPanel.SetRowSpan(rightPanel, 2);
+                        rightPanel.SetColumn(rightPanel, 1);
+                        rightPanel.SetRow(rightPanel, 0);
                     break;
                 }
-                
             };
 
             Controllers["Exit"].Click += (sender, e) => Close();

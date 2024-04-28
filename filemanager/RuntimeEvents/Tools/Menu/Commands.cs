@@ -24,9 +24,8 @@
         }
         public void Desktop()
         {
-            File desktop = new File();
-            desktop.Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //desktop.View();
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            ProcessCall.RunProcess("explorer.exe", path);
         }
     }
 }

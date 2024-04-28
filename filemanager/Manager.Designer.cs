@@ -105,6 +105,8 @@
             reloadQuickActionBarTool = new ToolStripMenuItem();
             editAssociationsTool = new ToolStripMenuItem();
             reloadAssociationsTool = new ToolStripMenuItem();
+            viewCustomIconsTool = new ToolStripMenuItem();
+            reloadCustomIconsTool = new ToolStripMenuItem();
             imagePreviewBox = new PictureBox();
             selectedFileSizeLabel = new Label();
             freeSpaceLabel = new Label();
@@ -141,9 +143,9 @@
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             printDialog1 = new PrintDialog();
             tableLayoutPanel2 = new TableLayoutPanel();
-            tableLayoutPanel3 = new TableLayoutPanel();
+            leftPanel = new TableLayoutPanel();
             tableLayoutPanel5 = new TableLayoutPanel();
-            tableLayoutPanel4 = new TableLayoutPanel();
+            rightPanel = new TableLayoutPanel();
             tableLayoutPanel6 = new TableLayoutPanel();
             progressBar = new ProgressBar();
             contextMenu = new ContextMenuStrip(components);
@@ -182,9 +184,9 @@
             tabPage1.SuspendLayout();
             bottomMenuStrip.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
+            leftPanel.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
-            tableLayoutPanel4.SuspendLayout();
+            rightPanel.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             contextMenu.SuspendLayout();
             SuspendLayout();
@@ -720,7 +722,7 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool, reloadQuickActionBarTool, editAssociationsTool, reloadAssociationsTool });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editQuickActionBarTool, reloadQuickActionBarTool, editAssociationsTool, reloadAssociationsTool, viewCustomIconsTool, reloadCustomIconsTool });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(55, 24);
             viewToolStripMenuItem.Text = "View";
@@ -753,6 +755,18 @@
             reloadAssociationsTool.Name = "reloadAssociationsTool";
             reloadAssociationsTool.Size = new Size(253, 26);
             reloadAssociationsTool.Text = "Reload Associations";
+            // 
+            // viewCustomIconsTool
+            // 
+            viewCustomIconsTool.Name = "viewCustomIconsTool";
+            viewCustomIconsTool.Size = new Size(253, 26);
+            viewCustomIconsTool.Text = "View Custom Icons";
+            // 
+            // reloadCustomIconsTool
+            // 
+            reloadCustomIconsTool.Name = "reloadCustomIconsTool";
+            reloadCustomIconsTool.Size = new Size(253, 26);
+            reloadCustomIconsTool.Text = "Reload Custom Icons";
             // 
             // imagePreviewBox
             // 
@@ -910,7 +924,7 @@
             tabControl2.Location = new Point(0, 0);
             tabControl2.Margin = new Padding(0);
             tabControl2.Name = "tabControl2";
-            tableLayoutPanel4.SetRowSpan(tabControl2, 2);
+            rightPanel.SetRowSpan(tabControl2, 2);
             tabControl2.SelectedIndex = 0;
             tabControl2.Size = new Size(319, 274);
             tabControl2.TabIndex = 11;
@@ -957,7 +971,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Margin = new Padding(0);
             tabControl1.Name = "tabControl1";
-            tableLayoutPanel3.SetRowSpan(tabControl1, 2);
+            leftPanel.SetRowSpan(tabControl1, 2);
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(319, 274);
             tabControl1.TabIndex = 5;
@@ -1110,9 +1124,9 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
+            tableLayoutPanel2.Controls.Add(leftPanel, 0, 0);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel5, 2, 0);
-            tableLayoutPanel2.Controls.Add(tableLayoutPanel4, 1, 0);
+            tableLayoutPanel2.Controls.Add(rightPanel, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 30);
             tableLayoutPanel2.Margin = new Padding(0);
@@ -1125,24 +1139,24 @@
             tableLayoutPanel2.Size = new Size(958, 274);
             tableLayoutPanel2.TabIndex = 7;
             // 
-            // tableLayoutPanel3
+            // leftPanel
             // 
-            tableLayoutPanel3.ColumnCount = 1;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel3.Controls.Add(tabControl1, 0, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(0, 0);
-            tableLayoutPanel3.Margin = new Padding(0);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel2.SetRowSpan(tableLayoutPanel3, 2);
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel3.Size = new Size(319, 274);
-            tableLayoutPanel3.TabIndex = 8;
+            leftPanel.ColumnCount = 1;
+            leftPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            leftPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            leftPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            leftPanel.Controls.Add(tabControl1, 0, 0);
+            leftPanel.Dock = DockStyle.Fill;
+            leftPanel.Location = new Point(0, 0);
+            leftPanel.Margin = new Padding(0);
+            leftPanel.Name = "leftPanel";
+            leftPanel.RowCount = 2;
+            tableLayoutPanel2.SetRowSpan(leftPanel, 2);
+            leftPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            leftPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            leftPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            leftPanel.Size = new Size(319, 274);
+            leftPanel.TabIndex = 8;
             // 
             // tableLayoutPanel5
             // 
@@ -1165,24 +1179,24 @@
             tableLayoutPanel5.Size = new Size(320, 274);
             tableLayoutPanel5.TabIndex = 10;
             // 
-            // tableLayoutPanel4
+            // rightPanel
             // 
-            tableLayoutPanel4.ColumnCount = 1;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Controls.Add(tabControl2, 0, 0);
-            tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(319, 0);
-            tableLayoutPanel4.Margin = new Padding(0);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 2;
-            tableLayoutPanel2.SetRowSpan(tableLayoutPanel4, 2);
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(319, 274);
-            tableLayoutPanel4.TabIndex = 9;
+            rightPanel.ColumnCount = 1;
+            rightPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            rightPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            rightPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            rightPanel.Controls.Add(tabControl2, 0, 0);
+            rightPanel.Dock = DockStyle.Fill;
+            rightPanel.Location = new Point(319, 0);
+            rightPanel.Margin = new Padding(0);
+            rightPanel.Name = "rightPanel";
+            rightPanel.RowCount = 2;
+            tableLayoutPanel2.SetRowSpan(rightPanel, 2);
+            rightPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            rightPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            rightPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            rightPanel.Size = new Size(319, 274);
+            rightPanel.TabIndex = 9;
             // 
             // tableLayoutPanel6
             // 
@@ -1396,9 +1410,9 @@
             bottomMenuStrip.ResumeLayout(false);
             bottomMenuStrip.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
+            leftPanel.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
-            tableLayoutPanel4.ResumeLayout(false);
+            rightPanel.ResumeLayout(false);
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel6.PerformLayout();
             contextMenu.ResumeLayout(false);
@@ -1477,8 +1491,8 @@
         private ToolStripMenuItem sortDateTool;
         private ToolStripMenuItem sortSizeTool;
         private TableLayoutPanel tableLayoutPanel2;
-        private TableLayoutPanel tableLayoutPanel3;
-        private TableLayoutPanel tableLayoutPanel4;
+        private TableLayoutPanel leftPanel;
+        private TableLayoutPanel rightPanel;
         private TableLayoutPanel tableLayoutPanel5;
         private ColumnHeader columnHeader1;
         private TableLayoutPanel tableLayoutPanel6;
@@ -1550,5 +1564,7 @@
         private ImageList fileIconList;
         private ToolStripMenuItem editAssociationsTool;
         private ToolStripMenuItem reloadAssociationsTool;
+        private ToolStripMenuItem viewCustomIconsTool;
+        private ToolStripMenuItem reloadCustomIconsTool;
     }
 }
