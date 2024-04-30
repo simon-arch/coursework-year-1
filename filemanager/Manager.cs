@@ -1,14 +1,17 @@
-using filemanager.Dialogs;
 using filemanager.Properties;
-using System.Drawing.Drawing2D;
+using System.Configuration;
+using System.Globalization;
 using System.Resources;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
 
 namespace filemanager
 {
     public partial class Manager : Form
     {
+        Mediator mediatorLeft = new Mediator();
+        Mediator mediatorRight = new Mediator();
+
         DirectoryHandler directoryHandlerRightScreen = new DirectoryHandler();
         DirectoryHandler directoryHandlerLeftScreen = new DirectoryHandler();
 
@@ -22,8 +25,9 @@ namespace filemanager
         List<DisplayHandler> displayList = new List<DisplayHandler>();
         List<FileWatcher> watcherList = new List<FileWatcher>();
 
+        List<Mediator> mediatorList = new List<Mediator>();
+
         ExchangeBuffer exchangeBuffer = new ExchangeBuffer();
-        LoggerHandler loggerHandler = new LoggerHandler();
 
         Dictionary<string, ToolStripMenuItem> Controllers = new Dictionary<string, ToolStripMenuItem>();
         string[] defaultQuickBar = {
@@ -36,16 +40,14 @@ namespace filemanager
             "05, stk_ViewList, Ico_ViewList",
             "06, stk_ViewTiles, Ico_ViewTiles",
             "07, stk_separator, null",
-            "08, stk_InvertSelection, Ico_Refresh",
-            "09, stk_ZipAll, Ico_Refresh", //not ready
-            "10, stk_UnzipAll, Ico_Refresh", //not ready
+            "08, stk_InvertSelection, Ico_InvertSelection",
+            "09, stk_PackZip, Ico_PackZip",
+            "10, stk_UnpackAll, Ico_UnpackAll",
             "11, stk_separator, null",
-            "12, stk_SearchFor, Ico_Refresh",
-            "13, notepad.exe, Ico_Refresh",
-            "14, stk_separator, null",
-            "15, stk_DiskInfo, Ico_Refresh", //not ready
-            "16, stk_Print, Ico_Refresh",
-            "17, stk_RecycleBin, Ico_Refresh", //not ready
+            "12, stk_SearchFor, Ico_SearchFor",
+            "13, stk_separator, null",
+            "14, stk_DiskInfo, Ico_DiskInfo",
+            "15, stk_Print, Ico_Print"
         };
 
         Dictionary<string, string> associated = new Dictionary<string, string>();
@@ -55,7 +57,7 @@ namespace filemanager
             topToolStrip.Items.Clear();
             string[] lines = { "" };
             string[] prefs = { "" };
-            string currPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickbar.ini");
+            string currPath = ConfigurationManager.AppSettings["Path_QuickBarIni"];
             try
             {
                 lines = System.IO.File.ReadAllLines(currPath);
@@ -106,16 +108,18 @@ namespace filemanager
                         catch { System.Media.SystemSounds.Hand.Play(); }
                     };
                 }
-                btn.Image = ((Icon)Resources.ResourceManager.GetObject(icon, Resources.Culture)).ToBitmap();
+                try { btn.Image = ((Icon)Resources.ResourceManager.GetObject(icon, Resources.Culture)).ToBitmap(); }
+                catch { btn.Image = new Bitmap(16, 16); }
                 btn.ImageScaling = ToolStripItemImageScaling.None;
+                btn.ImageTransparentColor = Color.Black;
+                btn.ToolTipText = Regex.Replace(command.Replace("stk_", ""), "([a-z])([A-Z])", "$1 $2"); ;
                 topToolStrip.Items.Add(btn);
             }
         }
 
         public void InitCustomAssociations()
         {
-            string jsonPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-                "extensionAssociations.json");
+            string jsonPath = ConfigurationManager.AppSettings["Path_CustomAssociations"];
             if (!System.IO.File.Exists(jsonPath)) System.IO.File.Create(jsonPath).Close();
             string jsonText = System.IO.File.ReadAllText(jsonPath);
             if (jsonText != string.Empty & jsonText != null)
@@ -136,7 +140,7 @@ namespace filemanager
                 return;
             }
 
-            string iconsPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Icons");
+            string iconsPath = ConfigurationManager.AppSettings["Path_CustomIcons"];
             if (!Path.Exists(iconsPath)) System.IO.Directory.CreateDirectory(iconsPath);
             string target = Path.Combine(iconsPath, packName);
             if (!Path.Exists(target)) return;
@@ -146,11 +150,58 @@ namespace filemanager
                 catch { continue; }
             Controllers["Refresh"].PerformClick();
         }
+        public void InitQuickAccess()
+        {
+            quickAccessList.SmallImageList = fileIconList;
+            string path = ConfigurationManager.AppSettings["Path_QuickAccessIni"];
+            if (!Path.Exists(path)) System.IO.File.Create(path).Close();
+            string[] links = System.IO.File.ReadAllLines(path);
+            foreach (string link in links)
+            {
+                if (!Path.Exists(link)) continue;
+                ListViewItem target = new ListViewItem();
+                FileAttributes attr = System.IO.File.GetAttributes(link);
+                if (attr.HasFlag(FileAttributes.Directory))
+                {
+                    Directory dir = new Directory(Path.GetFileName(link), link);
+                    target.Text = $"[{dir.Name}]"; target.Tag = dir;
+                    target.ImageKey = "directory.ico";
+                }
+                else
+                {
+                    FileInfo f = new FileInfo(link); File file = new File();
+                    target.ImageKey = f.Extension;
+                    if (f.Extension == ".exe")
+                    {
+                        string exename = f.Extension + DateTime.Now.Ticks;
+                        Image icon = Icon.ExtractAssociatedIcon(f.FullName).ToBitmap();
+                        fileIconList.Images.Add(exename, icon);
+                        target.ImageKey = exename;
+                    }
+                    else if (!fileIconList.Images.ContainsKey(f.Extension))
+                    {
+                        Image icon = Icon.ExtractAssociatedIcon(f.FullName).ToBitmap();
+                        fileIconList.Images.Add(f.Extension, icon);
+                    }
+                    file.Path = link;
+                    file.Extension = f.Extension;
+                    file.Name = Path.GetFileNameWithoutExtension(f.Name);
+                    target.Text = file.Name;
+                    target.Tag = file;
+                }
+                quickAccessList.Items.Add(target);
+            }
+        }
         public Manager()
         {
             InitializeComponent();
-
             // SYNC EVENTS
+            ConfigurationManager.AppSettings.Set("Path_QuickBarIni", Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickbar.ini"));
+            ConfigurationManager.AppSettings.Set("Path_QuickBarBackup", Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickbar_backup.ini"));
+            ConfigurationManager.AppSettings.Set("Path_CustomIcons", Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Icons"));
+            ConfigurationManager.AppSettings.Set("Path_CustomAssociations", Path.Combine(System.IO.Directory.GetCurrentDirectory(), "extensionAssociations.json"));
+            ConfigurationManager.AppSettings.Set("Path_QuickAccessIni", Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickaccess.ini"));
+
             Controllers["InvertSelection"] = invertSelectionTool;
             Controllers["QuickAccessAdd"] = quickAccessAddTool;
             Controllers["QuickAccessRemove"] = quickAccessRemoveTool;
@@ -187,7 +238,7 @@ namespace filemanager
             Controllers["DeleteTab"] = deleteTabTool;
 
             Controllers["SelectAll"] = selectAllTool;
-            Controllers["UnelectAll"] = unselectAllTool;
+            Controllers["UnselectAll"] = unselectAllTool;
             Controllers["SelectExtensions"] = selectAllWithTheSameExtensionTool;
             Controllers["ClipSelected"] = copySelectedNamesToClipboardTool;
             Controllers["ClipWithPath"] = copyNamesWithPathToClipboardTool;
@@ -234,10 +285,9 @@ namespace filemanager
 
             Controllers["ViewCustomIcons"] = viewCustomIconsTool;
             Controllers["ReloadCustomIcons"] = reloadCustomIconsTool;
-            //
 
+            Controllers["VerticalArrangement"] = verticalArrangementTool;
             //
-            InitQuickbar();
 
             displayList.Add(displayHandlerLeftScreen);
             displayList.Add(displayHandlerRightScreen);
@@ -248,47 +298,44 @@ namespace filemanager
             watcherList.Add(watcherLeftScreen);
             watcherList.Add(watcherRightScreen);
 
-            watcherList[0].Init();
-            watcherList[0].DisplayHandler = displayList[0];
-            watcherList[0].DirectoryHandler = directoryList[0];
-            watcherList[0].Form = this;
-            watcherList[1].Init();
-            watcherList[1].DisplayHandler = displayList[1];
-            watcherList[1].DirectoryHandler = directoryList[1];
-            watcherList[1].Form = this;
+            mediatorList.Add(mediatorLeft);
+            mediatorList.Add(mediatorRight);
 
-            InitializeHandlers(displayHandlerLeftScreen, listView1, tabControl1, driveComboBox,
-            selectedFileSizeLabel, freeSpaceLabel, imagePreviewBox, fileIconList, progressBar,
-            previewBoxTabControl, searchTextBox);
-            InitializeSharedEvents(displayHandlerLeftScreen, directoryHandlerLeftScreen, watcherLeftScreen);
+            mediatorLeft.Display = displayHandlerLeftScreen;
+            mediatorLeft.Navigator = directoryHandlerLeftScreen;
+            mediatorLeft.Observer = watcherLeftScreen;
 
-            InitializeHandlers(displayHandlerRightScreen, listView2, tabControl2, driveComboBox,
-            selectedFileSizeLabel, freeSpaceLabel, imagePreviewBox, fileIconList, progressBar,
-            previewBoxTabControl, searchTextBox);
-            InitializeSharedEvents(displayHandlerRightScreen, directoryHandlerRightScreen, watcherRightScreen);
+            mediatorRight.Display = displayHandlerRightScreen;
+            mediatorRight.Navigator = directoryHandlerRightScreen;
+            mediatorRight.Observer = watcherRightScreen;
 
-            LoadSettings(displayList, directoryList, watcherList);
+            watcherList[0].Init(mediatorLeft, this);
+            watcherList[1].Init(mediatorRight, this);
+
+            InitializeHandlers(mediatorLeft, listView1, tabControl1);
+            InitializeSharedEvents(mediatorLeft);
+
+            InitializeHandlers(mediatorRight, listView2, tabControl2);
+            InitializeSharedEvents(mediatorRight);
+
             InitializeUniqueEvents();
+            LoadSettings(displayList, directoryList, watcherList);
 
-            loggerHandler.rtb = logTextBox;
             displayList[0].Focused = true;
             quickAccessList.SmallImageList = fileIconList;
             displayList.ForEach(x => x.SortType = SortType.name);
-            loggerHandler.Log(LogCategory.start);
 
             DoubleBuffering.SetDoubleBuffering(displayList[0].ListView, true);
             DoubleBuffering.SetDoubleBuffering(displayList[1].ListView, true);
 
-            Focus(displayList[0]); displayList[0].setView(1);
-            Focus(displayList[1]); displayList[1].setView(1);
+            mediatorLeft.Refresh();
+            mediatorRight.Refresh();
 
             InitContextEvents();
-
-            Refresh(displayHandlerLeftScreen, directoryHandlerLeftScreen);
-            Refresh(displayHandlerRightScreen, directoryHandlerRightScreen);
-
+            InitQuickbar();
             InitCustomAssociations();
             InitCustomIcons(currentIconPack);
+            InitQuickAccess();
         }
     }
 }

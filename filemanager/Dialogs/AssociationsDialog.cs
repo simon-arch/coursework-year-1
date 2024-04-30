@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Text.Json;
 
 namespace filemanager.Dialogs
@@ -59,8 +60,7 @@ namespace filemanager.Dialogs
                     associated.Add(target.SubItems[0].Text, target.SubItems[1].Text);
 
                 string jsonText = JsonSerializer.Serialize(associated);
-                string jsonPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(),
-                    "extensionAssociations.json");
+                string jsonPath = ConfigurationManager.AppSettings["Path_CustomAssociations"];
                 System.IO.File.WriteAllText(jsonPath, jsonText);
 
                 DialogResult = DialogResult.OK;

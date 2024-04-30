@@ -20,7 +20,11 @@
                 readOnlyAttr.CheckState = file.Attributes.HasFlag(FileAttributes.ReadOnly) ? CheckState.Checked : CheckState.Unchecked;
                 hiddenAttr.CheckState = file.Attributes.HasFlag(FileAttributes.Hidden) ? CheckState.Checked : CheckState.Unchecked;
                 systemAttr.CheckState = file.Attributes.HasFlag(FileAttributes.System) ? CheckState.Checked : CheckState.Unchecked;
+                datePicker.Value = file.CreationTime; timePicker.Value = file.CreationTime;
             }
+
+            datePicker.ValueChanged += (sender, e) => changeDateTime.Checked = true;
+            timePicker.ValueChanged += (sender, e) => changeDateTime.Checked = true;
 
             currentButton.Click += (sender, e) =>
             {

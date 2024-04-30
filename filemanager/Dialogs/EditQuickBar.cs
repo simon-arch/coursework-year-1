@@ -1,5 +1,6 @@
 ﻿using filemanager.Properties;
 using System.Collections;
+using System.Configuration;
 using System.Globalization;
 using System.Resources;
 
@@ -21,7 +22,7 @@ namespace filemanager.Dialogs
             ResourceManager Resource = new ResourceManager(typeof(Resources));
             ResourceSet ResourceData = Resource.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
 
-            string rootPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickbar.ini");
+            string rootPath = ConfigurationManager.AppSettings["Path_QuickBarIni"];
 
             string[] lines = System.IO.File.ReadAllLines(rootPath);
             string[] prefs = lines[0].Split(", ");
@@ -151,7 +152,7 @@ namespace filemanager.Dialogs
 
             okButton.Click += (sender, e) =>
             {
-                if (isBackupOld.Checked) System.IO.File.Move(rootPath, $"{Path.Combine(Path.GetDirectoryName(rootPath), "quickbar_backup.ini")}", true);
+                if (isBackupOld.Checked) System.IO.File.Move(rootPath, ConfigurationManager.AppSettings["Path_QuickBarBackup"], true);
                 System.IO.File.WriteAllText(rootPath, $"{toolBarSizeText.Text}, {imageSizeText.Text}\n");
                 foreach (ListViewItem item in previewList.Items)
                 {

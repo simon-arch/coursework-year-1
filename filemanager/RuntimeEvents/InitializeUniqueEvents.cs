@@ -36,15 +36,11 @@ namespace filemanager
             };
             Controllers["ReloadQuickBar"].Click += (sender, e) => InitQuickbar();
 
-            FormClosing += (sender, e) => loggerHandler.Log(LogCategory.end);
-
             Controllers["SystemProperties"].Click += (sender, e) => { 
-                ProcessCall.RunProcessInfo(new ProcessStartInfo()  { 
-                    FileName = "sysdm.cpl", UseShellExecute = true 
-                }); 
+                ProcessCall.RunProcessInfo(new ProcessStartInfo() { FileName = "sysdm.cpl", UseShellExecute = true }); 
             };
 
-            verticalArrangementTool.Click += (sender, e) => 
+            Controllers["VerticalArrangement"].CheckStateChanged += (sender, e) => 
             {
                 switch (verticalArrangementTool.Checked)
                 {
@@ -68,14 +64,20 @@ namespace filemanager
                 }
             };
 
+            void Desktop()
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                ProcessCall.RunProcess("explorer.exe", path);
+            }
+
             Controllers["Exit"].Click += (sender, e) => Close();
             Controllers["Desktop"].Click += (sender, e) => Desktop();
-            Controllers["TargetTarget"].Click += (sender, e) => GoTo(displayList[0].RootDirectory, displayList[1], directoryList[1], watcherList[1]);
-            Controllers["TargetSource"].Click += (sender, e) => 
+            /*refactored*/ Controllers["TargetTarget"].Click += (sender, e) => mediatorRight.GoTo(mediatorLeft.Navigator.RootDirectory);
+            /*refactored*/ Controllers["TargetSource"].Click += (sender, e) =>
             {
-                RootDirectory temp = displayList[0].RootDirectory;
-                GoTo(displayList[1].RootDirectory, displayList[0], directoryList[0], watcherList[0]);
-                GoTo(temp, displayList[1], directoryList[1], watcherList[1]);
+                RootDirectory temp = mediatorLeft.Navigator.RootDirectory;
+                mediatorLeft.GoTo(mediatorRight.Navigator.RootDirectory);
+                mediatorRight.GoTo(temp);
             };
 
             imagePreviewBox.MouseClick += (sender, e) => { 

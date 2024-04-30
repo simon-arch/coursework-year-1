@@ -2,12 +2,12 @@
 {
     public class FileWatcher
     {
-        public DirectoryHandler DirectoryHandler { get; set; }
-        public DisplayHandler DisplayHandler { get; set; }
         public FileSystemWatcher Watcher { get; set; }
+        public Mediator Mediator { get; set; }
         public Manager Form { get; set; }
-        public void Init()
+        public void Init(Mediator mediator, Manager form)
         {
+            Mediator = mediator; Form = form;
             Watcher = new FileSystemWatcher();
             Watcher.Path = DriveInfo.GetDrives()[0].Name;
             Watcher.NotifyFilter = NotifyFilters.Attributes
@@ -19,9 +19,9 @@
                                  | NotifyFilters.Security
                                  | NotifyFilters.Size;
             Watcher.InternalBufferSize = 1;
-            Watcher.Created += (sender, e) => Form.Invoke(() => Form.Refresh(DisplayHandler, DirectoryHandler));
-            Watcher.Deleted += (sender, e) => Form.Invoke(() => Form.Refresh(DisplayHandler, DirectoryHandler));
-            Watcher.Renamed += (sender, e) => Form.Invoke(() => Form.Refresh(DisplayHandler, DirectoryHandler));
+            Watcher.Created += (sender, e) => Form.Invoke(() => Mediator.Refresh());
+            Watcher.Deleted += (sender, e) => Form.Invoke(() => Mediator.Refresh());
+            Watcher.Renamed += (sender, e) => Form.Invoke(() => Mediator.Refresh());
             Watcher.EnableRaisingEvents = true;
             Watcher.Filter = "*";
         }

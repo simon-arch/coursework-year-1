@@ -28,7 +28,7 @@ namespace filemanager
                 displayList[i].ShowExtensions = userSettings[i].ShowExtensions;
                 displayList[i].ShowHidden = userSettings[i].ShowHidden;
                 displayList[i].SortType = userSettings[i].SortType;
-                GoTo(new RootDirectory("dir", startpath), displayList[i], directoryList[i], watcherList[i]);
+                mediatorList[i].GoTo(new RootDirectory("dir", startpath));
             }
             //
 
@@ -37,14 +37,9 @@ namespace filemanager
             using (FileStream file = new FileStream(target, FileMode.OpenOrCreate)) ;
             json = System.IO.File.ReadAllText(target);
             AppSettings appSettings = new AppSettings();
-            try
-            {
-                appSettings = JsonSerializer.Deserialize<AppSettings>(json);
-            }
-            catch
-            {
-
-            }
+            try { appSettings = JsonSerializer.Deserialize<AppSettings>(json); }
+            catch { }
+            verticalArrangementTool.Checked = appSettings.VerticalMode;
             deleteAfterUnzipTool.Checked = appSettings.DeleteAfterUnzip;
             currentIconPack = appSettings.SelectedIconPack;
             for (int i = directoryList.Count - 1; i >= 0; i--)

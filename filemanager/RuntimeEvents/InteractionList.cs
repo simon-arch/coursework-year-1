@@ -2,6 +2,35 @@
 {
     public partial class Manager
     {
+        private void Click(DisplayHandler displayHandler)
+        {
+            Focus(displayHandler);
+            if (displayHandler.isSelected())
+            {
+                ListViewItem selected = displayHandler.ListView.SelectedItems[0];
+                switch (displayHandler.ListView.SelectedItems[0].ETag().SubType)
+                {
+                    case "imagefile":
+                        displayHandler.Preview("image");
+                        displayHandler.PreviewBox.SelectedIndex = 0;
+                        break;
+
+                    case "documentfile":
+                        displayHandler.Preview("document");
+                        displayHandler.PreviewBox.SelectedIndex = 1;
+                        break;
+
+                    default:
+                        displayHandler.Preview("clear");
+                        break;
+                }
+            }
+        }
+        public void Focus(DisplayHandler displayHandler)
+        {
+            displayList.Select(x => x.Focused = false).ToList();
+            displayHandler.Focused = true;
+        }
         public void CompareFilenames(DisplayHandler displayHandler)
         {
             if (displayHandler.Focused)

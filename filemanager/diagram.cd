@@ -1,218 +1,238 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="filemanager.Directory" Collapsed="true">
-    <Position X="11.5" Y="2.25" Width="1.5" />
+    <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAACAAAAAAAAAAAEAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>Structures\Units\Directory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DirectoryHandler" Collapsed="true">
-    <Position X="2.25" Y="2.25" Width="1.5" />
+    <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAUAAAAAAAAAAABCAAAAAAAEAAAAAAJAAAAgIAAA=</HashCode>
-      <FileName>Handlers\DataProcessing\DirectoryHandler\DirectoryHandler.cs</FileName>
+      <FileName>Handlers\DataProcessing\DirectoryHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DisplayHandler" Collapsed="true">
-    <Position X="0.5" Y="2.25" Width="1.5" />
+    <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAQESJAkEAAIBEAEQBIABAgIAAggARACAkABCI=</HashCode>
-      <FileName>Handlers\DataProcessing\DisplayHandler\DisplayHandler.cs</FileName>
+      <HashCode>IICAgYASERJBkEAAIBUAEQBQBBAgYAAogARACAkEhCI=</HashCode>
+      <FileName>Handlers\DataProcessing\DisplayHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.Element" Collapsed="true">
-    <Position X="8" Y="1.25" Width="1.5" />
+    <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QBAAAAAAAAAAEAKAAAAAAAQAAAEAAQACAQAAAQAAgAA=</HashCode>
+      <HashCode>QBAAAAAAAAAAEAKAAAAAAAQQAAEAAQACAQAAAAAAgAA=</HashCode>
       <FileName>Structures\Units\Element.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.ExchangeBuffer" Collapsed="true">
-    <Position X="2.25" Y="1.25" Width="1.5" />
+    <Position X="2.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQABAAAAAAAAAAAAAAABAAAAgBAAAAAAAAAAABAQAA=</HashCode>
       <FileName>Handlers\ExchangeBuffer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.File" Collapsed="true">
-    <Position X="8" Y="2.25" Width="1.5" />
+    <Position X="6.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgACAAAAAAAAAAAEBAAACAAAAAAACAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgACAAAAAAAAAAAEBAAACAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Units\File.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.RootDirectory" Collapsed="true">
-    <Position X="9.75" Y="2.25" Width="1.5" />
+    <Position X="8.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAkAAAAAACAAAAEAAAAARAAAAAAAAAAAAAQACAAAA=</HashCode>
       <FileName>Structures\Units\Special\RootDirectory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.ImageFile" Collapsed="true">
-    <Position X="8" Y="4" Width="1.5" />
+    <Position X="6.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Units\FileTypes\ImageFile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="filemanager.AudioFile" Collapsed="true">
-    <Position X="9.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAA=</HashCode>
-      <FileName>Structures\Units\FileTypes\AudioFile.cs</FileName>
-      <NewMemberFileName>Resources\FileTypes\VideoFile.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="filemanager.VideoFile" Collapsed="true">
-    <Position X="6.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAABAAAAAAAAAAAAEAAAAAAAAAAACAAAAAAAAA=</HashCode>
-      <FileName>Structures\Units\FileTypes\VideoFile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="filemanager.UnknownFile" Collapsed="true">
-    <Position X="11.5" Y="4" Width="1.5" />
+    <Position X="10" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Units\FileTypes\UnknownFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.NotificationHandler" Collapsed="true">
-    <Position X="0.5" Y="4" Width="1.5" />
+    <Position X="0.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Handlers\NotificationHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DocumentFile" Collapsed="true">
-    <Position X="9.75" Y="5" Width="1.5" />
+    <Position X="4.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Units\FileTypes\DocumentFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DialogBox" Collapsed="true">
-    <Position X="4.25" Y="1.25" Width="1.5" />
+    <Position X="0.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACQAAAAAgACAAAACAgAAEAAQAAAAAAAAAAA=</HashCode>
       <FileName>Dialogs\DialogBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.ArchiveFile" Collapsed="true">
-    <Position X="8" Y="5" Width="1.5" />
+    <Position X="8.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Units\FileTypes\ArchiveFile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.MovementDirectory" Collapsed="true">
-    <Position X="6.25" Y="2.25" Width="1.5" />
+    <Position X="4.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAEAAAACAAAAAAAAgAA=</HashCode>
       <FileName>Structures\Units\Special\MovementDirectory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.AppSettings" Collapsed="true">
-    <Position X="13.25" Y="2.25" Width="1.5" />
+    <Position X="12.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAQAAQAAAAAAAAA=</HashCode>
       <FileName>Structures\Settings\AppSettings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.UserSettings" Collapsed="true">
-    <Position X="13.25" Y="4" Width="1.5" />
+    <Position X="12.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAIAAAACAAgAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAIAAAACAAgAAAAAAAAAAAAAAI=</HashCode>
       <FileName>Structures\Settings\UserSettings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DefaultPrinter" Collapsed="true">
-    <Position X="17.25" Y="3" Width="1.5" />
+    <Position X="12.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Statics\DefaultPrinter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DoubleBuffering" Collapsed="true">
-    <Position X="17.25" Y="3.75" Width="1.5" />
+    <Position X="12.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Statics\DoubleBuffering.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.ProcessCall" Collapsed="true">
-    <Position X="17.25" Y="2.25" Width="1.5" />
+    <Position X="12.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>Statics\ProcessCall.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="filemanager.LoggerHandler" Collapsed="true">
-    <Position X="2.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAgAABAAAAIAAAAAAAA=</HashCode>
-      <FileName>Handlers\LoggerHandler.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="filemanager.ETagExtension" Collapsed="true">
-    <Position X="15.5" Y="3" Width="1.5" />
+    <Position X="12.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Extensions\ETagExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DiskChart" Collapsed="true">
-    <Position X="4.25" Y="2.25" Width="1.5" />
+    <Position X="4" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQBIAgAAACAYABAAAQDAAAIiAIgAkAAAQAAAAAAAACA=</HashCode>
       <FileName>Dialogs\DiskChart.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.SearchBox" Collapsed="true">
-    <Position X="4.25" Y="4" Width="1.5" />
+    <Position X="2.25" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABCIAAAAACQAgBAAAACiAAACAgAAgAAAQAAAAIAAACA=</HashCode>
+      <HashCode>ABCIAAAQQCQAgBAAAAKqAAACAgAAgACAQAABAIAAACA=</HashCode>
       <FileName>Dialogs\SearchBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.Program" Collapsed="true">
-    <Position X="15.5" Y="2.25" Width="1.5" />
+    <Position X="12.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.DataHandler" Collapsed="true">
-    <Position X="0.5" Y="1.25" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>Handlers\DataProcessing\DataHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="filemanager.Manager" Collapsed="true">
-    <Position X="4.25" Y="5" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>UGTgN/+TjzRDbNQnYSG4rpIyVkUwhEICNiiaYYDHl6E=</HashCode>
-      <FileName>RuntimeEvents\QuickAccess\AccessAdd.cs</FileName>
+      <HashCode>cO/kP5vzwzSDZPAyybmoLpg2ss09hmEyNjm64YGtX0E=</HashCode>
+      <FileName>RuntimeEvents\ContextMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="filemanager.LogCategory" Collapsed="true">
-    <Position X="2.25" Y="4.75" Width="1.5" />
+  <Class Name="filemanager.Dialogs.AssociationsDialog" Collapsed="true">
+    <Position X="11" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAAgAAAAAAAAAAAAAAAAAABAAAAAEAA=</HashCode>
-      <FileName>Handlers\LoggerHandler.cs</FileName>
+      <HashCode>AAAAAAAACCQAQIAAAACAAAACAAAIAAAAgAABIIAAAAE=</HashCode>
+      <FileName>Dialogs\AssociationsDialog.cs</FileName>
     </TypeIdentifier>
-  </Enum>
-  <Enum Name="filemanager.ErrorType" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+  </Class>
+  <Class Name="filemanager.Dialogs.CustomIconsDialog" Collapsed="true">
+    <Position X="7.5" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAAIAAAAAIAAAAAEAAAAAAAAAAEAA=</HashCode>
+      <HashCode>AAAIQAAAACQBAAAAAADAAAACAAAACAAAAAAACAAAAAA=</HashCode>
+      <FileName>Dialogs\CustomIconsDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.Dialogs.DialogChangeAttribute" Collapsed="true">
+    <Position X="9.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAISQAABAAAAGEAAQCAAAAEIAAACAgAAAAAAA=</HashCode>
+      <FileName>Dialogs\DialogChangeAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.Dialogs.DialogMultiRename" Collapsed="true">
+    <Position X="5.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAICAIQAGAAAlAAgMGiEBAC4QABAAVCgGEsEUAARiY=</HashCode>
+      <FileName>Dialogs\DialogMultiRename.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.Dialogs.EditQuickBar" Collapsed="true">
+    <Position X="12.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIEAMAEDQAAhARgCCABAACAAAAEAAAACAACAAQgCA=</HashCode>
+      <FileName>Dialogs\EditQuickBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.FileWatcher" Collapsed="true">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAACAAAAAAACAAEAAAA=</HashCode>
+      <FileName>Handlers\FileWatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="filemanager.Mediator" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACACAAABABAAAABAAAUhQAAREAAEAACBAAAAABACIA=</HashCode>
+      <FileName>Handlers\Mediator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="filemanager.ErrorType" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAQAAAAAAIAAAAAIAAAAAEAAAAAAAAAAEAA=</HashCode>
       <FileName>Handlers\NotificationHandler.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="filemanager.SortType" Collapsed="true">
-    <Position X="9.75" Y="1.25" Width="1.5" />
+    <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAEAAQAAAAA=</HashCode>
       <FileName>Structures\Units\Special\RootDirectory.cs</FileName>

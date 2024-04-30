@@ -20,12 +20,6 @@
                         case "image":
                             file = new ImageFile();
                             break;
-                        case "video":
-                            file = new VideoFile();
-                            break;
-                        case "audio":
-                            file = new AudioFile();
-                            break;
                         case "document":
                             file = new DocumentFile();
                             break;
@@ -34,10 +28,7 @@
                             break;
                     }
                 }
-                else
-                {
-                    file = new UnknownFile();
-                }
+                else file = new UnknownFile();
                 file.Name = Path.GetFileNameWithoutExtension(f.Name);
                 file.Path = f.FullName.ToString();
                 file.Size = f.Length;
@@ -110,17 +101,12 @@
             {".gif", "image"},
             {".ico", "image"},
 
-            {".mp4", "video"},
-            {".mp3", "audio"},
-
             {".txt", "document"},
             {".doc", "document"},
             {".xml", "document"},
             {".pdf", "document"},
 
             {".zip", "archive"},
-
-            {".lnk", "shortcut"}
         };
         public void UnzipArchive(ListView.SelectedListViewItemCollection source)
         {

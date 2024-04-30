@@ -12,6 +12,7 @@
             sortExtensionContext.Click  += (sender, e) => Controllers["SortExtension"].PerformClick();
             sortDateContext.Click       += (sender, e) => Controllers["SortDate"].PerformClick();
             sortSizeContext.Click       += (sender, e) => Controllers["SortSize"].PerformClick();
+            reversedContext.Click       += (sender, e) => Controllers["SortReversed"].PerformClick();
             cutContext.Click            += (sender, e) => Controllers["Cut"].PerformClick();
             copyContext.Click           += (sender, e) => Controllers["Copy"].PerformClick();
             pasteContext.Click          += (sender, e) => Controllers["Paste"].PerformClick();
@@ -20,8 +21,7 @@
             newFolderContext.Click      += (sender, e) => Controllers["NewFolder"].PerformClick();
             refreshToolContext.Click    += (sender, e) => Controllers["Refresh"].PerformClick();
         }
-        private void ShowContext()
-        {
+        private void ShowContext() {
             contextMenu.Show(Cursor.Position);
         }
     }

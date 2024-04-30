@@ -1,4 +1,6 @@
-﻿namespace filemanager.Dialogs
+﻿using System.Configuration;
+
+namespace filemanager.Dialogs
 {
     public partial class CustomIconsDialog : Form
     {
@@ -7,7 +9,7 @@
         {
             InitializeComponent();
 
-            string iconsPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Icons");
+            string iconsPath = ConfigurationManager.AppSettings["Path_CustomIcons"];
             if (!Path.Exists(iconsPath)) System.IO.Directory.CreateDirectory(iconsPath);
 
             avaliableList.Items.Add("none");

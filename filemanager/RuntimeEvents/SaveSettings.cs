@@ -30,7 +30,8 @@ namespace filemanager
             AppSettings appSettings = new AppSettings()
             {
                 DeleteAfterUnzip = deleteAfterUnzipTool.Checked,
-                SelectedIconPack = currentIconPack
+                SelectedIconPack = currentIconPack,
+                VerticalMode = verticalArrangementTool.Checked
             };
             json = JsonSerializer.Serialize(appSettings);
             savepath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"AppData\appsettings.json");

@@ -2,18 +2,18 @@
 {
     public partial class Manager
     {
-        private void InitializeHandlers(DisplayHandler displayHandler, ListView listView, TabControl tabControl, ComboBox comboBox, Label label1, Label label2, PictureBox pictureBox, ImageList imageList, ProgressBar progressBar, TabControl tabControl2, TextBox textBox)
+        private void InitializeHandlers(Mediator mediator, ListView listView, TabControl tabControl)
         {
-            displayHandler.ListView = listView;
-            displayHandler.TabControl = tabControl;
-            displayHandler.ComboBox = comboBox;
-            displayHandler.Label = label1;
-            displayHandler.UsedStorage = label2;
-            displayHandler.PictureBox = pictureBox;
-            displayHandler.ImageList = imageList;
-            displayHandler.ProgressBar = progressBar;
-            displayHandler.PreviewBox = tabControl2;
-            displayHandler.TextBox = textBox;
+            mediator.Display.ListView = listView;
+            mediator.Display.TabControl = tabControl;
+            mediator.Display.ComboBox = driveComboBox;
+            mediator.Display.Label = selectedFileSizeLabel;
+            mediator.Display.UsedStorage = freeSpaceLabel;
+            mediator.Display.PictureBox = imagePreviewBox;
+            mediator.Display.ImageList = fileIconList;
+            mediator.Display.ProgressBar = progressBar;
+            mediator.Display.PreviewBox = previewBoxTabControl;
+            mediator.Display.TextBox = searchTextBox;
         }
     }
 }
