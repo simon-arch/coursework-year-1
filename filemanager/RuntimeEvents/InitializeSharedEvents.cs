@@ -11,7 +11,22 @@ namespace filemanager
             Controllers["QuickAccessAdd"].Click += (sender, e) => AccessAdd(mediator.Display); //focused
             Controllers["QuickAccessRemove"].Click += (sender, e) => AccessRemove(); //SHOULD BE UNIQUE
             quickAccessList.DoubleClick += (sender, e) => AccessDoubleClick(mediator); //focused
-            
+            quickAccessList.MouseClick += (sender, e) => { if (e.Button == MouseButtons.Right) ShowQuickContext(); };
+
+            mediator.Display.ListView.ColumnClick += (sender, e) =>
+            {
+                Focus(mediator.Display);
+                if ((SortType)e.Column == mediator.Display.SortType)
+                    mediator.ReverseSort(!mediator.Display.SortReversed);
+                switch (e.Column)
+                {
+                    case 0: mediator.Sort(SortType.name);       break;
+                    case 1: mediator.Sort(SortType.extension);  break;
+                    case 2: mediator.Sort(SortType.size);       break;
+                    case 3: mediator.Sort(SortType.date);       break;
+                }
+            };
+
             /* refactored */ Controllers["ChangeAttributes"].Click   += (sender, e) => mediator.ChangeAttributes();
             /* refactored */ Controllers["OpenInExplorer"].Click     += (sender, e) => mediator.Display.OpenInExplorer();
             /* refactored */ Controllers["SaveSelection"].Click      += (sender, e) => mediator.Display.SaveSelection();

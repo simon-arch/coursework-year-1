@@ -6,8 +6,8 @@ namespace filemanager
     {
         name,
         extension,
-        date,
-        size
+        size,
+        date
     }
     public class RootDirectory : Directory
     {

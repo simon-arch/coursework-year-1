@@ -171,8 +171,12 @@
             toolStripMenuItem4 = new ToolStripSeparator();
             newFolderContext = new ToolStripMenuItem();
             refreshToolContext = new ToolStripMenuItem();
+            toolStripMenuItem15 = new ToolStripSeparator();
+            addQuickToolContext = new ToolStripMenuItem();
             topToolStrip = new ToolStrip();
             fileIconList = new ImageList(components);
+            contextQuickAccess = new ContextMenuStrip(components);
+            contextQuickAccessRemove = new ToolStripMenuItem();
             topMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imagePreviewBox).BeginInit();
             previewBoxTabControl.SuspendLayout();
@@ -189,6 +193,7 @@
             rightPanel.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             contextMenu.SuspendLayout();
+            contextQuickAccess.SuspendLayout();
             SuspendLayout();
             // 
             // topMenuStrip
@@ -1286,16 +1291,16 @@
             // contextMenu
             // 
             contextMenu.ImageScalingSize = new Size(20, 20);
-            contextMenu.Items.AddRange(new ToolStripItem[] { cutContext, copyContext, pasteContext, toolStripMenuItem1, deleteContext, renameContext, toolStripMenuItem3, viewToolContext, sortByToolContext, toolStripMenuItem4, newFolderContext, refreshToolContext });
+            contextMenu.Items.AddRange(new ToolStripItem[] { cutContext, copyContext, pasteContext, toolStripMenuItem1, deleteContext, renameContext, toolStripMenuItem3, viewToolContext, sortByToolContext, toolStripMenuItem4, newFolderContext, refreshToolContext, toolStripMenuItem15, addQuickToolContext });
             contextMenu.Name = "contextMenuStrip1";
-            contextMenu.Size = new Size(155, 238);
+            contextMenu.Size = new Size(216, 268);
             // 
             // cutContext
             // 
             cutContext.Image = (Image)resources.GetObject("cutContext.Image");
             cutContext.ImageScaling = ToolStripItemImageScaling.None;
             cutContext.Name = "cutContext";
-            cutContext.Size = new Size(154, 24);
+            cutContext.Size = new Size(215, 24);
             cutContext.Text = "Cut";
             // 
             // copyContext
@@ -1303,7 +1308,7 @@
             copyContext.Image = (Image)resources.GetObject("copyContext.Image");
             copyContext.ImageScaling = ToolStripItemImageScaling.None;
             copyContext.Name = "copyContext";
-            copyContext.Size = new Size(154, 24);
+            copyContext.Size = new Size(215, 24);
             copyContext.Text = "Copy";
             // 
             // pasteContext
@@ -1311,20 +1316,20 @@
             pasteContext.Image = (Image)resources.GetObject("pasteContext.Image");
             pasteContext.ImageScaling = ToolStripItemImageScaling.None;
             pasteContext.Name = "pasteContext";
-            pasteContext.Size = new Size(154, 24);
+            pasteContext.Size = new Size(215, 24);
             pasteContext.Text = "Paste";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(151, 6);
+            toolStripMenuItem1.Size = new Size(212, 6);
             // 
             // deleteContext
             // 
             deleteContext.Image = (Image)resources.GetObject("deleteContext.Image");
             deleteContext.ImageScaling = ToolStripItemImageScaling.None;
             deleteContext.Name = "deleteContext";
-            deleteContext.Size = new Size(154, 24);
+            deleteContext.Size = new Size(215, 24);
             deleteContext.Text = "Delete";
             // 
             // renameContext
@@ -1332,19 +1337,19 @@
             renameContext.Image = (Image)resources.GetObject("renameContext.Image");
             renameContext.ImageScaling = ToolStripItemImageScaling.None;
             renameContext.Name = "renameContext";
-            renameContext.Size = new Size(154, 24);
+            renameContext.Size = new Size(215, 24);
             renameContext.Text = "Rename";
             // 
             // toolStripMenuItem3
             // 
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(151, 6);
+            toolStripMenuItem3.Size = new Size(212, 6);
             // 
             // viewToolContext
             // 
             viewToolContext.DropDownItems.AddRange(new ToolStripItem[] { viewDetailsContext, viewSmallIconsContext, viewListContext, viewTilesContext });
             viewToolContext.Name = "viewToolContext";
-            viewToolContext.Size = new Size(154, 24);
+            viewToolContext.Size = new Size(215, 24);
             viewToolContext.Text = "View";
             // 
             // viewDetailsContext
@@ -1386,7 +1391,7 @@
             // 
             sortByToolContext.DropDownItems.AddRange(new ToolStripItem[] { sortNameContext, sortExtensionContext, sortDateContext, sortSizeContext, toolStripMenuItem14, reversedContext });
             sortByToolContext.Name = "sortByToolContext";
-            sortByToolContext.Size = new Size(154, 24);
+            sortByToolContext.Size = new Size(215, 24);
             sortByToolContext.Text = "Sort by";
             // 
             // sortNameContext
@@ -1437,14 +1442,14 @@
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new Size(151, 6);
+            toolStripMenuItem4.Size = new Size(212, 6);
             // 
             // newFolderContext
             // 
             newFolderContext.Image = (Image)resources.GetObject("newFolderContext.Image");
             newFolderContext.ImageScaling = ToolStripItemImageScaling.None;
             newFolderContext.Name = "newFolderContext";
-            newFolderContext.Size = new Size(154, 24);
+            newFolderContext.Size = new Size(215, 24);
             newFolderContext.Text = "New Folder";
             // 
             // refreshToolContext
@@ -1453,8 +1458,22 @@
             refreshToolContext.ImageScaling = ToolStripItemImageScaling.None;
             refreshToolContext.ImageTransparentColor = Color.Black;
             refreshToolContext.Name = "refreshToolContext";
-            refreshToolContext.Size = new Size(154, 24);
+            refreshToolContext.Size = new Size(215, 24);
             refreshToolContext.Text = "Refresh";
+            // 
+            // toolStripMenuItem15
+            // 
+            toolStripMenuItem15.Name = "toolStripMenuItem15";
+            toolStripMenuItem15.Size = new Size(212, 6);
+            // 
+            // addQuickToolContext
+            // 
+            addQuickToolContext.Image = (Image)resources.GetObject("addQuickToolContext.Image");
+            addQuickToolContext.ImageScaling = ToolStripItemImageScaling.None;
+            addQuickToolContext.ImageTransparentColor = Color.Black;
+            addQuickToolContext.Name = "addQuickToolContext";
+            addQuickToolContext.Size = new Size(215, 24);
+            addQuickToolContext.Text = "Add To Quick Access";
             // 
             // topToolStrip
             // 
@@ -1474,6 +1493,22 @@
             fileIconList.TransparentColor = Color.Transparent;
             fileIconList.Images.SetKeyName(0, "directory.ico");
             fileIconList.Images.SetKeyName(1, "defaultexe.ico");
+            // 
+            // contextQuickAccess
+            // 
+            contextQuickAccess.ImageScalingSize = new Size(20, 20);
+            contextQuickAccess.Items.AddRange(new ToolStripItem[] { contextQuickAccessRemove });
+            contextQuickAccess.Name = "contextQuickAccess";
+            contextQuickAccess.Size = new Size(260, 28);
+            // 
+            // contextQuickAccessRemove
+            // 
+            contextQuickAccessRemove.Image = (Image)resources.GetObject("contextQuickAccessRemove.Image");
+            contextQuickAccessRemove.ImageScaling = ToolStripItemImageScaling.None;
+            contextQuickAccessRemove.ImageTransparentColor = Color.Black;
+            contextQuickAccessRemove.Name = "contextQuickAccessRemove";
+            contextQuickAccessRemove.Size = new Size(259, 24);
+            contextQuickAccessRemove.Text = "Remove From Quick Access";
             // 
             // Manager
             // 
@@ -1507,6 +1542,7 @@
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel6.PerformLayout();
             contextMenu.ResumeLayout(false);
+            contextQuickAccess.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1657,5 +1693,9 @@
         private ToolStripSeparator toolStripMenuItem12;
         private ToolStripSeparator toolStripMenuItem14;
         private ToolStripMenuItem reversedContext;
+        private ContextMenuStrip contextQuickAccess;
+        private ToolStripMenuItem contextQuickAccessRemove;
+        private ToolStripSeparator toolStripMenuItem15;
+        private ToolStripMenuItem addQuickToolContext;
     }
 }

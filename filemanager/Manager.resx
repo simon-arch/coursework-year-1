@@ -1012,6 +1012,17 @@
         RU5ErkJggg==
 </value>
   </data>
+  <data name="addQuickToolContext.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAEJSURBVDhPYyAJrBT9D8dkgSUi/1Pelf4H0VARIsEcof8M
+        cyE49HUanA0Wh4H6+vr/uDDPZKn/js+DMDDDVAGEAVVVVf9fvnz5HxtI253333ixHRjrPLL9z90t/p+h
+        h+8/Qy8Qw0BRUdH/P3/+/P/9+zdObDTb5r/Ufe3/3I1imGGQlZX1/8ePH/+/ffuGEyctTvtv1Gb2Xylb
+        DdOAxMTE/1++fPn/4cMHvBikBqQWqg0BwsLC/r9///7/q1ev8GKQGpBaqDYGBm9v7/8+Pj5g/Pr16/9P
+        njzBi0FqYOpBehlsbGzgznvz5s3/Fy9e4MUgNTD1IL0MwsLC/8XFxcnCIL1Qj4xgwMAAALcGgFfLTWRQ
+        AAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="topToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>161, 22</value>
   </metadata>
@@ -1023,7 +1034,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAIg8AAAJNU0Z0AUkBTAIBAQIB
-        AAFgAQoBYAEKARgBAAEYAQAE/wERAQAI/wFCAU0BNgcAATYDAAEoAwABYAMAARgDAAEBAQABEAYAARL/
+        AAHIAQoByAEKARgBAAEYAQAE/wERAQAI/wFCAU0BNgcAATYDAAEoAwABYAMAARgDAAEBAQABEAYAARL/
         AAMAAXsBbwF7AW8BewFvAXsBbwF7AW8BewFvAXsBbwF7AW8BewFvAXsBbwF7AW8BewFvAXsBbwF7AW8B
         ewFvAXsBbwF7AW8BewFvAXsBbwF7AW8BewFvAXsBbwF7AW8BvQF3vgABEAFCYgAB9wFeAaUBFAGlARQB
         pQEUAaUBFAGlARQBpQEUAaUBFAGlARQBpQEUAaUBFAGlARQBpQEUAaUBFAGlARQBpQEUAaUBFAGlARQB
@@ -1088,6 +1099,19 @@
         YAMAARgDAAEBAQABAQUAASABARYAA/8BAAb/BgAD/wkAA/8JAAGACwABgAsAAYALAAGACwABgAsAAYAL
         AAGACwABgAsAAYALAAGACwABgAsAAYALAAGACwABgAsAAYABAAEBCQABgAEAAQMJAAGAAQcB/wkAAeAB
         DwH/CQAB8AEfAf8JAAP/CQAG/wYACw==
+</value>
+  </data>
+  <metadata name="contextQuickAccess.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>737, 33</value>
+  </metadata>
+  <data name="contextQuickAccessRemove.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAADTSURBVDhP5Y87CoNAFEVfr52FW7C3dQdaWwo2FpaWNqbI
+        CgKBZAPJBrIkC3+ghRhB4SZPxijETJEu5MJphnOGGfqNXYhw3YDPhUKUJAk+cVRV3D3vjdP6gjiOkec5
+        tnYLApxNc+JgGEgUBbtnvF9fEEURxnHEMAxS2GFXZMvCMETf9+i6Tgo77Ipsme/7aNsWTdNIYYddkS1z
+        XRd1XaMoCinssCsyItu24TjORFmWSNNUCjuzzy1ZlvV6XlVVyLJMCjuzzy1pmgZd17+CW/GRPx7RA6Y9
+        fD6i6dCHAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
