@@ -314,9 +314,11 @@ namespace filemanager
 
             InitializeHandlers(mediatorLeft, listView1, tabControl1);
             InitializeSharedEvents(mediatorLeft);
+            InitializeUserControllerEvents(mediatorLeft);
 
             InitializeHandlers(mediatorRight, listView2, tabControl2);
             InitializeSharedEvents(mediatorRight);
+            InitializeUserControllerEvents(mediatorRight);
 
             InitializeUniqueEvents();
             LoadSettings(displayList, directoryList, watcherList);

@@ -7,7 +7,6 @@
             Focus(displayHandler);
             if (displayHandler.isSelected())
             {
-                ListViewItem selected = displayHandler.ListView.SelectedItems[0];
                 switch (displayHandler.ListView.SelectedItems[0].ETag().SubType)
                 {
                     case "imagefile":
@@ -31,9 +30,9 @@
             displayList.Select(x => x.Focused = false).ToList();
             displayHandler.Focused = true;
         }
-        public void CompareFilenames(DisplayHandler displayHandler)
+        public void CompareFilenames(Mediator mediator)
         {
-            if (displayHandler.Focused)
+            if (mediator.IsDisplayFocused())
             {
                 displayList.ForEach(i => i.ListView.SelectedItems.Clear());
                 List<List<string>> collections = new List<List<string>>();
@@ -45,7 +44,7 @@
                     collections.Add(list);
                 }
                 List<string> duplicates = collections[0].Intersect(collections[1]).ToList();
-                if (displayHandler.Focused)
+                if (mediator.IsDisplayFocused())
                 {
                     foreach (string item in duplicates)
                     {

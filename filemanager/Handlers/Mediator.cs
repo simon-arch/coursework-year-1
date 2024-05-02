@@ -7,6 +7,40 @@ namespace filemanager
         public DirectoryHandler Navigator { get; set; }
         public DisplayHandler Display { get; set; }
         public FileWatcher Observer { get; set; }
+        public void OpenInExplorer() => Display.OpenInExplorer();
+        public void SaveSelection() => Display.SaveSelection();
+        public void RestoreSelection() => Display.RestoreSelection();
+        public void SelectionToFile() => Display.SelectionToFile();
+        public void LoadSelectionFromFile() => Display.LoadSelectionFromFile();
+        public void InvertSelection() => Display.InvertSelection();
+        public void Console() => Display.Console();
+        public void PowerShell() => Display.PowerShell();
+        public void SetView(int view) => Display.setView(view);
+        public void Print() => Display.Print();
+        public void CalculateSpace() => Display.CalculateSpace();
+        public void MultiRename() => Display.MultiRename();
+        public void SetGroupSelection(bool value) => Display.SetGroupSelection(value);
+        public void CopyNamesToClipboard(bool usePath, bool useExtension) => Display.CopyNamesToClipboard(usePath, useExtension);
+        public void Rename() => Display.Rename();
+        public void SetSelection(bool value) => Display.SetSelection(value);
+        public void SelectAllWithTheSameExtension() => Display.SelectAllWithTheSameExtension();
+        public void DeleteSelection() => Display.DeleteSelection();
+        public void DeleteTab() => Display.DeleteTab();
+        public ListView.SelectedListViewItemCollection GetSelectedItems()
+        {
+            return Display.ListView.SelectedItems;
+        }
+        public string GetRoot()
+        {
+            return Navigator.RootDirectory.Path;
+        }
+        public void CreateTab(bool usePlusButton,
+            Action<DisplayHandler> OnClickFunc,
+            Action<Dictionary<string, string>> OnDoubleClickFunc,
+            Dictionary<string, string> associated)
+        {
+            Display.CreateTab(usePlusButton, OnClickFunc, OnDoubleClickFunc, associated);
+        }
         public void GoUp()
         {
             if (!Display.Focused) return;
@@ -90,20 +124,24 @@ namespace filemanager
                 dialog.Dispose();
                 Navigator.ListedExtensions = listed;
                 Refresh();
-                Navigator.DisplayMode = 2;
+                Navigator.DisplayMode = DisplayMode.Custom;
             } 
             Refresh();
+        }
+        public bool IsDisplayFocused()
+        {
+            return Display.Focused;
         }
         public void ShowPrograms()
         {
             if (!Display.Focused) return;
-            Navigator.DisplayMode = 1;
+            Navigator.DisplayMode = DisplayMode.Programs;
             Refresh();
         }
         public void ShowAll()
         {
             if (!Display.Focused) return;
-            Navigator.DisplayMode = 0;
+            Navigator.DisplayMode = DisplayMode.All;
             Refresh();
         }
         public void Refresh()
@@ -166,8 +204,7 @@ namespace filemanager
         }
         public void ReverseSort(bool value)
         {
-            if (Display.Focused) 
-                Display.SortReversed = value; 
+            if (Display.Focused) Display.SortReversed = value; 
             Refresh();
         }
         public void NewFolder()
@@ -182,13 +219,11 @@ namespace filemanager
         }
         public void ZipSelected()
         {
-            if (Display.Focused) 
-                Navigator.ZipArchive(Display.ListView.SelectedItems);
+            if (Display.Focused) Navigator.ZipArchive(Display.ListView.SelectedItems);
         }
         public void UnzipSelected()
         {
-            if (Display.Focused)
-                Navigator.UnzipArchive(Display.ListView.SelectedItems);
+            if (Display.Focused) Navigator.UnzipArchive(Display.ListView.SelectedItems);
         }
     }
 }

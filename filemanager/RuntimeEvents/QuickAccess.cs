@@ -2,14 +2,14 @@
 {
     public partial class Manager
     {
-        public void AccessAdd(DisplayHandler displayHandler)
+        public void AccessAdd(Mediator mediator)
         {
-            if (!displayHandler.Focused) return;
-            if (displayHandler.isSelected())
+            if (!mediator.IsDisplayFocused()) return;
+            if (mediator.GetSelectedItems().Count > 0)
             {
                 string path = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "quickaccess.ini");
                 if (!Path.Exists(path)) System.IO.File.Create(path).Close();
-                foreach (ListViewItem lvi in displayHandler.ListView.SelectedItems)
+                foreach (ListViewItem lvi in mediator.GetSelectedItems())
                 {
                     if (lvi.ETag().Type != "utility")
                     {
@@ -22,7 +22,7 @@
         }
         public void AccessDoubleClick(Mediator mediator)
         {
-            if (!mediator.Display.Focused) return;
+            if (!mediator.IsDisplayFocused()) return;
             Element selection = quickAccessList.SelectedItems[0].ETag();
             RootDirectory root;
             switch (selection.Type)
@@ -34,7 +34,7 @@
                 case "file":
                     root = new RootDirectory("dir", Path.GetDirectoryName(selection.Path));
                     mediator.GoTo(root);
-                    ListViewItem target = mediator.Display.ListView.Items.Cast<ListViewItem>()
+                    ListViewItem target = mediator.GetSelectedItems().Cast<ListViewItem>()
                         .Single(x => x.ETag().Name == selection.Name 
                         && x.ETag().Extension == selection.Extension);
                     target.Selected = true;

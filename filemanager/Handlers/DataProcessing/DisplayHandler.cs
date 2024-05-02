@@ -12,7 +12,6 @@ namespace filemanager
         public Label? Label { get; set; }
         public ProgressBar? ProgressBar { get; set; }
         public Label? UsedStorage { get; set; }
-        public PictureBox? PictureBox { get; set; }
         public TabControl? TabControl { get; set; }
         public TabControl? PreviewBox { get; set; }
         public ComboBox? ComboBox { get; set; }

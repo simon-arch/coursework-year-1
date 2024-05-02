@@ -1,9 +1,15 @@
 ﻿namespace filemanager
 {
+    public enum DisplayMode
+    {
+        All,
+        Programs,
+        Custom,
+    }
     public class DirectoryHandler : DataHandler
     {
         public List<string> ListedExtensions { get; set; }
-        public int DisplayMode { get; set; }
+        public DisplayMode DisplayMode { get; set; }
         public bool DeleteSource { get; set; }
         public void PopulateDirectory()
         {
@@ -40,8 +46,9 @@
                 file.Attributes += f.Attributes.HasFlag(FileAttributes.System)      ? "s" : "-";
                 switch (DisplayMode)
                 {
-                    case 0: file.IgnoreListing = false; break;
-                    case 1:
+                    case DisplayMode.All: file.IgnoreListing = false; break;
+
+                    case DisplayMode.Programs:
                         if (file.Extension == ".exe")
                         {
                             file.IgnoreListing = false;
@@ -51,7 +58,8 @@
                             file.IgnoreListing = true;
                         }
                         break;
-                    case 2: 
+
+                    case DisplayMode.Custom: 
                         if (ListedExtensions.Contains(file.Extension.Replace('.',' ').Trim()))
                         {
                             file.IgnoreListing = false;

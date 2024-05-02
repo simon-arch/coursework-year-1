@@ -9,7 +9,6 @@
             mediator.Display.ComboBox = driveComboBox;
             mediator.Display.Label = selectedFileSizeLabel;
             mediator.Display.UsedStorage = freeSpaceLabel;
-            mediator.Display.PictureBox = imagePreviewBox;
             mediator.Display.ImageList = fileIconList;
             mediator.Display.ProgressBar = progressBar;
             mediator.Display.PreviewBox = previewBoxTabControl;
