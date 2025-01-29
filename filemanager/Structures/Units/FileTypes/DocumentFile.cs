@@ -7,7 +7,7 @@ namespace filemanager
         public DocumentFile()
         {
             SubType = "documentfile";
-            Type = "file";
+            Type = ElementType.File;
         }
         public void PrintDocument(string filePath, string printer)
         {

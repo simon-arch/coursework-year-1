@@ -97,17 +97,17 @@ namespace filemanager
             ListView.SelectedListViewItemCollection selected = Display.ListView.SelectedItems;
             if (selected.Count > 0)
             {
-                if (selected[0].ETag().Type == "utility")
+                if (selected[0].ETag().Type == Element.ElementType.Utility)
                 {
                     RootDirectory root = new RootDirectory("dir", Path.GetFullPath(Path.Combine(Display.RootDirectory.Path, @"..")));
                     GoTo(root);
                 }
-                else if (selected[0].ETag().Type == "directory")
+                else if (selected[0].ETag().Type == Element.ElementType.Directory)
                 {
                     RootDirectory root = new RootDirectory("dir", selected[0].ETag().Path);
                     GoTo(root);
                 }
-                else if (selected[0].ETag().Type == "file")
+                else if (selected[0].ETag().Type == Element.ElementType.File)
                 {
                     ((File)selected[0].Tag).View(associated);
                 }

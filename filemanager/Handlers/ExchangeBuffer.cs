@@ -2,100 +2,142 @@
 {
     public class ExchangeBuffer
     {
-        public Queue<Element> SourceItems { get; set; }
-        public List<Element> Buffer { get; set; }
-        public bool Cut { get; set; }
-        public ExchangeBuffer()
+        public Queue<Element> Buffer { get; set; } = new Queue<Element>();
+        public bool Cut { get; set; } = false;
+        public void ClearBuffer()
         {
-            SourceItems = new Queue<Element>();
-            Cut = false;
+            Buffer.Clear();
         }
-        public void Copy(ListView.SelectedListViewItemCollection listitems)
+
+        public void Copy(ListView.SelectedListViewItemCollection BufferItems)
         {
-            if (listitems.Count > 0)
+            if (BufferItems.Count <= 0) return;
+
+            ClearBuffer();
+            var copiedPaths = new System.Collections.Specialized.StringCollection();
+
+            foreach (ListViewItem bufferItem in BufferItems)
             {
-                Clear();
-                System.Collections.Specialized.StringCollection paths = new System.Collections.Specialized.StringCollection();
-                for (int i = 0; i < listitems.Count; i++)
+                var element = bufferItem.ETag();
+                if (!element.IgnoreListing)
                 {
-                    if (listitems[i].ETag().IgnoreListing == false)
-                    {
-                        SourceItems.Enqueue(listitems[i].ETag());
-                        paths.Add(listitems[i].ETag().Path);
-                    }
+                    Buffer.Enqueue(element);
+                    copiedPaths.Add(element.Path);
                 }
-                if (paths.Count > 0) Clipboard.SetFileDropList(paths);
             }
+
+            if (copiedPaths.Count > 0)
+                Clipboard.SetFileDropList(copiedPaths);
         }
+
         public void Paste(string targetPath)
         {
-            foreach (Element sourceItem in SourceItems)
+            try 
             {
-                if (sourceItem.Type == "file") ///// MOVE SYSTEM.IO METHODS TO CLASS METHODS (FILE.MOVE, FILE.COPY, etc ...)
+                foreach (Element element in Buffer)
                 {
-                    try
+                    switch (element.Type)
                     {
-                        if (Cut)
-                        {
-                            System.IO.File.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension));
-                        }
-                        else
-                        {
-                            string targetname = RecurringNames.GetExistingFileName(Path.Combine(targetPath, sourceItem.Name), sourceItem.Extension);
-                            System.IO.File.Copy(sourceItem.Path, targetname);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    }
-                }
-                else if (sourceItem.Type == "directory")
-                {
-                    try
-                    {
-                        if (Cut)
-                        {
-                            System.IO.Directory.Move(sourceItem.Path, Path.Combine(targetPath, sourceItem.Name));
-                        }
-                        else
-                        {
-                            string targetname = RecurringNames.GetExistingDirectoryName(Path.Combine(targetPath, sourceItem.Name));
-                            if (!targetPath.Contains(sourceItem.Path))
-                            {
-                                System.IO.Directory.CreateDirectory(targetname);
-                                CopyFilesRecursively(sourceItem.Path, targetname);
-                            }
-                            else
-                            {
-                                throw new InvalidOperationException();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
+                        case Element.ElementType.File:
+                            HandleFilePaste(element, targetPath);
+                            break;
+
+                        case Element.ElementType.Directory:
+                            HandleDirectoryPaste(element, targetPath);
+                            break;
+
+                        default:
+                            break;
                     }
                 }
             }
-        }
-        public void Clear()
-        {
-            SourceItems.Clear();
-        }
-        private static void CopyFilesRecursively(string source, string target)
-        {
-            foreach (string dir in System.IO.Directory.GetDirectories(source))
+            catch (Exception ex)
             {
-                string newpath = Path.Combine(target, Path.GetFileName(dir));
-                System.IO.Directory.CreateDirectory(newpath);
-                CopyFilesRecursively(dir, newpath);
+                ShowError(ex);
             }
-            foreach (string file in System.IO.Directory.GetFiles(source))
+        }
+
+        private void HandleFilePaste(Element sourceItem, string targetPath)
+        {
+            string targetFullName = Path.Combine(targetPath, sourceItem.Name + sourceItem.Extension);
+
+            if (Cut)
             {
-                System.IO.File.Copy(file, Path.Combine(target, Path.GetFileName(file)));
+                MoveFile(sourceItem, targetFullName);
+            }
+            else
+            {
+                CopyFile(sourceItem, targetFullName);
+            }
+        }
+
+        private void HandleDirectoryPaste(Element sourceItem, string targetPath)
+        {
+            string targetFullName = Path.Combine(targetPath, sourceItem.Name);
+
+            if (Cut)
+            {
+                MoveDirectory(sourceItem.Path, targetFullName);
+            }
+            else
+            {
+                CopyDirectory(sourceItem.Path, targetFullName);
+            }
+        }
+
+        private void MoveDirectory(string sourcePath, string targetPath)
+        {
+            System.IO.Directory.Move(sourcePath, targetPath);
+        }
+
+        private bool CanCopyDirectory(string sourcePath, string targetPath)
+        {
+            return !targetPath.Contains(sourcePath);
+        }
+
+        private void CopyDirectory(string sourcePath, string targetPath)
+        {
+            targetPath = RecurringNames.GetUniqueNameForExistingDirectory(targetPath);
+            if (CanCopyDirectory(sourcePath, targetPath))
+            {
+                System.IO.Directory.CreateDirectory(targetPath);
+                CopyFilesRecursively(sourcePath, targetPath);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot copy directory inside itself.");
+            }
+        }
+
+        private void MoveFile(Element file, string targetPath)
+        {
+            System.IO.File.Move(file.Path, targetPath);
+        }
+
+        private void CopyFile(Element file, string targetPath)
+        {
+            string targetFullName = RecurringNames.GetUniqueNameForExistingFile(Path.Combine(targetPath, file.Name), file.Extension);
+            System.IO.File.Copy(file.Path, targetFullName);
+        }
+
+        private void ShowError(Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Buffer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        {
+            foreach (string directory in System.IO.Directory.GetDirectories(sourcePath))
+            {
+                string targetFullPath = Path.Combine(targetPath, Path.GetFileName(directory));
+                System.IO.Directory.CreateDirectory(targetFullPath);
+                CopyFilesRecursively(directory, targetFullPath);
+            }
+
+            foreach (string file in System.IO.Directory.GetFiles(sourcePath))
+            {
+                string targetFile = Path.Combine(targetPath, Path.GetFileName(file));
+                System.IO.File.Copy(file, targetFile);
             }
         }
     }

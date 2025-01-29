@@ -5,7 +5,7 @@
         public ArchiveFile() 
         {
             SubType = "archive";
-            Type = "file";
+            Type = ElementType.File;
         }
         public void Unzip()
         {

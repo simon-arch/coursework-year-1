@@ -5,7 +5,7 @@
         public UnknownFile()
         {
             SubType = "unknownfile";
-            Type = "file";
+            Type = ElementType.File;
         }
     }
 }

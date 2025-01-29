@@ -8,7 +8,7 @@ namespace filemanager
         public int Height { get; set; }
         public ImageFile() { 
             SubType = "imagefile";
-            Type = "file";
+            Type = ElementType.File;
         }
         public override void Edit()
         {

@@ -4,7 +4,7 @@
     {
         public MovementDirectory() 
         {
-            Type = "utility";
+            Type = ElementType.Utility;
             IgnoreListing = true;
         }
         public override void Delete() { }

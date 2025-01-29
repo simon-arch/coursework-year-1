@@ -8,7 +8,7 @@
             Name = name;
             Path = path;
             IsHidden = false;
-            Type = "directory";
+            Type = ElementType.Directory;
             SubType = "directory";
             IgnoreListing = false;
         }

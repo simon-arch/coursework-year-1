@@ -4,7 +4,7 @@
     {
         public bool IgnoreListing { get; set; }
         public string Attributes { get; set; }
-        public string Type { get; set; }
+        public ElementType Type { get; set; }
         public string SubType { get; set; }
         public string Name { get; set; }
         public string Path { get; set; }
@@ -27,6 +27,12 @@
                 try { System.IO.Directory.Move(oldpath, newpath); }
                 catch(Exception ex) { if(!ignoreError) MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
+        }
+        public enum ElementType {
+            Unknown,
+            Utility,
+            File,
+            Directory
         }
     }
 }
