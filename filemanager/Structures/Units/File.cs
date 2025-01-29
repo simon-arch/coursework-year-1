@@ -12,11 +12,11 @@ namespace filemanager
             Path = path;
             Size = size;
             Extension = extension;
-            Type = "file";
+            Type = ElementType.File;
         }
         public File() 
         {
-            Type = "file";
+            Type = ElementType.File;
         }
         public void View(Dictionary<string, string> associated)
         {

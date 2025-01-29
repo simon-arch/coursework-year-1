@@ -2,7 +2,7 @@
 {
     public static class RecurringNames
     {
-        public static string GetExistingDirectoryName(string targetname)
+        public static string GetUniqueNameForExistingDirectory(string targetname)
         {
             int c = 1;
             string modname = targetname;
@@ -13,7 +13,7 @@
             }
             return modname;
         }
-        public static string GetExistingFileName(string targetname, string extension)
+        public static string GetUniqueNameForExistingFile(string targetname, string extension)
         {
             int c = 1;
             string modname = targetname;

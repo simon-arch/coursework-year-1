@@ -188,7 +188,7 @@ namespace filemanager
         {
             if (ListView.SelectedItems.Count > 0)
             {
-                if (ListView.SelectedItems[0].ETag().Type != "utility")
+                if (ListView.SelectedItems[0].ETag().Type != Element.ElementType.Utility)
                 {
                     return true;
                 }
@@ -335,12 +335,12 @@ namespace filemanager
                 int totalDirectories = 0;
                 foreach (ListViewItem elem in ListView.SelectedItems)
                 {
-                    if (elem.ETag().Type == "file")
+                    if (elem.ETag().Type == Element.ElementType.File)
                     {
                         totalSize += ((File)elem.ETag()).GetSize();
                         totalFiles++;
                     }
-                    else if (elem.ETag().Type == "directory")
+                    else if (elem.ETag().Type == Element.ElementType.Directory)
                     {
                         if (((Directory)elem.ETag()).IgnoreListing == false)
                         {
@@ -368,7 +368,7 @@ namespace filemanager
                 dialog.Dispose();
                 foreach (ListViewItem item in ListView.Items)
                 {
-                    if (item.ETag().Type == "file")
+                    if (item.ETag().Type == Element.ElementType.File)
                         if (listed.Contains(item.ETag().Extension.Replace('.', ' ').Trim()))
                             item.Selected = value;
                 }
@@ -381,7 +381,7 @@ namespace filemanager
             {
                 List<Element> data = new List<Element>();
                 foreach (ListViewItem item in ListView.SelectedItems)
-                    if (item.ETag().Type != "utility") data.Add(item.ETag());
+                    if (item.ETag().Type != Element.ElementType.Utility) data.Add(item.ETag());
                 DialogMultiRename dialog = new DialogMultiRename(data);
                 dialog.ShowDialog();
             }
@@ -405,9 +405,9 @@ namespace filemanager
             if (!Focused) return;
             if (isSelected())
             {
-                if (ListView.SelectedItems[0].ETag().Type == "directory")
+                if (ListView.SelectedItems[0].ETag().Type == Element.ElementType.Directory)
                     ProcessCall.RunProcess("explorer.exe", ListView.SelectedItems[0].ETag().Path);
-                else if (ListView.SelectedItems[0].ETag().Type == "file")
+                else if (ListView.SelectedItems[0].ETag().Type == Element.ElementType.File)
                     ProcessCall.RunProcess("explorer.exe", Path.GetDirectoryName(ListView.SelectedItems[0].ETag().Path));
             }
         }

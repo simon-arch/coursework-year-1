@@ -11,7 +11,7 @@
                 if (!Path.Exists(path)) System.IO.File.Create(path).Close();
                 foreach (ListViewItem lvi in mediator.GetSelectedItems())
                 {
-                    if (lvi.ETag().Type != "utility")
+                    if (lvi.ETag().Type != Element.ElementType.Utility)
                     {
                         quickAccessList.Items.Add((ListViewItem)lvi.Clone());
                         quickAccessList.Items[quickAccessList.Items.Count - 1].Tag = lvi.ETag();
@@ -27,11 +27,11 @@
             RootDirectory root;
             switch (selection.Type)
             {
-                case "directory":
+                case Element.ElementType.Directory:
                     root = new RootDirectory("dir", selection.Path);
                     mediator.GoTo(root);
                     break;
-                case "file":
+                case Element.ElementType.File:
                     root = new RootDirectory("dir", Path.GetDirectoryName(selection.Path));
                     mediator.GoTo(root);
                     ListViewItem target = mediator.GetSelectedItems().Cast<ListViewItem>()
