@@ -1,195 +1,234 @@
-﻿namespace filemanager.Dialogs
+﻿namespace filemanager.Dialogs;
+
+public partial class DialogMultiRename : Form
 {
-    public partial class DialogMultiRename : Form
+    private static readonly Dictionary<string, string> ContextLabels = new()
     {
-        public DialogMultiRename(List<Element> renameData)
+        { "[N]", "File name" },
+        { "[E]", "File extension" },
+        { "[YMD]", "Date" },
+        { "[HMS]", "Time" },
+        { "[C]", "Index" },
+        { "[P]", "Parent" },
+        { "[A]", "File name and extension" },
+        { "[S]", "File size" },
+        { "[%USERNAME%]", "Username" },
+        { "[[]", "[" },
+        { "[]]", "]" },
+        { "[X]", Clipboard.GetText()},
+    };
+
+    private readonly List<Element> _elements;
+
+    private int _start = 1;
+    private int _step = 1;
+    private int _digits = 1;
+
+    public DialogMultiRename(List<Element> elements)
+    {
+        InitializeComponent();
+        DoubleBuffering.SetDoubleBuffering(fileView, true);
+
+        _elements = elements;
+
+        AttachEventHandlers();
+        SetDefaultMasks();
+    }
+
+    private void AttachEventHandlers()
+    {
+        AttachNameMaskEventHandlers();
+        AttachExtensionMaskEventHandler();
+
+        fileNameMask.TextChanged += (s, e) => PreviewItems();
+        fileExtensionMask.TextChanged += (s, e) => PreviewItems();
+
+        counterResetButton.Click += (s, e) => ResetCounterValues();
+
+        numericStartAt.ValueChanged += (s, e) => UpdateCounterValues();
+        numericStep.ValueChanged += (s, e) => UpdateCounterValues();
+        comboDigits.TextChanged += (s, e) => UpdateCounterValues();
+
+        comboLetterCase.TextChanged += (s, e) => PreviewItems();
+        searchForTextBox.TextChanged += (s, e) => PreviewItems();
+        replaceWithTextBox.TextChanged += (s, e) => PreviewItems();
+        respectUpperCaseCheck.CheckedChanged += (s, e) => PreviewItems();
+        extensionReplaceCheck.CheckedChanged += (s, e) => PreviewItems();
+
+        startButton.Click += (s, e) => ProccedRename();
+        closeButton.Click += (s, e) => Dispose();
+
+        fileNameContextCall.Click += (s, e) => CallContext(fileNameMask);
+        fileExtensionContextCall.Click += (s, e) => CallContext(fileExtensionMask);
+    }
+
+    private void AttachNameMaskEventHandlers()
+    {
+        nameMaskAddName.Click += (s, e) => AppendToMask(fileNameMask, "[N]");
+        nameMaskAddPath.Click += (s, e) => AppendToMask(fileNameMask, "[P]");
+        nameMaskAddCounter.Click += (s, e) => AppendToMask(fileNameMask, "[C]");
+        nameMaskAddDate.Click += (s, e) => AppendToMask(fileNameMask, "[YMD]");
+        nameMaskAddTime.Click += (s, e) => AppendToMask(fileNameMask, "[HMS]");
+        nameMaskClear.Click += (s, e) => fileNameMask.Clear(); 
+    }
+
+    private void AttachExtensionMaskEventHandler()
+    {
+        extensionMaskAddExtension.Click += (s, e) => AppendToMask(fileExtensionMask, "[E]");
+        extensionMaskAddCounter.Click += (s, e) => AppendToMask(fileExtensionMask, "[C]");
+        extensionMaskClear.Click += (s, e) => fileExtensionMask.Clear();
+    }
+
+    private void SetDefaultMasks()
+    {
+        fileNameMask.Text = "[N]";
+        fileExtensionMask.Text = "[E]";
+    }
+
+    private void AppendToMask(TextBox textBox, string text) => textBox.Text += text;
+
+    private void UpdateCounterValues()
+    {
+        _start = (int)numericStartAt.Value;
+        _step = (int)numericStep.Value;
+        _digits = int.TryParse(comboDigits.Text, out int parsed) ? parsed : 1;
+        PreviewItems();
+    }
+
+    private void CallContext(TextBox textBox)
+    {
+        var context = new ContextMenuStrip();
+        foreach (var (key, value) in ContextLabels)
         {
-            InitializeComponent();
-            DoubleBuffering.SetDoubleBuffering(fileView, true);
-
-            int start = 1;
-            int step = 1;
-            int digits = 1;
-
-            nameMaskAddName.Click += (sender, e) => fileNameMask.Text += "[N]";
-            nameMaskAddPath.Click += (sender, e) => fileNameMask.Text += "[P]";
-            nameMaskAddCounter.Click += (sender, e) => fileNameMask.Text += "[C]";
-            nameMaskAddDate.Click += (sender, e) => fileNameMask.Text += "[YMD]";
-            nameMaskAddTime.Click += (sender, e) => fileNameMask.Text += "[HMS]";
-            nameMaskClear.Click += (sender, e) => fileNameMask.Text = string.Empty;
-
-            extensionMaskAddExtension.Click += (sender, e) => fileExtensionMask.Text += "[E]";
-            extensionMaskAddCounter.Click += (sender, e) => fileExtensionMask.Text += "[C]";
-            extensionMaskClear.Click += (sender, e) => fileExtensionMask.Text = string.Empty;
-
-            fileNameMask.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-            fileExtensionMask.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-
-            counterResetButton.Click += (sender, e) =>
-            {
-                numericStartAt.Value = 1;
-                numericStep.Value = 1;
-                comboDigits.SelectedIndex = 0;
-                PreviewData(renameData, start, step, digits);
-            };
-
-            numericStartAt.ValueChanged += (sender, e) =>
-            {
-                start = (int)numericStartAt.Value;
-                PreviewData(renameData, start, step, digits);
-            };
-
-            numericStep.ValueChanged += (sender, e) =>
-            {
-                step = (int)numericStep.Value;
-                PreviewData(renameData, start, step, digits);
-            };
-
-            comboDigits.TextChanged += (sender, e) =>
-            {
-                digits = Int32.Parse(comboDigits.Text);
-                PreviewData(renameData, start, step, digits);
-            };
-
-            comboLetterCase.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-            searchForTextBox.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-            replaceWithTextBox.TextChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-            respectUpperCaseCheck.CheckedChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-            extensionReplaceCheck.CheckedChanged += (sender, e) => PreviewData(renameData, start, step, digits);
-
-            closeButton.Click += (sender, e) => Dispose();
-            startButton.Click += (sender, e) => RunData();
-
-            fileNameContextCall.Click += (sender, e) => CallContext(fileNameMask);
-            fileExtensionContextCall.Click += (sender, e) => CallContext(fileExtensionMask);
-
-            fileNameMask.Text += "[N]";
-            fileExtensionMask.Text = "[E]";
+            var item = new ToolStripMenuItem();
+            item.Text = $"{key} {value}";
+            item.Click += (s, e) => textBox.Text += key;
+            context.Items.Add(item);
         }
-        private void CallContext(TextBox textBox)
-        {
-            Dictionary<string, string> values = new Dictionary<string, string>
-            {
-                { "[N]",          "File name" },
-                { "[E]",          "File extension" },
-                { "[YMD]",        "Date" },
-                { "[HMS]",        "Time" },
-                { "[C]",          "Index" },
-                { "[P]",          "Parent" },
-                { "[A]",          "File name and extension" },
-                { "[S]",          "File size" },
-                { "[%USERNAME%]", "Username" },
-                { "[[]",          "[" },
-                { "[]]",          "]" },
-                { "[X]",          Clipboard.GetText() },
-            };
+        context.Show(Cursor.Position);
+    }
 
-            ContextMenuStrip context = new ContextMenuStrip();
-            foreach (KeyValuePair<string, string> data in values)
+    private void ResetCounterValues()
+    {
+        numericStartAt.Value = _start = 1;
+        numericStep.Value = _step = 1;
+        comboDigits.SelectedIndex = 0;
+        _digits = 1;
+        PreviewItems();
+    }
+
+    private void PreviewItems()
+    {
+        fileView.Items.Clear();
+        int index = _start;
+
+        foreach (var element in _elements)
+        {
+            fileView.Items.Add(CreateListViewItem(element, ref index));
+        }
+    }
+
+    private ListViewItem CreateListViewItem(Element element, ref int index)
+    {
+        var item = new ListViewItem
+        {
+            Tag = element,
+            Text = element.Name,
+            SubItems =
             {
-                ToolStripMenuItem item = new ToolStripMenuItem();
-                item.Text = $"{data.Key} {data.Value}";
-                item.Click += (sender, e) => textBox.Text += data.Key;
-                context.Items.Add(item);
+                element.Extension,
+                GetPreviewName(element, index),
+                element.GetSize().ToString(),
+                element.CreationDate,
+                element.Path
             }
-            context.Show(Cursor.Position);
-        }
-        private void PreviewData(List<Element> renameData, int index, int step, int digits)
-        {
-            fileView.Items.Clear();
-            foreach (Element element in renameData)
-            {
-                ListViewItem item = new ListViewItem();
-                item.Tag = element;
-                item.Text = element.Name;
-                item.SubItems.Add(element.Extension);
-                item.SubItems.Add(GetName(element, index, digits));
-                item.SubItems.Add(element.GetSize().ToString());
-                item.SubItems.Add(element.CreationDate);
-                item.SubItems.Add(element.Path);
-                fileView.Items.Add(item);
-                index += step;
-            }
-        }
-        private void RunData()
-        {
-            List<string> list = fileView.Items.Cast<ListViewItem>()
-                                 .Select(item => item.SubItems[2].Text)
-                                 .ToList();
-            if (list.Distinct().Count() == list.Count())
-            {
-                foreach (ListViewItem item in fileView.Items)
-                {
-                    item.ETag().Rename(item.SubItems[2].Text, false, true);
-                }
-                MessageBox.Show("Rename successful.", "Multi-Rename", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Dispose();
-            }
-            else
-            {
-                MessageBox.Show("Duplicate names are present!", "Rename Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            };
-        }
-        private string GetName(Element element, int index, int digits)
-        {
-            string targetname = fileNameMask.Text;
-            string targetextension = fileExtensionMask.Text;
+        };
+        index += _step;
+        return item;
+    }
 
-            Dictionary<string, string> args = new Dictionary<string, string>
-            {
-                { "[N]",          element.Name },
-                { "[E]",          element.Extension },
-                { "[YMD]",        YMD(element.CreationDate) },
-                { "[HMS]",        HMS(element.CreationDate) },
-                { "[C]",          string.Format("{0:" + new string('0', digits) + "}", index) },
-                { "[P]",          Path.GetFileName(Path.GetDirectoryName(element.Path)) },
-                { "[A]",          element.Name + element.Extension },
-                { "[S]",          element.GetSize().ToString() },
-                { "[%USERNAME%]", System.Security.Principal.WindowsIdentity.GetCurrent().Name },
-                { "[[]",          "[" },
-                { "[]]",          "]" },
-                { "[X]",          Clipboard.GetText() },
-            };
+    private void ProccedRename()
+    {
+        var list = fileView.Items.Cast<ListViewItem>()
+            .Select(item => item.SubItems[2].Text)
+            .ToList();
 
-            foreach (KeyValuePair<string, string> replacement in args)
-            {
-                targetname = targetname.Replace(replacement.Key, replacement.Value);
-                targetextension = targetextension.Replace(replacement.Key, replacement.Value);
-            }
-            if (searchForTextBox.Text.Length > 0)
-            {
-                StringComparison comparsion;
-                if (respectUpperCaseCheck.Checked) comparsion = StringComparison.Ordinal;
-                else comparsion = StringComparison.OrdinalIgnoreCase;
-                targetname = targetname.Replace(searchForTextBox.Text, replaceWithTextBox.Text, comparsion);
-                if (extensionReplaceCheck.Checked)
-                {
-                    targetextension = targetextension.Replace(searchForTextBox.Text, replaceWithTextBox.Text, comparsion);
-                }
-            }
-            string result = targetname + targetextension;
-            switch (comboLetterCase.SelectedIndex)
-            {
-                case 0: break;
-                case 1: result = result.ToLower(); break;
-                case 2: result = result.ToUpper(); break;
-                case 3: result = result[0].ToString().ToUpper() + result[1..]; break;
-                case 4: result = ToTitleCase.CaseString(targetname) + targetextension; break;
-            }
+        if (list.Distinct().Count() != list.Count)
+        {
+            MessageBox.Show("Duplicate names are present!", "Rename Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
 
-            return result;
-        }
-        private string YMD(string date)
+        foreach (ListViewItem item in fileView.Items)
         {
-            return DateTime.Parse(date).Year.ToString("0000") +
-                   DateTime.Parse(date).Month.ToString("00") +
-                   DateTime.Parse(date).Day.ToString("00");
+            item.ETag().Rename(item.SubItems[2].Text, false, true);
         }
-        private string HMS(string date)
+
+        MessageBox.Show("Rename successful.", "Multi-Rename", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        Dispose();
+    }
+
+    private string GetPreviewName(Element element, int index)
+    {
+        var replacements = new Dictionary<string, string>
         {
-            return DateTime.Parse(date).Hour.ToString("00") +
-                   DateTime.Parse(date).Minute.ToString("00") +
-                   DateTime.Parse(date).Second.ToString("00");
+            { "[N]", element.Name },
+            { "[E]", element.Extension },
+            { "[YMD]", DateTime.Parse(element.CreationDate).ToString("yyyyMMdd") },
+            { "[HMS]", DateTime.Parse(element.CreationDate).ToString("HHmmss") },
+            { "[C]", index.ToString($"D{_digits}") },
+            { "[P]", Path.GetFileName(Path.GetDirectoryName(element.Path)) ?? string.Empty },
+            { "[A]", $"{element.Name}{element.Extension}" },
+            { "[S]", element.GetSize().ToString() },
+            { "[%USERNAME%]", System.Security.Principal.WindowsIdentity.GetCurrent().Name },
+            { "[[]", "[" },
+            { "[]]", "]" },
+            { "[X]", Clipboard.GetText() },
+        };
+
+        var name = ReplaceTokens(fileNameMask.Text, replacements);
+        var extension = ReplaceTokens(fileExtensionMask.Text, replacements);
+
+        name = ApplyTextReplacement(name);
+        extension = extensionReplaceCheck.Checked ? ApplyTextReplacement(extension) : extension;
+
+        return ApplyCase(name, extension);
+    }
+
+    private string ApplyTextReplacement(string text)
+    {
+        if (string.IsNullOrEmpty(searchForTextBox.Text))
+        {
+            return text;
         }
+
+        var comparison = respectUpperCaseCheck.Checked
+            ? StringComparison.Ordinal
+            : StringComparison.OrdinalIgnoreCase;
+
+        return text.Replace(searchForTextBox.Text, replaceWithTextBox.Text, comparison);
+    }
+
+    private string ReplaceTokens(string text, Dictionary<string, string> replacements)
+    {
+        foreach (var replacement in replacements)
+        {
+            text = text.Replace(replacement.Key, replacement.Value);
+        }
+        return text;
+    }
+
+    private string ApplyCase(string name, string extension)
+    {
+        var fullName = $"{name}{extension}";
+
+        return comboLetterCase.SelectedIndex switch
+        {
+            1 => fullName.ToLower(),
+            2 => fullName.ToUpper(),
+            3 => char.ToUpper(fullName[0]) + fullName[1..],
+            4 => $"{ToTitleCase.CaseString(name)}{extension}",
+            _ => fullName,
+        };
     }
 }
