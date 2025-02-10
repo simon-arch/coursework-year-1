@@ -31,7 +31,7 @@ namespace filemanager
 
             Controllers["EditQuickBar"].Click += (sender, e) => 
             {
-                EditQuickBar dialog = new EditQuickBar(Controllers);
+                QuickBarEditor dialog = new QuickBarEditor(Controllers);
                 if (dialog.ShowDialog() == DialogResult.OK) InitQuickbar();
             };
             Controllers["ReloadQuickBar"].Click += (sender, e) => InitQuickbar();

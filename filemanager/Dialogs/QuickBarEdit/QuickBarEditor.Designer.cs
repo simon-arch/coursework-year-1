@@ -1,6 +1,6 @@
 ﻿namespace filemanager.Dialogs
 {
-    partial class EditQuickBar
+    partial class QuickBarEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditQuickBar));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickBarEditor));
             previewList = new ListView();
             imageList = new ImageList(components);
             addElement = new Button();
