@@ -7,40 +7,40 @@ namespace filemanager
     {
         public void InitializeUniqueEvents()
         {
-            Controllers["ReloadCustomIcons"].Click += (sender, e) => InitCustomIcons(currentIconPack);
+            _controllers["ReloadCustomIcons"].Click += (sender, e) => InitCustomIcons(currentIconPack);
 
-            Controllers["ViewCustomIcons"].Click += (sender, e) =>
+            _controllers["ViewCustomIcons"].Click += (sender, e) =>
             {
                 CustomIconsDialog dialog = new CustomIconsDialog();
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     currentIconPack = dialog.SelectedPack;
                     InitCustomIcons("none");
-                    if (currentIconPack == "none") Controllers["Refresh"].PerformClick();
+                    if (currentIconPack == "none") _controllers["Refresh"].PerformClick();
                     else InitCustomIcons(currentIconPack);
                 }
             };
 
-            Controllers["EditAssociations"].Click += (sender, e) =>
+            _controllers["EditAssociations"].Click += (sender, e) =>
             {
-                AssociationsDialog dialog = new AssociationsDialog(associated);
+                AssociationsDialog dialog = new AssociationsDialog(_associated);
                 if (dialog.ShowDialog() == DialogResult.OK) InitCustomAssociations();
             };
 
-            Controllers["ReloadAssociations"].Click += (sender, e) => InitCustomAssociations();
+            _controllers["ReloadAssociations"].Click += (sender, e) => InitCustomAssociations();
 
-            Controllers["EditQuickBar"].Click += (sender, e) => 
+            _controllers["EditQuickBar"].Click += (sender, e) => 
             {
-                EditQuickBar dialog = new EditQuickBar(Controllers);
-                if (dialog.ShowDialog() == DialogResult.OK) InitQuickbar();
+                EditQuickBar dialog = new EditQuickBar(_controllers);
+                if (dialog.ShowDialog() == DialogResult.OK) InitQuickBar();
             };
-            Controllers["ReloadQuickBar"].Click += (sender, e) => InitQuickbar();
+            _controllers["ReloadQuickBar"].Click += (sender, e) => InitQuickBar();
 
-            Controllers["SystemProperties"].Click += (sender, e) => { 
+            _controllers["SystemProperties"].Click += (sender, e) => { 
                 ProcessCall.RunProcessInfo(new ProcessStartInfo() { FileName = "sysdm.cpl", UseShellExecute = true }); 
             };
 
-            Controllers["VerticalArrangement"].CheckStateChanged += (sender, e) => 
+            _controllers["VerticalArrangement"].CheckStateChanged += (sender, e) => 
             {
                 switch (verticalArrangementTool.Checked)
                 {
@@ -70,14 +70,14 @@ namespace filemanager
                 ProcessCall.RunProcess("explorer.exe", path);
             }
 
-            Controllers["Exit"].Click += (sender, e) => Close();
-            Controllers["Desktop"].Click += (sender, e) => Desktop();
-            /*refactored*/ Controllers["TargetTarget"].Click += (sender, e) => mediatorRight.GoTo(mediatorLeft.Navigator.RootDirectory);
-            /*refactored*/ Controllers["TargetSource"].Click += (sender, e) =>
+            _controllers["Exit"].Click += (sender, e) => Close();
+            _controllers["Desktop"].Click += (sender, e) => Desktop();
+            /*refactored*/ _controllers["TargetTarget"].Click += (sender, e) => _mediatorRight.GoTo(_mediatorLeft.Navigator.RootDirectory);
+            /*refactored*/ _controllers["TargetSource"].Click += (sender, e) =>
             {
-                RootDirectory temp = mediatorLeft.Navigator.RootDirectory;
-                mediatorLeft.GoTo(mediatorRight.Navigator.RootDirectory);
-                mediatorRight.GoTo(temp);
+                RootDirectory temp = _mediatorLeft.Navigator.RootDirectory;
+                _mediatorLeft.GoTo(_mediatorRight.Navigator.RootDirectory);
+                _mediatorRight.GoTo(temp);
             };
 
             imagePreviewBox.MouseClick += (sender, e) => { 
@@ -87,13 +87,13 @@ namespace filemanager
                 }
             };
 
-            Controllers["DiskInfo"].Click += (sender, e) =>
+            _controllers["DiskInfo"].Click += (sender, e) =>
             {
                 DiskChart disk = new DiskChart(driveComboBox.Text);
                 DialogResult result = disk.ShowDialog();
             };
 
-            Controllers["RecycleBin"].Click += (sender, e) => ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
+            _controllers["RecycleBin"].Click += (sender, e) => ProcessCall.RunProcess("explorer.exe", "shell:RecycleBinFolder");
         }
     }
 }

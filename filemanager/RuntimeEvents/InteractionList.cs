@@ -27,16 +27,16 @@
         }
         public void Focus(DisplayHandler displayHandler)
         {
-            displayList.Select(x => x.Focused = false).ToList();
+            _displayList.Select(x => x.Focused = false).ToList();
             displayHandler.Focused = true;
         }
         public void CompareFilenames(Mediator mediator)
         {
             if (mediator.IsDisplayFocused())
             {
-                displayList.ForEach(i => i.ListView.SelectedItems.Clear());
+                _displayList.ForEach(i => i.ListView.SelectedItems.Clear());
                 List<List<string>> collections = new List<List<string>>();
-                foreach (DisplayHandler dh in displayList)
+                foreach (DisplayHandler dh in _displayList)
                 {
                     List<string> list = dh.ListView.Items.Cast<ListViewItem>()
                                     .Select(item => item.Text)
@@ -48,7 +48,7 @@
                 {
                     foreach (string item in duplicates)
                     {
-                        foreach (DisplayHandler dh in displayList)
+                        foreach (DisplayHandler dh in _displayList)
                         {
                             dh.ListView.FindItemWithText(item).Selected = true;
                         }

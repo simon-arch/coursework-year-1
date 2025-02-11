@@ -28,7 +28,7 @@ namespace filemanager
                 displayList[i].ShowExtensions = userSettings[i].ShowExtensions;
                 displayList[i].ShowHidden = userSettings[i].ShowHidden;
                 displayList[i].SortType = userSettings[i].SortType;
-                mediatorList[i].GoTo(new RootDirectory("dir", startpath));
+                _mediatorList[i].GoTo(new RootDirectory("dir", startpath));
             }
             //
 
