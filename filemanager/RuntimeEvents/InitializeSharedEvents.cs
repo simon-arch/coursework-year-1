@@ -4,7 +4,7 @@
     {
         private void InitializeSharedEvents(Mediator mediator)
         {
-            FormClosed  += (sender, e) => SaveSettings(displayList); //SHOULD NOT BE FOCUSED
+            FormClosed  += (sender, e) => SaveSettings(_displayList); //SHOULD NOT BE FOCUSED
 
             quickAccessList.DoubleClick += (sender, e) => AccessDoubleClick(mediator); //focused
             quickAccessList.MouseClick += (sender, e) => { if (e.Button == MouseButtons.Right) ShowQuickContext(); };
@@ -55,7 +55,7 @@
             };
 
             mediator.Display.ListView.MouseDoubleClick += (sender, e) => {
-                if (e.Button == MouseButtons.Left) mediator.DoubleClick(associated);
+                if (e.Button == MouseButtons.Left) mediator.DoubleClick(_associated);
             };
 
             mediator.Display.ListView.SelectedIndexChanged += (sender, e) => Click(mediator.Display);
@@ -65,7 +65,7 @@
             {
                 Focus(mediator.Display);
                 mediator.Display.getFileInfo();
-                mediator.Display.CreateTab(true, Click, mediator.DoubleClick, associated);
+                mediator.Display.CreateTab(true, Click, mediator.DoubleClick, _associated);
                 if (System.IO.Directory.Exists(mediator.Display.TabControl.SelectedTab.Tag!.ToString()!))
                 {
                     mediator.Navigator.RootDirectory.Path = mediator.Display.TabControl.SelectedTab.Tag!.ToString()!;
